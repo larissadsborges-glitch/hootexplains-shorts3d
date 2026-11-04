@@ -15,9 +15,25 @@ Página nova do Instagram, separada do Hoot Explains. Série de humor em cartoon
 6. **Ritmo:** algo muda no ecrã a cada ~1 s. Legenda de uma palavra de cada vez, a branco com contorno, e as palavras-chave a amarelo ou vermelho.
 7. **Narrador na 3.ª pessoa**, voz contínua, sem pausas mortas. 50–70 s.
 
-## Página
-- **Nome:** A Vida do Tavinho (@avidadotavinho; confirmar se está livre).
-- **Bio:** "Ele sempre se mete em confusão. Você decide como ele sai 👇 Temporada 1: a ceia da sogra 🍗"
+## Página (decidido a 4 nov 2026)
+- **Um perfil por personagem.** O nome do perfil é o nome do personagem, e cada história é uma temporada nova. Quando uma temporada acaba, o personagem arranja outro sarilho. Se um perfil crescer, usa-se para lançar o próximo personagem.
+- **Nome:** A Vida do Tavinho (opcional: "A Vida do Tavinho | Humor").
+- **@:** por ordem de preferência: `avidadotavinho`, `a.vida.do.tavinho`, `avidadotavinho_`, `vidadotavinho`. Falta saber qual ficou.
+- **Bio** (a dona escolheu esta mensagem; falta escolher o formato final):
+  ```
+  😅 O Tavinho nunca aprende
+  🎬 Cada temporada, uma confusão nova
+  🗳️ Você decide o que ele faz
+  👇 Temporada 1: a ceia da sogra
+  ```
+- **Conta:** criador de conteúdo, categoria "Criador de vídeos" ou "Entretenimento".
+- **Foto de perfil:** o Tavinho em grande plano, a suar, a ocupar o círculo. Fazer depois de a pré-visualização aprovar o estilo.
+
+## Próximos passos
+1. A dona escolhe a voz (ver `vozes/VOZES.md`). A recomendação é uma voz humana gravada.
+2. A dona aprova o guião do EP1 (`ep01/ROTEIRO.md`).
+3. Pré-visualização de 10 s do Tavinho, para aprovar o estilo.
+4. EP1 completo e EP2 pronto antes de publicar.
 
 ## Personagem: Tavinho (Otávio, 27 anos)
 - Baixinho e redondinho, com óculos enormes que escorregam pelo nariz.

@@ -1,0 +1,723 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/bed.wav",
+  "id": "sleep2",
+  "title": "What happens if you stay awake for 3 days? Day 2",
+  "day": 2,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 2",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "DAY 3"
+  },
+  "duration": 35.301,
+  "beats": [
+    {
+      "text": "Day two without sleep. Hour 36. Yesterday, you felt drunk. Today, it gets weird.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "36",
+        "weird"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 4.5,
+      "words": [
+        {
+          "word": "Day",
+          "start": 0.05,
+          "end": 0.256
+        },
+        {
+          "word": "two",
+          "start": 0.256,
+          "end": 0.463
+        },
+        {
+          "word": "without",
+          "start": 0.463,
+          "end": 0.853
+        },
+        {
+          "word": "sleep.",
+          "start": 0.853,
+          "end": 1.151
+        },
+        {
+          "word": "Hour",
+          "start": 1.266,
+          "end": 1.518
+        },
+        {
+          "word": "36.",
+          "start": 1.518,
+          "end": 1.678
+        },
+        {
+          "word": "Yesterday,",
+          "start": 1.793,
+          "end": 2.275
+        },
+        {
+          "word": "you",
+          "start": 2.39,
+          "end": 2.596
+        },
+        {
+          "word": "felt",
+          "start": 2.596,
+          "end": 2.848
+        },
+        {
+          "word": "drunk.",
+          "start": 2.848,
+          "end": 3.146
+        },
+        {
+          "word": "Today,",
+          "start": 3.261,
+          "end": 3.559
+        },
+        {
+          "word": "it",
+          "start": 3.674,
+          "end": 3.835
+        },
+        {
+          "word": "gets",
+          "start": 3.835,
+          "end": 4.087
+        },
+        {
+          "word": "weird.",
+          "start": 4.087,
+          "end": 4.385
+        }
+      ]
+    },
+    {
+      "text": "Your body starts to struggle. Inflammation rises in your blood, and your body temperature swings up and down.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "body",
+      "highlight": [
+        "inflammation",
+        "temperature"
+      ],
+      "index": 1,
+      "start": 4.56,
+      "end": 9.889,
+      "words": [
+        {
+          "word": "Your",
+          "start": 4.56,
+          "end": 4.797
+        },
+        {
+          "word": "body",
+          "start": 4.797,
+          "end": 5.034
+        },
+        {
+          "word": "starts",
+          "start": 5.034,
+          "end": 5.358
+        },
+        {
+          "word": "to",
+          "start": 5.358,
+          "end": 5.509
+        },
+        {
+          "word": "struggle.",
+          "start": 5.509,
+          "end": 5.919
+        },
+        {
+          "word": "Inflammation",
+          "start": 6.027,
+          "end": 6.609
+        },
+        {
+          "word": "rises",
+          "start": 6.609,
+          "end": 6.89
+        },
+        {
+          "word": "in",
+          "start": 6.89,
+          "end": 7.041
+        },
+        {
+          "word": "your",
+          "start": 7.041,
+          "end": 7.278
+        },
+        {
+          "word": "blood,",
+          "start": 7.278,
+          "end": 7.559
+        },
+        {
+          "word": "and",
+          "start": 7.667,
+          "end": 7.861
+        },
+        {
+          "word": "your",
+          "start": 7.861,
+          "end": 8.098
+        },
+        {
+          "word": "body",
+          "start": 8.098,
+          "end": 8.336
+        },
+        {
+          "word": "temperature",
+          "start": 8.336,
+          "end": 8.875
+        },
+        {
+          "word": "swings",
+          "start": 8.875,
+          "end": 9.199
+        },
+        {
+          "word": "up",
+          "start": 9.199,
+          "end": 9.35
+        },
+        {
+          "word": "and",
+          "start": 9.35,
+          "end": 9.544
+        },
+        {
+          "word": "down.",
+          "start": 9.544,
+          "end": 9.781
+        }
+      ]
+    },
+    {
+      "text": "Then comes the scariest part. Microsleeps.",
+      "speed": 1.2,
+      "shot": "hoot",
+      "event": "micro",
+      "highlight": [
+        "microsleeps"
+      ],
+      "hold": 0.9,
+      "index": 2,
+      "start": 9.949,
+      "end": 12.323,
+      "words": [
+        {
+          "word": "Then",
+          "start": 9.949,
+          "end": 10.216
+        },
+        {
+          "word": "comes",
+          "start": 10.216,
+          "end": 10.531
+        },
+        {
+          "word": "the",
+          "start": 10.531,
+          "end": 10.749
+        },
+        {
+          "word": "scariest",
+          "start": 10.749,
+          "end": 11.209
+        },
+        {
+          "word": "part.",
+          "start": 11.209,
+          "end": 11.475
+        },
+        {
+          "word": "Microsleeps.",
+          "start": 11.597,
+          "end": 12.202
+        }
+      ]
+    },
+    {
+      "text": "Your brain switches off for a few seconds, sometimes up to half a minute, and you don't even notice.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "micro2",
+      "highlight": [
+        "switches",
+        "notice"
+      ],
+      "index": 3,
+      "start": 13.283,
+      "end": 17.69,
+      "words": [
+        {
+          "word": "Your",
+          "start": 13.283,
+          "end": 13.494
+        },
+        {
+          "word": "brain",
+          "start": 13.494,
+          "end": 13.743
+        },
+        {
+          "word": "switches",
+          "start": 13.743,
+          "end": 14.107
+        },
+        {
+          "word": "off",
+          "start": 14.107,
+          "end": 14.28
+        },
+        {
+          "word": "for",
+          "start": 14.28,
+          "end": 14.452
+        },
+        {
+          "word": "a",
+          "start": 14.452,
+          "end": 14.548
+        },
+        {
+          "word": "few",
+          "start": 14.548,
+          "end": 14.72
+        },
+        {
+          "word": "seconds,",
+          "start": 14.72,
+          "end": 15.046
+        },
+        {
+          "word": "sometimes",
+          "start": 15.142,
+          "end": 15.544
+        },
+        {
+          "word": "up",
+          "start": 15.544,
+          "end": 15.678
+        },
+        {
+          "word": "to",
+          "start": 15.678,
+          "end": 15.812
+        },
+        {
+          "word": "half",
+          "start": 15.812,
+          "end": 16.023
+        },
+        {
+          "word": "a",
+          "start": 16.023,
+          "end": 16.119
+        },
+        {
+          "word": "minute,",
+          "start": 16.119,
+          "end": 16.406
+        },
+        {
+          "word": "and",
+          "start": 16.502,
+          "end": 16.674
+        },
+        {
+          "word": "you",
+          "start": 16.674,
+          "end": 16.847
+        },
+        {
+          "word": "don't",
+          "start": 16.847,
+          "end": 17.096
+        },
+        {
+          "word": "even",
+          "start": 17.096,
+          "end": 17.306
+        },
+        {
+          "word": "notice.",
+          "start": 17.306,
+          "end": 17.594
+        }
+      ]
+    },
+    {
+      "text": "Now imagine that while driving. At 60 miles an hour, five seconds with your eyes closed is longer than a football field.",
+      "speed": 1.25,
+      "shot": "road",
+      "event": "road",
+      "highlight": [
+        "driving",
+        "football"
+      ],
+      "index": 4,
+      "start": 17.75,
+      "end": 24.1,
+      "words": [
+        {
+          "word": "Now",
+          "start": 17.75,
+          "end": 17.959
+        },
+        {
+          "word": "imagine",
+          "start": 17.959,
+          "end": 18.354
+        },
+        {
+          "word": "that",
+          "start": 18.354,
+          "end": 18.61
+        },
+        {
+          "word": "while",
+          "start": 18.61,
+          "end": 18.913
+        },
+        {
+          "word": "driving.",
+          "start": 18.913,
+          "end": 19.308
+        },
+        {
+          "word": "At",
+          "start": 19.424,
+          "end": 19.587
+        },
+        {
+          "word": "60",
+          "start": 19.587,
+          "end": 19.75
+        },
+        {
+          "word": "miles",
+          "start": 19.75,
+          "end": 20.052
+        },
+        {
+          "word": "an",
+          "start": 20.052,
+          "end": 20.215
+        },
+        {
+          "word": "hour,",
+          "start": 20.215,
+          "end": 20.471
+        },
+        {
+          "word": "five",
+          "start": 20.587,
+          "end": 20.843
+        },
+        {
+          "word": "seconds",
+          "start": 20.843,
+          "end": 21.239
+        },
+        {
+          "word": "with",
+          "start": 21.239,
+          "end": 21.495
+        },
+        {
+          "word": "your",
+          "start": 21.495,
+          "end": 21.751
+        },
+        {
+          "word": "eyes",
+          "start": 21.751,
+          "end": 22.006
+        },
+        {
+          "word": "closed",
+          "start": 22.006,
+          "end": 22.355
+        },
+        {
+          "word": "is",
+          "start": 22.355,
+          "end": 22.518
+        },
+        {
+          "word": "longer",
+          "start": 22.518,
+          "end": 22.867
+        },
+        {
+          "word": "than",
+          "start": 22.867,
+          "end": 23.123
+        },
+        {
+          "word": "a",
+          "start": 23.123,
+          "end": 23.239
+        },
+        {
+          "word": "football",
+          "start": 23.239,
+          "end": 23.681
+        },
+        {
+          "word": "field.",
+          "start": 23.681,
+          "end": 23.984
+        }
+      ]
+    },
+    {
+      "text": "Your mind gets foggy too. You lose track of time, get anxious, and the room starts to look a little off.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "fog",
+      "highlight": [
+        "time",
+        "anxious"
+      ],
+      "index": 5,
+      "start": 24.16,
+      "end": 28.912,
+      "words": [
+        {
+          "word": "Your",
+          "start": 24.16,
+          "end": 24.375
+        },
+        {
+          "word": "mind",
+          "start": 24.375,
+          "end": 24.59
+        },
+        {
+          "word": "gets",
+          "start": 24.59,
+          "end": 24.805
+        },
+        {
+          "word": "foggy",
+          "start": 24.805,
+          "end": 25.06
+        },
+        {
+          "word": "too.",
+          "start": 25.06,
+          "end": 25.236
+        },
+        {
+          "word": "You",
+          "start": 25.333,
+          "end": 25.509
+        },
+        {
+          "word": "lose",
+          "start": 25.509,
+          "end": 25.724
+        },
+        {
+          "word": "track",
+          "start": 25.724,
+          "end": 25.979
+        },
+        {
+          "word": "of",
+          "start": 25.979,
+          "end": 26.116
+        },
+        {
+          "word": "time,",
+          "start": 26.116,
+          "end": 26.331
+        },
+        {
+          "word": "get",
+          "start": 26.429,
+          "end": 26.605
+        },
+        {
+          "word": "anxious,",
+          "start": 26.605,
+          "end": 26.937
+        },
+        {
+          "word": "and",
+          "start": 27.035,
+          "end": 27.211
+        },
+        {
+          "word": "the",
+          "start": 27.211,
+          "end": 27.387
+        },
+        {
+          "word": "room",
+          "start": 27.387,
+          "end": 27.602
+        },
+        {
+          "word": "starts",
+          "start": 27.602,
+          "end": 27.895
+        },
+        {
+          "word": "to",
+          "start": 27.895,
+          "end": 28.032
+        },
+        {
+          "word": "look",
+          "start": 28.032,
+          "end": 28.247
+        },
+        {
+          "word": "a",
+          "start": 28.247,
+          "end": 28.345
+        },
+        {
+          "word": "little",
+          "start": 28.345,
+          "end": 28.638
+        },
+        {
+          "word": "off.",
+          "start": 28.638,
+          "end": 28.814
+        }
+      ]
+    },
+    {
+      "text": "And on day three, your brain starts showing you things that aren't there. Follow Hoot for day three.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "final",
+      "highlight": [
+        "aren't",
+        "three"
+      ],
+      "index": 6,
+      "start": 28.972,
+      "end": 33.501,
+      "words": [
+        {
+          "word": "And",
+          "start": 28.972,
+          "end": 29.15
+        },
+        {
+          "word": "on",
+          "start": 29.15,
+          "end": 29.289
+        },
+        {
+          "word": "day",
+          "start": 29.289,
+          "end": 29.467
+        },
+        {
+          "word": "three,",
+          "start": 29.467,
+          "end": 29.724
+        },
+        {
+          "word": "your",
+          "start": 29.823,
+          "end": 30.04
+        },
+        {
+          "word": "brain",
+          "start": 30.04,
+          "end": 30.297
+        },
+        {
+          "word": "starts",
+          "start": 30.297,
+          "end": 30.594
+        },
+        {
+          "word": "showing",
+          "start": 30.594,
+          "end": 30.93
+        },
+        {
+          "word": "you",
+          "start": 30.93,
+          "end": 31.108
+        },
+        {
+          "word": "things",
+          "start": 31.108,
+          "end": 31.405
+        },
+        {
+          "word": "that",
+          "start": 31.405,
+          "end": 31.622
+        },
+        {
+          "word": "aren't",
+          "start": 31.622,
+          "end": 31.919
+        },
+        {
+          "word": "there.",
+          "start": 31.919,
+          "end": 32.176
+        },
+        {
+          "word": "Follow",
+          "start": 32.275,
+          "end": 32.572
+        },
+        {
+          "word": "Hoot",
+          "start": 32.572,
+          "end": 32.789
+        },
+        {
+          "word": "for",
+          "start": 32.789,
+          "end": 32.967
+        },
+        {
+          "word": "day",
+          "start": 32.967,
+          "end": 33.145
+        },
+        {
+          "word": "three.",
+          "start": 33.145,
+          "end": 33.402
+        }
+      ]
+    }
+  ]
+}

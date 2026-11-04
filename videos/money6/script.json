@@ -1,0 +1,108 @@
+{
+  "id": "money6",
+  "title": "Jake spends $6 a day on coffee. Here's what it really costs.",
+  "ep": 6,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "$6 A DAY ON COFFEE",
+    "line2": "WHAT IT REALLY COSTS",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "DID YOU START",
+    "line2": "BEFORE 30?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "Jake spends 6 dollars a day on coffee. Here's what it really costs.",
+      "speed": 1.25,
+      "shot": "coffeeHook",
+      "event": "hook",
+      "highlight": [
+        "6",
+        "costs"
+      ]
+    },
+    {
+      "text": "About 180 dollars a month. But say he invests it instead, from age 25.",
+      "speed": 1.25,
+      "shot": "jar",
+      "event": "invest",
+      "highlight": [
+        "180",
+        "invests"
+      ]
+    },
+    {
+      "text": "Assume 7 percent a year after inflation, near the American stock market's long-run average. Not guaranteed, not advice.",
+      "speed": 1.25,
+      "shot": "jar",
+      "event": "assume",
+      "highlight": [
+        "7",
+        "guaranteed"
+      ]
+    },
+    {
+      "text": "By 65: over 400,000 dollars. He only put in about 88,000.",
+      "speed": 1.25,
+      "shot": "tower",
+      "event": "payoff",
+      "highlight": [
+        "400,000",
+        "88,000"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "Episode 6 of 6. Follow for season 2.",
+      "speed": 1.25,
+      "shot": "tower",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "But start at 35 instead, and he ends with about 200,000. Half.",
+      "speed": 1.25,
+      "shot": "split",
+      "event": "late",
+      "highlight": [
+        "35",
+        "Half"
+      ]
+    },
+    {
+      "text": "Ten years of waiting cost him over 200,000.",
+      "speed": 1.25,
+      "shot": "split",
+      "event": "gap",
+      "highlight": [
+        "waiting",
+        "200,000"
+      ]
+    },
+    {
+      "text": "So the coffee was never the problem. Time was. Did you start investing before 30?",
+      "speed": 1.25,
+      "shot": "coffeeHook",
+      "event": "final",
+      "highlight": [
+        "Time",
+        "30"
+      ]
+    }
+  ]
+}

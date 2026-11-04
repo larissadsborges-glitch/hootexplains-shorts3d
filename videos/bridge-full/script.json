@@ -1,0 +1,384 @@
+{
+  "id": "bridge-full",
+  "title": "How to build a bridge that won't fall",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "hook": {
+    "line1": "HOW TO BUILD A BRIDGE",
+    "line2": "THAT WON'T FALL"
+  },
+  "acts": [
+    "1 Hook + plank",
+    "2 Beam",
+    "3 Pier sinks",
+    "4 Piles",
+    "5 Expansion joints",
+    "6 Road + guard rails",
+    "7 Payoff"
+  ],
+  "beats": [
+    {
+      "act": 1,
+      "text": "Here's how to build a bridge that won't fall.",
+      "speed": 1.25,
+      "shot": "hook",
+      "highlight": [
+        "won't",
+        "fall"
+      ]
+    },
+    {
+      "act": 1,
+      "text": "Step one? Just lay down some planks!",
+      "speed": 1.3,
+      "shot": "approach",
+      "event": "buildPlanks",
+      "highlight": [
+        "planks"
+      ]
+    },
+    {
+      "act": 1,
+      "text": "But then... a car rolls on.",
+      "speed": 1.2,
+      "shot": "side",
+      "event": "carDrives"
+    },
+    {
+      "act": 1,
+      "text": "Crack! It snaps!",
+      "speed": 1.35,
+      "shot": "sideClose",
+      "event": "break",
+      "highlight": [
+        "crack",
+        "snaps"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 2,
+      "text": "Planks are too weak. So you use a solid concrete beam.",
+      "speed": 1.25,
+      "shot": "push",
+      "event": "dropBeam",
+      "label": "BEAM",
+      "labelAt": [
+        0,
+        0.6,
+        0
+      ],
+      "highlight": [
+        "weak",
+        "concrete",
+        "beam"
+      ],
+      "labelWord": "beam"
+    },
+    {
+      "act": 2,
+      "text": "Way stronger!",
+      "speed": 1.3,
+      "shot": "alongBeam",
+      "event": "beamDrive",
+      "highlight": [
+        "stronger"
+      ]
+    },
+    {
+      "act": 2,
+      "text": "But what if the river's twice as wide?",
+      "speed": 1.3,
+      "shot": "widen",
+      "event": "widen",
+      "highlight": [
+        "twice",
+        "wide"
+      ]
+    },
+    {
+      "act": 2,
+      "text": "A longer beam just sags... and breaks.",
+      "speed": 1.25,
+      "shot": "sagClose",
+      "event": "beamSnap",
+      "highlight": [
+        "sags",
+        "breaks"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 3,
+      "text": "Easy fix: hold it up in the middle with a pier!",
+      "speed": 1.3,
+      "shot": "pierDrop",
+      "event": "dropPier",
+      "label": "PIER",
+      "highlight": [
+        "middle",
+        "pier"
+      ],
+      "hold": 0.3,
+      "labelAt": [
+        0,
+        0.8,
+        0
+      ],
+      "labelWord": "pier"
+    },
+    {
+      "act": 3,
+      "text": "It holds... for now.",
+      "speed": 1.15,
+      "shot": "pierLow",
+      "event": "pierHolds",
+      "highlight": [
+        "now"
+      ]
+    },
+    {
+      "act": 3,
+      "text": "But look under the water.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "event": "cutawayIn",
+      "hold": 0.3
+    },
+    {
+      "act": 3,
+      "text": "The riverbed is soft mud.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "label": "MUD",
+      "highlight": [
+        "mud"
+      ],
+      "labelAt": [
+        -3.5,
+        -3.0,
+        0.3
+      ],
+      "labelWord": "mud"
+    },
+    {
+      "act": 3,
+      "text": "So the pier slowly sinks...",
+      "speed": 1.15,
+      "shot": "cutawayClose",
+      "event": "pierSinks",
+      "highlight": [
+        "sinks"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 3,
+      "text": "and drags the whole bridge down with it.",
+      "speed": 1.3,
+      "shot": "cutaway",
+      "event": "bridgeDrops",
+      "highlight": [
+        "whole",
+        "bridge"
+      ],
+      "hold": 0.6
+    },
+    {
+      "act": 4,
+      "text": "So real engineers dig deeper.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "event": "resetPier",
+      "highlight": [
+        "deeper"
+      ]
+    },
+    {
+      "act": 4,
+      "text": "They hammer long columns, called piles, through the mud...",
+      "speed": 1.3,
+      "shot": "cutawayClose",
+      "event": "drivePiles",
+      "label": "PILES",
+      "highlight": [
+        "piles"
+      ],
+      "hold": 0.7,
+      "labelAt": [
+        1.1,
+        -2.0,
+        0.3
+      ],
+      "labelWord": "piles"
+    },
+    {
+      "act": 4,
+      "text": "until they hit solid rock.",
+      "speed": 1.25,
+      "shot": "cutawayDeep",
+      "event": "pilesHitRock",
+      "label": "ROCK",
+      "highlight": [
+        "rock"
+      ],
+      "hold": 0.4,
+      "labelAt": [
+        0,
+        -6.2,
+        0.3
+      ],
+      "labelWord": "rock"
+    },
+    {
+      "act": 4,
+      "text": "Now the pier sits on piles, locked into the rock.",
+      "speed": 1.25,
+      "shot": "cutawayCap",
+      "event": "pierOnPiles",
+      "highlight": [
+        "piles",
+        "rock"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 5,
+      "text": "Next, the deck. But you can't pour it in one piece.",
+      "speed": 1.3,
+      "shot": "deckTop",
+      "event": "deckPieces",
+      "highlight": [
+        "one",
+        "piece"
+      ],
+      "hold": 0.4
+    },
+    {
+      "act": 5,
+      "text": "Why? Heat.",
+      "speed": 1.15,
+      "shot": "deckTop",
+      "event": "heat",
+      "highlight": [
+        "heat"
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Concrete expands in summer and shrinks in winter.",
+      "speed": 1.3,
+      "shot": "deckTop",
+      "event": "expandShrink",
+      "highlight": [
+        "expands",
+        "shrinks"
+      ]
+    },
+    {
+      "act": 5,
+      "text": "One long slab would tear itself apart.",
+      "speed": 1.3,
+      "shot": "deckClose",
+      "event": "slabCracks",
+      "highlight": [
+        "apart"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 5,
+      "text": "So engineers leave tiny gaps, called expansion joints.",
+      "speed": 1.25,
+      "shot": "jointClose",
+      "event": "joints",
+      "label": "EXPANSION JOINT",
+      "highlight": [
+        "expansion",
+        "joints"
+      ],
+      "hold": 0.3,
+      "labelAt": [
+        0,
+        2.0,
+        0
+      ],
+      "labelWord": "expansion"
+    },
+    {
+      "act": 6,
+      "text": "Then the road goes on.",
+      "speed": 1.25,
+      "shot": "roadLow",
+      "event": "asphalt",
+      "hold": 0.1
+    },
+    {
+      "act": 6,
+      "text": "But there's one last danger...",
+      "speed": 1.2,
+      "shot": "railLow",
+      "event": "swerve",
+      "highlight": [
+        "danger"
+      ]
+    },
+    {
+      "act": 6,
+      "text": "Guard rails! So nobody drives off the edge.",
+      "speed": 1.3,
+      "shot": "railLow",
+      "event": "rails",
+      "label": "GUARD RAIL",
+      "labelWord": "guard",
+      "labelAt": [
+        3,
+        2.4,
+        1.2
+      ],
+      "highlight": [
+        "guard",
+        "rails"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 7,
+      "text": "Beams. Piers. Piles. Joints. Guard rails.",
+      "speed": 1.15,
+      "shot": "recap",
+      "event": "recap",
+      "highlight": [
+        "beams",
+        "piers",
+        "piles",
+        "joints",
+        "guard",
+        "rails"
+      ]
+    },
+    {
+      "act": 7,
+      "text": "That's how you build a bridge that won't fall.",
+      "speed": 1.2,
+      "shot": "finalAerial",
+      "event": "traffic",
+      "highlight": [
+        "won't",
+        "fall"
+      ]
+    }
+  ],
+  "scene": "river-bridge-full",
+  "outro": {
+    "line1": "HOW TO BUILD A BRIDGE",
+    "line2": "THAT WON'T FALL"
+  }
+}

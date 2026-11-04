@@ -1,0 +1,108 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/tense.wav",
+  "id": "sleep3",
+  "title": "What happens if you stay awake for 3 days? Day 3",
+  "day": 3,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 3",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "ONE, TWO",
+    "line2": "OR THREE?"
+  },
+  "beats": [
+    {
+      "text": "Day three without sleep. Hour 72. This is where the brain starts to break.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "72",
+        "break"
+      ]
+    },
+    {
+      "text": "The urge to sleep becomes almost impossible to fight. Microsleeps get longer, and they come more often.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "urge",
+      "highlight": [
+        "impossible",
+        "longer"
+      ]
+    },
+    {
+      "text": "Then the hallucinations start. People report seeing, hearing, and even feeling things that aren't there.",
+      "speed": 1.25,
+      "shot": "trip",
+      "event": "halluc",
+      "highlight": [
+        "hallucinations",
+        "feeling"
+      ]
+    },
+    {
+      "text": "Thinking gets messy, and some start believing things that aren't true. Researchers compare it to psychosis.",
+      "speed": 1.25,
+      "shot": "trip",
+      "event": "psych",
+      "highlight": [
+        "believing",
+        "psychosis"
+      ]
+    },
+    {
+      "text": "In 1964, a 17 year old named Randy Gardner stayed awake for 11 days, for a school science fair.",
+      "speed": 1.25,
+      "shot": "story",
+      "event": "randy",
+      "highlight": [
+        "11",
+        "days"
+      ]
+    },
+    {
+      "text": "It was so risky that Guinness later stopped tracking the record.",
+      "speed": 1.25,
+      "shot": "story",
+      "event": "guinness",
+      "highlight": [
+        "Guinness"
+      ]
+    },
+    {
+      "text": "The good news? For most people, sleep fixes it. Randy slept about 14 hours, and woke up feeling mostly fine.",
+      "speed": 1.25,
+      "shot": "sleep",
+      "event": "recover",
+      "highlight": [
+        "sleep",
+        "fixes"
+      ]
+    },
+    {
+      "text": "So please, don't try this. Which day surprised you most? One, two, or three? Tell me below.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "final",
+      "highlight": [
+        "don't",
+        "one",
+        "two",
+        "three"
+      ]
+    }
+  ]
+}

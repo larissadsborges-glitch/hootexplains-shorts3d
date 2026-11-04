@@ -1,0 +1,145 @@
+{
+  "id": "airplanemode",
+  "title": "Why does your phone need airplane mode on a plane?",
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "airplanemode",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "WHY DOES YOUR PHONE",
+    "line2": "NEED AIRPLANE MODE?",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "DO YOU REALLY",
+    "line2": "TURN IT ON?"
+  },
+  "beats": [
+    {
+      "text": "Why does your phone need airplane mode on a plane? Can one phone really crash it?",
+      "speed": 1.25,
+      "shot": "cabinHook",
+      "event": "hook",
+      "highlight": [
+        "airplane",
+        "crash"
+      ]
+    },
+    {
+      "text": "Movies make it look like your phone can mess with the controls. But no crash has ever been proven to be caused by a phone.",
+      "speed": 1.25,
+      "shot": "exterior",
+      "event": "myth",
+      "highlight": [
+        "movies",
+        "proven"
+      ]
+    },
+    {
+      "text": "So why the rule? Up here, your phone can't find a signal. So it keeps searching, at full power.",
+      "speed": 1.25,
+      "shot": "phone",
+      "event": "search",
+      "highlight": [
+        "signal",
+        "searching"
+      ]
+    },
+    {
+      "text": "Lower down, at hundreds of miles an hour, it can reach many towers at once. Phone networks were never built for that.",
+      "speed": 1.25,
+      "shot": "towers",
+      "event": "towers",
+      "highlight": [
+        "many",
+        "towers"
+      ]
+    },
+    {
+      "text": "But the real reason is up front. In the cockpit.",
+      "speed": 1.2,
+      "shot": "cockpit",
+      "event": "rehook",
+      "highlight": [
+        "cockpit"
+      ]
+    },
+    {
+      "text": "Pilots wear headsets. And phone signals can leak in, as a buzzing noise. Like this.",
+      "speed": 1.25,
+      "shot": "headset",
+      "event": "buzz",
+      "hold": 1.6,
+      "highlight": [
+        "headsets",
+        "buzzing"
+      ]
+    },
+    {
+      "text": "Now imagine 200 phones doing that during landing, when the pilots need to hear every word from the control tower.",
+      "speed": 1.25,
+      "shot": "cabinWide",
+      "event": "landing",
+      "highlight": [
+        "200",
+        "landing"
+      ]
+    },
+    {
+      "text": "So no, your phone won't crash the plane. But it can make the pilots' job harder, at the worst possible moment.",
+      "speed": 1.25,
+      "shot": "approach",
+      "event": "verdict",
+      "highlight": [
+        "won't",
+        "harder"
+      ]
+    },
+    {
+      "text": "Here's the twist. In Europe, airlines are even allowed to let you use your phone. A tiny mobile mast inside the plane talks to it.",
+      "speed": 1.25,
+      "shot": "mast",
+      "event": "twist",
+      "highlight": [
+        "Europe",
+        "tiny"
+      ]
+    },
+    {
+      "text": "Your phone just whispers to the mast, and everything goes up by satellite.",
+      "speed": 1.25,
+      "shot": "satellite",
+      "event": "satellite",
+      "highlight": [
+        "whispers",
+        "satellite"
+      ]
+    },
+    {
+      "text": "Bonus: airplane mode also saves your battery, because searching for a signal drains it fast.",
+      "speed": 1.25,
+      "shot": "phone",
+      "event": "battery",
+      "highlight": [
+        "battery"
+      ]
+    },
+    {
+      "text": "So be honest. Do you actually turn it on? Yes or no? Follow Hoot for more.",
+      "speed": 1.25,
+      "shot": "cta",
+      "event": "final",
+      "highlight": [
+        "yes",
+        "no"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "planewindow",
+  "title": "What happens if a plane window breaks at 35,000 ft?",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "planewindow",
+  "music": "music/tense.wav",
+  "hook": {
+    "line1": "IF THIS BREAKS",
+    "line2": "YOU HAVE 15 SEC",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "WINDOW SEAT",
+    "line2": "OR AISLE?"
+  },
+  "beats": [
+    {
+      "text": "If this window breaks at 35,000 feet, you'd have as little as 15 seconds. Here's why.",
+      "speed": 1.2,
+      "shot": "cabinHook",
+      "event": "hook",
+      "highlight": [
+        "breaks",
+        "15",
+        "seconds"
+      ]
+    },
+    {
+      "text": "In movies, everyone gets sucked out and the plane goes down. Reality is different. But still scary.",
+      "speed": 1.2,
+      "shot": "exterior",
+      "event": "myth",
+      "highlight": [
+        "movies",
+        "different"
+      ]
+    },
+    {
+      "text": "Outside, the air is thin, and minus 67 degrees. Inside, it's pumped up so you can breathe.",
+      "speed": 1.2,
+      "shot": "exterior",
+      "event": "pressure",
+      "highlight": [
+        "thin",
+        "pumped"
+      ]
+    },
+    {
+      "text": "That pushes on every window with over a thousand pounds. Like a piano leaning on it.",
+      "speed": 1.2,
+      "shot": "windowFront",
+      "event": "force",
+      "highlight": [
+        "thousand",
+        "piano"
+      ]
+    },
+    {
+      "text": "So each window has three layers. The outer one takes all the load.",
+      "speed": 1.2,
+      "shot": "panes",
+      "event": "panes",
+      "highlight": [
+        "three"
+      ]
+    },
+    {
+      "text": "The middle one is a backup. And this tiny hole keeps it that way.",
+      "speed": 1.2,
+      "shot": "panesHole",
+      "event": "hole",
+      "highlight": [
+        "backup",
+        "tiny",
+        "hole"
+      ],
+      "label": "BLEED HOLE",
+      "labelWord": "tiny",
+      "labelAt": "bleed"
+    },
+    {
+      "text": "But what if two layers break?",
+      "speed": 1.2,
+      "shot": "windowFront",
+      "event": "rehook",
+      "highlight": [
+        "two"
+      ]
+    },
+    {
+      "text": "In under a second, the air rushes out. The cabin fills with fog, and anything loose flies toward the hole.",
+      "speed": 1.2,
+      "shot": "cabinDecomp",
+      "event": "decomp",
+      "highlight": [
+        "fog",
+        "flies"
+      ]
+    },
+    {
+      "text": "You've been watching this for about half a minute. Up here, without oxygen, you could already be too confused to save yourself.",
+      "speed": 1.2,
+      "shot": "cabinDecomp",
+      "event": "clock",
+      "highlight": [
+        "half",
+        "confused"
+      ]
+    },
+    {
+      "text": "That's why the masks drop by themselves. And why you put yours on first.",
+      "speed": 1.2,
+      "shot": "cabinMasks",
+      "event": "masks",
+      "highlight": [
+        "masks",
+        "first"
+      ]
+    },
+    {
+      "text": "Then the pilots dive to 10,000 feet, where you can breathe again. Planes are built for this, and pilots train for it.",
+      "speed": 1.2,
+      "shot": "descent",
+      "event": "descent",
+      "highlight": [
+        "10000",
+        "train"
+      ]
+    },
+    {
+      "text": "And this really happened. In 1990, a cockpit window blew out at 17,000 feet.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "story",
+      "highlight": [
+        "1990"
+      ]
+    },
+    {
+      "text": "The captain was pulled halfway out of the plane.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "captain",
+      "highlight": [
+        "halfway"
+      ]
+    },
+    {
+      "text": "The crew held on to his legs for 20 minutes, until the co-pilot landed. Everyone survived. Even the captain.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "survived",
+      "highlight": [
+        "20",
+        "survived"
+      ]
+    },
+    {
+      "text": "So... window seat or aisle? Save this for your next flight, and follow Hoot for more.",
+      "speed": 1.2,
+      "shot": "cta",
+      "event": "final",
+      "highlight": [
+        "window",
+        "aisle"
+      ]
+    }
+  ]
+}

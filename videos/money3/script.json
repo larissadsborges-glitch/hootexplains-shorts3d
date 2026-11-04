@@ -1,0 +1,106 @@
+{
+  "id": "money3",
+  "title": "Why your money is worth less every year",
+  "ep": 3,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "WHY IS YOUR MONEY",
+    "line2": "WORTH LESS EVERY YEAR?",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "IS YOUR SAVINGS",
+    "line2": "BEATING 3.7%?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "Why is your money worth less every year? Jake's 100 dollars from 2000 now buys half as much.",
+      "speed": 1.25,
+      "shot": "cardHook",
+      "event": "hook",
+      "highlight": [
+        "less",
+        "half"
+      ]
+    },
+    {
+      "text": "Whatever it bought back then now costs about 194 dollars.",
+      "speed": 1.25,
+      "shot": "cart",
+      "event": "cart",
+      "highlight": [
+        "194"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "That's inflation: prices creep up, so each dollar buys less.",
+      "speed": 1.25,
+      "shot": "cart",
+      "event": "inflation",
+      "highlight": [
+        "inflation",
+        "less"
+      ]
+    },
+    {
+      "text": "You'd think the Fed wants zero inflation. But it aims for 2 percent a year. On purpose.",
+      "speed": 1.25,
+      "shot": "fed",
+      "event": "target",
+      "highlight": [
+        "zero",
+        "purpose"
+      ]
+    },
+    {
+      "text": "It says steady, low inflation helps people plan.",
+      "speed": 1.25,
+      "shot": "fed",
+      "event": "why",
+      "highlight": [
+        "plan"
+      ]
+    },
+    {
+      "text": "Episode 3 of 6. Follow along.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "But in the last year, prices rose 3.7 percent. At that pace, they double in 19 years.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "double",
+      "highlight": [
+        "3.7",
+        "double"
+      ]
+    },
+    {
+      "text": "So money sitting in the bank quietly shrinks. Is your savings beating 3.7 percent?",
+      "speed": 1.25,
+      "shot": "cardHook",
+      "event": "final",
+      "highlight": [
+        "shrinks",
+        "beating"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/bed.wav",
+  "id": "sleep2",
+  "title": "What happens if you stay awake for 3 days? Day 2",
+  "day": 2,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 2",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "DAY 3"
+  },
+  "beats": [
+    {
+      "text": "Day two without sleep. Hour 36. Yesterday, you felt drunk. Today, it gets weird.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "36",
+        "weird"
+      ]
+    },
+    {
+      "text": "Your body starts to struggle. Inflammation rises in your blood, and your body temperature swings up and down.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "body",
+      "highlight": [
+        "inflammation",
+        "temperature"
+      ]
+    },
+    {
+      "text": "Then comes the scariest part. Microsleeps.",
+      "speed": 1.2,
+      "shot": "hoot",
+      "event": "micro",
+      "highlight": [
+        "microsleeps"
+      ],
+      "hold": 0.9
+    },
+    {
+      "text": "Your brain switches off for a few seconds, sometimes up to half a minute, and you don't even notice.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "micro2",
+      "highlight": [
+        "switches",
+        "notice"
+      ]
+    },
+    {
+      "text": "Now imagine that while driving. At 60 miles an hour, five seconds with your eyes closed is longer than a football field.",
+      "speed": 1.25,
+      "shot": "road",
+      "event": "road",
+      "highlight": [
+        "driving",
+        "football"
+      ]
+    },
+    {
+      "text": "Your mind gets foggy too. You lose track of time, get anxious, and the room starts to look a little off.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "fog",
+      "highlight": [
+        "time",
+        "anxious"
+      ]
+    },
+    {
+      "text": "And on day three, your brain starts showing you things that aren't there. Follow Hoot for day three.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "final",
+      "highlight": [
+        "aren't",
+        "three"
+      ]
+    }
+  ]
+}

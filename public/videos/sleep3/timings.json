@@ -1,0 +1,794 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/tense.wav",
+  "id": "sleep3",
+  "title": "What happens if you stay awake for 3 days? Day 3",
+  "day": 3,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 3",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "ONE, TWO",
+    "line2": "OR THREE?"
+  },
+  "duration": 41.105,
+  "beats": [
+    {
+      "text": "Day three without sleep. Hour 72. This is where the brain starts to break.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "72",
+        "break"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 4.05,
+      "words": [
+        {
+          "word": "Day",
+          "start": 0.05,
+          "end": 0.258
+        },
+        {
+          "word": "three",
+          "start": 0.258,
+          "end": 0.559
+        },
+        {
+          "word": "without",
+          "start": 0.559,
+          "end": 0.952
+        },
+        {
+          "word": "sleep.",
+          "start": 0.952,
+          "end": 1.252
+        },
+        {
+          "word": "Hour",
+          "start": 1.368,
+          "end": 1.622
+        },
+        {
+          "word": "72.",
+          "start": 1.622,
+          "end": 1.784
+        },
+        {
+          "word": "This",
+          "start": 1.9,
+          "end": 2.154
+        },
+        {
+          "word": "is",
+          "start": 2.154,
+          "end": 2.316
+        },
+        {
+          "word": "where",
+          "start": 2.316,
+          "end": 2.616
+        },
+        {
+          "word": "the",
+          "start": 2.616,
+          "end": 2.825
+        },
+        {
+          "word": "brain",
+          "start": 2.825,
+          "end": 3.125
+        },
+        {
+          "word": "starts",
+          "start": 3.125,
+          "end": 3.472
+        },
+        {
+          "word": "to",
+          "start": 3.472,
+          "end": 3.634
+        },
+        {
+          "word": "break.",
+          "start": 3.634,
+          "end": 3.934
+        }
+      ]
+    },
+    {
+      "text": "The urge to sleep becomes almost impossible to fight. Microsleeps get longer, and they come more often.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "urge",
+      "highlight": [
+        "impossible",
+        "longer"
+      ],
+      "index": 1,
+      "start": 4.11,
+      "end": 9.539,
+      "words": [
+        {
+          "word": "The",
+          "start": 4.11,
+          "end": 4.319
+        },
+        {
+          "word": "urge",
+          "start": 4.319,
+          "end": 4.574
+        },
+        {
+          "word": "to",
+          "start": 4.574,
+          "end": 4.736
+        },
+        {
+          "word": "sleep",
+          "start": 4.736,
+          "end": 5.038
+        },
+        {
+          "word": "becomes",
+          "start": 5.038,
+          "end": 5.432
+        },
+        {
+          "word": "almost",
+          "start": 5.432,
+          "end": 5.78
+        },
+        {
+          "word": "impossible",
+          "start": 5.78,
+          "end": 6.314
+        },
+        {
+          "word": "to",
+          "start": 6.314,
+          "end": 6.476
+        },
+        {
+          "word": "fight.",
+          "start": 6.476,
+          "end": 6.778
+        },
+        {
+          "word": "Microsleeps",
+          "start": 6.894,
+          "end": 7.474
+        },
+        {
+          "word": "get",
+          "start": 7.474,
+          "end": 7.683
+        },
+        {
+          "word": "longer,",
+          "start": 7.683,
+          "end": 8.031
+        },
+        {
+          "word": "and",
+          "start": 8.147,
+          "end": 8.356
+        },
+        {
+          "word": "they",
+          "start": 8.356,
+          "end": 8.611
+        },
+        {
+          "word": "come",
+          "start": 8.611,
+          "end": 8.866
+        },
+        {
+          "word": "more",
+          "start": 8.866,
+          "end": 9.121
+        },
+        {
+          "word": "often.",
+          "start": 9.121,
+          "end": 9.423
+        }
+      ]
+    },
+    {
+      "text": "Then the hallucinations start. People report seeing, hearing, and even feeling things that aren't there.",
+      "speed": 1.25,
+      "shot": "trip",
+      "event": "halluc",
+      "highlight": [
+        "hallucinations",
+        "feeling"
+      ],
+      "index": 2,
+      "start": 9.599,
+      "end": 14.304,
+      "words": [
+        {
+          "word": "Then",
+          "start": 9.599,
+          "end": 9.817
+        },
+        {
+          "word": "the",
+          "start": 9.817,
+          "end": 9.996
+        },
+        {
+          "word": "hallucinations",
+          "start": 9.996,
+          "end": 10.611
+        },
+        {
+          "word": "start.",
+          "start": 10.611,
+          "end": 10.869
+        },
+        {
+          "word": "People",
+          "start": 10.969,
+          "end": 11.266
+        },
+        {
+          "word": "report",
+          "start": 11.266,
+          "end": 11.564
+        },
+        {
+          "word": "seeing,",
+          "start": 11.564,
+          "end": 11.862
+        },
+        {
+          "word": "hearing,",
+          "start": 11.961,
+          "end": 12.299
+        },
+        {
+          "word": "and",
+          "start": 12.398,
+          "end": 12.577
+        },
+        {
+          "word": "even",
+          "start": 12.577,
+          "end": 12.795
+        },
+        {
+          "word": "feeling",
+          "start": 12.795,
+          "end": 13.132
+        },
+        {
+          "word": "things",
+          "start": 13.132,
+          "end": 13.43
+        },
+        {
+          "word": "that",
+          "start": 13.43,
+          "end": 13.649
+        },
+        {
+          "word": "aren't",
+          "start": 13.649,
+          "end": 13.946
+        },
+        {
+          "word": "there.",
+          "start": 13.946,
+          "end": 14.204
+        }
+      ]
+    },
+    {
+      "text": "Thinking gets messy, and some start believing things that aren't true. Researchers compare it to psychosis.",
+      "speed": 1.25,
+      "shot": "trip",
+      "event": "psych",
+      "highlight": [
+        "believing",
+        "psychosis"
+      ],
+      "index": 3,
+      "start": 14.364,
+      "end": 19.52,
+      "words": [
+        {
+          "word": "Thinking",
+          "start": 14.364,
+          "end": 14.77
+        },
+        {
+          "word": "gets",
+          "start": 14.77,
+          "end": 15.006
+        },
+        {
+          "word": "messy,",
+          "start": 15.006,
+          "end": 15.284
+        },
+        {
+          "word": "and",
+          "start": 15.391,
+          "end": 15.583
+        },
+        {
+          "word": "some",
+          "start": 15.583,
+          "end": 15.819
+        },
+        {
+          "word": "start",
+          "start": 15.819,
+          "end": 16.097
+        },
+        {
+          "word": "believing",
+          "start": 16.097,
+          "end": 16.546
+        },
+        {
+          "word": "things",
+          "start": 16.546,
+          "end": 16.867
+        },
+        {
+          "word": "that",
+          "start": 16.867,
+          "end": 17.102
+        },
+        {
+          "word": "aren't",
+          "start": 17.102,
+          "end": 17.423
+        },
+        {
+          "word": "true.",
+          "start": 17.423,
+          "end": 17.659
+        },
+        {
+          "word": "Researchers",
+          "start": 17.766,
+          "end": 18.301
+        },
+        {
+          "word": "compare",
+          "start": 18.301,
+          "end": 18.664
+        },
+        {
+          "word": "it",
+          "start": 18.664,
+          "end": 18.814
+        },
+        {
+          "word": "to",
+          "start": 18.814,
+          "end": 18.964
+        },
+        {
+          "word": "psychosis.",
+          "start": 18.964,
+          "end": 19.413
+        }
+      ]
+    },
+    {
+      "text": "In 1964, a 17 year old named Randy Gardner stayed awake for 11 days, for a school science fair.",
+      "speed": 1.25,
+      "shot": "story",
+      "event": "randy",
+      "highlight": [
+        "11",
+        "days"
+      ],
+      "index": 4,
+      "start": 19.58,
+      "end": 26.024,
+      "words": [
+        {
+          "word": "In",
+          "start": 19.58,
+          "end": 19.785
+        },
+        {
+          "word": "1964,",
+          "start": 19.785,
+          "end": 20.107
+        },
+        {
+          "word": "a",
+          "start": 20.254,
+          "end": 20.4
+        },
+        {
+          "word": "17",
+          "start": 20.4,
+          "end": 20.605
+        },
+        {
+          "word": "year",
+          "start": 20.605,
+          "end": 20.928
+        },
+        {
+          "word": "old",
+          "start": 20.928,
+          "end": 21.191
+        },
+        {
+          "word": "named",
+          "start": 21.191,
+          "end": 21.572
+        },
+        {
+          "word": "Randy",
+          "start": 21.572,
+          "end": 21.953
+        },
+        {
+          "word": "Gardner",
+          "start": 21.953,
+          "end": 22.45
+        },
+        {
+          "word": "stayed",
+          "start": 22.45,
+          "end": 22.89
+        },
+        {
+          "word": "awake",
+          "start": 22.89,
+          "end": 23.271
+        },
+        {
+          "word": "for",
+          "start": 23.271,
+          "end": 23.534
+        },
+        {
+          "word": "11",
+          "start": 23.534,
+          "end": 23.739
+        },
+        {
+          "word": "days,",
+          "start": 23.739,
+          "end": 24.061
+        },
+        {
+          "word": "for",
+          "start": 24.208,
+          "end": 24.471
+        },
+        {
+          "word": "a",
+          "start": 24.471,
+          "end": 24.618
+        },
+        {
+          "word": "school",
+          "start": 24.618,
+          "end": 25.057
+        },
+        {
+          "word": "science",
+          "start": 25.057,
+          "end": 25.555
+        },
+        {
+          "word": "fair.",
+          "start": 25.555,
+          "end": 25.877
+        }
+      ]
+    },
+    {
+      "text": "It was so risky that Guinness later stopped tracking the record.",
+      "speed": 1.25,
+      "shot": "story",
+      "event": "guinness",
+      "highlight": [
+        "Guinness"
+      ],
+      "index": 5,
+      "start": 26.084,
+      "end": 28.823,
+      "words": [
+        {
+          "word": "It",
+          "start": 26.084,
+          "end": 26.217
+        },
+        {
+          "word": "was",
+          "start": 26.217,
+          "end": 26.388
+        },
+        {
+          "word": "so",
+          "start": 26.388,
+          "end": 26.521
+        },
+        {
+          "word": "risky",
+          "start": 26.521,
+          "end": 26.768
+        },
+        {
+          "word": "that",
+          "start": 26.768,
+          "end": 26.978
+        },
+        {
+          "word": "Guinness",
+          "start": 26.978,
+          "end": 27.339
+        },
+        {
+          "word": "later",
+          "start": 27.339,
+          "end": 27.586
+        },
+        {
+          "word": "stopped",
+          "start": 27.586,
+          "end": 27.91
+        },
+        {
+          "word": "tracking",
+          "start": 27.91,
+          "end": 28.271
+        },
+        {
+          "word": "the",
+          "start": 28.271,
+          "end": 28.442
+        },
+        {
+          "word": "record.",
+          "start": 28.442,
+          "end": 28.728
+        }
+      ]
+    },
+    {
+      "text": "The good news? For most people, sleep fixes it. Randy slept about 14 hours, and woke up feeling mostly fine.",
+      "speed": 1.25,
+      "shot": "sleep",
+      "event": "recover",
+      "highlight": [
+        "sleep",
+        "fixes"
+      ],
+      "index": 6,
+      "start": 28.883,
+      "end": 34.765,
+      "words": [
+        {
+          "word": "The",
+          "start": 28.883,
+          "end": 29.092
+        },
+        {
+          "word": "good",
+          "start": 29.092,
+          "end": 29.348
+        },
+        {
+          "word": "news?",
+          "start": 29.348,
+          "end": 29.603
+        },
+        {
+          "word": "For",
+          "start": 29.72,
+          "end": 29.929
+        },
+        {
+          "word": "most",
+          "start": 29.929,
+          "end": 30.185
+        },
+        {
+          "word": "people,",
+          "start": 30.185,
+          "end": 30.533
+        },
+        {
+          "word": "sleep",
+          "start": 30.65,
+          "end": 30.952
+        },
+        {
+          "word": "fixes",
+          "start": 30.952,
+          "end": 31.254
+        },
+        {
+          "word": "it.",
+          "start": 31.254,
+          "end": 31.417
+        },
+        {
+          "word": "Randy",
+          "start": 31.533,
+          "end": 31.836
+        },
+        {
+          "word": "slept",
+          "start": 31.836,
+          "end": 32.138
+        },
+        {
+          "word": "about",
+          "start": 32.138,
+          "end": 32.44
+        },
+        {
+          "word": "14",
+          "start": 32.44,
+          "end": 32.603
+        },
+        {
+          "word": "hours,",
+          "start": 32.603,
+          "end": 32.905
+        },
+        {
+          "word": "and",
+          "start": 33.021,
+          "end": 33.231
+        },
+        {
+          "word": "woke",
+          "start": 33.231,
+          "end": 33.486
+        },
+        {
+          "word": "up",
+          "start": 33.486,
+          "end": 33.649
+        },
+        {
+          "word": "feeling",
+          "start": 33.649,
+          "end": 34.044
+        },
+        {
+          "word": "mostly",
+          "start": 34.044,
+          "end": 34.393
+        },
+        {
+          "word": "fine.",
+          "start": 34.393,
+          "end": 34.649
+        }
+      ]
+    },
+    {
+      "text": "So please, don't try this. Which day surprised you most? One, two, or three? Tell me below.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "final",
+      "highlight": [
+        "don't",
+        "one",
+        "two",
+        "three"
+      ],
+      "index": 7,
+      "start": 34.825,
+      "end": 39.305,
+      "words": [
+        {
+          "word": "So",
+          "start": 34.825,
+          "end": 34.966
+        },
+        {
+          "word": "please,",
+          "start": 34.966,
+          "end": 35.269
+        },
+        {
+          "word": "don't",
+          "start": 35.37,
+          "end": 35.632
+        },
+        {
+          "word": "try",
+          "start": 35.632,
+          "end": 35.814
+        },
+        {
+          "word": "this.",
+          "start": 35.814,
+          "end": 36.036
+        },
+        {
+          "word": "Which",
+          "start": 36.137,
+          "end": 36.399
+        },
+        {
+          "word": "day",
+          "start": 36.399,
+          "end": 36.581
+        },
+        {
+          "word": "surprised",
+          "start": 36.581,
+          "end": 37.004
+        },
+        {
+          "word": "you",
+          "start": 37.004,
+          "end": 37.186
+        },
+        {
+          "word": "most?",
+          "start": 37.186,
+          "end": 37.408
+        },
+        {
+          "word": "One,",
+          "start": 37.509,
+          "end": 37.69
+        },
+        {
+          "word": "two,",
+          "start": 37.791,
+          "end": 37.973
+        },
+        {
+          "word": "or",
+          "start": 38.074,
+          "end": 38.215
+        },
+        {
+          "word": "three?",
+          "start": 38.215,
+          "end": 38.477
+        },
+        {
+          "word": "Tell",
+          "start": 38.578,
+          "end": 38.8
+        },
+        {
+          "word": "me",
+          "start": 38.8,
+          "end": 38.942
+        },
+        {
+          "word": "below.",
+          "start": 38.942,
+          "end": 39.204
+        }
+      ]
+    }
+  ]
+}

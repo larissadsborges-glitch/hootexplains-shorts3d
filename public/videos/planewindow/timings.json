@@ -1,0 +1,1428 @@
+{
+  "id": "planewindow",
+  "title": "What happens if a plane window breaks at 35,000 ft?",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "planewindow",
+  "music": "music/tense.wav",
+  "hook": {
+    "line1": "IF THIS BREAKS",
+    "line2": "YOU HAVE 15 SEC",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "WINDOW SEAT",
+    "line2": "OR AISLE?"
+  },
+  "duration": 71.383,
+  "beats": [
+    {
+      "text": "If this window breaks at 35,000 feet, you'd have as little as 15 seconds. Here's why.",
+      "speed": 1.2,
+      "shot": "cabinHook",
+      "event": "hook",
+      "highlight": [
+        "breaks",
+        "15",
+        "seconds"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 5.455,
+      "words": [
+        {
+          "word": "If",
+          "start": 0.05,
+          "end": 0.244
+        },
+        {
+          "word": "this",
+          "start": 0.244,
+          "end": 0.549
+        },
+        {
+          "word": "window",
+          "start": 0.549,
+          "end": 0.965
+        },
+        {
+          "word": "breaks",
+          "start": 0.965,
+          "end": 1.38
+        },
+        {
+          "word": "at",
+          "start": 1.38,
+          "end": 1.574
+        },
+        {
+          "word": "35,000",
+          "start": 1.574,
+          "end": 1.935
+        },
+        {
+          "word": "feet,",
+          "start": 1.935,
+          "end": 2.24
+        },
+        {
+          "word": "you'd",
+          "start": 2.378,
+          "end": 2.739
+        },
+        {
+          "word": "have",
+          "start": 2.739,
+          "end": 3.043
+        },
+        {
+          "word": "as",
+          "start": 3.043,
+          "end": 3.238
+        },
+        {
+          "word": "little",
+          "start": 3.238,
+          "end": 3.653
+        },
+        {
+          "word": "as",
+          "start": 3.653,
+          "end": 3.847
+        },
+        {
+          "word": "15",
+          "start": 3.847,
+          "end": 4.041
+        },
+        {
+          "word": "seconds.",
+          "start": 4.041,
+          "end": 4.513
+        },
+        {
+          "word": "Here's",
+          "start": 4.651,
+          "end": 5.067
+        },
+        {
+          "word": "why.",
+          "start": 5.067,
+          "end": 5.316
+        }
+      ]
+    },
+    {
+      "text": "In movies, everyone gets sucked out and the plane goes down. Reality is different. But still scary.",
+      "speed": 1.2,
+      "shot": "exterior",
+      "event": "myth",
+      "highlight": [
+        "movies",
+        "different"
+      ],
+      "index": 1,
+      "start": 5.515,
+      "end": 10.749,
+      "words": [
+        {
+          "word": "In",
+          "start": 5.515,
+          "end": 5.675
+        },
+        {
+          "word": "movies,",
+          "start": 5.675,
+          "end": 6.018
+        },
+        {
+          "word": "everyone",
+          "start": 6.132,
+          "end": 6.566
+        },
+        {
+          "word": "gets",
+          "start": 6.566,
+          "end": 6.818
+        },
+        {
+          "word": "sucked",
+          "start": 6.818,
+          "end": 7.16
+        },
+        {
+          "word": "out",
+          "start": 7.16,
+          "end": 7.366
+        },
+        {
+          "word": "and",
+          "start": 7.366,
+          "end": 7.572
+        },
+        {
+          "word": "the",
+          "start": 7.572,
+          "end": 7.778
+        },
+        {
+          "word": "plane",
+          "start": 7.778,
+          "end": 8.075
+        },
+        {
+          "word": "goes",
+          "start": 8.075,
+          "end": 8.326
+        },
+        {
+          "word": "down.",
+          "start": 8.326,
+          "end": 8.577
+        },
+        {
+          "word": "Reality",
+          "start": 8.692,
+          "end": 9.08
+        },
+        {
+          "word": "is",
+          "start": 9.08,
+          "end": 9.24
+        },
+        {
+          "word": "different.",
+          "start": 9.24,
+          "end": 9.72
+        },
+        {
+          "word": "But",
+          "start": 9.834,
+          "end": 10.04
+        },
+        {
+          "word": "still",
+          "start": 10.04,
+          "end": 10.337
+        },
+        {
+          "word": "scary.",
+          "start": 10.337,
+          "end": 10.634
+        }
+      ]
+    },
+    {
+      "text": "Outside, the air is thin, and minus 67 degrees. Inside, it's pumped up so you can breathe.",
+      "speed": 1.2,
+      "shot": "exterior",
+      "event": "pressure",
+      "highlight": [
+        "thin",
+        "pumped"
+      ],
+      "index": 2,
+      "start": 10.809,
+      "end": 16.446,
+      "words": [
+        {
+          "word": "Outside,",
+          "start": 10.809,
+          "end": 11.256
+        },
+        {
+          "word": "the",
+          "start": 11.388,
+          "end": 11.625
+        },
+        {
+          "word": "air",
+          "start": 11.625,
+          "end": 11.862
+        },
+        {
+          "word": "is",
+          "start": 11.862,
+          "end": 12.047
+        },
+        {
+          "word": "thin,",
+          "start": 12.047,
+          "end": 12.337
+        },
+        {
+          "word": "and",
+          "start": 12.468,
+          "end": 12.705
+        },
+        {
+          "word": "minus",
+          "start": 12.705,
+          "end": 13.048
+        },
+        {
+          "word": "67",
+          "start": 13.048,
+          "end": 13.232
+        },
+        {
+          "word": "degrees.",
+          "start": 13.232,
+          "end": 13.68
+        },
+        {
+          "word": "Inside,",
+          "start": 13.812,
+          "end": 14.207
+        },
+        {
+          "word": "it's",
+          "start": 14.339,
+          "end": 14.629
+        },
+        {
+          "word": "pumped",
+          "start": 14.629,
+          "end": 15.024
+        },
+        {
+          "word": "up",
+          "start": 15.024,
+          "end": 15.208
+        },
+        {
+          "word": "so",
+          "start": 15.208,
+          "end": 15.393
+        },
+        {
+          "word": "you",
+          "start": 15.393,
+          "end": 15.63
+        },
+        {
+          "word": "can",
+          "start": 15.63,
+          "end": 15.867
+        },
+        {
+          "word": "breathe.",
+          "start": 15.867,
+          "end": 16.315
+        }
+      ]
+    },
+    {
+      "text": "That pushes on every window with over a thousand pounds. Like a piano leaning on it.",
+      "speed": 1.2,
+      "shot": "windowFront",
+      "event": "force",
+      "highlight": [
+        "thousand",
+        "piano"
+      ],
+      "index": 3,
+      "start": 16.506,
+      "end": 20.846,
+      "words": [
+        {
+          "word": "That",
+          "start": 16.506,
+          "end": 16.755
+        },
+        {
+          "word": "pushes",
+          "start": 16.755,
+          "end": 17.094
+        },
+        {
+          "word": "on",
+          "start": 17.094,
+          "end": 17.252
+        },
+        {
+          "word": "every",
+          "start": 17.252,
+          "end": 17.546
+        },
+        {
+          "word": "window",
+          "start": 17.546,
+          "end": 17.885
+        },
+        {
+          "word": "with",
+          "start": 17.885,
+          "end": 18.134
+        },
+        {
+          "word": "over",
+          "start": 18.134,
+          "end": 18.382
+        },
+        {
+          "word": "a",
+          "start": 18.382,
+          "end": 18.495
+        },
+        {
+          "word": "thousand",
+          "start": 18.495,
+          "end": 18.925
+        },
+        {
+          "word": "pounds.",
+          "start": 18.925,
+          "end": 19.264
+        },
+        {
+          "word": "Like",
+          "start": 19.377,
+          "end": 19.626
+        },
+        {
+          "word": "a",
+          "start": 19.626,
+          "end": 19.739
+        },
+        {
+          "word": "piano",
+          "start": 19.739,
+          "end": 20.032
+        },
+        {
+          "word": "leaning",
+          "start": 20.032,
+          "end": 20.417
+        },
+        {
+          "word": "on",
+          "start": 20.417,
+          "end": 20.575
+        },
+        {
+          "word": "it.",
+          "start": 20.575,
+          "end": 20.733
+        }
+      ]
+    },
+    {
+      "text": "So each window has three layers. The outer one takes all the load.",
+      "speed": 1.2,
+      "shot": "panes",
+      "event": "panes",
+      "highlight": [
+        "three"
+      ],
+      "index": 4,
+      "start": 20.906,
+      "end": 24.364,
+      "words": [
+        {
+          "word": "So",
+          "start": 20.906,
+          "end": 21.064
+        },
+        {
+          "word": "each",
+          "start": 21.064,
+          "end": 21.313
+        },
+        {
+          "word": "window",
+          "start": 21.313,
+          "end": 21.652
+        },
+        {
+          "word": "has",
+          "start": 21.652,
+          "end": 21.855
+        },
+        {
+          "word": "three",
+          "start": 21.855,
+          "end": 22.149
+        },
+        {
+          "word": "layers.",
+          "start": 22.149,
+          "end": 22.488
+        },
+        {
+          "word": "The",
+          "start": 22.601,
+          "end": 22.804
+        },
+        {
+          "word": "outer",
+          "start": 22.804,
+          "end": 23.098
+        },
+        {
+          "word": "one",
+          "start": 23.098,
+          "end": 23.302
+        },
+        {
+          "word": "takes",
+          "start": 23.302,
+          "end": 23.595
+        },
+        {
+          "word": "all",
+          "start": 23.595,
+          "end": 23.799
+        },
+        {
+          "word": "the",
+          "start": 23.799,
+          "end": 24.002
+        },
+        {
+          "word": "load.",
+          "start": 24.002,
+          "end": 24.251
+        }
+      ]
+    },
+    {
+      "text": "The middle one is a backup. And this tiny hole keeps it that way.",
+      "speed": 1.2,
+      "shot": "panesHole",
+      "event": "hole",
+      "highlight": [
+        "backup",
+        "tiny",
+        "hole"
+      ],
+      "label": "BLEED HOLE",
+      "labelWord": "tiny",
+      "labelAt": "bleed",
+      "index": 5,
+      "start": 24.424,
+      "end": 27.712,
+      "words": [
+        {
+          "word": "The",
+          "start": 24.424,
+          "end": 24.619
+        },
+        {
+          "word": "middle",
+          "start": 24.619,
+          "end": 24.943
+        },
+        {
+          "word": "one",
+          "start": 24.943,
+          "end": 25.138
+        },
+        {
+          "word": "is",
+          "start": 25.138,
+          "end": 25.289
+        },
+        {
+          "word": "a",
+          "start": 25.289,
+          "end": 25.397
+        },
+        {
+          "word": "backup.",
+          "start": 25.397,
+          "end": 25.722
+        },
+        {
+          "word": "And",
+          "start": 25.83,
+          "end": 26.025
+        },
+        {
+          "word": "this",
+          "start": 26.025,
+          "end": 26.263
+        },
+        {
+          "word": "tiny",
+          "start": 26.263,
+          "end": 26.501
+        },
+        {
+          "word": "hole",
+          "start": 26.501,
+          "end": 26.739
+        },
+        {
+          "word": "keeps",
+          "start": 26.739,
+          "end": 27.02
+        },
+        {
+          "word": "it",
+          "start": 27.02,
+          "end": 27.171
+        },
+        {
+          "word": "that",
+          "start": 27.171,
+          "end": 27.409
+        },
+        {
+          "word": "way.",
+          "start": 27.409,
+          "end": 27.604
+        }
+      ]
+    },
+    {
+      "text": "But what if two layers break?",
+      "speed": 1.2,
+      "shot": "windowFront",
+      "event": "rehook",
+      "highlight": [
+        "two"
+      ],
+      "index": 6,
+      "start": 27.772,
+      "end": 29.284,
+      "words": [
+        {
+          "word": "But",
+          "start": 27.772,
+          "end": 27.969
+        },
+        {
+          "word": "what",
+          "start": 27.969,
+          "end": 28.21
+        },
+        {
+          "word": "if",
+          "start": 28.21,
+          "end": 28.364
+        },
+        {
+          "word": "two",
+          "start": 28.364,
+          "end": 28.561
+        },
+        {
+          "word": "layers",
+          "start": 28.561,
+          "end": 28.889
+        },
+        {
+          "word": "break?",
+          "start": 28.889,
+          "end": 29.174
+        }
+      ]
+    },
+    {
+      "text": "In under a second, the air rushes out. The cabin fills with fog, and anything loose flies toward the hole.",
+      "speed": 1.2,
+      "shot": "cabinDecomp",
+      "event": "decomp",
+      "highlight": [
+        "fog",
+        "flies"
+      ],
+      "index": 7,
+      "start": 29.344,
+      "end": 34.815,
+      "words": [
+        {
+          "word": "In",
+          "start": 29.344,
+          "end": 29.499
+        },
+        {
+          "word": "under",
+          "start": 29.499,
+          "end": 29.788
+        },
+        {
+          "word": "a",
+          "start": 29.788,
+          "end": 29.9
+        },
+        {
+          "word": "second,",
+          "start": 29.9,
+          "end": 30.233
+        },
+        {
+          "word": "the",
+          "start": 30.344,
+          "end": 30.545
+        },
+        {
+          "word": "air",
+          "start": 30.545,
+          "end": 30.745
+        },
+        {
+          "word": "rushes",
+          "start": 30.745,
+          "end": 31.078
+        },
+        {
+          "word": "out.",
+          "start": 31.078,
+          "end": 31.279
+        },
+        {
+          "word": "The",
+          "start": 31.39,
+          "end": 31.59
+        },
+        {
+          "word": "cabin",
+          "start": 31.59,
+          "end": 31.879
+        },
+        {
+          "word": "fills",
+          "start": 31.879,
+          "end": 32.168
+        },
+        {
+          "word": "with",
+          "start": 32.168,
+          "end": 32.413
+        },
+        {
+          "word": "fog,",
+          "start": 32.413,
+          "end": 32.613
+        },
+        {
+          "word": "and",
+          "start": 32.724,
+          "end": 32.924
+        },
+        {
+          "word": "anything",
+          "start": 32.924,
+          "end": 33.347
+        },
+        {
+          "word": "loose",
+          "start": 33.347,
+          "end": 33.636
+        },
+        {
+          "word": "flies",
+          "start": 33.636,
+          "end": 33.925
+        },
+        {
+          "word": "toward",
+          "start": 33.925,
+          "end": 34.259
+        },
+        {
+          "word": "the",
+          "start": 34.259,
+          "end": 34.459
+        },
+        {
+          "word": "hole.",
+          "start": 34.459,
+          "end": 34.704
+        }
+      ]
+    },
+    {
+      "text": "You've been watching this for about half a minute. Up here, without oxygen, you could already be too confused to save yourself.",
+      "speed": 1.2,
+      "shot": "cabinDecomp",
+      "event": "clock",
+      "highlight": [
+        "half",
+        "confused"
+      ],
+      "index": 8,
+      "start": 34.875,
+      "end": 40.932,
+      "words": [
+        {
+          "word": "You've",
+          "start": 34.875,
+          "end": 35.188
+        },
+        {
+          "word": "been",
+          "start": 35.188,
+          "end": 35.418
+        },
+        {
+          "word": "watching",
+          "start": 35.418,
+          "end": 35.815
+        },
+        {
+          "word": "this",
+          "start": 35.815,
+          "end": 36.044
+        },
+        {
+          "word": "for",
+          "start": 36.044,
+          "end": 36.232
+        },
+        {
+          "word": "about",
+          "start": 36.232,
+          "end": 36.504
+        },
+        {
+          "word": "half",
+          "start": 36.504,
+          "end": 36.734
+        },
+        {
+          "word": "a",
+          "start": 36.734,
+          "end": 36.838
+        },
+        {
+          "word": "minute.",
+          "start": 36.838,
+          "end": 37.151
+        },
+        {
+          "word": "Up",
+          "start": 37.256,
+          "end": 37.402
+        },
+        {
+          "word": "here,",
+          "start": 37.402,
+          "end": 37.632
+        },
+        {
+          "word": "without",
+          "start": 37.736,
+          "end": 38.091
+        },
+        {
+          "word": "oxygen,",
+          "start": 38.091,
+          "end": 38.405
+        },
+        {
+          "word": "you",
+          "start": 38.509,
+          "end": 38.697
+        },
+        {
+          "word": "could",
+          "start": 38.697,
+          "end": 38.968
+        },
+        {
+          "word": "already",
+          "start": 38.968,
+          "end": 39.323
+        },
+        {
+          "word": "be",
+          "start": 39.323,
+          "end": 39.47
+        },
+        {
+          "word": "too",
+          "start": 39.47,
+          "end": 39.658
+        },
+        {
+          "word": "confused",
+          "start": 39.658,
+          "end": 40.054
+        },
+        {
+          "word": "to",
+          "start": 40.054,
+          "end": 40.201
+        },
+        {
+          "word": "save",
+          "start": 40.201,
+          "end": 40.43
+        },
+        {
+          "word": "yourself.",
+          "start": 40.43,
+          "end": 40.827
+        }
+      ]
+    },
+    {
+      "text": "That's why the masks drop by themselves. And why you put yours on first.",
+      "speed": 1.2,
+      "shot": "cabinMasks",
+      "event": "masks",
+      "highlight": [
+        "masks",
+        "first"
+      ],
+      "index": 9,
+      "start": 40.992,
+      "end": 44.674,
+      "words": [
+        {
+          "word": "That's",
+          "start": 40.992,
+          "end": 41.324
+        },
+        {
+          "word": "why",
+          "start": 41.324,
+          "end": 41.524
+        },
+        {
+          "word": "the",
+          "start": 41.524,
+          "end": 41.724
+        },
+        {
+          "word": "masks",
+          "start": 41.724,
+          "end": 42.012
+        },
+        {
+          "word": "drop",
+          "start": 42.012,
+          "end": 42.256
+        },
+        {
+          "word": "by",
+          "start": 42.256,
+          "end": 42.412
+        },
+        {
+          "word": "themselves.",
+          "start": 42.412,
+          "end": 42.922
+        },
+        {
+          "word": "And",
+          "start": 43.033,
+          "end": 43.232
+        },
+        {
+          "word": "why",
+          "start": 43.232,
+          "end": 43.432
+        },
+        {
+          "word": "you",
+          "start": 43.432,
+          "end": 43.632
+        },
+        {
+          "word": "put",
+          "start": 43.632,
+          "end": 43.831
+        },
+        {
+          "word": "yours",
+          "start": 43.831,
+          "end": 44.12
+        },
+        {
+          "word": "on",
+          "start": 44.12,
+          "end": 44.275
+        },
+        {
+          "word": "first.",
+          "start": 44.275,
+          "end": 44.563
+        }
+      ]
+    },
+    {
+      "text": "Then the pilots dive to 10,000 feet, where you can breathe again. Planes are built for this, and pilots train for it.",
+      "speed": 1.2,
+      "shot": "descent",
+      "event": "descent",
+      "highlight": [
+        "10000",
+        "train"
+      ],
+      "index": 10,
+      "start": 44.734,
+      "end": 51.003,
+      "words": [
+        {
+          "word": "Then",
+          "start": 44.734,
+          "end": 44.992
+        },
+        {
+          "word": "the",
+          "start": 44.992,
+          "end": 45.202
+        },
+        {
+          "word": "pilots",
+          "start": 45.202,
+          "end": 45.553
+        },
+        {
+          "word": "dive",
+          "start": 45.553,
+          "end": 45.81
+        },
+        {
+          "word": "to",
+          "start": 45.81,
+          "end": 45.974
+        },
+        {
+          "word": "10,000",
+          "start": 45.974,
+          "end": 46.278
+        },
+        {
+          "word": "feet,",
+          "start": 46.278,
+          "end": 46.535
+        },
+        {
+          "word": "where",
+          "start": 46.652,
+          "end": 46.956
+        },
+        {
+          "word": "you",
+          "start": 46.956,
+          "end": 47.167
+        },
+        {
+          "word": "can",
+          "start": 47.167,
+          "end": 47.377
+        },
+        {
+          "word": "breathe",
+          "start": 47.377,
+          "end": 47.775
+        },
+        {
+          "word": "again.",
+          "start": 47.775,
+          "end": 48.079
+        },
+        {
+          "word": "Planes",
+          "start": 48.196,
+          "end": 48.547
+        },
+        {
+          "word": "are",
+          "start": 48.547,
+          "end": 48.757
+        },
+        {
+          "word": "built",
+          "start": 48.757,
+          "end": 49.062
+        },
+        {
+          "word": "for",
+          "start": 49.062,
+          "end": 49.272
+        },
+        {
+          "word": "this,",
+          "start": 49.272,
+          "end": 49.529
+        },
+        {
+          "word": "and",
+          "start": 49.646,
+          "end": 49.857
+        },
+        {
+          "word": "pilots",
+          "start": 49.857,
+          "end": 50.208
+        },
+        {
+          "word": "train",
+          "start": 50.208,
+          "end": 50.512
+        },
+        {
+          "word": "for",
+          "start": 50.512,
+          "end": 50.722
+        },
+        {
+          "word": "it.",
+          "start": 50.722,
+          "end": 50.886
+        }
+      ]
+    },
+    {
+      "text": "And this really happened. In 1990, a cockpit window blew out at 17,000 feet.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "story",
+      "highlight": [
+        "1990"
+      ],
+      "index": 11,
+      "start": 51.063,
+      "end": 56.749,
+      "words": [
+        {
+          "word": "And",
+          "start": 51.063,
+          "end": 51.355
+        },
+        {
+          "word": "this",
+          "start": 51.355,
+          "end": 51.713
+        },
+        {
+          "word": "really",
+          "start": 51.713,
+          "end": 52.2
+        },
+        {
+          "word": "happened.",
+          "start": 52.2,
+          "end": 52.817
+        },
+        {
+          "word": "In",
+          "start": 52.98,
+          "end": 53.207
+        },
+        {
+          "word": "1990,",
+          "start": 53.207,
+          "end": 53.565
+        },
+        {
+          "word": "a",
+          "start": 53.727,
+          "end": 53.89
+        },
+        {
+          "word": "cockpit",
+          "start": 53.89,
+          "end": 54.442
+        },
+        {
+          "word": "window",
+          "start": 54.442,
+          "end": 54.929
+        },
+        {
+          "word": "blew",
+          "start": 54.929,
+          "end": 55.287
+        },
+        {
+          "word": "out",
+          "start": 55.287,
+          "end": 55.579
+        },
+        {
+          "word": "at",
+          "start": 55.579,
+          "end": 55.806
+        },
+        {
+          "word": "17,000",
+          "start": 55.806,
+          "end": 56.229
+        },
+        {
+          "word": "feet.",
+          "start": 56.229,
+          "end": 56.586
+        }
+      ]
+    },
+    {
+      "text": "The captain was pulled halfway out of the plane.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "captain",
+      "highlight": [
+        "halfway"
+      ],
+      "index": 12,
+      "start": 56.809,
+      "end": 58.987,
+      "words": [
+        {
+          "word": "The",
+          "start": 56.809,
+          "end": 56.987
+        },
+        {
+          "word": "captain",
+          "start": 56.987,
+          "end": 57.324
+        },
+        {
+          "word": "was",
+          "start": 57.324,
+          "end": 57.502
+        },
+        {
+          "word": "pulled",
+          "start": 57.502,
+          "end": 57.799
+        },
+        {
+          "word": "halfway",
+          "start": 57.799,
+          "end": 58.136
+        },
+        {
+          "word": "out",
+          "start": 58.136,
+          "end": 58.314
+        },
+        {
+          "word": "of",
+          "start": 58.314,
+          "end": 58.452
+        },
+        {
+          "word": "the",
+          "start": 58.452,
+          "end": 58.631
+        },
+        {
+          "word": "plane.",
+          "start": 58.631,
+          "end": 58.888
+        }
+      ]
+    },
+    {
+      "text": "The crew held on to his legs for 20 minutes, until the co-pilot landed. Everyone survived. Even the captain.",
+      "speed": 1.2,
+      "shot": "story",
+      "event": "survived",
+      "highlight": [
+        "20",
+        "survived"
+      ],
+      "index": 13,
+      "start": 59.047,
+      "end": 65.127,
+      "words": [
+        {
+          "word": "The",
+          "start": 59.047,
+          "end": 59.269
+        },
+        {
+          "word": "crew",
+          "start": 59.269,
+          "end": 59.539
+        },
+        {
+          "word": "held",
+          "start": 59.539,
+          "end": 59.81
+        },
+        {
+          "word": "on",
+          "start": 59.81,
+          "end": 59.982
+        },
+        {
+          "word": "to",
+          "start": 59.982,
+          "end": 60.155
+        },
+        {
+          "word": "his",
+          "start": 60.155,
+          "end": 60.376
+        },
+        {
+          "word": "legs",
+          "start": 60.376,
+          "end": 60.647
+        },
+        {
+          "word": "for",
+          "start": 60.647,
+          "end": 60.869
+        },
+        {
+          "word": "20",
+          "start": 60.869,
+          "end": 61.041
+        },
+        {
+          "word": "minutes,",
+          "start": 61.041,
+          "end": 61.459
+        },
+        {
+          "word": "until",
+          "start": 61.582,
+          "end": 61.902
+        },
+        {
+          "word": "the",
+          "start": 61.902,
+          "end": 62.124
+        },
+        {
+          "word": "co-pilot",
+          "start": 62.124,
+          "end": 62.542
+        },
+        {
+          "word": "landed.",
+          "start": 62.542,
+          "end": 62.911
+        },
+        {
+          "word": "Everyone",
+          "start": 63.034,
+          "end": 63.502
+        },
+        {
+          "word": "survived.",
+          "start": 63.502,
+          "end": 63.97
+        },
+        {
+          "word": "Even",
+          "start": 64.093,
+          "end": 64.364
+        },
+        {
+          "word": "the",
+          "start": 64.364,
+          "end": 64.585
+        },
+        {
+          "word": "captain.",
+          "start": 64.585,
+          "end": 65.003
+        }
+      ]
+    },
+    {
+      "text": "So... window seat or aisle? Save this for your next flight, and follow Hoot for more.",
+      "speed": 1.2,
+      "shot": "cta",
+      "event": "final",
+      "highlight": [
+        "window",
+        "aisle"
+      ],
+      "index": 14,
+      "start": 65.187,
+      "end": 69.583,
+      "words": [
+        {
+          "word": "So...",
+          "start": 65.187,
+          "end": 65.344
+        },
+        {
+          "word": "window",
+          "start": 65.456,
+          "end": 65.792
+        },
+        {
+          "word": "seat",
+          "start": 65.792,
+          "end": 66.039
+        },
+        {
+          "word": "or",
+          "start": 66.039,
+          "end": 66.196
+        },
+        {
+          "word": "aisle?",
+          "start": 66.196,
+          "end": 66.488
+        },
+        {
+          "word": "Save",
+          "start": 66.6,
+          "end": 66.846
+        },
+        {
+          "word": "this",
+          "start": 66.846,
+          "end": 67.093
+        },
+        {
+          "word": "for",
+          "start": 67.093,
+          "end": 67.295
+        },
+        {
+          "word": "your",
+          "start": 67.295,
+          "end": 67.542
+        },
+        {
+          "word": "next",
+          "start": 67.542,
+          "end": 67.789
+        },
+        {
+          "word": "flight,",
+          "start": 67.789,
+          "end": 68.125
+        },
+        {
+          "word": "and",
+          "start": 68.237,
+          "end": 68.439
+        },
+        {
+          "word": "follow",
+          "start": 68.439,
+          "end": 68.776
+        },
+        {
+          "word": "Hoot",
+          "start": 68.776,
+          "end": 69.022
+        },
+        {
+          "word": "for",
+          "start": 69.022,
+          "end": 69.224
+        },
+        {
+          "word": "more.",
+          "start": 69.224,
+          "end": 69.471
+        }
+      ]
+    }
+  ]
+}

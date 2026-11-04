@@ -1,0 +1,1615 @@
+{
+  "id": "learjet",
+  "title": "The jet that fell 26,000 feet in one minute",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.08,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "scene": "learjet",
+  "music": "music/tense.wav",
+  "hook": {
+    "line1": "WHAT HAPPENED",
+    "line2": "TO THIS JET?",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "THE UPDATE"
+  },
+  "duration": 90.691,
+  "beats": [
+    {
+      "text": "Thirty-five thousand feet. Then, in about one minute, this jet fell almost the height of Mount Everest.",
+      "speed": 1.15,
+      "shot": "dive",
+      "event": "hook",
+      "highlight": [
+        "one",
+        "minute",
+        "everest"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 5.654,
+      "words": [
+        {
+          "word": "Thirty-five",
+          "start": 0.05,
+          "end": 0.598
+        },
+        {
+          "word": "thousand",
+          "start": 0.598,
+          "end": 1.051
+        },
+        {
+          "word": "feet.",
+          "start": 1.051,
+          "end": 1.314
+        },
+        {
+          "word": "Then,",
+          "start": 1.433,
+          "end": 1.695
+        },
+        {
+          "word": "in",
+          "start": 1.815,
+          "end": 1.981
+        },
+        {
+          "word": "about",
+          "start": 1.981,
+          "end": 2.291
+        },
+        {
+          "word": "one",
+          "start": 2.291,
+          "end": 2.506
+        },
+        {
+          "word": "minute,",
+          "start": 2.506,
+          "end": 2.864
+        },
+        {
+          "word": "this",
+          "start": 2.983,
+          "end": 3.245
+        },
+        {
+          "word": "jet",
+          "start": 3.245,
+          "end": 3.46
+        },
+        {
+          "word": "fell",
+          "start": 3.46,
+          "end": 3.722
+        },
+        {
+          "word": "almost",
+          "start": 3.722,
+          "end": 4.08
+        },
+        {
+          "word": "the",
+          "start": 4.08,
+          "end": 4.294
+        },
+        {
+          "word": "height",
+          "start": 4.294,
+          "end": 4.652
+        },
+        {
+          "word": "of",
+          "start": 4.652,
+          "end": 4.819
+        },
+        {
+          "word": "Mount",
+          "start": 4.819,
+          "end": 5.129
+        },
+        {
+          "word": "Everest.",
+          "start": 5.129,
+          "end": 5.534
+        }
+      ]
+    },
+    {
+      "text": "Nine people were on board. Here's what we know.",
+      "speed": 1.15,
+      "shot": "dive",
+      "event": "onboard",
+      "highlight": [
+        "nine"
+      ],
+      "index": 1,
+      "start": 5.734,
+      "end": 8.206,
+      "words": [
+        {
+          "word": "Nine",
+          "start": 5.734,
+          "end": 5.979
+        },
+        {
+          "word": "people",
+          "start": 5.979,
+          "end": 6.313
+        },
+        {
+          "word": "were",
+          "start": 6.313,
+          "end": 6.558
+        },
+        {
+          "word": "on",
+          "start": 6.558,
+          "end": 6.714
+        },
+        {
+          "word": "board.",
+          "start": 6.714,
+          "end": 7.003
+        },
+        {
+          "word": "Here's",
+          "start": 7.115,
+          "end": 7.449
+        },
+        {
+          "word": "what",
+          "start": 7.449,
+          "end": 7.694
+        },
+        {
+          "word": "we",
+          "start": 7.694,
+          "end": 7.85
+        },
+        {
+          "word": "know.",
+          "start": 7.85,
+          "end": 8.095
+        }
+      ]
+    },
+    {
+      "text": "Sunday, November 1st. A 22-year-old Learjet 60 takes off from Austin, Texas, heading for the Bahamas.",
+      "speed": 1.15,
+      "shot": "map",
+      "event": "route",
+      "highlight": [
+        "austin",
+        "bahamas"
+      ],
+      "index": 2,
+      "start": 8.286,
+      "end": 15.3,
+      "words": [
+        {
+          "word": "Sunday,",
+          "start": 8.286,
+          "end": 8.742
+        },
+        {
+          "word": "November",
+          "start": 8.893,
+          "end": 9.47
+        },
+        {
+          "word": "1st.",
+          "start": 9.47,
+          "end": 9.744
+        },
+        {
+          "word": "A",
+          "start": 9.895,
+          "end": 10.047
+        },
+        {
+          "word": "22-year-old",
+          "start": 10.047,
+          "end": 10.685
+        },
+        {
+          "word": "Learjet",
+          "start": 10.685,
+          "end": 11.201
+        },
+        {
+          "word": "60",
+          "start": 11.201,
+          "end": 11.414
+        },
+        {
+          "word": "takes",
+          "start": 11.414,
+          "end": 11.808
+        },
+        {
+          "word": "off",
+          "start": 11.808,
+          "end": 12.082
+        },
+        {
+          "word": "from",
+          "start": 12.082,
+          "end": 12.415
+        },
+        {
+          "word": "Austin,",
+          "start": 12.415,
+          "end": 12.871
+        },
+        {
+          "word": "Texas,",
+          "start": 13.023,
+          "end": 13.417
+        },
+        {
+          "word": "heading",
+          "start": 13.569,
+          "end": 14.085
+        },
+        {
+          "word": "for",
+          "start": 14.085,
+          "end": 14.359
+        },
+        {
+          "word": "the",
+          "start": 14.359,
+          "end": 14.632
+        },
+        {
+          "word": "Bahamas.",
+          "start": 14.632,
+          "end": 15.148
+        }
+      ]
+    },
+    {
+      "text": "It climbs to 35,000 feet, above the clouds, over Florida.",
+      "speed": 1.15,
+      "shot": "cruise",
+      "event": "cruise",
+      "highlight": [
+        "35000"
+      ],
+      "index": 3,
+      "start": 15.38,
+      "end": 19.575,
+      "words": [
+        {
+          "word": "It",
+          "start": 15.38,
+          "end": 15.601
+        },
+        {
+          "word": "climbs",
+          "start": 15.601,
+          "end": 16.074
+        },
+        {
+          "word": "to",
+          "start": 16.074,
+          "end": 16.295
+        },
+        {
+          "word": "35,000",
+          "start": 16.295,
+          "end": 16.705
+        },
+        {
+          "word": "feet,",
+          "start": 16.705,
+          "end": 17.052
+        },
+        {
+          "word": "above",
+          "start": 17.209,
+          "end": 17.619
+        },
+        {
+          "word": "the",
+          "start": 17.619,
+          "end": 17.903
+        },
+        {
+          "word": "clouds,",
+          "start": 17.903,
+          "end": 18.376
+        },
+        {
+          "word": "over",
+          "start": 18.534,
+          "end": 18.881
+        },
+        {
+          "word": "Florida.",
+          "start": 18.881,
+          "end": 19.417
+        }
+      ]
+    },
+    {
+      "text": "But around it, scattered storms are building.",
+      "speed": 1.15,
+      "shot": "storm",
+      "event": "storms",
+      "highlight": [
+        "storms"
+      ],
+      "index": 4,
+      "start": 19.655,
+      "end": 21.944,
+      "words": [
+        {
+          "word": "But",
+          "start": 19.655,
+          "end": 19.851
+        },
+        {
+          "word": "around",
+          "start": 19.851,
+          "end": 20.178
+        },
+        {
+          "word": "it,",
+          "start": 20.178,
+          "end": 20.331
+        },
+        {
+          "word": "scattered",
+          "start": 20.44,
+          "end": 20.897
+        },
+        {
+          "word": "storms",
+          "start": 20.897,
+          "end": 21.224
+        },
+        {
+          "word": "are",
+          "start": 21.224,
+          "end": 21.42
+        },
+        {
+          "word": "building.",
+          "start": 21.42,
+          "end": 21.835
+        }
+      ]
+    },
+    {
+      "text": "The pilot radios Miami. Light, clear ice... manageable. And moderate turbulence.",
+      "speed": 1.15,
+      "shot": "wingIce",
+      "event": "ice",
+      "highlight": [
+        "clear",
+        "ice"
+      ],
+      "label": "CLEAR ICE",
+      "labelWord": "clear",
+      "labelAt": "wingEdge",
+      "index": 5,
+      "start": 22.024,
+      "end": 27.125,
+      "words": [
+        {
+          "word": "The",
+          "start": 22.024,
+          "end": 22.273
+        },
+        {
+          "word": "pilot",
+          "start": 22.273,
+          "end": 22.634
+        },
+        {
+          "word": "radios",
+          "start": 22.634,
+          "end": 23.049
+        },
+        {
+          "word": "Miami.",
+          "start": 23.049,
+          "end": 23.41
+        },
+        {
+          "word": "Light,",
+          "start": 23.548,
+          "end": 23.909
+        },
+        {
+          "word": "clear",
+          "start": 24.047,
+          "end": 24.408
+        },
+        {
+          "word": "ice...",
+          "start": 24.408,
+          "end": 24.657
+        },
+        {
+          "word": "manageable.",
+          "start": 24.796,
+          "end": 25.434
+        },
+        {
+          "word": "And",
+          "start": 25.572,
+          "end": 25.822
+        },
+        {
+          "word": "moderate",
+          "start": 25.822,
+          "end": 26.349
+        },
+        {
+          "word": "turbulence.",
+          "start": 26.349,
+          "end": 26.986
+        }
+      ]
+    },
+    {
+      "text": "Clear ice is smooth and see-through. It's hard to spot, and it changes the shape of the wing.",
+      "speed": 1.15,
+      "shot": "section",
+      "event": "section",
+      "highlight": [
+        "shape"
+      ],
+      "index": 6,
+      "start": 27.205,
+      "end": 32.324,
+      "words": [
+        {
+          "word": "Clear",
+          "start": 27.205,
+          "end": 27.517
+        },
+        {
+          "word": "ice",
+          "start": 27.517,
+          "end": 27.734
+        },
+        {
+          "word": "is",
+          "start": 27.734,
+          "end": 27.902
+        },
+        {
+          "word": "smooth",
+          "start": 27.902,
+          "end": 28.262
+        },
+        {
+          "word": "and",
+          "start": 28.262,
+          "end": 28.479
+        },
+        {
+          "word": "see-through.",
+          "start": 28.479,
+          "end": 29.031
+        },
+        {
+          "word": "It's",
+          "start": 29.152,
+          "end": 29.416
+        },
+        {
+          "word": "hard",
+          "start": 29.416,
+          "end": 29.68
+        },
+        {
+          "word": "to",
+          "start": 29.68,
+          "end": 29.849
+        },
+        {
+          "word": "spot,",
+          "start": 29.849,
+          "end": 30.113
+        },
+        {
+          "word": "and",
+          "start": 30.233,
+          "end": 30.45
+        },
+        {
+          "word": "it",
+          "start": 30.45,
+          "end": 30.618
+        },
+        {
+          "word": "changes",
+          "start": 30.618,
+          "end": 31.026
+        },
+        {
+          "word": "the",
+          "start": 31.026,
+          "end": 31.243
+        },
+        {
+          "word": "shape",
+          "start": 31.243,
+          "end": 31.555
+        },
+        {
+          "word": "of",
+          "start": 31.555,
+          "end": 31.723
+        },
+        {
+          "word": "the",
+          "start": 31.723,
+          "end": 31.94
+        },
+        {
+          "word": "wing.",
+          "start": 31.94,
+          "end": 32.204
+        }
+      ]
+    },
+    {
+      "text": "The crew asks to climb 2,000 feet higher.",
+      "speed": 1.15,
+      "shot": "climb",
+      "event": "climb",
+      "highlight": [
+        "2000"
+      ],
+      "index": 7,
+      "start": 32.404,
+      "end": 35.059,
+      "words": [
+        {
+          "word": "The",
+          "start": 32.404,
+          "end": 32.661
+        },
+        {
+          "word": "crew",
+          "start": 32.661,
+          "end": 32.975
+        },
+        {
+          "word": "asks",
+          "start": 32.975,
+          "end": 33.289
+        },
+        {
+          "word": "to",
+          "start": 33.289,
+          "end": 33.489
+        },
+        {
+          "word": "climb",
+          "start": 33.489,
+          "end": 33.86
+        },
+        {
+          "word": "2,000",
+          "start": 33.86,
+          "end": 34.174
+        },
+        {
+          "word": "feet",
+          "start": 34.174,
+          "end": 34.488
+        },
+        {
+          "word": "higher.",
+          "start": 34.488,
+          "end": 34.916
+        }
+      ]
+    },
+    {
+      "text": "And then... the radio changes.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "radio",
+      "highlight": [
+        "changes"
+      ],
+      "index": 8,
+      "start": 35.139,
+      "end": 36.928,
+      "words": [
+        {
+          "word": "And",
+          "start": 35.139,
+          "end": 35.372
+        },
+        {
+          "word": "then...",
+          "start": 35.372,
+          "end": 35.657
+        },
+        {
+          "word": "the",
+          "start": 35.787,
+          "end": 36.02
+        },
+        {
+          "word": "radio",
+          "start": 36.02,
+          "end": 36.357
+        },
+        {
+          "word": "changes.",
+          "start": 36.357,
+          "end": 36.798
+        }
+      ]
+    },
+    {
+      "text": "Mayday. Descending 10,000 feet per minute.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "mayday",
+      "highlight": [
+        "mayday",
+        "10000"
+      ],
+      "index": 9,
+      "start": 37.008,
+      "end": 39.567,
+      "words": [
+        {
+          "word": "Mayday.",
+          "start": 37.008,
+          "end": 37.408
+        },
+        {
+          "word": "Descending",
+          "start": 37.541,
+          "end": 38.154
+        },
+        {
+          "word": "10,000",
+          "start": 38.154,
+          "end": 38.501
+        },
+        {
+          "word": "feet",
+          "start": 38.501,
+          "end": 38.794
+        },
+        {
+          "word": "per",
+          "start": 38.794,
+          "end": 39.034
+        },
+        {
+          "word": "minute.",
+          "start": 39.034,
+          "end": 39.434
+        }
+      ]
+    },
+    {
+      "text": "Then... overspeed. 20,000 feet per minute.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "overspeed",
+      "highlight": [
+        "overspeed",
+        "20000"
+      ],
+      "index": 10,
+      "start": 39.647,
+      "end": 42.452,
+      "words": [
+        {
+          "word": "Then...",
+          "start": 39.647,
+          "end": 39.972
+        },
+        {
+          "word": "overspeed.",
+          "start": 40.12,
+          "end": 40.74
+        },
+        {
+          "word": "20,000",
+          "start": 40.887,
+          "end": 41.271
+        },
+        {
+          "word": "feet",
+          "start": 41.271,
+          "end": 41.596
+        },
+        {
+          "word": "per",
+          "start": 41.596,
+          "end": 41.862
+        },
+        {
+          "word": "minute.",
+          "start": 41.862,
+          "end": 42.305
+        }
+      ]
+    },
+    {
+      "text": "Overspeed means faster than the jet's safe limit. The controls get heavy, and the whole frame is under huge stress.",
+      "speed": 1.15,
+      "shot": "stress",
+      "event": "stress",
+      "highlight": [
+        "safe",
+        "limit",
+        "stress"
+      ],
+      "index": 11,
+      "start": 42.532,
+      "end": 48.904,
+      "words": [
+        {
+          "word": "Overspeed",
+          "start": 42.532,
+          "end": 43.045
+        },
+        {
+          "word": "means",
+          "start": 43.045,
+          "end": 43.363
+        },
+        {
+          "word": "faster",
+          "start": 43.363,
+          "end": 43.729
+        },
+        {
+          "word": "than",
+          "start": 43.729,
+          "end": 43.997
+        },
+        {
+          "word": "the",
+          "start": 43.997,
+          "end": 44.217
+        },
+        {
+          "word": "jet's",
+          "start": 44.217,
+          "end": 44.534
+        },
+        {
+          "word": "safe",
+          "start": 44.534,
+          "end": 44.803
+        },
+        {
+          "word": "limit.",
+          "start": 44.803,
+          "end": 45.12
+        },
+        {
+          "word": "The",
+          "start": 45.242,
+          "end": 45.462
+        },
+        {
+          "word": "controls",
+          "start": 45.462,
+          "end": 45.926
+        },
+        {
+          "word": "get",
+          "start": 45.926,
+          "end": 46.146
+        },
+        {
+          "word": "heavy,",
+          "start": 46.146,
+          "end": 46.463
+        },
+        {
+          "word": "and",
+          "start": 46.585,
+          "end": 46.805
+        },
+        {
+          "word": "the",
+          "start": 46.805,
+          "end": 47.025
+        },
+        {
+          "word": "whole",
+          "start": 47.025,
+          "end": 47.342
+        },
+        {
+          "word": "frame",
+          "start": 47.342,
+          "end": 47.659
+        },
+        {
+          "word": "is",
+          "start": 47.659,
+          "end": 47.83
+        },
+        {
+          "word": "under",
+          "start": 47.83,
+          "end": 48.148
+        },
+        {
+          "word": "huge",
+          "start": 48.148,
+          "end": 48.416
+        },
+        {
+          "word": "stress.",
+          "start": 48.416,
+          "end": 48.782
+        }
+      ]
+    },
+    {
+      "text": "In about one minute, it drops 26,500 feet. Almost the height of Mount Everest.",
+      "speed": 1.15,
+      "shot": "everest",
+      "event": "everest",
+      "highlight": [
+        "26500",
+        "everest"
+      ],
+      "index": 12,
+      "start": 48.984,
+      "end": 54.657,
+      "words": [
+        {
+          "word": "In",
+          "start": 48.984,
+          "end": 49.206
+        },
+        {
+          "word": "about",
+          "start": 49.206,
+          "end": 49.618
+        },
+        {
+          "word": "one",
+          "start": 49.618,
+          "end": 49.903
+        },
+        {
+          "word": "minute,",
+          "start": 49.903,
+          "end": 50.379
+        },
+        {
+          "word": "it",
+          "start": 50.537,
+          "end": 50.759
+        },
+        {
+          "word": "drops",
+          "start": 50.759,
+          "end": 51.171
+        },
+        {
+          "word": "26,500",
+          "start": 51.171,
+          "end": 51.583
+        },
+        {
+          "word": "feet.",
+          "start": 51.583,
+          "end": 51.932
+        },
+        {
+          "word": "Almost",
+          "start": 52.09,
+          "end": 52.566
+        },
+        {
+          "word": "the",
+          "start": 52.566,
+          "end": 52.851
+        },
+        {
+          "word": "height",
+          "start": 52.851,
+          "end": 53.326
+        },
+        {
+          "word": "of",
+          "start": 53.326,
+          "end": 53.548
+        },
+        {
+          "word": "Mount",
+          "start": 53.548,
+          "end": 53.96
+        },
+        {
+          "word": "Everest.",
+          "start": 53.96,
+          "end": 54.499
+        }
+      ]
+    },
+    {
+      "text": "That's more than twice as fast as a skydiver falls.",
+      "speed": 1.15,
+      "shot": "everest",
+      "event": "skydiver",
+      "highlight": [
+        "twice"
+      ],
+      "index": 13,
+      "start": 54.737,
+      "end": 57.768,
+      "words": [
+        {
+          "word": "That's",
+          "start": 54.737,
+          "end": 55.126
+        },
+        {
+          "word": "more",
+          "start": 55.126,
+          "end": 55.411
+        },
+        {
+          "word": "than",
+          "start": 55.411,
+          "end": 55.696
+        },
+        {
+          "word": "twice",
+          "start": 55.696,
+          "end": 56.033
+        },
+        {
+          "word": "as",
+          "start": 56.033,
+          "end": 56.214
+        },
+        {
+          "word": "fast",
+          "start": 56.214,
+          "end": 56.499
+        },
+        {
+          "word": "as",
+          "start": 56.499,
+          "end": 56.68
+        },
+        {
+          "word": "a",
+          "start": 56.68,
+          "end": 56.81
+        },
+        {
+          "word": "skydiver",
+          "start": 56.81,
+          "end": 57.302
+        },
+        {
+          "word": "falls.",
+          "start": 57.302,
+          "end": 57.639
+        }
+      ]
+    },
+    {
+      "text": "Just before one in the afternoon, it hits the ground in Palm Beach County, close to homes and a shopping centre.",
+      "speed": 1.15,
+      "shot": "town",
+      "event": "impact",
+      "highlight": [
+        "palm",
+        "beach"
+      ],
+      "index": 14,
+      "start": 57.848,
+      "end": 63.982,
+      "words": [
+        {
+          "word": "Just",
+          "start": 57.848,
+          "end": 58.112
+        },
+        {
+          "word": "before",
+          "start": 58.112,
+          "end": 58.471
+        },
+        {
+          "word": "one",
+          "start": 58.471,
+          "end": 58.687
+        },
+        {
+          "word": "in",
+          "start": 58.687,
+          "end": 58.854
+        },
+        {
+          "word": "the",
+          "start": 58.854,
+          "end": 59.07
+        },
+        {
+          "word": "afternoon,",
+          "start": 59.07,
+          "end": 59.573
+        },
+        {
+          "word": "it",
+          "start": 59.693,
+          "end": 59.861
+        },
+        {
+          "word": "hits",
+          "start": 59.861,
+          "end": 60.124
+        },
+        {
+          "word": "the",
+          "start": 60.124,
+          "end": 60.34
+        },
+        {
+          "word": "ground",
+          "start": 60.34,
+          "end": 60.699
+        },
+        {
+          "word": "in",
+          "start": 60.699,
+          "end": 60.867
+        },
+        {
+          "word": "Palm",
+          "start": 60.867,
+          "end": 61.131
+        },
+        {
+          "word": "Beach",
+          "start": 61.131,
+          "end": 61.442
+        },
+        {
+          "word": "County,",
+          "start": 61.442,
+          "end": 61.801
+        },
+        {
+          "word": "close",
+          "start": 61.921,
+          "end": 62.233
+        },
+        {
+          "word": "to",
+          "start": 62.233,
+          "end": 62.4
+        },
+        {
+          "word": "homes",
+          "start": 62.4,
+          "end": 62.712
+        },
+        {
+          "word": "and",
+          "start": 62.712,
+          "end": 62.927
+        },
+        {
+          "word": "a",
+          "start": 62.927,
+          "end": 63.047
+        },
+        {
+          "word": "shopping",
+          "start": 63.047,
+          "end": 63.502
+        },
+        {
+          "word": "centre.",
+          "start": 63.502,
+          "end": 63.862
+        }
+      ]
+    },
+    {
+      "text": "Florida's governor said it looked like a missile going down. It left a crater by the road.",
+      "speed": 1.15,
+      "shot": "crater",
+      "event": "crater",
+      "highlight": [
+        "missile",
+        "crater"
+      ],
+      "index": 15,
+      "start": 64.062,
+      "end": 68.757,
+      "words": [
+        {
+          "word": "Florida's",
+          "start": 64.062,
+          "end": 64.543
+        },
+        {
+          "word": "governor",
+          "start": 64.543,
+          "end": 64.978
+        },
+        {
+          "word": "said",
+          "start": 64.978,
+          "end": 65.23
+        },
+        {
+          "word": "it",
+          "start": 65.23,
+          "end": 65.39
+        },
+        {
+          "word": "looked",
+          "start": 65.39,
+          "end": 65.734
+        },
+        {
+          "word": "like",
+          "start": 65.734,
+          "end": 65.986
+        },
+        {
+          "word": "a",
+          "start": 65.986,
+          "end": 66.1
+        },
+        {
+          "word": "missile",
+          "start": 66.1,
+          "end": 66.489
+        },
+        {
+          "word": "going",
+          "start": 66.489,
+          "end": 66.787
+        },
+        {
+          "word": "down.",
+          "start": 66.787,
+          "end": 67.039
+        },
+        {
+          "word": "It",
+          "start": 67.154,
+          "end": 67.314
+        },
+        {
+          "word": "left",
+          "start": 67.314,
+          "end": 67.566
+        },
+        {
+          "word": "a",
+          "start": 67.566,
+          "end": 67.68
+        },
+        {
+          "word": "crater",
+          "start": 67.68,
+          "end": 68.024
+        },
+        {
+          "word": "by",
+          "start": 68.024,
+          "end": 68.184
+        },
+        {
+          "word": "the",
+          "start": 68.184,
+          "end": 68.39
+        },
+        {
+          "word": "road.",
+          "start": 68.39,
+          "end": 68.642
+        }
+      ]
+    },
+    {
+      "text": "No one on the ground was reported hurt. But 600 neighbours had to leave their homes.",
+      "speed": 1.15,
+      "shot": "evac",
+      "event": "evac",
+      "highlight": [
+        "600"
+      ],
+      "index": 16,
+      "start": 68.837,
+      "end": 73.907,
+      "words": [
+        {
+          "word": "No",
+          "start": 68.837,
+          "end": 69.022
+        },
+        {
+          "word": "one",
+          "start": 69.022,
+          "end": 69.259
+        },
+        {
+          "word": "on",
+          "start": 69.259,
+          "end": 69.444
+        },
+        {
+          "word": "the",
+          "start": 69.444,
+          "end": 69.682
+        },
+        {
+          "word": "ground",
+          "start": 69.682,
+          "end": 70.078
+        },
+        {
+          "word": "was",
+          "start": 70.078,
+          "end": 70.316
+        },
+        {
+          "word": "reported",
+          "start": 70.316,
+          "end": 70.817
+        },
+        {
+          "word": "hurt.",
+          "start": 70.817,
+          "end": 71.108
+        },
+        {
+          "word": "But",
+          "start": 71.24,
+          "end": 71.478
+        },
+        {
+          "word": "600",
+          "start": 71.478,
+          "end": 71.715
+        },
+        {
+          "word": "neighbours",
+          "start": 71.715,
+          "end": 72.323
+        },
+        {
+          "word": "had",
+          "start": 72.323,
+          "end": 72.56
+        },
+        {
+          "word": "to",
+          "start": 72.56,
+          "end": 72.745
+        },
+        {
+          "word": "leave",
+          "start": 72.745,
+          "end": 73.088
+        },
+        {
+          "word": "their",
+          "start": 73.088,
+          "end": 73.432
+        },
+        {
+          "word": "homes.",
+          "start": 73.432,
+          "end": 73.775
+        }
+      ]
+    },
+    {
+      "text": "So what made this jet fall like a stone? Investigators don't know yet.",
+      "speed": 1.15,
+      "shot": "frozen",
+      "event": "question",
+      "highlight": [
+        "don't",
+        "know"
+      ],
+      "index": 17,
+      "start": 73.987,
+      "end": 77.907,
+      "words": [
+        {
+          "word": "So",
+          "start": 73.987,
+          "end": 74.157
+        },
+        {
+          "word": "what",
+          "start": 74.157,
+          "end": 74.425
+        },
+        {
+          "word": "made",
+          "start": 74.425,
+          "end": 74.693
+        },
+        {
+          "word": "this",
+          "start": 74.693,
+          "end": 74.961
+        },
+        {
+          "word": "jet",
+          "start": 74.961,
+          "end": 75.18
+        },
+        {
+          "word": "fall",
+          "start": 75.18,
+          "end": 75.448
+        },
+        {
+          "word": "like",
+          "start": 75.448,
+          "end": 75.715
+        },
+        {
+          "word": "a",
+          "start": 75.715,
+          "end": 75.837
+        },
+        {
+          "word": "stone?",
+          "start": 75.837,
+          "end": 76.154
+        },
+        {
+          "word": "Investigators",
+          "start": 76.275,
+          "end": 76.981
+        },
+        {
+          "word": "don't",
+          "start": 76.981,
+          "end": 77.298
+        },
+        {
+          "word": "know",
+          "start": 77.298,
+          "end": 77.566
+        },
+        {
+          "word": "yet.",
+          "start": 77.566,
+          "end": 77.785
+        }
+      ]
+    },
+    {
+      "text": "The NTSB will look at the weather, the ice, the radar data, and the wreckage.",
+      "speed": 1.15,
+      "shot": "frozen",
+      "event": "checklist",
+      "index": 18,
+      "start": 77.987,
+      "end": 82.306,
+      "words": [
+        {
+          "word": "The",
+          "start": 77.987,
+          "end": 78.199
+        },
+        {
+          "word": "NTSB",
+          "start": 78.199,
+          "end": 78.459
+        },
+        {
+          "word": "will",
+          "start": 78.459,
+          "end": 78.718
+        },
+        {
+          "word": "look",
+          "start": 78.718,
+          "end": 78.978
+        },
+        {
+          "word": "at",
+          "start": 78.978,
+          "end": 79.143
+        },
+        {
+          "word": "the",
+          "start": 79.143,
+          "end": 79.356
+        },
+        {
+          "word": "weather,",
+          "start": 79.356,
+          "end": 79.757
+        },
+        {
+          "word": "the",
+          "start": 79.875,
+          "end": 80.087
+        },
+        {
+          "word": "ice,",
+          "start": 80.087,
+          "end": 80.3
+        },
+        {
+          "word": "the",
+          "start": 80.418,
+          "end": 80.63
+        },
+        {
+          "word": "radar",
+          "start": 80.63,
+          "end": 80.937
+        },
+        {
+          "word": "data,",
+          "start": 80.937,
+          "end": 81.197
+        },
+        {
+          "word": "and",
+          "start": 81.315,
+          "end": 81.527
+        },
+        {
+          "word": "the",
+          "start": 81.527,
+          "end": 81.74
+        },
+        {
+          "word": "wreckage.",
+          "start": 81.74,
+          "end": 82.188
+        }
+      ]
+    },
+    {
+      "text": "Nine people lost their lives. The cause is still under investigation.",
+      "speed": 1.15,
+      "shot": "dusk",
+      "event": "memorial",
+      "index": 19,
+      "start": 82.386,
+      "end": 86.2,
+      "words": [
+        {
+          "word": "Nine",
+          "start": 82.386,
+          "end": 82.654
+        },
+        {
+          "word": "people",
+          "start": 82.654,
+          "end": 83.018
+        },
+        {
+          "word": "lost",
+          "start": 83.018,
+          "end": 83.285
+        },
+        {
+          "word": "their",
+          "start": 83.285,
+          "end": 83.601
+        },
+        {
+          "word": "lives.",
+          "start": 83.601,
+          "end": 83.917
+        },
+        {
+          "word": "The",
+          "start": 84.038,
+          "end": 84.257
+        },
+        {
+          "word": "cause",
+          "start": 84.257,
+          "end": 84.573
+        },
+        {
+          "word": "is",
+          "start": 84.573,
+          "end": 84.743
+        },
+        {
+          "word": "still",
+          "start": 84.743,
+          "end": 85.059
+        },
+        {
+          "word": "under",
+          "start": 85.059,
+          "end": 85.374
+        },
+        {
+          "word": "investigation.",
+          "start": 85.374,
+          "end": 86.079
+        }
+      ]
+    },
+    {
+      "text": "Follow, and we'll explain what investigators find.",
+      "speed": 1.15,
+      "shot": "dusk",
+      "event": "final",
+      "highlight": [
+        "follow"
+      ],
+      "index": 20,
+      "start": 86.28,
+      "end": 89.091,
+      "words": [
+        {
+          "word": "Follow,",
+          "start": 86.28,
+          "end": 86.647
+        },
+        {
+          "word": "and",
+          "start": 86.769,
+          "end": 86.989
+        },
+        {
+          "word": "we'll",
+          "start": 86.989,
+          "end": 87.307
+        },
+        {
+          "word": "explain",
+          "start": 87.307,
+          "end": 87.722
+        },
+        {
+          "word": "what",
+          "start": 87.722,
+          "end": 87.991
+        },
+        {
+          "word": "investigators",
+          "start": 87.991,
+          "end": 88.7
+        },
+        {
+          "word": "find.",
+          "start": 88.7,
+          "end": 88.969
+        }
+      ]
+    }
+  ]
+}

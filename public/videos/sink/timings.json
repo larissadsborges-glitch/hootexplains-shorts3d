@@ -1,0 +1,1392 @@
+{
+  "id": "sink",
+  "title": "Why every sink has a U-shaped pipe",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@hootexplains",
+  "scene": "sink",
+  "hook": {
+    "line1": "WHY IS THIS PIPE",
+    "line2": "SHAPED LIKE A U?"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "PART 2: WINDOWS"
+  },
+  "duration": 64.245,
+  "beats": [
+    {
+      "text": "Every sink in your house hides this weird U-shaped pipe. Here's why.",
+      "speed": 1.2,
+      "shot": "hook",
+      "event": "hook",
+      "highlight": [
+        "u-shaped"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 3.909,
+      "words": [
+        {
+          "word": "Every",
+          "start": 0.05,
+          "end": 0.376
+        },
+        {
+          "word": "sink",
+          "start": 0.376,
+          "end": 0.651
+        },
+        {
+          "word": "in",
+          "start": 0.651,
+          "end": 0.827
+        },
+        {
+          "word": "your",
+          "start": 0.827,
+          "end": 1.103
+        },
+        {
+          "word": "house",
+          "start": 1.103,
+          "end": 1.428
+        },
+        {
+          "word": "hides",
+          "start": 1.428,
+          "end": 1.754
+        },
+        {
+          "word": "this",
+          "start": 1.754,
+          "end": 2.03
+        },
+        {
+          "word": "weird",
+          "start": 2.03,
+          "end": 2.355
+        },
+        {
+          "word": "U-shaped",
+          "start": 2.355,
+          "end": 2.781
+        },
+        {
+          "word": "pipe.",
+          "start": 2.781,
+          "end": 3.057
+        },
+        {
+          "word": "Here's",
+          "start": 3.182,
+          "end": 3.558
+        },
+        {
+          "word": "why.",
+          "start": 3.558,
+          "end": 3.784
+        }
+      ]
+    },
+    {
+      "text": "Imagine the pipe went straight down to the sewer.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "straight",
+      "highlight": [
+        "straight"
+      ],
+      "index": 1,
+      "start": 3.969,
+      "end": 6.365,
+      "words": [
+        {
+          "word": "Imagine",
+          "start": 3.969,
+          "end": 4.333
+        },
+        {
+          "word": "the",
+          "start": 4.333,
+          "end": 4.525
+        },
+        {
+          "word": "pipe",
+          "start": 4.525,
+          "end": 4.761
+        },
+        {
+          "word": "went",
+          "start": 4.761,
+          "end": 4.996
+        },
+        {
+          "word": "straight",
+          "start": 4.996,
+          "end": 5.402
+        },
+        {
+          "word": "down",
+          "start": 5.402,
+          "end": 5.638
+        },
+        {
+          "word": "to",
+          "start": 5.638,
+          "end": 5.787
+        },
+        {
+          "word": "the",
+          "start": 5.787,
+          "end": 5.98
+        },
+        {
+          "word": "sewer.",
+          "start": 5.98,
+          "end": 6.258
+        }
+      ]
+    },
+    {
+      "text": "Water drains fine. But the sewer is full of gas.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "sewerGas",
+      "highlight": [
+        "gas"
+      ],
+      "index": 2,
+      "start": 6.425,
+      "end": 9.281,
+      "words": [
+        {
+          "word": "Water",
+          "start": 6.425,
+          "end": 6.751
+        },
+        {
+          "word": "drains",
+          "start": 6.751,
+          "end": 7.126
+        },
+        {
+          "word": "fine.",
+          "start": 7.126,
+          "end": 7.402
+        },
+        {
+          "word": "But",
+          "start": 7.527,
+          "end": 7.753
+        },
+        {
+          "word": "the",
+          "start": 7.753,
+          "end": 7.978
+        },
+        {
+          "word": "sewer",
+          "start": 7.978,
+          "end": 8.304
+        },
+        {
+          "word": "is",
+          "start": 8.304,
+          "end": 8.479
+        },
+        {
+          "word": "full",
+          "start": 8.479,
+          "end": 8.755
+        },
+        {
+          "word": "of",
+          "start": 8.755,
+          "end": 8.93
+        },
+        {
+          "word": "gas.",
+          "start": 8.93,
+          "end": 9.156
+        }
+      ]
+    },
+    {
+      "text": "And with nothing in the way, it comes straight up into your bathroom.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "stink",
+      "highlight": [
+        "bathroom"
+      ],
+      "index": 3,
+      "start": 9.341,
+      "end": 12.4,
+      "words": [
+        {
+          "word": "And",
+          "start": 9.341,
+          "end": 9.514
+        },
+        {
+          "word": "with",
+          "start": 9.514,
+          "end": 9.726
+        },
+        {
+          "word": "nothing",
+          "start": 9.726,
+          "end": 10.053
+        },
+        {
+          "word": "in",
+          "start": 10.053,
+          "end": 10.188
+        },
+        {
+          "word": "the",
+          "start": 10.188,
+          "end": 10.361
+        },
+        {
+          "word": "way,",
+          "start": 10.361,
+          "end": 10.534
+        },
+        {
+          "word": "it",
+          "start": 10.63,
+          "end": 10.765
+        },
+        {
+          "word": "comes",
+          "start": 10.765,
+          "end": 11.015
+        },
+        {
+          "word": "straight",
+          "start": 11.015,
+          "end": 11.38
+        },
+        {
+          "word": "up",
+          "start": 11.38,
+          "end": 11.515
+        },
+        {
+          "word": "into",
+          "start": 11.515,
+          "end": 11.727
+        },
+        {
+          "word": "your",
+          "start": 11.727,
+          "end": 11.938
+        },
+        {
+          "word": "bathroom.",
+          "start": 11.938,
+          "end": 12.304
+        }
+      ]
+    },
+    {
+      "text": "So we bend the pipe into a U.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "bend",
+      "highlight": [
+        "u"
+      ],
+      "index": 4,
+      "start": 12.46,
+      "end": 14.205,
+      "words": [
+        {
+          "word": "So",
+          "start": 12.46,
+          "end": 12.632
+        },
+        {
+          "word": "we",
+          "start": 12.632,
+          "end": 12.804
+        },
+        {
+          "word": "bend",
+          "start": 12.804,
+          "end": 13.074
+        },
+        {
+          "word": "the",
+          "start": 13.074,
+          "end": 13.295
+        },
+        {
+          "word": "pipe",
+          "start": 13.295,
+          "end": 13.566
+        },
+        {
+          "word": "into",
+          "start": 13.566,
+          "end": 13.836
+        },
+        {
+          "word": "a",
+          "start": 13.836,
+          "end": 13.959
+        },
+        {
+          "word": "U.",
+          "start": 13.959,
+          "end": 14.082
+        }
+      ]
+    },
+    {
+      "text": "After every wash, a little water stays trapped in the bend. About five to ten centimetres.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "seal",
+      "highlight": [
+        "trapped"
+      ],
+      "label": "WATER SEAL",
+      "labelWord": "water",
+      "labelAt": "seal",
+      "index": 5,
+      "start": 14.265,
+      "end": 19.299,
+      "words": [
+        {
+          "word": "After",
+          "start": 14.265,
+          "end": 14.581
+        },
+        {
+          "word": "every",
+          "start": 14.581,
+          "end": 14.897
+        },
+        {
+          "word": "wash,",
+          "start": 14.897,
+          "end": 15.164
+        },
+        {
+          "word": "a",
+          "start": 15.286,
+          "end": 15.408
+        },
+        {
+          "word": "little",
+          "start": 15.408,
+          "end": 15.772
+        },
+        {
+          "word": "water",
+          "start": 15.772,
+          "end": 16.088
+        },
+        {
+          "word": "stays",
+          "start": 16.088,
+          "end": 16.405
+        },
+        {
+          "word": "trapped",
+          "start": 16.405,
+          "end": 16.818
+        },
+        {
+          "word": "in",
+          "start": 16.818,
+          "end": 16.988
+        },
+        {
+          "word": "the",
+          "start": 16.988,
+          "end": 17.207
+        },
+        {
+          "word": "bend.",
+          "start": 17.207,
+          "end": 17.475
+        },
+        {
+          "word": "About",
+          "start": 17.596,
+          "end": 17.912
+        },
+        {
+          "word": "five",
+          "start": 17.912,
+          "end": 18.18
+        },
+        {
+          "word": "to",
+          "start": 18.18,
+          "end": 18.35
+        },
+        {
+          "word": "ten",
+          "start": 18.35,
+          "end": 18.569
+        },
+        {
+          "word": "centimetres.",
+          "start": 18.569,
+          "end": 19.177
+        }
+      ]
+    },
+    {
+      "text": "That water is a plug. Gas can't get through, but your sink still drains.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "plug",
+      "highlight": [
+        "plug"
+      ],
+      "index": 6,
+      "start": 19.359,
+      "end": 23.149,
+      "words": [
+        {
+          "word": "That",
+          "start": 19.359,
+          "end": 19.605
+        },
+        {
+          "word": "water",
+          "start": 19.605,
+          "end": 19.897
+        },
+        {
+          "word": "is",
+          "start": 19.897,
+          "end": 20.054
+        },
+        {
+          "word": "a",
+          "start": 20.054,
+          "end": 20.166
+        },
+        {
+          "word": "plug.",
+          "start": 20.166,
+          "end": 20.413
+        },
+        {
+          "word": "Gas",
+          "start": 20.525,
+          "end": 20.727
+        },
+        {
+          "word": "can't",
+          "start": 20.727,
+          "end": 21.018
+        },
+        {
+          "word": "get",
+          "start": 21.018,
+          "end": 21.22
+        },
+        {
+          "word": "through,",
+          "start": 21.22,
+          "end": 21.601
+        },
+        {
+          "word": "but",
+          "start": 21.714,
+          "end": 21.915
+        },
+        {
+          "word": "your",
+          "start": 21.915,
+          "end": 22.162
+        },
+        {
+          "word": "sink",
+          "start": 22.162,
+          "end": 22.409
+        },
+        {
+          "word": "still",
+          "start": 22.409,
+          "end": 22.7
+        },
+        {
+          "word": "drains.",
+          "start": 22.7,
+          "end": 23.037
+        }
+      ]
+    },
+    {
+      "text": "But a big rush of water can suck that plug right out of the U.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "siphon",
+      "highlight": [
+        "suck"
+      ],
+      "index": 7,
+      "start": 23.209,
+      "end": 26.565,
+      "words": [
+        {
+          "word": "But",
+          "start": 23.209,
+          "end": 23.419
+        },
+        {
+          "word": "a",
+          "start": 23.419,
+          "end": 23.535
+        },
+        {
+          "word": "big",
+          "start": 23.535,
+          "end": 23.745
+        },
+        {
+          "word": "rush",
+          "start": 23.745,
+          "end": 24.002
+        },
+        {
+          "word": "of",
+          "start": 24.002,
+          "end": 24.165
+        },
+        {
+          "word": "water",
+          "start": 24.165,
+          "end": 24.468
+        },
+        {
+          "word": "can",
+          "start": 24.468,
+          "end": 24.677
+        },
+        {
+          "word": "suck",
+          "start": 24.677,
+          "end": 24.934
+        },
+        {
+          "word": "that",
+          "start": 24.934,
+          "end": 25.19
+        },
+        {
+          "word": "plug",
+          "start": 25.19,
+          "end": 25.447
+        },
+        {
+          "word": "right",
+          "start": 25.447,
+          "end": 25.75
+        },
+        {
+          "word": "out",
+          "start": 25.75,
+          "end": 25.959
+        },
+        {
+          "word": "of",
+          "start": 25.959,
+          "end": 26.122
+        },
+        {
+          "word": "the",
+          "start": 26.122,
+          "end": 26.332
+        },
+        {
+          "word": "U.",
+          "start": 26.332,
+          "end": 26.449
+        }
+      ]
+    },
+    {
+      "text": "The fix? A pipe that goes all the way up to your roof.",
+      "speed": 1.2,
+      "shot": "house",
+      "event": "vent",
+      "highlight": [
+        "roof"
+      ],
+      "label": "VENT PIPE",
+      "labelWord": "pipe",
+      "labelAt": "vent",
+      "index": 8,
+      "start": 26.625,
+      "end": 29.38,
+      "words": [
+        {
+          "word": "The",
+          "start": 26.625,
+          "end": 26.817
+        },
+        {
+          "word": "fix?",
+          "start": 26.817,
+          "end": 27.01
+        },
+        {
+          "word": "A",
+          "start": 27.116,
+          "end": 27.223
+        },
+        {
+          "word": "pipe",
+          "start": 27.223,
+          "end": 27.458
+        },
+        {
+          "word": "that",
+          "start": 27.458,
+          "end": 27.693
+        },
+        {
+          "word": "goes",
+          "start": 27.693,
+          "end": 27.928
+        },
+        {
+          "word": "all",
+          "start": 27.928,
+          "end": 28.12
+        },
+        {
+          "word": "the",
+          "start": 28.12,
+          "end": 28.312
+        },
+        {
+          "word": "way",
+          "start": 28.312,
+          "end": 28.505
+        },
+        {
+          "word": "up",
+          "start": 28.505,
+          "end": 28.654
+        },
+        {
+          "word": "to",
+          "start": 28.654,
+          "end": 28.803
+        },
+        {
+          "word": "your",
+          "start": 28.803,
+          "end": 29.038
+        },
+        {
+          "word": "roof.",
+          "start": 29.038,
+          "end": 29.273
+        }
+      ]
+    },
+    {
+      "text": "It lets air in behind the water, so the plug stays put.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "air",
+      "highlight": [
+        "air"
+      ],
+      "index": 9,
+      "start": 29.44,
+      "end": 32.374,
+      "words": [
+        {
+          "word": "It",
+          "start": 29.44,
+          "end": 29.598
+        },
+        {
+          "word": "lets",
+          "start": 29.598,
+          "end": 29.846
+        },
+        {
+          "word": "air",
+          "start": 29.846,
+          "end": 30.049
+        },
+        {
+          "word": "in",
+          "start": 30.049,
+          "end": 30.207
+        },
+        {
+          "word": "behind",
+          "start": 30.207,
+          "end": 30.546
+        },
+        {
+          "word": "the",
+          "start": 30.546,
+          "end": 30.749
+        },
+        {
+          "word": "water,",
+          "start": 30.749,
+          "end": 31.043
+        },
+        {
+          "word": "so",
+          "start": 31.155,
+          "end": 31.313
+        },
+        {
+          "word": "the",
+          "start": 31.313,
+          "end": 31.517
+        },
+        {
+          "word": "plug",
+          "start": 31.517,
+          "end": 31.765
+        },
+        {
+          "word": "stays",
+          "start": 31.765,
+          "end": 32.058
+        },
+        {
+          "word": "put.",
+          "start": 32.058,
+          "end": 32.261
+        }
+      ]
+    },
+    {
+      "text": "That's the pipe you see sticking out of roofs. It also lets the sewer gas out, way above your head.",
+      "speed": 1.2,
+      "shot": "roof",
+      "event": "roof",
+      "highlight": [
+        "roofs"
+      ],
+      "index": 10,
+      "start": 32.434,
+      "end": 37.375,
+      "words": [
+        {
+          "word": "That's",
+          "start": 32.434,
+          "end": 32.758
+        },
+        {
+          "word": "the",
+          "start": 32.758,
+          "end": 32.952
+        },
+        {
+          "word": "pipe",
+          "start": 32.952,
+          "end": 33.189
+        },
+        {
+          "word": "you",
+          "start": 33.189,
+          "end": 33.384
+        },
+        {
+          "word": "see",
+          "start": 33.384,
+          "end": 33.578
+        },
+        {
+          "word": "sticking",
+          "start": 33.578,
+          "end": 33.988
+        },
+        {
+          "word": "out",
+          "start": 33.988,
+          "end": 34.182
+        },
+        {
+          "word": "of",
+          "start": 34.182,
+          "end": 34.333
+        },
+        {
+          "word": "roofs.",
+          "start": 34.333,
+          "end": 34.613
+        },
+        {
+          "word": "It",
+          "start": 34.721,
+          "end": 34.872
+        },
+        {
+          "word": "also",
+          "start": 34.872,
+          "end": 35.11
+        },
+        {
+          "word": "lets",
+          "start": 35.11,
+          "end": 35.347
+        },
+        {
+          "word": "the",
+          "start": 35.347,
+          "end": 35.541
+        },
+        {
+          "word": "sewer",
+          "start": 35.541,
+          "end": 35.822
+        },
+        {
+          "word": "gas",
+          "start": 35.822,
+          "end": 36.016
+        },
+        {
+          "word": "out,",
+          "start": 36.016,
+          "end": 36.21
+        },
+        {
+          "word": "way",
+          "start": 36.318,
+          "end": 36.512
+        },
+        {
+          "word": "above",
+          "start": 36.512,
+          "end": 36.792
+        },
+        {
+          "word": "your",
+          "start": 36.792,
+          "end": 37.03
+        },
+        {
+          "word": "head.",
+          "start": 37.03,
+          "end": 37.267
+        }
+      ]
+    },
+    {
+      "text": "The first version was S-shaped, invented in 1775. Many places now ban it, because it sucks itself dry.",
+      "speed": 1.2,
+      "shot": "sTrap",
+      "event": "strap",
+      "highlight": [
+        "s-shaped",
+        "1775"
+      ],
+      "index": 11,
+      "start": 37.435,
+      "end": 45.498,
+      "words": [
+        {
+          "word": "The",
+          "start": 37.435,
+          "end": 37.745
+        },
+        {
+          "word": "first",
+          "start": 37.745,
+          "end": 38.193
+        },
+        {
+          "word": "version",
+          "start": 38.193,
+          "end": 38.779
+        },
+        {
+          "word": "was",
+          "start": 38.779,
+          "end": 39.089
+        },
+        {
+          "word": "S-shaped,",
+          "start": 39.089,
+          "end": 39.675
+        },
+        {
+          "word": "invented",
+          "start": 39.847,
+          "end": 40.502
+        },
+        {
+          "word": "in",
+          "start": 40.502,
+          "end": 40.743
+        },
+        {
+          "word": "1775.",
+          "start": 40.743,
+          "end": 41.122
+        },
+        {
+          "word": "Many",
+          "start": 41.294,
+          "end": 41.673
+        },
+        {
+          "word": "places",
+          "start": 41.673,
+          "end": 42.19
+        },
+        {
+          "word": "now",
+          "start": 42.19,
+          "end": 42.5
+        },
+        {
+          "word": "ban",
+          "start": 42.5,
+          "end": 42.81
+        },
+        {
+          "word": "it,",
+          "start": 42.81,
+          "end": 43.051
+        },
+        {
+          "word": "because",
+          "start": 43.224,
+          "end": 43.809
+        },
+        {
+          "word": "it",
+          "start": 43.809,
+          "end": 44.051
+        },
+        {
+          "word": "sucks",
+          "start": 44.051,
+          "end": 44.498
+        },
+        {
+          "word": "itself",
+          "start": 44.498,
+          "end": 45.015
+        },
+        {
+          "word": "dry.",
+          "start": 45.015,
+          "end": 45.325
+        }
+      ]
+    },
+    {
+      "text": "One more thing. If a drain goes unused for weeks, that water evaporates, and the smell comes back.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "evap",
+      "highlight": [
+        "evaporates"
+      ],
+      "index": 12,
+      "start": 45.558,
+      "end": 50.72,
+      "words": [
+        {
+          "word": "One",
+          "start": 45.558,
+          "end": 45.761
+        },
+        {
+          "word": "more",
+          "start": 45.761,
+          "end": 46.011
+        },
+        {
+          "word": "thing.",
+          "start": 46.011,
+          "end": 46.305
+        },
+        {
+          "word": "If",
+          "start": 46.418,
+          "end": 46.577
+        },
+        {
+          "word": "a",
+          "start": 46.577,
+          "end": 46.69
+        },
+        {
+          "word": "drain",
+          "start": 46.69,
+          "end": 46.984
+        },
+        {
+          "word": "goes",
+          "start": 46.984,
+          "end": 47.233
+        },
+        {
+          "word": "unused",
+          "start": 47.233,
+          "end": 47.573
+        },
+        {
+          "word": "for",
+          "start": 47.573,
+          "end": 47.777
+        },
+        {
+          "word": "weeks,",
+          "start": 47.777,
+          "end": 48.071
+        },
+        {
+          "word": "that",
+          "start": 48.184,
+          "end": 48.433
+        },
+        {
+          "word": "water",
+          "start": 48.433,
+          "end": 48.728
+        },
+        {
+          "word": "evaporates,",
+          "start": 48.728,
+          "end": 49.248
+        },
+        {
+          "word": "and",
+          "start": 49.361,
+          "end": 49.565
+        },
+        {
+          "word": "the",
+          "start": 49.565,
+          "end": 49.769
+        },
+        {
+          "word": "smell",
+          "start": 49.769,
+          "end": 50.063
+        },
+        {
+          "word": "comes",
+          "start": 50.063,
+          "end": 50.358
+        },
+        {
+          "word": "back.",
+          "start": 50.358,
+          "end": 50.607
+        }
+      ]
+    },
+    {
+      "text": "The fix is free. Just run the tap for a few seconds.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "refill",
+      "highlight": [
+        "free"
+      ],
+      "index": 13,
+      "start": 50.78,
+      "end": 53.567,
+      "words": [
+        {
+          "word": "The",
+          "start": 50.78,
+          "end": 50.982
+        },
+        {
+          "word": "fix",
+          "start": 50.982,
+          "end": 51.185
+        },
+        {
+          "word": "is",
+          "start": 51.185,
+          "end": 51.342
+        },
+        {
+          "word": "free.",
+          "start": 51.342,
+          "end": 51.589
+        },
+        {
+          "word": "Just",
+          "start": 51.701,
+          "end": 51.949
+        },
+        {
+          "word": "run",
+          "start": 51.949,
+          "end": 52.151
+        },
+        {
+          "word": "the",
+          "start": 52.151,
+          "end": 52.353
+        },
+        {
+          "word": "tap",
+          "start": 52.353,
+          "end": 52.556
+        },
+        {
+          "word": "for",
+          "start": 52.556,
+          "end": 52.758
+        },
+        {
+          "word": "a",
+          "start": 52.758,
+          "end": 52.87
+        },
+        {
+          "word": "few",
+          "start": 52.87,
+          "end": 53.072
+        },
+        {
+          "word": "seconds.",
+          "start": 53.072,
+          "end": 53.455
+        }
+      ]
+    },
+    {
+      "text": "And if you ever drop a ring down the sink, it's probably sitting in the U. You can unscrew it.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "ring",
+      "highlight": [
+        "ring",
+        "unscrew"
+      ],
+      "index": 14,
+      "start": 53.627,
+      "end": 58.197,
+      "words": [
+        {
+          "word": "And",
+          "start": 53.627,
+          "end": 53.815
+        },
+        {
+          "word": "if",
+          "start": 53.815,
+          "end": 53.961
+        },
+        {
+          "word": "you",
+          "start": 53.961,
+          "end": 54.149
+        },
+        {
+          "word": "ever",
+          "start": 54.149,
+          "end": 54.378
+        },
+        {
+          "word": "drop",
+          "start": 54.378,
+          "end": 54.608
+        },
+        {
+          "word": "a",
+          "start": 54.608,
+          "end": 54.712
+        },
+        {
+          "word": "ring",
+          "start": 54.712,
+          "end": 54.942
+        },
+        {
+          "word": "down",
+          "start": 54.942,
+          "end": 55.171
+        },
+        {
+          "word": "the",
+          "start": 55.171,
+          "end": 55.359
+        },
+        {
+          "word": "sink,",
+          "start": 55.359,
+          "end": 55.588
+        },
+        {
+          "word": "it's",
+          "start": 55.693,
+          "end": 55.922
+        },
+        {
+          "word": "probably",
+          "start": 55.922,
+          "end": 56.319
+        },
+        {
+          "word": "sitting",
+          "start": 56.319,
+          "end": 56.673
+        },
+        {
+          "word": "in",
+          "start": 56.673,
+          "end": 56.82
+        },
+        {
+          "word": "the",
+          "start": 56.82,
+          "end": 57.007
+        },
+        {
+          "word": "U.",
+          "start": 57.007,
+          "end": 57.112
+        },
+        {
+          "word": "You",
+          "start": 57.216,
+          "end": 57.404
+        },
+        {
+          "word": "can",
+          "start": 57.404,
+          "end": 57.592
+        },
+        {
+          "word": "unscrew",
+          "start": 57.592,
+          "end": 57.946
+        },
+        {
+          "word": "it.",
+          "start": 57.946,
+          "end": 58.092
+        }
+      ]
+    },
+    {
+      "text": "Which one did you know? Tell me in the comments. Next: why your windows have two panes.",
+      "speed": 1.2,
+      "shot": "final",
+      "event": "final",
+      "highlight": [
+        "comments"
+      ],
+      "index": 15,
+      "start": 58.257,
+      "end": 62.645,
+      "words": [
+        {
+          "word": "Which",
+          "start": 58.257,
+          "end": 58.535
+        },
+        {
+          "word": "one",
+          "start": 58.535,
+          "end": 58.728
+        },
+        {
+          "word": "did",
+          "start": 58.728,
+          "end": 58.92
+        },
+        {
+          "word": "you",
+          "start": 58.92,
+          "end": 59.113
+        },
+        {
+          "word": "know?",
+          "start": 59.113,
+          "end": 59.348
+        },
+        {
+          "word": "Tell",
+          "start": 59.455,
+          "end": 59.691
+        },
+        {
+          "word": "me",
+          "start": 59.691,
+          "end": 59.841
+        },
+        {
+          "word": "in",
+          "start": 59.841,
+          "end": 59.991
+        },
+        {
+          "word": "the",
+          "start": 59.991,
+          "end": 60.183
+        },
+        {
+          "word": "comments.",
+          "start": 60.183,
+          "end": 60.59
+        },
+        {
+          "word": "Next:",
+          "start": 60.697,
+          "end": 60.932
+        },
+        {
+          "word": "why",
+          "start": 61.04,
+          "end": 61.232
+        },
+        {
+          "word": "your",
+          "start": 61.232,
+          "end": 61.468
+        },
+        {
+          "word": "windows",
+          "start": 61.468,
+          "end": 61.832
+        },
+        {
+          "word": "have",
+          "start": 61.832,
+          "end": 62.067
+        },
+        {
+          "word": "two",
+          "start": 62.067,
+          "end": 62.26
+        },
+        {
+          "word": "panes.",
+          "start": 62.26,
+          "end": 62.538
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "shorts3d",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/montserrat": "^5.3.0",
+    "@react-three/fiber": "^8.18.0",
+    "@remotion/cli": "^4.0.539",
+    "@remotion/rough-notation": "^4.0.539",
+    "@remotion/three": "^4.0.539",
+    "@types/react": "^18.3.31",
+    "@types/three": "^0.169.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.539",
+    "three": "^0.169.0",
+    "typescript": "^7.0.2"
+  }
+}

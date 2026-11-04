@@ -1,0 +1,21 @@
+{
+  "id": "bridge-poc",
+  "title": "How to build a bridge that won't fall",
+  "lang": "en-gb",
+  "voice": { "bm_george": 0.6, "bm_fable": 0.4 },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.2,
+  "handle": "@explainland",
+  "hook": { "line1": "HOW TO BUILD A BRIDGE", "line2": "THAT WON'T FALL" },
+  "outro": { "line1": "PART 2", "line2": "PILLARS" },
+  "beats": [
+    { "text": "Here's how to build a bridge that won't fall.", "speed": 1.25, "shot": "hook", "highlight": ["won't", "fall"] },
+    { "text": "Step one? Just lay down some planks!", "speed": 1.3, "shot": "approach", "event": "buildPlanks", "highlight": ["planks"] },
+    { "text": "But then... a car rolls on.", "speed": 1.2, "shot": "side", "event": "carDrives" },
+    { "text": "Crack! It snaps!", "speed": 1.35, "shot": "sideClose", "event": "break", "highlight": ["crack", "snaps"] },
+    { "text": "So you drop in a solid concrete beam.", "speed": 1.25, "shot": "push", "event": "dropBeam", "label": "BEAM", "labelAt": [0, 0.6, 0], "highlight": ["concrete", "beam"] },
+    { "text": "Way stronger!", "speed": 1.3, "shot": "alongBeam", "event": "beamDrive", "highlight": ["stronger"] },
+    { "text": "But what if the river's twice as wide?", "speed": 1.3, "shot": "widen", "event": "widen", "highlight": ["twice", "wide"] }
+  ]
+}

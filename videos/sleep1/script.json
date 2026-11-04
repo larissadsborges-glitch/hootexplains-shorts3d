@@ -1,0 +1,97 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/bed.wav",
+  "id": "sleep1",
+  "title": "What happens if you stay awake for 3 days? Day 1",
+  "day": 1,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 1",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "DAY 2"
+  },
+  "beats": [
+    {
+      "text": "What happens to your body if you stay awake for three days straight? Hoot's finding out, so you don't have to. Day one.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "three",
+        "days"
+      ]
+    },
+    {
+      "text": "Hour 17. Your brain is already as slow as someone who's been drinking.",
+      "speed": 1.25,
+      "shot": "clock",
+      "event": "h17",
+      "highlight": [
+        "17",
+        "drinking"
+      ]
+    },
+    {
+      "text": "By hour 24, it's like being legally drunk. Your reactions slow down, your memory slips, and you get cranky.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "h24",
+      "highlight": [
+        "drunk",
+        "cranky"
+      ]
+    },
+    {
+      "text": "Inside, your body panics a little. It pumps out stress hormones, cortisol and adrenaline, just to keep you going.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "stress",
+      "highlight": [
+        "stress",
+        "cortisol"
+      ]
+    },
+    {
+      "text": "And you get hungrier. Your hunger hormone goes up, so you start craving snacks.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "hunger",
+      "highlight": [
+        "hungrier",
+        "snacks"
+      ]
+    },
+    {
+      "text": "But that's just day one. On day two, your brain starts switching off, without asking you.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "rehook",
+      "highlight": [
+        "switching",
+        "off"
+      ]
+    },
+    {
+      "text": "Have you ever pulled an all-nighter? Tell me below, and follow Hoot for day two.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "final",
+      "highlight": [
+        "all-nighter",
+        "two"
+      ]
+    }
+  ]
+}

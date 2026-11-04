@@ -1,0 +1,1470 @@
+{
+  "id": "bridge-full",
+  "title": "How to build a bridge that won't fall",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "hook": {
+    "line1": "HOW TO BUILD A BRIDGE",
+    "line2": "THAT WON'T FALL"
+  },
+  "acts": [
+    "1 Hook + plank",
+    "2 Beam",
+    "3 Pier sinks",
+    "4 Piles",
+    "5 Expansion joints",
+    "6 Road + guard rails",
+    "7 Payoff"
+  ],
+  "scene": "river-bridge-full",
+  "outro": {
+    "line1": "HOW TO BUILD A BRIDGE",
+    "line2": "THAT WON'T FALL"
+  },
+  "duration": 62.563,
+  "beats": [
+    {
+      "act": 1,
+      "text": "Here's how to build a bridge that won't fall.",
+      "speed": 1.25,
+      "shot": "hook",
+      "highlight": [
+        "won't",
+        "fall"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 2.176,
+      "words": [
+        {
+          "word": "Here's",
+          "start": 0.05,
+          "end": 0.357
+        },
+        {
+          "word": "how",
+          "start": 0.357,
+          "end": 0.541
+        },
+        {
+          "word": "to",
+          "start": 0.541,
+          "end": 0.684
+        },
+        {
+          "word": "build",
+          "start": 0.684,
+          "end": 0.949
+        },
+        {
+          "word": "a",
+          "start": 0.949,
+          "end": 1.052
+        },
+        {
+          "word": "bridge",
+          "start": 1.052,
+          "end": 1.358
+        },
+        {
+          "word": "that",
+          "start": 1.358,
+          "end": 1.583
+        },
+        {
+          "word": "won't",
+          "start": 1.583,
+          "end": 1.849
+        },
+        {
+          "word": "fall.",
+          "start": 1.849,
+          "end": 2.074
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "Step one? Just lay down some planks!",
+      "speed": 1.3,
+      "shot": "approach",
+      "event": "buildPlanks",
+      "highlight": [
+        "planks"
+      ],
+      "index": 1,
+      "start": 2.236,
+      "end": 4.004,
+      "words": [
+        {
+          "word": "Step",
+          "start": 2.236,
+          "end": 2.459
+        },
+        {
+          "word": "one?",
+          "start": 2.459,
+          "end": 2.642
+        },
+        {
+          "word": "Just",
+          "start": 2.744,
+          "end": 2.968
+        },
+        {
+          "word": "lay",
+          "start": 2.968,
+          "end": 3.15
+        },
+        {
+          "word": "down",
+          "start": 3.15,
+          "end": 3.374
+        },
+        {
+          "word": "some",
+          "start": 3.374,
+          "end": 3.598
+        },
+        {
+          "word": "planks!",
+          "start": 3.598,
+          "end": 3.902
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "But then... a car rolls on.",
+      "speed": 1.2,
+      "shot": "side",
+      "event": "carDrives",
+      "index": 2,
+      "start": 4.064,
+      "end": 5.573,
+      "words": [
+        {
+          "word": "But",
+          "start": 4.064,
+          "end": 4.276
+        },
+        {
+          "word": "then...",
+          "start": 4.276,
+          "end": 4.536
+        },
+        {
+          "word": "a",
+          "start": 4.653,
+          "end": 4.771
+        },
+        {
+          "word": "car",
+          "start": 4.771,
+          "end": 4.984
+        },
+        {
+          "word": "rolls",
+          "start": 4.984,
+          "end": 5.29
+        },
+        {
+          "word": "on.",
+          "start": 5.29,
+          "end": 5.455
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "Crack! It snaps!",
+      "speed": 1.35,
+      "shot": "sideClose",
+      "event": "break",
+      "highlight": [
+        "crack",
+        "snaps"
+      ],
+      "hold": 0.5,
+      "index": 3,
+      "start": 5.633,
+      "end": 6.621,
+      "words": [
+        {
+          "word": "Crack!",
+          "start": 5.633,
+          "end": 5.932
+        },
+        {
+          "word": "It",
+          "start": 6.047,
+          "end": 6.208
+        },
+        {
+          "word": "snaps!",
+          "start": 6.208,
+          "end": 6.506
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "Planks are too weak. So you use a solid concrete beam.",
+      "speed": 1.25,
+      "shot": "push",
+      "event": "dropBeam",
+      "label": "BEAM",
+      "labelAt": [
+        0,
+        0.6,
+        0
+      ],
+      "highlight": [
+        "weak",
+        "concrete",
+        "beam"
+      ],
+      "labelWord": "beam",
+      "index": 4,
+      "start": 7.181,
+      "end": 10.008,
+      "words": [
+        {
+          "word": "Planks",
+          "start": 7.181,
+          "end": 7.515
+        },
+        {
+          "word": "are",
+          "start": 7.515,
+          "end": 7.715
+        },
+        {
+          "word": "too",
+          "start": 7.715,
+          "end": 7.916
+        },
+        {
+          "word": "weak.",
+          "start": 7.916,
+          "end": 8.161
+        },
+        {
+          "word": "So",
+          "start": 8.272,
+          "end": 8.428
+        },
+        {
+          "word": "you",
+          "start": 8.428,
+          "end": 8.628
+        },
+        {
+          "word": "use",
+          "start": 8.628,
+          "end": 8.828
+        },
+        {
+          "word": "a",
+          "start": 8.828,
+          "end": 8.94
+        },
+        {
+          "word": "solid",
+          "start": 8.94,
+          "end": 9.229
+        },
+        {
+          "word": "concrete",
+          "start": 9.229,
+          "end": 9.652
+        },
+        {
+          "word": "beam.",
+          "start": 9.652,
+          "end": 9.897
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "Way stronger!",
+      "speed": 1.3,
+      "shot": "alongBeam",
+      "event": "beamDrive",
+      "highlight": [
+        "stronger"
+      ],
+      "index": 5,
+      "start": 10.068,
+      "end": 10.964,
+      "words": [
+        {
+          "word": "Way",
+          "start": 10.068,
+          "end": 10.312
+        },
+        {
+          "word": "stronger!",
+          "start": 10.312,
+          "end": 10.828
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "But what if the river's twice as wide?",
+      "speed": 1.3,
+      "shot": "widen",
+      "event": "widen",
+      "highlight": [
+        "twice",
+        "wide"
+      ],
+      "index": 6,
+      "start": 11.024,
+      "end": 12.864,
+      "words": [
+        {
+          "word": "But",
+          "start": 11.024,
+          "end": 11.21
+        },
+        {
+          "word": "what",
+          "start": 11.21,
+          "end": 11.437
+        },
+        {
+          "word": "if",
+          "start": 11.437,
+          "end": 11.582
+        },
+        {
+          "word": "the",
+          "start": 11.582,
+          "end": 11.768
+        },
+        {
+          "word": "river's",
+          "start": 11.768,
+          "end": 12.12
+        },
+        {
+          "word": "twice",
+          "start": 12.12,
+          "end": 12.388
+        },
+        {
+          "word": "as",
+          "start": 12.388,
+          "end": 12.533
+        },
+        {
+          "word": "wide?",
+          "start": 12.533,
+          "end": 12.761
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "A longer beam just sags... and breaks.",
+      "speed": 1.25,
+      "shot": "sagClose",
+      "event": "beamSnap",
+      "highlight": [
+        "sags",
+        "breaks"
+      ],
+      "hold": 0.5,
+      "index": 7,
+      "start": 12.924,
+      "end": 15.151,
+      "words": [
+        {
+          "word": "A",
+          "start": 12.924,
+          "end": 13.052
+        },
+        {
+          "word": "longer",
+          "start": 13.052,
+          "end": 13.436
+        },
+        {
+          "word": "beam",
+          "start": 13.436,
+          "end": 13.718
+        },
+        {
+          "word": "just",
+          "start": 13.718,
+          "end": 13.999
+        },
+        {
+          "word": "sags...",
+          "start": 13.999,
+          "end": 14.281
+        },
+        {
+          "word": "and",
+          "start": 14.409,
+          "end": 14.639
+        },
+        {
+          "word": "breaks.",
+          "start": 14.639,
+          "end": 15.023
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "Easy fix: hold it up in the middle with a pier!",
+      "speed": 1.3,
+      "shot": "pierDrop",
+      "event": "dropPier",
+      "label": "PIER",
+      "highlight": [
+        "middle",
+        "pier"
+      ],
+      "hold": 0.3,
+      "labelAt": [
+        0,
+        0.8,
+        0
+      ],
+      "labelWord": "pier",
+      "index": 8,
+      "start": 15.711,
+      "end": 17.882,
+      "words": [
+        {
+          "word": "Easy",
+          "start": 15.711,
+          "end": 15.923
+        },
+        {
+          "word": "fix:",
+          "start": 15.923,
+          "end": 16.095
+        },
+        {
+          "word": "hold",
+          "start": 16.191,
+          "end": 16.403
+        },
+        {
+          "word": "it",
+          "start": 16.403,
+          "end": 16.537
+        },
+        {
+          "word": "up",
+          "start": 16.537,
+          "end": 16.672
+        },
+        {
+          "word": "in",
+          "start": 16.672,
+          "end": 16.806
+        },
+        {
+          "word": "the",
+          "start": 16.806,
+          "end": 16.979
+        },
+        {
+          "word": "middle",
+          "start": 16.979,
+          "end": 17.267
+        },
+        {
+          "word": "with",
+          "start": 17.267,
+          "end": 17.478
+        },
+        {
+          "word": "a",
+          "start": 17.478,
+          "end": 17.574
+        },
+        {
+          "word": "pier!",
+          "start": 17.574,
+          "end": 17.786
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "It holds... for now.",
+      "speed": 1.15,
+      "shot": "pierLow",
+      "event": "pierHolds",
+      "highlight": [
+        "now"
+      ],
+      "index": 9,
+      "start": 18.242,
+      "end": 19.503,
+      "words": [
+        {
+          "word": "It",
+          "start": 18.242,
+          "end": 18.426
+        },
+        {
+          "word": "holds...",
+          "start": 18.426,
+          "end": 18.767
+        },
+        {
+          "word": "for",
+          "start": 18.899,
+          "end": 19.135
+        },
+        {
+          "word": "now.",
+          "start": 19.135,
+          "end": 19.372
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "But look under the water.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "event": "cutawayIn",
+      "hold": 0.3,
+      "index": 10,
+      "start": 19.563,
+      "end": 20.812,
+      "words": [
+        {
+          "word": "But",
+          "start": 19.563,
+          "end": 19.75
+        },
+        {
+          "word": "look",
+          "start": 19.75,
+          "end": 19.979
+        },
+        {
+          "word": "under",
+          "start": 19.979,
+          "end": 20.25
+        },
+        {
+          "word": "the",
+          "start": 20.25,
+          "end": 20.437
+        },
+        {
+          "word": "water.",
+          "start": 20.437,
+          "end": 20.708
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "The riverbed is soft mud.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "label": "MUD",
+      "highlight": [
+        "mud"
+      ],
+      "labelAt": [
+        -3.5,
+        -3.0,
+        0.3
+      ],
+      "labelWord": "mud",
+      "index": 11,
+      "start": 21.172,
+      "end": 22.703,
+      "words": [
+        {
+          "word": "The",
+          "start": 21.172,
+          "end": 21.401
+        },
+        {
+          "word": "riverbed",
+          "start": 21.401,
+          "end": 21.886
+        },
+        {
+          "word": "is",
+          "start": 21.886,
+          "end": 22.065
+        },
+        {
+          "word": "soft",
+          "start": 22.065,
+          "end": 22.346
+        },
+        {
+          "word": "mud.",
+          "start": 22.346,
+          "end": 22.575
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "So the pier slowly sinks...",
+      "speed": 1.15,
+      "shot": "cutawayClose",
+      "event": "pierSinks",
+      "highlight": [
+        "sinks"
+      ],
+      "hold": 0.5,
+      "index": 12,
+      "start": 22.763,
+      "end": 24.311,
+      "words": [
+        {
+          "word": "So",
+          "start": 22.763,
+          "end": 22.943
+        },
+        {
+          "word": "the",
+          "start": 22.943,
+          "end": 23.176
+        },
+        {
+          "word": "pier",
+          "start": 23.176,
+          "end": 23.459
+        },
+        {
+          "word": "slowly",
+          "start": 23.459,
+          "end": 23.846
+        },
+        {
+          "word": "sinks...",
+          "start": 23.846,
+          "end": 24.182
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "and drags the whole bridge down with it.",
+      "speed": 1.3,
+      "shot": "cutaway",
+      "event": "bridgeDrops",
+      "highlight": [
+        "whole",
+        "bridge"
+      ],
+      "hold": 0.6,
+      "index": 13,
+      "start": 24.871,
+      "end": 26.747,
+      "words": [
+        {
+          "word": "and",
+          "start": 24.871,
+          "end": 25.052
+        },
+        {
+          "word": "drags",
+          "start": 25.052,
+          "end": 25.314
+        },
+        {
+          "word": "the",
+          "start": 25.314,
+          "end": 25.496
+        },
+        {
+          "word": "whole",
+          "start": 25.496,
+          "end": 25.758
+        },
+        {
+          "word": "bridge",
+          "start": 25.758,
+          "end": 26.061
+        },
+        {
+          "word": "down",
+          "start": 26.061,
+          "end": 26.283
+        },
+        {
+          "word": "with",
+          "start": 26.283,
+          "end": 26.505
+        },
+        {
+          "word": "it.",
+          "start": 26.505,
+          "end": 26.646
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "So real engineers dig deeper.",
+      "speed": 1.25,
+      "shot": "cutaway",
+      "event": "resetPier",
+      "highlight": [
+        "deeper"
+      ],
+      "index": 14,
+      "start": 27.407,
+      "end": 29.288,
+      "words": [
+        {
+          "word": "So",
+          "start": 27.407,
+          "end": 27.601
+        },
+        {
+          "word": "real",
+          "start": 27.601,
+          "end": 27.905
+        },
+        {
+          "word": "engineers",
+          "start": 27.905,
+          "end": 28.486
+        },
+        {
+          "word": "dig",
+          "start": 28.486,
+          "end": 28.735
+        },
+        {
+          "word": "deeper.",
+          "start": 28.735,
+          "end": 29.15
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "They hammer long columns, called piles, through the mud...",
+      "speed": 1.3,
+      "shot": "cutawayClose",
+      "event": "drivePiles",
+      "label": "PILES",
+      "highlight": [
+        "piles"
+      ],
+      "hold": 0.7,
+      "labelAt": [
+        1.1,
+        -2.0,
+        0.3
+      ],
+      "labelWord": "piles",
+      "index": 15,
+      "start": 29.348,
+      "end": 31.796,
+      "words": [
+        {
+          "word": "They",
+          "start": 29.348,
+          "end": 29.552
+        },
+        {
+          "word": "hammer",
+          "start": 29.552,
+          "end": 29.831
+        },
+        {
+          "word": "long",
+          "start": 29.831,
+          "end": 30.035
+        },
+        {
+          "word": "columns,",
+          "start": 30.035,
+          "end": 30.35
+        },
+        {
+          "word": "called",
+          "start": 30.443,
+          "end": 30.721
+        },
+        {
+          "word": "piles,",
+          "start": 30.721,
+          "end": 30.962
+        },
+        {
+          "word": "through",
+          "start": 31.055,
+          "end": 31.37
+        },
+        {
+          "word": "the",
+          "start": 31.37,
+          "end": 31.537
+        },
+        {
+          "word": "mud...",
+          "start": 31.537,
+          "end": 31.704
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "until they hit solid rock.",
+      "speed": 1.25,
+      "shot": "cutawayDeep",
+      "event": "pilesHitRock",
+      "label": "ROCK",
+      "highlight": [
+        "rock"
+      ],
+      "hold": 0.4,
+      "labelAt": [
+        0,
+        -6.2,
+        0.3
+      ],
+      "labelWord": "rock",
+      "index": 16,
+      "start": 32.556,
+      "end": 34.076,
+      "words": [
+        {
+          "word": "until",
+          "start": 32.556,
+          "end": 32.875
+        },
+        {
+          "word": "they",
+          "start": 32.875,
+          "end": 33.145
+        },
+        {
+          "word": "hit",
+          "start": 33.145,
+          "end": 33.365
+        },
+        {
+          "word": "solid",
+          "start": 33.365,
+          "end": 33.684
+        },
+        {
+          "word": "rock.",
+          "start": 33.684,
+          "end": 33.954
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Now the pier sits on piles, locked into the rock.",
+      "speed": 1.25,
+      "shot": "cutawayCap",
+      "event": "pierOnPiles",
+      "highlight": [
+        "piles",
+        "rock"
+      ],
+      "hold": 0.3,
+      "index": 17,
+      "start": 34.536,
+      "end": 37.025,
+      "words": [
+        {
+          "word": "Now",
+          "start": 34.536,
+          "end": 34.729
+        },
+        {
+          "word": "the",
+          "start": 34.729,
+          "end": 34.923
+        },
+        {
+          "word": "pier",
+          "start": 34.923,
+          "end": 35.159
+        },
+        {
+          "word": "sits",
+          "start": 35.159,
+          "end": 35.395
+        },
+        {
+          "word": "on",
+          "start": 35.395,
+          "end": 35.545
+        },
+        {
+          "word": "piles,",
+          "start": 35.545,
+          "end": 35.824
+        },
+        {
+          "word": "locked",
+          "start": 35.931,
+          "end": 36.253
+        },
+        {
+          "word": "into",
+          "start": 36.253,
+          "end": 36.489
+        },
+        {
+          "word": "the",
+          "start": 36.489,
+          "end": 36.682
+        },
+        {
+          "word": "rock.",
+          "start": 36.682,
+          "end": 36.918
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Next, the deck. But you can't pour it in one piece.",
+      "speed": 1.3,
+      "shot": "deckTop",
+      "event": "deckPieces",
+      "highlight": [
+        "one",
+        "piece"
+      ],
+      "hold": 0.4,
+      "index": 18,
+      "start": 37.385,
+      "end": 39.712,
+      "words": [
+        {
+          "word": "Next,",
+          "start": 37.385,
+          "end": 37.591
+        },
+        {
+          "word": "the",
+          "start": 37.685,
+          "end": 37.854
+        },
+        {
+          "word": "deck.",
+          "start": 37.854,
+          "end": 38.06
+        },
+        {
+          "word": "But",
+          "start": 38.154,
+          "end": 38.323
+        },
+        {
+          "word": "you",
+          "start": 38.323,
+          "end": 38.492
+        },
+        {
+          "word": "can't",
+          "start": 38.492,
+          "end": 38.736
+        },
+        {
+          "word": "pour",
+          "start": 38.736,
+          "end": 38.942
+        },
+        {
+          "word": "it",
+          "start": 38.942,
+          "end": 39.074
+        },
+        {
+          "word": "in",
+          "start": 39.074,
+          "end": 39.205
+        },
+        {
+          "word": "one",
+          "start": 39.205,
+          "end": 39.374
+        },
+        {
+          "word": "piece.",
+          "start": 39.374,
+          "end": 39.618
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Why? Heat.",
+      "speed": 1.15,
+      "shot": "deckTop",
+      "event": "heat",
+      "highlight": [
+        "heat"
+      ],
+      "index": 19,
+      "start": 40.172,
+      "end": 41.163,
+      "words": [
+        {
+          "word": "Why?",
+          "start": 40.172,
+          "end": 40.469
+        },
+        {
+          "word": "Heat.",
+          "start": 40.634,
+          "end": 40.998
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Concrete expands in summer and shrinks in winter.",
+      "speed": 1.3,
+      "shot": "deckTop",
+      "event": "expandShrink",
+      "highlight": [
+        "expands",
+        "shrinks"
+      ],
+      "index": 20,
+      "start": 41.223,
+      "end": 43.86,
+      "words": [
+        {
+          "word": "Concrete",
+          "start": 41.223,
+          "end": 41.674
+        },
+        {
+          "word": "expands",
+          "start": 41.674,
+          "end": 42.078
+        },
+        {
+          "word": "in",
+          "start": 42.078,
+          "end": 42.245
+        },
+        {
+          "word": "summer",
+          "start": 42.245,
+          "end": 42.601
+        },
+        {
+          "word": "and",
+          "start": 42.601,
+          "end": 42.815
+        },
+        {
+          "word": "shrinks",
+          "start": 42.815,
+          "end": 43.219
+        },
+        {
+          "word": "in",
+          "start": 43.219,
+          "end": 43.385
+        },
+        {
+          "word": "winter.",
+          "start": 43.385,
+          "end": 43.742
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "One long slab would tear itself apart.",
+      "speed": 1.3,
+      "shot": "deckClose",
+      "event": "slabCracks",
+      "highlight": [
+        "apart"
+      ],
+      "hold": 0.5,
+      "index": 21,
+      "start": 43.92,
+      "end": 46.027,
+      "words": [
+        {
+          "word": "One",
+          "start": 43.92,
+          "end": 44.136
+        },
+        {
+          "word": "long",
+          "start": 44.136,
+          "end": 44.399
+        },
+        {
+          "word": "slab",
+          "start": 44.399,
+          "end": 44.662
+        },
+        {
+          "word": "would",
+          "start": 44.662,
+          "end": 44.974
+        },
+        {
+          "word": "tear",
+          "start": 44.974,
+          "end": 45.237
+        },
+        {
+          "word": "itself",
+          "start": 45.237,
+          "end": 45.596
+        },
+        {
+          "word": "apart.",
+          "start": 45.596,
+          "end": 45.907
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "So engineers leave tiny gaps, called expansion joints.",
+      "speed": 1.25,
+      "shot": "jointClose",
+      "event": "joints",
+      "label": "EXPANSION JOINT",
+      "highlight": [
+        "expansion",
+        "joints"
+      ],
+      "hold": 0.3,
+      "labelAt": [
+        0,
+        2.0,
+        0
+      ],
+      "labelWord": "expansion",
+      "index": 22,
+      "start": 46.587,
+      "end": 49.655,
+      "words": [
+        {
+          "word": "So",
+          "start": 46.587,
+          "end": 46.76
+        },
+        {
+          "word": "engineers",
+          "start": 46.76,
+          "end": 47.28
+        },
+        {
+          "word": "leave",
+          "start": 47.28,
+          "end": 47.601
+        },
+        {
+          "word": "tiny",
+          "start": 47.601,
+          "end": 47.873
+        },
+        {
+          "word": "gaps,",
+          "start": 47.873,
+          "end": 48.145
+        },
+        {
+          "word": "called",
+          "start": 48.269,
+          "end": 48.64
+        },
+        {
+          "word": "expansion",
+          "start": 48.64,
+          "end": 49.16
+        },
+        {
+          "word": "joints.",
+          "start": 49.16,
+          "end": 49.531
+        }
+      ]
+    },
+    {
+      "act": 6,
+      "text": "Then the road goes on.",
+      "speed": 1.25,
+      "shot": "roadLow",
+      "event": "asphalt",
+      "hold": 0.1,
+      "index": 23,
+      "start": 50.015,
+      "end": 51.307,
+      "words": [
+        {
+          "word": "Then",
+          "start": 50.015,
+          "end": 50.278
+        },
+        {
+          "word": "the",
+          "start": 50.278,
+          "end": 50.493
+        },
+        {
+          "word": "road",
+          "start": 50.493,
+          "end": 50.757
+        },
+        {
+          "word": "goes",
+          "start": 50.757,
+          "end": 51.02
+        },
+        {
+          "word": "on.",
+          "start": 51.02,
+          "end": 51.188
+        }
+      ]
+    },
+    {
+      "act": 6,
+      "text": "But there's one last danger...",
+      "speed": 1.2,
+      "shot": "railLow",
+      "event": "swerve",
+      "highlight": [
+        "danger"
+      ],
+      "index": 24,
+      "start": 51.467,
+      "end": 53.076,
+      "words": [
+        {
+          "word": "But",
+          "start": 51.467,
+          "end": 51.687
+        },
+        {
+          "word": "there's",
+          "start": 51.687,
+          "end": 52.101
+        },
+        {
+          "word": "one",
+          "start": 52.101,
+          "end": 52.32
+        },
+        {
+          "word": "last",
+          "start": 52.32,
+          "end": 52.589
+        },
+        {
+          "word": "danger...",
+          "start": 52.589,
+          "end": 52.954
+        }
+      ]
+    },
+    {
+      "act": 6,
+      "text": "Guard rails! So nobody drives off the edge.",
+      "speed": 1.3,
+      "shot": "railLow",
+      "event": "rails",
+      "label": "GUARD RAIL",
+      "labelWord": "guard",
+      "labelAt": [
+        3,
+        2.4,
+        1.2
+      ],
+      "highlight": [
+        "guard",
+        "rails"
+      ],
+      "hold": 0.5,
+      "index": 25,
+      "start": 53.136,
+      "end": 55.416,
+      "words": [
+        {
+          "word": "Guard",
+          "start": 53.136,
+          "end": 53.427
+        },
+        {
+          "word": "rails!",
+          "start": 53.427,
+          "end": 53.717
+        },
+        {
+          "word": "So",
+          "start": 53.829,
+          "end": 53.986
+        },
+        {
+          "word": "nobody",
+          "start": 53.986,
+          "end": 54.321
+        },
+        {
+          "word": "drives",
+          "start": 54.321,
+          "end": 54.656
+        },
+        {
+          "word": "off",
+          "start": 54.656,
+          "end": 54.857
+        },
+        {
+          "word": "the",
+          "start": 54.857,
+          "end": 55.059
+        },
+        {
+          "word": "edge.",
+          "start": 55.059,
+          "end": 55.305
+        }
+      ]
+    },
+    {
+      "act": 7,
+      "text": "Beams. Piers. Piles. Joints. Guard rails.",
+      "speed": 1.15,
+      "shot": "recap",
+      "event": "recap",
+      "highlight": [
+        "beams",
+        "piers",
+        "piles",
+        "joints",
+        "guard",
+        "rails"
+      ],
+      "index": 26,
+      "start": 55.976,
+      "end": 58.789,
+      "words": [
+        {
+          "word": "Beams.",
+          "start": 55.976,
+          "end": 56.325
+        },
+        {
+          "word": "Piers.",
+          "start": 56.458,
+          "end": 56.807
+        },
+        {
+          "word": "Piles.",
+          "start": 56.941,
+          "end": 57.289
+        },
+        {
+          "word": "Joints.",
+          "start": 57.423,
+          "end": 57.824
+        },
+        {
+          "word": "Guard",
+          "start": 57.958,
+          "end": 58.306
+        },
+        {
+          "word": "rails.",
+          "start": 58.306,
+          "end": 58.655
+        }
+      ]
+    },
+    {
+      "act": 7,
+      "text": "That's how you build a bridge that won't fall.",
+      "speed": 1.2,
+      "shot": "finalAerial",
+      "event": "traffic",
+      "highlight": [
+        "won't",
+        "fall"
+      ],
+      "index": 27,
+      "start": 58.849,
+      "end": 60.963,
+      "words": [
+        {
+          "word": "That's",
+          "start": 58.849,
+          "end": 59.148
+        },
+        {
+          "word": "how",
+          "start": 59.148,
+          "end": 59.327
+        },
+        {
+          "word": "you",
+          "start": 59.327,
+          "end": 59.507
+        },
+        {
+          "word": "build",
+          "start": 59.507,
+          "end": 59.766
+        },
+        {
+          "word": "a",
+          "start": 59.766,
+          "end": 59.866
+        },
+        {
+          "word": "bridge",
+          "start": 59.866,
+          "end": 60.165
+        },
+        {
+          "word": "that",
+          "start": 60.165,
+          "end": 60.384
+        },
+        {
+          "word": "won't",
+          "start": 60.384,
+          "end": 60.643
+        },
+        {
+          "word": "fall.",
+          "start": 60.643,
+          "end": 60.863
+        }
+      ]
+    }
+  ]
+}

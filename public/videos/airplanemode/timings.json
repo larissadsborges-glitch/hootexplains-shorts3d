@@ -1,0 +1,1291 @@
+{
+  "id": "airplanemode",
+  "title": "Why does your phone need airplane mode on a plane?",
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "airplanemode",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "WHY DOES YOUR PHONE",
+    "line2": "NEED AIRPLANE MODE?",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "DO YOU REALLY",
+    "line2": "TURN IT ON?"
+  },
+  "duration": 60.204,
+  "beats": [
+    {
+      "text": "Why does your phone need airplane mode on a plane? Can one phone really crash it?",
+      "speed": 1.25,
+      "shot": "cabinHook",
+      "event": "hook",
+      "highlight": [
+        "airplane",
+        "crash"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 3.821,
+      "words": [
+        {
+          "word": "Why",
+          "start": 0.05,
+          "end": 0.232
+        },
+        {
+          "word": "does",
+          "start": 0.232,
+          "end": 0.455
+        },
+        {
+          "word": "your",
+          "start": 0.455,
+          "end": 0.679
+        },
+        {
+          "word": "phone",
+          "start": 0.679,
+          "end": 0.942
+        },
+        {
+          "word": "need",
+          "start": 0.942,
+          "end": 1.165
+        },
+        {
+          "word": "airplane",
+          "start": 1.165,
+          "end": 1.55
+        },
+        {
+          "word": "mode",
+          "start": 1.55,
+          "end": 1.773
+        },
+        {
+          "word": "on",
+          "start": 1.773,
+          "end": 1.915
+        },
+        {
+          "word": "a",
+          "start": 1.915,
+          "end": 2.017
+        },
+        {
+          "word": "plane?",
+          "start": 2.017,
+          "end": 2.28
+        },
+        {
+          "word": "Can",
+          "start": 2.382,
+          "end": 2.564
+        },
+        {
+          "word": "one",
+          "start": 2.564,
+          "end": 2.746
+        },
+        {
+          "word": "phone",
+          "start": 2.746,
+          "end": 3.01
+        },
+        {
+          "word": "really",
+          "start": 3.01,
+          "end": 3.314
+        },
+        {
+          "word": "crash",
+          "start": 3.314,
+          "end": 3.578
+        },
+        {
+          "word": "it?",
+          "start": 3.578,
+          "end": 3.72
+        }
+      ]
+    },
+    {
+      "text": "Movies make it look like your phone can mess with the controls. But no crash has ever been proven to be caused by a phone.",
+      "speed": 1.25,
+      "shot": "exterior",
+      "event": "myth",
+      "highlight": [
+        "movies",
+        "proven"
+      ],
+      "index": 1,
+      "start": 3.881,
+      "end": 9.563,
+      "words": [
+        {
+          "word": "Movies",
+          "start": 3.881,
+          "end": 4.189
+        },
+        {
+          "word": "make",
+          "start": 4.189,
+          "end": 4.414
+        },
+        {
+          "word": "it",
+          "start": 4.414,
+          "end": 4.558
+        },
+        {
+          "word": "look",
+          "start": 4.558,
+          "end": 4.784
+        },
+        {
+          "word": "like",
+          "start": 4.784,
+          "end": 5.009
+        },
+        {
+          "word": "your",
+          "start": 5.009,
+          "end": 5.235
+        },
+        {
+          "word": "phone",
+          "start": 5.235,
+          "end": 5.501
+        },
+        {
+          "word": "can",
+          "start": 5.501,
+          "end": 5.686
+        },
+        {
+          "word": "mess",
+          "start": 5.686,
+          "end": 5.912
+        },
+        {
+          "word": "with",
+          "start": 5.912,
+          "end": 6.137
+        },
+        {
+          "word": "the",
+          "start": 6.137,
+          "end": 6.322
+        },
+        {
+          "word": "controls.",
+          "start": 6.322,
+          "end": 6.712
+        },
+        {
+          "word": "But",
+          "start": 6.814,
+          "end": 6.999
+        },
+        {
+          "word": "no",
+          "start": 6.999,
+          "end": 7.142
+        },
+        {
+          "word": "crash",
+          "start": 7.142,
+          "end": 7.409
+        },
+        {
+          "word": "has",
+          "start": 7.409,
+          "end": 7.594
+        },
+        {
+          "word": "ever",
+          "start": 7.594,
+          "end": 7.819
+        },
+        {
+          "word": "been",
+          "start": 7.819,
+          "end": 8.045
+        },
+        {
+          "word": "proven",
+          "start": 8.045,
+          "end": 8.353
+        },
+        {
+          "word": "to",
+          "start": 8.353,
+          "end": 8.496
+        },
+        {
+          "word": "be",
+          "start": 8.496,
+          "end": 8.64
+        },
+        {
+          "word": "caused",
+          "start": 8.64,
+          "end": 8.947
+        },
+        {
+          "word": "by",
+          "start": 8.947,
+          "end": 9.091
+        },
+        {
+          "word": "a",
+          "start": 9.091,
+          "end": 9.193
+        },
+        {
+          "word": "phone.",
+          "start": 9.193,
+          "end": 9.46
+        }
+      ]
+    },
+    {
+      "text": "So why the rule? Up here, your phone can't find a signal. So it keeps searching, at full power.",
+      "speed": 1.25,
+      "shot": "phone",
+      "event": "search",
+      "highlight": [
+        "signal",
+        "searching"
+      ],
+      "index": 2,
+      "start": 9.623,
+      "end": 14.095,
+      "words": [
+        {
+          "word": "So",
+          "start": 9.623,
+          "end": 9.761
+        },
+        {
+          "word": "why",
+          "start": 9.761,
+          "end": 9.939
+        },
+        {
+          "word": "the",
+          "start": 9.939,
+          "end": 10.117
+        },
+        {
+          "word": "rule?",
+          "start": 10.117,
+          "end": 10.335
+        },
+        {
+          "word": "Up",
+          "start": 10.434,
+          "end": 10.572
+        },
+        {
+          "word": "here,",
+          "start": 10.572,
+          "end": 10.79
+        },
+        {
+          "word": "your",
+          "start": 10.889,
+          "end": 11.107
+        },
+        {
+          "word": "phone",
+          "start": 11.107,
+          "end": 11.364
+        },
+        {
+          "word": "can't",
+          "start": 11.364,
+          "end": 11.621
+        },
+        {
+          "word": "find",
+          "start": 11.621,
+          "end": 11.839
+        },
+        {
+          "word": "a",
+          "start": 11.839,
+          "end": 11.938
+        },
+        {
+          "word": "signal.",
+          "start": 11.938,
+          "end": 12.235
+        },
+        {
+          "word": "So",
+          "start": 12.333,
+          "end": 12.472
+        },
+        {
+          "word": "it",
+          "start": 12.472,
+          "end": 12.611
+        },
+        {
+          "word": "keeps",
+          "start": 12.611,
+          "end": 12.868
+        },
+        {
+          "word": "searching,",
+          "start": 12.868,
+          "end": 13.283
+        },
+        {
+          "word": "at",
+          "start": 13.382,
+          "end": 13.521
+        },
+        {
+          "word": "full",
+          "start": 13.521,
+          "end": 13.738
+        },
+        {
+          "word": "power.",
+          "start": 13.738,
+          "end": 13.996
+        }
+      ]
+    },
+    {
+      "text": "Lower down, at hundreds of miles an hour, it can reach many towers at once. Phone networks were never built for that.",
+      "speed": 1.25,
+      "shot": "towers",
+      "event": "towers",
+      "highlight": [
+        "many",
+        "towers"
+      ],
+      "index": 3,
+      "start": 14.155,
+      "end": 19.913,
+      "words": [
+        {
+          "word": "Lower",
+          "start": 14.155,
+          "end": 14.432
+        },
+        {
+          "word": "down,",
+          "start": 14.432,
+          "end": 14.666
+        },
+        {
+          "word": "at",
+          "start": 14.773,
+          "end": 14.922
+        },
+        {
+          "word": "hundreds",
+          "start": 14.922,
+          "end": 15.328
+        },
+        {
+          "word": "of",
+          "start": 15.328,
+          "end": 15.477
+        },
+        {
+          "word": "miles",
+          "start": 15.477,
+          "end": 15.754
+        },
+        {
+          "word": "an",
+          "start": 15.754,
+          "end": 15.903
+        },
+        {
+          "word": "hour,",
+          "start": 15.903,
+          "end": 16.138
+        },
+        {
+          "word": "it",
+          "start": 16.245,
+          "end": 16.394
+        },
+        {
+          "word": "can",
+          "start": 16.394,
+          "end": 16.586
+        },
+        {
+          "word": "reach",
+          "start": 16.586,
+          "end": 16.863
+        },
+        {
+          "word": "many",
+          "start": 16.863,
+          "end": 17.098
+        },
+        {
+          "word": "towers",
+          "start": 17.098,
+          "end": 17.418
+        },
+        {
+          "word": "at",
+          "start": 17.418,
+          "end": 17.567
+        },
+        {
+          "word": "once.",
+          "start": 17.567,
+          "end": 17.802
+        },
+        {
+          "word": "Phone",
+          "start": 17.908,
+          "end": 18.185
+        },
+        {
+          "word": "networks",
+          "start": 18.185,
+          "end": 18.591
+        },
+        {
+          "word": "were",
+          "start": 18.591,
+          "end": 18.825
+        },
+        {
+          "word": "never",
+          "start": 18.825,
+          "end": 19.103
+        },
+        {
+          "word": "built",
+          "start": 19.103,
+          "end": 19.38
+        },
+        {
+          "word": "for",
+          "start": 19.38,
+          "end": 19.572
+        },
+        {
+          "word": "that.",
+          "start": 19.572,
+          "end": 19.806
+        }
+      ]
+    },
+    {
+      "text": "But the real reason is up front. In the cockpit.",
+      "speed": 1.2,
+      "shot": "cockpit",
+      "event": "rehook",
+      "highlight": [
+        "cockpit"
+      ],
+      "index": 4,
+      "start": 19.973,
+      "end": 22.329,
+      "words": [
+        {
+          "word": "But",
+          "start": 19.973,
+          "end": 20.159
+        },
+        {
+          "word": "the",
+          "start": 20.159,
+          "end": 20.345
+        },
+        {
+          "word": "real",
+          "start": 20.345,
+          "end": 20.572
+        },
+        {
+          "word": "reason",
+          "start": 20.572,
+          "end": 20.882
+        },
+        {
+          "word": "is",
+          "start": 20.882,
+          "end": 21.027
+        },
+        {
+          "word": "up",
+          "start": 21.027,
+          "end": 21.172
+        },
+        {
+          "word": "front.",
+          "start": 21.172,
+          "end": 21.441
+        },
+        {
+          "word": "In",
+          "start": 21.544,
+          "end": 21.689
+        },
+        {
+          "word": "the",
+          "start": 21.689,
+          "end": 21.875
+        },
+        {
+          "word": "cockpit.",
+          "start": 21.875,
+          "end": 22.226
+        }
+      ]
+    },
+    {
+      "text": "Pilots wear headsets. And phone signals can leak in, as a buzzing noise. Like this.",
+      "speed": 1.25,
+      "shot": "headset",
+      "event": "buzz",
+      "hold": 1.6,
+      "highlight": [
+        "headsets",
+        "buzzing"
+      ],
+      "index": 5,
+      "start": 22.389,
+      "end": 26.597,
+      "words": [
+        {
+          "word": "Pilots",
+          "start": 22.389,
+          "end": 22.713
+        },
+        {
+          "word": "wear",
+          "start": 22.713,
+          "end": 22.95
+        },
+        {
+          "word": "headsets.",
+          "start": 22.95,
+          "end": 23.36
+        },
+        {
+          "word": "And",
+          "start": 23.468,
+          "end": 23.662
+        },
+        {
+          "word": "phone",
+          "start": 23.662,
+          "end": 23.943
+        },
+        {
+          "word": "signals",
+          "start": 23.943,
+          "end": 24.31
+        },
+        {
+          "word": "can",
+          "start": 24.31,
+          "end": 24.504
+        },
+        {
+          "word": "leak",
+          "start": 24.504,
+          "end": 24.741
+        },
+        {
+          "word": "in,",
+          "start": 24.741,
+          "end": 24.892
+        },
+        {
+          "word": "as",
+          "start": 25.0,
+          "end": 25.151
+        },
+        {
+          "word": "a",
+          "start": 25.151,
+          "end": 25.259
+        },
+        {
+          "word": "buzzing",
+          "start": 25.259,
+          "end": 25.626
+        },
+        {
+          "word": "noise.",
+          "start": 25.626,
+          "end": 25.906
+        },
+        {
+          "word": "Like",
+          "start": 26.014,
+          "end": 26.252
+        },
+        {
+          "word": "this.",
+          "start": 26.252,
+          "end": 26.489
+        }
+      ]
+    },
+    {
+      "text": "Now imagine 200 phones doing that during landing, when the pilots need to hear every word from the control tower.",
+      "speed": 1.25,
+      "shot": "cabinWide",
+      "event": "landing",
+      "highlight": [
+        "200",
+        "landing"
+      ],
+      "index": 6,
+      "start": 28.257,
+      "end": 34.335,
+      "words": [
+        {
+          "word": "Now",
+          "start": 28.257,
+          "end": 28.472
+        },
+        {
+          "word": "imagine",
+          "start": 28.472,
+          "end": 28.879
+        },
+        {
+          "word": "200",
+          "start": 28.879,
+          "end": 29.094
+        },
+        {
+          "word": "phones",
+          "start": 29.094,
+          "end": 29.453
+        },
+        {
+          "word": "doing",
+          "start": 29.453,
+          "end": 29.764
+        },
+        {
+          "word": "that",
+          "start": 29.764,
+          "end": 30.028
+        },
+        {
+          "word": "during",
+          "start": 30.028,
+          "end": 30.387
+        },
+        {
+          "word": "landing,",
+          "start": 30.387,
+          "end": 30.793
+        },
+        {
+          "word": "when",
+          "start": 30.913,
+          "end": 31.176
+        },
+        {
+          "word": "the",
+          "start": 31.176,
+          "end": 31.391
+        },
+        {
+          "word": "pilots",
+          "start": 31.391,
+          "end": 31.75
+        },
+        {
+          "word": "need",
+          "start": 31.75,
+          "end": 32.014
+        },
+        {
+          "word": "to",
+          "start": 32.014,
+          "end": 32.181
+        },
+        {
+          "word": "hear",
+          "start": 32.181,
+          "end": 32.444
+        },
+        {
+          "word": "every",
+          "start": 32.444,
+          "end": 32.755
+        },
+        {
+          "word": "word",
+          "start": 32.755,
+          "end": 33.019
+        },
+        {
+          "word": "from",
+          "start": 33.019,
+          "end": 33.282
+        },
+        {
+          "word": "the",
+          "start": 33.282,
+          "end": 33.497
+        },
+        {
+          "word": "control",
+          "start": 33.497,
+          "end": 33.904
+        },
+        {
+          "word": "tower.",
+          "start": 33.904,
+          "end": 34.215
+        }
+      ]
+    },
+    {
+      "text": "So no, your phone won't crash the plane. But it can make the pilots' job harder, at the worst possible moment.",
+      "speed": 1.25,
+      "shot": "approach",
+      "event": "verdict",
+      "highlight": [
+        "won't",
+        "harder"
+      ],
+      "index": 7,
+      "start": 34.395,
+      "end": 39.975,
+      "words": [
+        {
+          "word": "So",
+          "start": 34.395,
+          "end": 34.548
+        },
+        {
+          "word": "no,",
+          "start": 34.548,
+          "end": 34.701
+        },
+        {
+          "word": "your",
+          "start": 34.81,
+          "end": 35.051
+        },
+        {
+          "word": "phone",
+          "start": 35.051,
+          "end": 35.336
+        },
+        {
+          "word": "won't",
+          "start": 35.336,
+          "end": 35.62
+        },
+        {
+          "word": "crash",
+          "start": 35.62,
+          "end": 35.905
+        },
+        {
+          "word": "the",
+          "start": 35.905,
+          "end": 36.102
+        },
+        {
+          "word": "plane.",
+          "start": 36.102,
+          "end": 36.386
+        },
+        {
+          "word": "But",
+          "start": 36.495,
+          "end": 36.692
+        },
+        {
+          "word": "it",
+          "start": 36.692,
+          "end": 36.846
+        },
+        {
+          "word": "can",
+          "start": 36.846,
+          "end": 37.043
+        },
+        {
+          "word": "make",
+          "start": 37.043,
+          "end": 37.283
+        },
+        {
+          "word": "the",
+          "start": 37.283,
+          "end": 37.48
+        },
+        {
+          "word": "pilots'",
+          "start": 37.48,
+          "end": 37.852
+        },
+        {
+          "word": "job",
+          "start": 37.852,
+          "end": 38.049
+        },
+        {
+          "word": "harder,",
+          "start": 38.049,
+          "end": 38.377
+        },
+        {
+          "word": "at",
+          "start": 38.487,
+          "end": 38.64
+        },
+        {
+          "word": "the",
+          "start": 38.64,
+          "end": 38.837
+        },
+        {
+          "word": "worst",
+          "start": 38.837,
+          "end": 39.121
+        },
+        {
+          "word": "possible",
+          "start": 39.121,
+          "end": 39.537
+        },
+        {
+          "word": "moment.",
+          "start": 39.537,
+          "end": 39.865
+        }
+      ]
+    },
+    {
+      "text": "Here's the twist. In Europe, airlines are even allowed to let you use your phone. A tiny mobile mast inside the plane talks to it.",
+      "speed": 1.25,
+      "shot": "mast",
+      "event": "twist",
+      "highlight": [
+        "Europe",
+        "tiny"
+      ],
+      "index": 8,
+      "start": 40.035,
+      "end": 46.589,
+      "words": [
+        {
+          "word": "Here's",
+          "start": 40.035,
+          "end": 40.364
+        },
+        {
+          "word": "the",
+          "start": 40.364,
+          "end": 40.561
+        },
+        {
+          "word": "twist.",
+          "start": 40.561,
+          "end": 40.846
+        },
+        {
+          "word": "In",
+          "start": 40.956,
+          "end": 41.109
+        },
+        {
+          "word": "Europe,",
+          "start": 41.109,
+          "end": 41.438
+        },
+        {
+          "word": "airlines",
+          "start": 41.547,
+          "end": 41.964
+        },
+        {
+          "word": "are",
+          "start": 41.964,
+          "end": 42.161
+        },
+        {
+          "word": "even",
+          "start": 42.161,
+          "end": 42.402
+        },
+        {
+          "word": "allowed",
+          "start": 42.402,
+          "end": 42.775
+        },
+        {
+          "word": "to",
+          "start": 42.775,
+          "end": 42.928
+        },
+        {
+          "word": "let",
+          "start": 42.928,
+          "end": 43.126
+        },
+        {
+          "word": "you",
+          "start": 43.126,
+          "end": 43.323
+        },
+        {
+          "word": "use",
+          "start": 43.323,
+          "end": 43.52
+        },
+        {
+          "word": "your",
+          "start": 43.52,
+          "end": 43.761
+        },
+        {
+          "word": "phone.",
+          "start": 43.761,
+          "end": 44.046
+        },
+        {
+          "word": "A",
+          "start": 44.156,
+          "end": 44.265
+        },
+        {
+          "word": "tiny",
+          "start": 44.265,
+          "end": 44.506
+        },
+        {
+          "word": "mobile",
+          "start": 44.506,
+          "end": 44.835
+        },
+        {
+          "word": "mast",
+          "start": 44.835,
+          "end": 45.076
+        },
+        {
+          "word": "inside",
+          "start": 45.076,
+          "end": 45.405
+        },
+        {
+          "word": "the",
+          "start": 45.405,
+          "end": 45.602
+        },
+        {
+          "word": "plane",
+          "start": 45.602,
+          "end": 45.887
+        },
+        {
+          "word": "talks",
+          "start": 45.887,
+          "end": 46.172
+        },
+        {
+          "word": "to",
+          "start": 46.172,
+          "end": 46.326
+        },
+        {
+          "word": "it.",
+          "start": 46.326,
+          "end": 46.479
+        }
+      ]
+    },
+    {
+      "text": "Your phone just whispers to the mast, and everything goes up by satellite.",
+      "speed": 1.25,
+      "shot": "satellite",
+      "event": "satellite",
+      "highlight": [
+        "whispers",
+        "satellite"
+      ],
+      "index": 9,
+      "start": 46.649,
+      "end": 50.091,
+      "words": [
+        {
+          "word": "Your",
+          "start": 46.649,
+          "end": 46.873
+        },
+        {
+          "word": "phone",
+          "start": 46.873,
+          "end": 47.137
+        },
+        {
+          "word": "just",
+          "start": 47.137,
+          "end": 47.362
+        },
+        {
+          "word": "whispers",
+          "start": 47.362,
+          "end": 47.748
+        },
+        {
+          "word": "to",
+          "start": 47.748,
+          "end": 47.891
+        },
+        {
+          "word": "the",
+          "start": 47.891,
+          "end": 48.074
+        },
+        {
+          "word": "mast,",
+          "start": 48.074,
+          "end": 48.298
+        },
+        {
+          "word": "and",
+          "start": 48.4,
+          "end": 48.583
+        },
+        {
+          "word": "everything",
+          "start": 48.583,
+          "end": 49.052
+        },
+        {
+          "word": "goes",
+          "start": 49.052,
+          "end": 49.276
+        },
+        {
+          "word": "up",
+          "start": 49.276,
+          "end": 49.418
+        },
+        {
+          "word": "by",
+          "start": 49.418,
+          "end": 49.561
+        },
+        {
+          "word": "satellite.",
+          "start": 49.561,
+          "end": 49.989
+        }
+      ]
+    },
+    {
+      "text": "Bonus: airplane mode also saves your battery, because searching for a signal drains it fast.",
+      "speed": 1.25,
+      "shot": "phone",
+      "event": "battery",
+      "highlight": [
+        "battery"
+      ],
+      "index": 10,
+      "start": 50.151,
+      "end": 54.775,
+      "words": [
+        {
+          "word": "Bonus:",
+          "start": 50.151,
+          "end": 50.437
+        },
+        {
+          "word": "airplane",
+          "start": 50.547,
+          "end": 50.965
+        },
+        {
+          "word": "mode",
+          "start": 50.965,
+          "end": 51.208
+        },
+        {
+          "word": "also",
+          "start": 51.208,
+          "end": 51.45
+        },
+        {
+          "word": "saves",
+          "start": 51.45,
+          "end": 51.736
+        },
+        {
+          "word": "your",
+          "start": 51.736,
+          "end": 51.978
+        },
+        {
+          "word": "battery,",
+          "start": 51.978,
+          "end": 52.353
+        },
+        {
+          "word": "because",
+          "start": 52.463,
+          "end": 52.837
+        },
+        {
+          "word": "searching",
+          "start": 52.837,
+          "end": 53.3
+        },
+        {
+          "word": "for",
+          "start": 53.3,
+          "end": 53.498
+        },
+        {
+          "word": "a",
+          "start": 53.498,
+          "end": 53.608
+        },
+        {
+          "word": "signal",
+          "start": 53.608,
+          "end": 53.938
+        },
+        {
+          "word": "drains",
+          "start": 53.938,
+          "end": 54.269
+        },
+        {
+          "word": "it",
+          "start": 54.269,
+          "end": 54.423
+        },
+        {
+          "word": "fast.",
+          "start": 54.423,
+          "end": 54.665
+        }
+      ]
+    },
+    {
+      "text": "So be honest. Do you actually turn it on? Yes or no? Follow Hoot for more.",
+      "speed": 1.25,
+      "shot": "cta",
+      "event": "final",
+      "highlight": [
+        "yes",
+        "no"
+      ],
+      "index": 11,
+      "start": 54.835,
+      "end": 58.404,
+      "words": [
+        {
+          "word": "So",
+          "start": 54.835,
+          "end": 54.976
+        },
+        {
+          "word": "be",
+          "start": 54.976,
+          "end": 55.116
+        },
+        {
+          "word": "honest.",
+          "start": 55.116,
+          "end": 55.417
+        },
+        {
+          "word": "Do",
+          "start": 55.517,
+          "end": 55.657
+        },
+        {
+          "word": "you",
+          "start": 55.657,
+          "end": 55.838
+        },
+        {
+          "word": "actually",
+          "start": 55.838,
+          "end": 56.219
+        },
+        {
+          "word": "turn",
+          "start": 56.219,
+          "end": 56.439
+        },
+        {
+          "word": "it",
+          "start": 56.439,
+          "end": 56.579
+        },
+        {
+          "word": "on?",
+          "start": 56.579,
+          "end": 56.72
+        },
+        {
+          "word": "Yes",
+          "start": 56.82,
+          "end": 57.0
+        },
+        {
+          "word": "or",
+          "start": 57.0,
+          "end": 57.141
+        },
+        {
+          "word": "no?",
+          "start": 57.141,
+          "end": 57.281
+        },
+        {
+          "word": "Follow",
+          "start": 57.381,
+          "end": 57.682
+        },
+        {
+          "word": "Hoot",
+          "start": 57.682,
+          "end": 57.902
+        },
+        {
+          "word": "for",
+          "start": 57.902,
+          "end": 58.083
+        },
+        {
+          "word": "more.",
+          "start": 58.083,
+          "end": 58.303
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1416 @@
+{
+  "id": "house",
+  "title": "How to build a house that won't crack",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "scene": "house",
+  "hook": {
+    "line1": "HOW TO BUILD A HOUSE",
+    "line2": "THAT WON'T CRACK"
+  },
+  "outro": {
+    "line1": "HOW TO BUILD A HOUSE",
+    "line2": "THAT WON'T CRACK"
+  },
+  "recapItems": [
+    "FOOTINGS",
+    "GRADE BEAM",
+    "WATERPROOFING",
+    "APRON"
+  ],
+  "duration": 58.296,
+  "beats": [
+    {
+      "act": 1,
+      "text": "Here's how to build a house that won't crack.",
+      "speed": 1.25,
+      "shot": "hook",
+      "highlight": [
+        "won't",
+        "crack"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 2.078,
+      "words": [
+        {
+          "word": "Here's",
+          "start": 0.05,
+          "end": 0.343
+        },
+        {
+          "word": "how",
+          "start": 0.343,
+          "end": 0.518
+        },
+        {
+          "word": "to",
+          "start": 0.518,
+          "end": 0.655
+        },
+        {
+          "word": "build",
+          "start": 0.655,
+          "end": 0.908
+        },
+        {
+          "word": "a",
+          "start": 0.908,
+          "end": 1.006
+        },
+        {
+          "word": "house",
+          "start": 1.006,
+          "end": 1.259
+        },
+        {
+          "word": "that",
+          "start": 1.259,
+          "end": 1.474
+        },
+        {
+          "word": "won't",
+          "start": 1.474,
+          "end": 1.727
+        },
+        {
+          "word": "crack.",
+          "start": 1.727,
+          "end": 1.981
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "First, mark out the walls,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "outline",
+      "index": 1,
+      "start": 2.138,
+      "end": 3.452,
+      "words": [
+        {
+          "word": "First,",
+          "start": 2.138,
+          "end": 2.401
+        },
+        {
+          "word": "mark",
+          "start": 2.502,
+          "end": 2.724
+        },
+        {
+          "word": "out",
+          "start": 2.724,
+          "end": 2.906
+        },
+        {
+          "word": "the",
+          "start": 2.906,
+          "end": 3.088
+        },
+        {
+          "word": "walls,",
+          "start": 3.088,
+          "end": 3.351
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "stack up the bricks,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "walls",
+      "highlight": [
+        "bricks"
+      ],
+      "index": 2,
+      "start": 3.512,
+      "end": 4.508,
+      "words": [
+        {
+          "word": "stack",
+          "start": 3.512,
+          "end": 3.776
+        },
+        {
+          "word": "up",
+          "start": 3.776,
+          "end": 3.918
+        },
+        {
+          "word": "the",
+          "start": 3.918,
+          "end": 4.102
+        },
+        {
+          "word": "bricks,",
+          "start": 4.102,
+          "end": 4.407
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "and add a roof. Done?",
+      "speed": 1.25,
+      "shot": "front",
+      "event": "roof",
+      "index": 3,
+      "start": 4.568,
+      "end": 5.819,
+      "words": [
+        {
+          "word": "and",
+          "start": 4.568,
+          "end": 4.773
+        },
+        {
+          "word": "add",
+          "start": 4.773,
+          "end": 4.978
+        },
+        {
+          "word": "a",
+          "start": 4.978,
+          "end": 5.092
+        },
+        {
+          "word": "roof.",
+          "start": 5.092,
+          "end": 5.342
+        },
+        {
+          "word": "Done?",
+          "start": 5.455,
+          "end": 5.706
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "Not quite. One corner starts to sink...",
+      "speed": 1.2,
+      "shot": "corner",
+      "event": "sink",
+      "highlight": [
+        "sink"
+      ],
+      "hold": 0.3,
+      "index": 4,
+      "start": 5.879,
+      "end": 7.928,
+      "words": [
+        {
+          "word": "Not",
+          "start": 5.879,
+          "end": 6.087
+        },
+        {
+          "word": "quite.",
+          "start": 6.087,
+          "end": 6.386
+        },
+        {
+          "word": "One",
+          "start": 6.501,
+          "end": 6.708
+        },
+        {
+          "word": "corner",
+          "start": 6.708,
+          "end": 7.053
+        },
+        {
+          "word": "starts",
+          "start": 7.053,
+          "end": 7.398
+        },
+        {
+          "word": "to",
+          "start": 7.398,
+          "end": 7.559
+        },
+        {
+          "word": "sink...",
+          "start": 7.559,
+          "end": 7.813
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "text": "Crack!",
+      "speed": 1.2,
+      "shot": "corner",
+      "event": "crack",
+      "highlight": [
+        "crack"
+      ],
+      "hold": 0.4,
+      "index": 5,
+      "start": 8.288,
+      "end": 8.871,
+      "words": [
+        {
+          "word": "Crack!",
+          "start": 8.288,
+          "end": 8.709
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "The top layer of soil is soft.",
+      "speed": 1.25,
+      "shot": "soilPush",
+      "event": "clearLot",
+      "label": "SOFT SOIL",
+      "labelWord": "top",
+      "labelAt": [
+        -2.5,
+        -1.5,
+        0.3
+      ],
+      "highlight": [
+        "soft"
+      ],
+      "index": 6,
+      "start": 9.331,
+      "end": 10.986,
+      "words": [
+        {
+          "word": "The",
+          "start": 9.331,
+          "end": 9.538
+        },
+        {
+          "word": "top",
+          "start": 9.538,
+          "end": 9.745
+        },
+        {
+          "word": "layer",
+          "start": 9.745,
+          "end": 10.044
+        },
+        {
+          "word": "of",
+          "start": 10.044,
+          "end": 10.205
+        },
+        {
+          "word": "soil",
+          "start": 10.205,
+          "end": 10.458
+        },
+        {
+          "word": "is",
+          "start": 10.458,
+          "end": 10.619
+        },
+        {
+          "word": "soft.",
+          "start": 10.619,
+          "end": 10.872
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "So you dig down to firm ground.",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "dig",
+      "label": "FIRM GROUND",
+      "labelWord": "firm",
+      "labelAt": [
+        3.85,
+        -3.6,
+        0.3
+      ],
+      "highlight": [
+        "firm"
+      ],
+      "hold": 0.2,
+      "index": 7,
+      "start": 11.046,
+      "end": 12.771,
+      "words": [
+        {
+          "word": "So",
+          "start": 11.046,
+          "end": 11.21
+        },
+        {
+          "word": "you",
+          "start": 11.21,
+          "end": 11.419
+        },
+        {
+          "word": "dig",
+          "start": 11.419,
+          "end": 11.629
+        },
+        {
+          "word": "down",
+          "start": 11.629,
+          "end": 11.886
+        },
+        {
+          "word": "to",
+          "start": 11.886,
+          "end": 12.049
+        },
+        {
+          "word": "firm",
+          "start": 12.049,
+          "end": 12.305
+        },
+        {
+          "word": "ground.",
+          "start": 12.305,
+          "end": 12.655
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "Drop in a steel cage...",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "rebar",
+      "index": 8,
+      "start": 13.031,
+      "end": 14.298,
+      "words": [
+        {
+          "word": "Drop",
+          "start": 13.031,
+          "end": 13.299
+        },
+        {
+          "word": "in",
+          "start": 13.299,
+          "end": 13.47
+        },
+        {
+          "word": "a",
+          "start": 13.47,
+          "end": 13.592
+        },
+        {
+          "word": "steel",
+          "start": 13.592,
+          "end": 13.908
+        },
+        {
+          "word": "cage...",
+          "start": 13.908,
+          "end": 14.176
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "and fill it with concrete.",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "pour",
+      "hold": 0.2,
+      "index": 9,
+      "start": 14.358,
+      "end": 15.676,
+      "words": [
+        {
+          "word": "and",
+          "start": 14.358,
+          "end": 14.55
+        },
+        {
+          "word": "fill",
+          "start": 14.55,
+          "end": 14.783
+        },
+        {
+          "word": "it",
+          "start": 14.783,
+          "end": 14.932
+        },
+        {
+          "word": "with",
+          "start": 14.932,
+          "end": 15.166
+        },
+        {
+          "word": "concrete.",
+          "start": 15.166,
+          "end": 15.57
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "These are footings.",
+      "speed": 1.2,
+      "shot": "front",
+      "label": "FOOTINGS",
+      "labelWord": "footings",
+      "labelAt": [
+        3.85,
+        -1.0,
+        0.3
+      ],
+      "highlight": [
+        "footings"
+      ],
+      "index": 10,
+      "start": 15.936,
+      "end": 17.05,
+      "words": [
+        {
+          "word": "These",
+          "start": 15.936,
+          "end": 16.251
+        },
+        {
+          "word": "are",
+          "start": 16.251,
+          "end": 16.469
+        },
+        {
+          "word": "footings.",
+          "start": 16.469,
+          "end": 16.929
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "Now the house stands on them.",
+      "speed": 1.25,
+      "shot": "front",
+      "event": "houseBack",
+      "hold": 0.2,
+      "index": 11,
+      "start": 17.11,
+      "end": 18.68,
+      "words": [
+        {
+          "word": "Now",
+          "start": 17.11,
+          "end": 17.315
+        },
+        {
+          "word": "the",
+          "start": 17.315,
+          "end": 17.519
+        },
+        {
+          "word": "house",
+          "start": 17.519,
+          "end": 17.815
+        },
+        {
+          "word": "stands",
+          "start": 17.815,
+          "end": 18.157
+        },
+        {
+          "word": "on",
+          "start": 18.157,
+          "end": 18.316
+        },
+        {
+          "word": "them.",
+          "start": 18.316,
+          "end": 18.567
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "text": "But between the footings, the walls still sag!",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "sag",
+      "highlight": [
+        "sag"
+      ],
+      "hold": 0.4,
+      "index": 12,
+      "start": 18.94,
+      "end": 21.068,
+      "words": [
+        {
+          "word": "But",
+          "start": 18.94,
+          "end": 19.118
+        },
+        {
+          "word": "between",
+          "start": 19.118,
+          "end": 19.452
+        },
+        {
+          "word": "the",
+          "start": 19.452,
+          "end": 19.63
+        },
+        {
+          "word": "footings,",
+          "start": 19.63,
+          "end": 20.004
+        },
+        {
+          "word": "the",
+          "start": 20.102,
+          "end": 20.28
+        },
+        {
+          "word": "walls",
+          "start": 20.28,
+          "end": 20.536
+        },
+        {
+          "word": "still",
+          "start": 20.536,
+          "end": 20.792
+        },
+        {
+          "word": "sag!",
+          "start": 20.792,
+          "end": 20.969
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "So you join the footings with a concrete beam,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "beam",
+      "index": 13,
+      "start": 21.528,
+      "end": 23.723,
+      "words": [
+        {
+          "word": "So",
+          "start": 21.528,
+          "end": 21.673
+        },
+        {
+          "word": "you",
+          "start": 21.673,
+          "end": 21.859
+        },
+        {
+          "word": "join",
+          "start": 21.859,
+          "end": 22.087
+        },
+        {
+          "word": "the",
+          "start": 22.087,
+          "end": 22.273
+        },
+        {
+          "word": "footings",
+          "start": 22.273,
+          "end": 22.667
+        },
+        {
+          "word": "with",
+          "start": 22.667,
+          "end": 22.895
+        },
+        {
+          "word": "a",
+          "start": 22.895,
+          "end": 22.998
+        },
+        {
+          "word": "concrete",
+          "start": 22.998,
+          "end": 23.392
+        },
+        {
+          "word": "beam,",
+          "start": 23.392,
+          "end": 23.62
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "called a grade beam.",
+      "speed": 1.2,
+      "shot": "beamClose",
+      "label": "GRADE BEAM",
+      "labelWord": "grade",
+      "labelAt": [
+        0,
+        0.3,
+        0.3
+      ],
+      "highlight": [
+        "grade",
+        "beam"
+      ],
+      "index": 14,
+      "start": 23.783,
+      "end": 25.011,
+      "words": [
+        {
+          "word": "called",
+          "start": 23.783,
+          "end": 24.159
+        },
+        {
+          "word": "a",
+          "start": 24.159,
+          "end": 24.284
+        },
+        {
+          "word": "grade",
+          "start": 24.284,
+          "end": 24.61
+        },
+        {
+          "word": "beam.",
+          "start": 24.61,
+          "end": 24.885
+        }
+      ]
+    },
+    {
+      "act": 3,
+      "text": "Now the walls sit on solid concrete.",
+      "speed": 1.25,
+      "shot": "beamClose",
+      "event": "level",
+      "hold": 0.2,
+      "index": 15,
+      "start": 25.071,
+      "end": 27.213,
+      "words": [
+        {
+          "word": "Now",
+          "start": 25.071,
+          "end": 25.3
+        },
+        {
+          "word": "the",
+          "start": 25.3,
+          "end": 25.53
+        },
+        {
+          "word": "walls",
+          "start": 25.53,
+          "end": 25.861
+        },
+        {
+          "word": "sit",
+          "start": 25.861,
+          "end": 26.091
+        },
+        {
+          "word": "on",
+          "start": 26.091,
+          "end": 26.269
+        },
+        {
+          "word": "solid",
+          "start": 26.269,
+          "end": 26.601
+        },
+        {
+          "word": "concrete.",
+          "start": 26.601,
+          "end": 27.085
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Months later... a damp stain creeps up the wall.",
+      "speed": 1.2,
+      "shot": "wallClose",
+      "event": "damp",
+      "highlight": [
+        "damp"
+      ],
+      "hold": 0.3,
+      "index": 16,
+      "start": 27.473,
+      "end": 30.072,
+      "words": [
+        {
+          "word": "Months",
+          "start": 27.473,
+          "end": 27.83
+        },
+        {
+          "word": "later...",
+          "start": 27.83,
+          "end": 28.14
+        },
+        {
+          "word": "a",
+          "start": 28.26,
+          "end": 28.379
+        },
+        {
+          "word": "damp",
+          "start": 28.379,
+          "end": 28.641
+        },
+        {
+          "word": "stain",
+          "start": 28.641,
+          "end": 28.951
+        },
+        {
+          "word": "creeps",
+          "start": 28.951,
+          "end": 29.309
+        },
+        {
+          "word": "up",
+          "start": 29.309,
+          "end": 29.476
+        },
+        {
+          "word": "the",
+          "start": 29.476,
+          "end": 29.69
+        },
+        {
+          "word": "wall.",
+          "start": 29.69,
+          "end": 29.953
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Why? Bricks drink water.",
+      "speed": 1.2,
+      "shot": "wallClose",
+      "highlight": [
+        "drink"
+      ],
+      "index": 17,
+      "start": 30.432,
+      "end": 31.871,
+      "words": [
+        {
+          "word": "Why?",
+          "start": 30.432,
+          "end": 30.648
+        },
+        {
+          "word": "Bricks",
+          "start": 30.768,
+          "end": 31.127
+        },
+        {
+          "word": "drink",
+          "start": 31.127,
+          "end": 31.439
+        },
+        {
+          "word": "water.",
+          "start": 31.439,
+          "end": 31.751
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Like a sugar cube dipped in coffee.",
+      "speed": 1.25,
+      "shot": "sugarClose",
+      "event": "sugar",
+      "highlight": [
+        "sugar"
+      ],
+      "hold": 0.5,
+      "index": 18,
+      "start": 31.931,
+      "end": 33.866,
+      "words": [
+        {
+          "word": "Like",
+          "start": 31.931,
+          "end": 32.19
+        },
+        {
+          "word": "a",
+          "start": 32.19,
+          "end": 32.308
+        },
+        {
+          "word": "sugar",
+          "start": 32.308,
+          "end": 32.615
+        },
+        {
+          "word": "cube",
+          "start": 32.615,
+          "end": 32.875
+        },
+        {
+          "word": "dipped",
+          "start": 32.875,
+          "end": 33.229
+        },
+        {
+          "word": "in",
+          "start": 33.229,
+          "end": 33.394
+        },
+        {
+          "word": "coffee.",
+          "start": 33.394,
+          "end": 33.748
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Water climbs through the tiny holes.",
+      "speed": 1.25,
+      "shot": "sugarClose",
+      "event": "sugarRise",
+      "highlight": [
+        "climbs"
+      ],
+      "index": 19,
+      "start": 34.426,
+      "end": 36.319,
+      "words": [
+        {
+          "word": "Water",
+          "start": 34.426,
+          "end": 34.722
+        },
+        {
+          "word": "climbs",
+          "start": 34.722,
+          "end": 35.064
+        },
+        {
+          "word": "through",
+          "start": 35.064,
+          "end": 35.452
+        },
+        {
+          "word": "the",
+          "start": 35.452,
+          "end": 35.657
+        },
+        {
+          "word": "tiny",
+          "start": 35.657,
+          "end": 35.908
+        },
+        {
+          "word": "holes.",
+          "start": 35.908,
+          "end": 36.205
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "So builders paint the beam with tar.",
+      "speed": 1.25,
+      "shot": "wallClose",
+      "event": "tar",
+      "highlight": [
+        "tar"
+      ],
+      "index": 20,
+      "start": 36.379,
+      "end": 38.108,
+      "words": [
+        {
+          "word": "So",
+          "start": 36.379,
+          "end": 36.523
+        },
+        {
+          "word": "builders",
+          "start": 36.523,
+          "end": 36.914
+        },
+        {
+          "word": "paint",
+          "start": 36.914,
+          "end": 37.182
+        },
+        {
+          "word": "the",
+          "start": 37.182,
+          "end": 37.367
+        },
+        {
+          "word": "beam",
+          "start": 37.367,
+          "end": 37.593
+        },
+        {
+          "word": "with",
+          "start": 37.593,
+          "end": 37.82
+        },
+        {
+          "word": "tar.",
+          "start": 37.82,
+          "end": 38.005
+        }
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Waterproofing! The water can't climb past it.",
+      "speed": 1.25,
+      "shot": "wallClose",
+      "event": "dampStop",
+      "label": "WATERPROOFING",
+      "labelWord": "waterproofing",
+      "labelAt": [
+        0,
+        1.2,
+        -5.4
+      ],
+      "highlight": [
+        "waterproofing"
+      ],
+      "hold": 0.3,
+      "index": 21,
+      "start": 38.168,
+      "end": 40.479,
+      "words": [
+        {
+          "word": "Waterproofing!",
+          "start": 38.168,
+          "end": 38.806
+        },
+        {
+          "word": "The",
+          "start": 38.916,
+          "end": 39.115
+        },
+        {
+          "word": "water",
+          "start": 39.115,
+          "end": 39.401
+        },
+        {
+          "word": "can't",
+          "start": 39.401,
+          "end": 39.687
+        },
+        {
+          "word": "climb",
+          "start": 39.687,
+          "end": 39.973
+        },
+        {
+          "word": "past",
+          "start": 39.973,
+          "end": 40.215
+        },
+        {
+          "word": "it.",
+          "start": 40.215,
+          "end": 40.369
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Then the rain comes.",
+      "speed": 1.2,
+      "shot": "rainFront",
+      "event": "rain",
+      "highlight": [
+        "rain"
+      ],
+      "index": 22,
+      "start": 40.839,
+      "end": 42.116,
+      "words": [
+        {
+          "word": "Then",
+          "start": 40.839,
+          "end": 41.126
+        },
+        {
+          "word": "the",
+          "start": 41.126,
+          "end": 41.36
+        },
+        {
+          "word": "rain",
+          "start": 41.36,
+          "end": 41.647
+        },
+        {
+          "word": "comes.",
+          "start": 41.647,
+          "end": 41.986
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Water pours off the roof and soaks the ground by the walls,",
+      "speed": 1.3,
+      "shot": "rainFront",
+      "event": "soak",
+      "index": 23,
+      "start": 42.176,
+      "end": 44.939,
+      "words": [
+        {
+          "word": "Water",
+          "start": 42.176,
+          "end": 42.442
+        },
+        {
+          "word": "pours",
+          "start": 42.442,
+          "end": 42.708
+        },
+        {
+          "word": "off",
+          "start": 42.708,
+          "end": 42.893
+        },
+        {
+          "word": "the",
+          "start": 42.893,
+          "end": 43.077
+        },
+        {
+          "word": "roof",
+          "start": 43.077,
+          "end": 43.302
+        },
+        {
+          "word": "and",
+          "start": 43.302,
+          "end": 43.486
+        },
+        {
+          "word": "soaks",
+          "start": 43.486,
+          "end": 43.752
+        },
+        {
+          "word": "the",
+          "start": 43.752,
+          "end": 43.937
+        },
+        {
+          "word": "ground",
+          "start": 43.937,
+          "end": 44.244
+        },
+        {
+          "word": "by",
+          "start": 44.244,
+          "end": 44.387
+        },
+        {
+          "word": "the",
+          "start": 44.387,
+          "end": 44.571
+        },
+        {
+          "word": "walls,",
+          "start": 44.571,
+          "end": 44.837
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "and soggy ground weakens the footings.",
+      "speed": 1.3,
+      "shot": "rainSide",
+      "event": "soggy",
+      "highlight": [
+        "weakens"
+      ],
+      "hold": 0.3,
+      "index": 24,
+      "start": 44.999,
+      "end": 46.987,
+      "words": [
+        {
+          "word": "and",
+          "start": 44.999,
+          "end": 45.205
+        },
+        {
+          "word": "soggy",
+          "start": 45.205,
+          "end": 45.502
+        },
+        {
+          "word": "ground",
+          "start": 45.502,
+          "end": 45.845
+        },
+        {
+          "word": "weakens",
+          "start": 45.845,
+          "end": 46.233
+        },
+        {
+          "word": "the",
+          "start": 46.233,
+          "end": 46.439
+        },
+        {
+          "word": "footings.",
+          "start": 46.439,
+          "end": 46.873
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "So you pour a concrete border around the house.",
+      "speed": 1.3,
+      "shot": "apronClose",
+      "event": "apron",
+      "index": 25,
+      "start": 47.347,
+      "end": 49.655,
+      "words": [
+        {
+          "word": "So",
+          "start": 47.347,
+          "end": 47.497
+        },
+        {
+          "word": "you",
+          "start": 47.497,
+          "end": 47.689
+        },
+        {
+          "word": "pour",
+          "start": 47.689,
+          "end": 47.924
+        },
+        {
+          "word": "a",
+          "start": 47.924,
+          "end": 48.031
+        },
+        {
+          "word": "concrete",
+          "start": 48.031,
+          "end": 48.437
+        },
+        {
+          "word": "border",
+          "start": 48.437,
+          "end": 48.758
+        },
+        {
+          "word": "around",
+          "start": 48.758,
+          "end": 49.078
+        },
+        {
+          "word": "the",
+          "start": 49.078,
+          "end": 49.27
+        },
+        {
+          "word": "house.",
+          "start": 49.27,
+          "end": 49.548
+        }
+      ]
+    },
+    {
+      "act": 5,
+      "text": "An apron! It sends the water away.",
+      "speed": 1.25,
+      "shot": "rainSide",
+      "event": "drain",
+      "label": "APRON",
+      "labelWord": "apron",
+      "labelAt": [
+        5.2,
+        0.3,
+        0.3
+      ],
+      "highlight": [
+        "apron"
+      ],
+      "hold": 0.3,
+      "index": 26,
+      "start": 49.715,
+      "end": 51.619,
+      "words": [
+        {
+          "word": "An",
+          "start": 49.715,
+          "end": 49.876
+        },
+        {
+          "word": "apron!",
+          "start": 49.876,
+          "end": 50.174
+        },
+        {
+          "word": "It",
+          "start": 50.289,
+          "end": 50.449
+        },
+        {
+          "word": "sends",
+          "start": 50.449,
+          "end": 50.747
+        },
+        {
+          "word": "the",
+          "start": 50.747,
+          "end": 50.954
+        },
+        {
+          "word": "water",
+          "start": 50.954,
+          "end": 51.252
+        },
+        {
+          "word": "away.",
+          "start": 51.252,
+          "end": 51.505
+        }
+      ]
+    },
+    {
+      "act": 6,
+      "text": "Footings. Grade beam. Waterproofing. Apron.",
+      "speed": 1.15,
+      "shot": "recap",
+      "event": "recap",
+      "highlight": [
+        "footings",
+        "grade",
+        "beam",
+        "waterproofing",
+        "apron"
+      ],
+      "index": 27,
+      "start": 51.979,
+      "end": 54.633,
+      "words": [
+        {
+          "word": "Footings.",
+          "start": 51.979,
+          "end": 52.46
+        },
+        {
+          "word": "Grade",
+          "start": 52.586,
+          "end": 52.915
+        },
+        {
+          "word": "beam.",
+          "start": 52.915,
+          "end": 53.193
+        },
+        {
+          "word": "Waterproofing.",
+          "start": 53.319,
+          "end": 54.052
+        },
+        {
+          "word": "Apron.",
+          "start": 54.178,
+          "end": 54.507
+        }
+      ]
+    },
+    {
+      "act": 6,
+      "text": "That's how you build a house that won't crack.",
+      "speed": 1.2,
+      "shot": "final",
+      "event": "final",
+      "highlight": [
+        "won't",
+        "crack"
+      ],
+      "index": 28,
+      "start": 54.693,
+      "end": 56.696,
+      "words": [
+        {
+          "word": "That's",
+          "start": 54.693,
+          "end": 54.977
+        },
+        {
+          "word": "how",
+          "start": 54.977,
+          "end": 55.147
+        },
+        {
+          "word": "you",
+          "start": 55.147,
+          "end": 55.317
+        },
+        {
+          "word": "build",
+          "start": 55.317,
+          "end": 55.562
+        },
+        {
+          "word": "a",
+          "start": 55.562,
+          "end": 55.657
+        },
+        {
+          "word": "house",
+          "start": 55.657,
+          "end": 55.902
+        },
+        {
+          "word": "that",
+          "start": 55.902,
+          "end": 56.11
+        },
+        {
+          "word": "won't",
+          "start": 56.11,
+          "end": 56.356
+        },
+        {
+          "word": "crack.",
+          "start": 56.356,
+          "end": 56.601
+        }
+      ]
+    }
+  ]
+}

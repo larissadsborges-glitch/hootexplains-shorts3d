@@ -1,0 +1,350 @@
+{
+  "id": "house",
+  "title": "How to build a house that won't crack",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "scene": "house",
+  "hook": {
+    "line1": "HOW TO BUILD A HOUSE",
+    "line2": "THAT WON'T CRACK"
+  },
+  "outro": {
+    "line1": "HOW TO BUILD A HOUSE",
+    "line2": "THAT WON'T CRACK"
+  },
+  "recapItems": [
+    "FOOTINGS",
+    "GRADE BEAM",
+    "WATERPROOFING",
+    "APRON"
+  ],
+  "beats": [
+    {
+      "act": 1,
+      "text": "Here's how to build a house that won't crack.",
+      "speed": 1.25,
+      "shot": "hook",
+      "highlight": [
+        "won't",
+        "crack"
+      ]
+    },
+    {
+      "act": 1,
+      "text": "First, mark out the walls,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "outline"
+    },
+    {
+      "act": 1,
+      "text": "stack up the bricks,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "walls",
+      "highlight": [
+        "bricks"
+      ]
+    },
+    {
+      "act": 1,
+      "text": "and add a roof. Done?",
+      "speed": 1.25,
+      "shot": "front",
+      "event": "roof"
+    },
+    {
+      "act": 1,
+      "text": "Not quite. One corner starts to sink...",
+      "speed": 1.2,
+      "shot": "corner",
+      "event": "sink",
+      "highlight": [
+        "sink"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 1,
+      "text": "Crack!",
+      "speed": 1.2,
+      "shot": "corner",
+      "event": "crack",
+      "highlight": [
+        "crack"
+      ],
+      "hold": 0.4
+    },
+    {
+      "act": 2,
+      "text": "The top layer of soil is soft.",
+      "speed": 1.25,
+      "shot": "soilPush",
+      "event": "clearLot",
+      "label": "SOFT SOIL",
+      "labelWord": "top",
+      "labelAt": [
+        -2.5,
+        -1.5,
+        0.3
+      ],
+      "highlight": [
+        "soft"
+      ]
+    },
+    {
+      "act": 2,
+      "text": "So you dig down to firm ground.",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "dig",
+      "label": "FIRM GROUND",
+      "labelWord": "firm",
+      "labelAt": [
+        3.85,
+        -3.6,
+        0.3
+      ],
+      "highlight": [
+        "firm"
+      ],
+      "hold": 0.2
+    },
+    {
+      "act": 2,
+      "text": "Drop in a steel cage...",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "rebar"
+    },
+    {
+      "act": 2,
+      "text": "and fill it with concrete.",
+      "speed": 1.25,
+      "shot": "pitClose",
+      "event": "pour",
+      "hold": 0.2
+    },
+    {
+      "act": 2,
+      "text": "These are footings.",
+      "speed": 1.2,
+      "shot": "front",
+      "label": "FOOTINGS",
+      "labelWord": "footings",
+      "labelAt": [
+        3.85,
+        -1.0,
+        0.3
+      ],
+      "highlight": [
+        "footings"
+      ]
+    },
+    {
+      "act": 2,
+      "text": "Now the house stands on them.",
+      "speed": 1.25,
+      "shot": "front",
+      "event": "houseBack",
+      "hold": 0.2
+    },
+    {
+      "act": 2,
+      "text": "But between the footings, the walls still sag!",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "sag",
+      "highlight": [
+        "sag"
+      ],
+      "hold": 0.4
+    },
+    {
+      "act": 3,
+      "text": "So you join the footings with a concrete beam,",
+      "speed": 1.3,
+      "shot": "front",
+      "event": "beam"
+    },
+    {
+      "act": 3,
+      "text": "called a grade beam.",
+      "speed": 1.2,
+      "shot": "beamClose",
+      "label": "GRADE BEAM",
+      "labelWord": "grade",
+      "labelAt": [
+        0,
+        0.3,
+        0.3
+      ],
+      "highlight": [
+        "grade",
+        "beam"
+      ]
+    },
+    {
+      "act": 3,
+      "text": "Now the walls sit on solid concrete.",
+      "speed": 1.25,
+      "shot": "beamClose",
+      "event": "level",
+      "hold": 0.2
+    },
+    {
+      "act": 4,
+      "text": "Months later... a damp stain creeps up the wall.",
+      "speed": 1.2,
+      "shot": "wallClose",
+      "event": "damp",
+      "highlight": [
+        "damp"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 4,
+      "text": "Why? Bricks drink water.",
+      "speed": 1.2,
+      "shot": "wallClose",
+      "highlight": [
+        "drink"
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Like a sugar cube dipped in coffee.",
+      "speed": 1.25,
+      "shot": "sugarClose",
+      "event": "sugar",
+      "highlight": [
+        "sugar"
+      ],
+      "hold": 0.5
+    },
+    {
+      "act": 4,
+      "text": "Water climbs through the tiny holes.",
+      "speed": 1.25,
+      "shot": "sugarClose",
+      "event": "sugarRise",
+      "highlight": [
+        "climbs"
+      ]
+    },
+    {
+      "act": 4,
+      "text": "So builders paint the beam with tar.",
+      "speed": 1.25,
+      "shot": "wallClose",
+      "event": "tar",
+      "highlight": [
+        "tar"
+      ]
+    },
+    {
+      "act": 4,
+      "text": "Waterproofing! The water can't climb past it.",
+      "speed": 1.25,
+      "shot": "wallClose",
+      "event": "dampStop",
+      "label": "WATERPROOFING",
+      "labelWord": "waterproofing",
+      "labelAt": [
+        0,
+        1.2,
+        -5.4
+      ],
+      "highlight": [
+        "waterproofing"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 5,
+      "text": "Then the rain comes.",
+      "speed": 1.2,
+      "shot": "rainFront",
+      "event": "rain",
+      "highlight": [
+        "rain"
+      ]
+    },
+    {
+      "act": 5,
+      "text": "Water pours off the roof and soaks the ground by the walls,",
+      "speed": 1.3,
+      "shot": "rainFront",
+      "event": "soak"
+    },
+    {
+      "act": 5,
+      "text": "and soggy ground weakens the footings.",
+      "speed": 1.3,
+      "shot": "rainSide",
+      "event": "soggy",
+      "highlight": [
+        "weakens"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 5,
+      "text": "So you pour a concrete border around the house.",
+      "speed": 1.3,
+      "shot": "apronClose",
+      "event": "apron"
+    },
+    {
+      "act": 5,
+      "text": "An apron! It sends the water away.",
+      "speed": 1.25,
+      "shot": "rainSide",
+      "event": "drain",
+      "label": "APRON",
+      "labelWord": "apron",
+      "labelAt": [
+        5.2,
+        0.3,
+        0.3
+      ],
+      "highlight": [
+        "apron"
+      ],
+      "hold": 0.3
+    },
+    {
+      "act": 6,
+      "text": "Footings. Grade beam. Waterproofing. Apron.",
+      "speed": 1.15,
+      "shot": "recap",
+      "event": "recap",
+      "highlight": [
+        "footings",
+        "grade",
+        "beam",
+        "waterproofing",
+        "apron"
+      ]
+    },
+    {
+      "act": 6,
+      "text": "That's how you build a house that won't crack.",
+      "speed": 1.2,
+      "shot": "final",
+      "event": "final",
+      "highlight": [
+        "won't",
+        "crack"
+      ]
+    }
+  ]
+}

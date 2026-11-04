@@ -1,0 +1,110 @@
+{
+  "id": "money1",
+  "title": "This $20 bill cost 7 cents to print. So why is it worth $20?",
+  "ep": 1,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "THIS $20 BILL COST",
+    "line2": "7 CENTS TO PRINT",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "DO YOU STILL",
+    "line2": "CARRY CASH?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "This 20 dollar bill cost about 7 cents to print. So why is it worth 20?",
+      "speed": 1.25,
+      "shot": "billHook",
+      "event": "hook",
+      "highlight": [
+        "7",
+        "worth"
+      ]
+    },
+    {
+      "text": "Rewind. People used to swap. Jake's fish for your shoes. But what if you hate fish?",
+      "speed": 1.25,
+      "shot": "barter",
+      "event": "barter",
+      "highlight": [
+        "swap",
+        "hate"
+      ]
+    },
+    {
+      "text": "So they used things everyone accepted. Shells, then coins, then paper.",
+      "speed": 1.25,
+      "shot": "timeline",
+      "event": "coins",
+      "highlight": [
+        "Shells",
+        "coins",
+        "paper"
+      ]
+    },
+    {
+      "text": "Backed by gold? Not since 1971. So what backs it now?",
+      "speed": 1.2,
+      "shot": "vault",
+      "event": "gold",
+      "highlight": [
+        "gold",
+        "1971"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "Episode 1 of 6. Follow along.",
+      "speed": 1.25,
+      "shot": "vault",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "The law: it pays any debt or tax. And trust that the next person will take it.",
+      "speed": 1.25,
+      "shot": "billLaw",
+      "event": "law",
+      "highlight": [
+        "law",
+        "trust"
+      ]
+    },
+    {
+      "text": "But in America, only about 1 in 10 dollars is even cash.",
+      "speed": 1.25,
+      "shot": "phone",
+      "event": "twist",
+      "highlight": [
+        "1",
+        "cash"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "The rest is just numbers on screens, mostly created by banks. Do you still carry cash?",
+      "speed": 1.25,
+      "shot": "billHook",
+      "event": "final",
+      "highlight": [
+        "banks",
+        "cash"
+      ]
+    }
+  ]
+}

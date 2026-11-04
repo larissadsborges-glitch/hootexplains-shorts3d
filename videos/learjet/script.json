@@ -1,0 +1,224 @@
+{
+  "id": "learjet",
+  "title": "The jet that fell 26,000 feet in one minute",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.08,
+  "tail": 1.6,
+  "handle": "@explainland",
+  "scene": "learjet",
+  "music": "music/tense.wav",
+  "hook": {
+    "line1": "WHAT HAPPENED",
+    "line2": "TO THIS JET?",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "THE UPDATE"
+  },
+  "beats": [
+    {
+      "text": "Thirty-five thousand feet. Then, in about one minute, this jet fell almost the height of Mount Everest.",
+      "speed": 1.15,
+      "shot": "dive",
+      "event": "hook",
+      "highlight": [
+        "one",
+        "minute",
+        "everest"
+      ]
+    },
+    {
+      "text": "Nine people were on board. Here's what we know.",
+      "speed": 1.15,
+      "shot": "dive",
+      "event": "onboard",
+      "highlight": [
+        "nine"
+      ]
+    },
+    {
+      "text": "Sunday, November 1st. A 22-year-old Learjet 60 takes off from Austin, Texas, heading for the Bahamas.",
+      "speed": 1.15,
+      "shot": "map",
+      "event": "route",
+      "highlight": [
+        "austin",
+        "bahamas"
+      ]
+    },
+    {
+      "text": "It climbs to 35,000 feet, above the clouds, over Florida.",
+      "speed": 1.15,
+      "shot": "cruise",
+      "event": "cruise",
+      "highlight": [
+        "35000"
+      ]
+    },
+    {
+      "text": "But around it, scattered storms are building.",
+      "speed": 1.15,
+      "shot": "storm",
+      "event": "storms",
+      "highlight": [
+        "storms"
+      ]
+    },
+    {
+      "text": "The pilot radios Miami. Light, clear ice... manageable. And moderate turbulence.",
+      "speed": 1.15,
+      "shot": "wingIce",
+      "event": "ice",
+      "highlight": [
+        "clear",
+        "ice"
+      ],
+      "label": "CLEAR ICE",
+      "labelWord": "clear",
+      "labelAt": "wingEdge"
+    },
+    {
+      "text": "Clear ice is smooth and see-through. It's hard to spot, and it changes the shape of the wing.",
+      "speed": 1.15,
+      "shot": "section",
+      "event": "section",
+      "highlight": [
+        "shape"
+      ]
+    },
+    {
+      "text": "The crew asks to climb 2,000 feet higher.",
+      "speed": 1.15,
+      "shot": "climb",
+      "event": "climb",
+      "highlight": [
+        "2000"
+      ]
+    },
+    {
+      "text": "And then... the radio changes.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "radio",
+      "highlight": [
+        "changes"
+      ]
+    },
+    {
+      "text": "Mayday. Descending 10,000 feet per minute.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "mayday",
+      "highlight": [
+        "mayday",
+        "10000"
+      ]
+    },
+    {
+      "text": "Then... overspeed. 20,000 feet per minute.",
+      "speed": 1.15,
+      "shot": "cockpit",
+      "event": "overspeed",
+      "highlight": [
+        "overspeed",
+        "20000"
+      ]
+    },
+    {
+      "text": "Overspeed means faster than the jet's safe limit. The controls get heavy, and the whole frame is under huge stress.",
+      "speed": 1.15,
+      "shot": "stress",
+      "event": "stress",
+      "highlight": [
+        "safe",
+        "limit",
+        "stress"
+      ]
+    },
+    {
+      "text": "In about one minute, it drops 26,500 feet. Almost the height of Mount Everest.",
+      "speed": 1.15,
+      "shot": "everest",
+      "event": "everest",
+      "highlight": [
+        "26500",
+        "everest"
+      ]
+    },
+    {
+      "text": "That's more than twice as fast as a skydiver falls.",
+      "speed": 1.15,
+      "shot": "everest",
+      "event": "skydiver",
+      "highlight": [
+        "twice"
+      ]
+    },
+    {
+      "text": "Just before one in the afternoon, it hits the ground in Palm Beach County, close to homes and a shopping centre.",
+      "speed": 1.15,
+      "shot": "town",
+      "event": "impact",
+      "highlight": [
+        "palm",
+        "beach"
+      ]
+    },
+    {
+      "text": "Florida's governor said it looked like a missile going down. It left a crater by the road.",
+      "speed": 1.15,
+      "shot": "crater",
+      "event": "crater",
+      "highlight": [
+        "missile",
+        "crater"
+      ]
+    },
+    {
+      "text": "No one on the ground was reported hurt. But 600 neighbours had to leave their homes.",
+      "speed": 1.15,
+      "shot": "evac",
+      "event": "evac",
+      "highlight": [
+        "600"
+      ]
+    },
+    {
+      "text": "So what made this jet fall like a stone? Investigators don't know yet.",
+      "speed": 1.15,
+      "shot": "frozen",
+      "event": "question",
+      "highlight": [
+        "don't",
+        "know"
+      ]
+    },
+    {
+      "text": "The NTSB will look at the weather, the ice, the radar data, and the wreckage.",
+      "speed": 1.15,
+      "shot": "frozen",
+      "event": "checklist"
+    },
+    {
+      "text": "Nine people lost their lives. The cause is still under investigation.",
+      "speed": 1.15,
+      "shot": "dusk",
+      "event": "memorial"
+    },
+    {
+      "text": "Follow, and we'll explain what investigators find.",
+      "speed": 1.15,
+      "shot": "dusk",
+      "event": "final",
+      "highlight": [
+        "follow"
+      ]
+    }
+  ]
+}

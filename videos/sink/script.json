@@ -1,0 +1,176 @@
+{
+  "id": "sink",
+  "title": "Why every sink has a U-shaped pipe",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.6,
+  "handle": "@hootexplains",
+  "scene": "sink",
+  "hook": {
+    "line1": "WHY IS THIS PIPE",
+    "line2": "SHAPED LIKE A U?"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "PART 2: WINDOWS"
+  },
+  "beats": [
+    {
+      "text": "Every sink in your house hides this weird U-shaped pipe. Here's why.",
+      "speed": 1.2,
+      "shot": "hook",
+      "event": "hook",
+      "highlight": [
+        "u-shaped"
+      ]
+    },
+    {
+      "text": "Imagine the pipe went straight down to the sewer.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "straight",
+      "highlight": [
+        "straight"
+      ]
+    },
+    {
+      "text": "Water drains fine. But the sewer is full of gas.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "sewerGas",
+      "highlight": [
+        "gas"
+      ]
+    },
+    {
+      "text": "And with nothing in the way, it comes straight up into your bathroom.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "stink",
+      "highlight": [
+        "bathroom"
+      ]
+    },
+    {
+      "text": "So we bend the pipe into a U.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "bend",
+      "highlight": [
+        "u"
+      ]
+    },
+    {
+      "text": "After every wash, a little water stays trapped in the bend. About five to ten centimetres.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "seal",
+      "highlight": [
+        "trapped"
+      ],
+      "label": "WATER SEAL",
+      "labelWord": "water",
+      "labelAt": "seal"
+    },
+    {
+      "text": "That water is a plug. Gas can't get through, but your sink still drains.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "plug",
+      "highlight": [
+        "plug"
+      ]
+    },
+    {
+      "text": "But a big rush of water can suck that plug right out of the U.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "siphon",
+      "highlight": [
+        "suck"
+      ]
+    },
+    {
+      "text": "The fix? A pipe that goes all the way up to your roof.",
+      "speed": 1.2,
+      "shot": "house",
+      "event": "vent",
+      "highlight": [
+        "roof"
+      ],
+      "label": "VENT PIPE",
+      "labelWord": "pipe",
+      "labelAt": "vent"
+    },
+    {
+      "text": "It lets air in behind the water, so the plug stays put.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "air",
+      "highlight": [
+        "air"
+      ]
+    },
+    {
+      "text": "That's the pipe you see sticking out of roofs. It also lets the sewer gas out, way above your head.",
+      "speed": 1.2,
+      "shot": "roof",
+      "event": "roof",
+      "highlight": [
+        "roofs"
+      ]
+    },
+    {
+      "text": "The first version was S-shaped, invented in 1775. Many places now ban it, because it sucks itself dry.",
+      "speed": 1.2,
+      "shot": "sTrap",
+      "event": "strap",
+      "highlight": [
+        "s-shaped",
+        "1775"
+      ]
+    },
+    {
+      "text": "One more thing. If a drain goes unused for weeks, that water evaporates, and the smell comes back.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "evap",
+      "highlight": [
+        "evaporates"
+      ]
+    },
+    {
+      "text": "The fix is free. Just run the tap for a few seconds.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "refill",
+      "highlight": [
+        "free"
+      ]
+    },
+    {
+      "text": "And if you ever drop a ring down the sink, it's probably sitting in the U. You can unscrew it.",
+      "speed": 1.2,
+      "shot": "uClose",
+      "event": "ring",
+      "highlight": [
+        "ring",
+        "unscrew"
+      ]
+    },
+    {
+      "text": "Which one did you know? Tell me in the comments. Next: why your windows have two panes.",
+      "speed": 1.2,
+      "shot": "final",
+      "event": "final",
+      "highlight": [
+        "comments"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1521 @@
+{
+  "id": "tunnel",
+  "title": "How tunnels are built under rivers",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.4,
+  "handle": "@explainland",
+  "scene": "tunnel",
+  "hook": {
+    "line1": "HOW TUNNELS ARE BUILT",
+    "line2": "UNDER RIVERS"
+  },
+  "outro": {
+    "line1": "WOULD YOU RIDE IT?",
+    "line2": "COMMENT BELOW"
+  },
+  "duration": 64.986,
+  "beats": [
+    {
+      "text": "There's a train running under this river. How did they build it?",
+      "speed": 1.25,
+      "shot": "trainClose",
+      "event": "hook",
+      "highlight": [
+        "train",
+        "under",
+        "river"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 2.882,
+      "words": [
+        {
+          "word": "There's",
+          "start": 0.05,
+          "end": 0.375
+        },
+        {
+          "word": "a",
+          "start": 0.375,
+          "end": 0.471
+        },
+        {
+          "word": "train",
+          "start": 0.471,
+          "end": 0.72
+        },
+        {
+          "word": "running",
+          "start": 0.72,
+          "end": 1.045
+        },
+        {
+          "word": "under",
+          "start": 1.045,
+          "end": 1.294
+        },
+        {
+          "word": "this",
+          "start": 1.294,
+          "end": 1.504
+        },
+        {
+          "word": "river.",
+          "start": 1.504,
+          "end": 1.753
+        },
+        {
+          "word": "How",
+          "start": 1.849,
+          "end": 2.021
+        },
+        {
+          "word": "did",
+          "start": 2.021,
+          "end": 2.193
+        },
+        {
+          "word": "they",
+          "start": 2.193,
+          "end": 2.404
+        },
+        {
+          "word": "build",
+          "start": 2.404,
+          "end": 2.652
+        },
+        {
+          "word": "it?",
+          "start": 2.652,
+          "end": 2.786
+        }
+      ]
+    },
+    {
+      "text": "If you just dig, the river floods in. Instantly.",
+      "speed": 1.25,
+      "shot": "floodClose",
+      "event": "flood",
+      "highlight": [
+        "floods",
+        "instantly"
+      ],
+      "hold": 0.3,
+      "index": 1,
+      "start": 2.942,
+      "end": 5.579,
+      "words": [
+        {
+          "word": "If",
+          "start": 2.942,
+          "end": 3.101
+        },
+        {
+          "word": "you",
+          "start": 3.101,
+          "end": 3.306
+        },
+        {
+          "word": "just",
+          "start": 3.306,
+          "end": 3.556
+        },
+        {
+          "word": "dig,",
+          "start": 3.556,
+          "end": 3.76
+        },
+        {
+          "word": "the",
+          "start": 3.874,
+          "end": 4.078
+        },
+        {
+          "word": "river",
+          "start": 4.078,
+          "end": 4.374
+        },
+        {
+          "word": "floods",
+          "start": 4.374,
+          "end": 4.715
+        },
+        {
+          "word": "in.",
+          "start": 4.715,
+          "end": 4.874
+        },
+        {
+          "word": "Instantly.",
+          "start": 4.988,
+          "end": 5.465
+        }
+      ]
+    },
+    {
+      "text": "The ground down there is soaked, like a sponge.",
+      "speed": 1.25,
+      "shot": "section",
+      "event": "reset",
+      "label": "SOAKED SOIL",
+      "labelWord": "soaked",
+      "labelAt": [
+        -3,
+        -3.0,
+        0.3
+      ],
+      "highlight": [
+        "soaked",
+        "sponge"
+      ],
+      "index": 2,
+      "start": 5.939,
+      "end": 8.09,
+      "words": [
+        {
+          "word": "The",
+          "start": 5.939,
+          "end": 6.113
+        },
+        {
+          "word": "ground",
+          "start": 6.113,
+          "end": 6.404
+        },
+        {
+          "word": "down",
+          "start": 6.404,
+          "end": 6.617
+        },
+        {
+          "word": "there",
+          "start": 6.617,
+          "end": 6.869
+        },
+        {
+          "word": "is",
+          "start": 6.869,
+          "end": 7.005
+        },
+        {
+          "word": "soaked,",
+          "start": 7.005,
+          "end": 7.295
+        },
+        {
+          "word": "like",
+          "start": 7.392,
+          "end": 7.606
+        },
+        {
+          "word": "a",
+          "start": 7.606,
+          "end": 7.703
+        },
+        {
+          "word": "sponge.",
+          "start": 7.703,
+          "end": 7.993
+        }
+      ]
+    },
+    {
+      "text": "So first, engineers drill test holes, to know exactly what's down there.",
+      "speed": 1.3,
+      "shot": "surveyClose",
+      "event": "survey",
+      "label": "BOREHOLES",
+      "labelWord": "test",
+      "labelAt": [
+        -1.0,
+        -1.6,
+        0.3
+      ],
+      "highlight": [
+        "test",
+        "holes"
+      ],
+      "index": 3,
+      "start": 8.15,
+      "end": 11.838,
+      "words": [
+        {
+          "word": "So",
+          "start": 8.15,
+          "end": 8.305
+        },
+        {
+          "word": "first,",
+          "start": 8.305,
+          "end": 8.592
+        },
+        {
+          "word": "engineers",
+          "start": 8.702,
+          "end": 9.166
+        },
+        {
+          "word": "drill",
+          "start": 9.166,
+          "end": 9.453
+        },
+        {
+          "word": "test",
+          "start": 9.453,
+          "end": 9.696
+        },
+        {
+          "word": "holes,",
+          "start": 9.696,
+          "end": 9.983
+        },
+        {
+          "word": "to",
+          "start": 10.093,
+          "end": 10.248
+        },
+        {
+          "word": "know",
+          "start": 10.248,
+          "end": 10.491
+        },
+        {
+          "word": "exactly",
+          "start": 10.491,
+          "end": 10.866
+        },
+        {
+          "word": "what's",
+          "start": 10.866,
+          "end": 11.197
+        },
+        {
+          "word": "down",
+          "start": 11.197,
+          "end": 11.44
+        },
+        {
+          "word": "there.",
+          "start": 11.44,
+          "end": 11.727
+        }
+      ]
+    },
+    {
+      "text": "Then they dig a deep shaft on each bank, walled with concrete.",
+      "speed": 1.3,
+      "shot": "shaft",
+      "event": "shafts",
+      "label": "LAUNCH SHAFT",
+      "labelWord": "shaft",
+      "labelAt": [
+        -12.5,
+        -1.0,
+        0.3
+      ],
+      "highlight": [
+        "shaft",
+        "concrete"
+      ],
+      "index": 4,
+      "start": 11.898,
+      "end": 14.679,
+      "words": [
+        {
+          "word": "Then",
+          "start": 11.898,
+          "end": 12.11
+        },
+        {
+          "word": "they",
+          "start": 12.11,
+          "end": 12.322
+        },
+        {
+          "word": "dig",
+          "start": 12.322,
+          "end": 12.496
+        },
+        {
+          "word": "a",
+          "start": 12.496,
+          "end": 12.593
+        },
+        {
+          "word": "deep",
+          "start": 12.593,
+          "end": 12.805
+        },
+        {
+          "word": "shaft",
+          "start": 12.805,
+          "end": 13.057
+        },
+        {
+          "word": "on",
+          "start": 13.057,
+          "end": 13.192
+        },
+        {
+          "word": "each",
+          "start": 13.192,
+          "end": 13.404
+        },
+        {
+          "word": "bank,",
+          "start": 13.404,
+          "end": 13.617
+        },
+        {
+          "word": "walled",
+          "start": 13.713,
+          "end": 14.003
+        },
+        {
+          "word": "with",
+          "start": 14.003,
+          "end": 14.216
+        },
+        {
+          "word": "concrete.",
+          "start": 14.216,
+          "end": 14.583
+        }
+      ]
+    },
+    {
+      "text": "A crane lowers a giant machine down, piece by piece.",
+      "speed": 1.25,
+      "shot": "crane",
+      "event": "lower",
+      "highlight": [
+        "piece"
+      ],
+      "hold": 0.3,
+      "index": 5,
+      "start": 14.739,
+      "end": 17.724,
+      "words": [
+        {
+          "word": "A",
+          "start": 14.739,
+          "end": 14.861
+        },
+        {
+          "word": "crane",
+          "start": 14.861,
+          "end": 15.179
+        },
+        {
+          "word": "lowers",
+          "start": 15.179,
+          "end": 15.546
+        },
+        {
+          "word": "a",
+          "start": 15.546,
+          "end": 15.669
+        },
+        {
+          "word": "giant",
+          "start": 15.669,
+          "end": 15.987
+        },
+        {
+          "word": "machine",
+          "start": 15.987,
+          "end": 16.403
+        },
+        {
+          "word": "down,",
+          "start": 16.403,
+          "end": 16.672
+        },
+        {
+          "word": "piece",
+          "start": 16.794,
+          "end": 17.112
+        },
+        {
+          "word": "by",
+          "start": 17.112,
+          "end": 17.283
+        },
+        {
+          "word": "piece.",
+          "start": 17.283,
+          "end": 17.601
+        }
+      ]
+    },
+    {
+      "text": "A tunnel boring machine, taller than a four-storey building.",
+      "speed": 1.25,
+      "shot": "shaftScale",
+      "event": "scale",
+      "label": "BORING MACHINE",
+      "labelWord": "boring",
+      "labelAt": [
+        -12.6,
+        -2.5,
+        0.3
+      ],
+      "highlight": [
+        "four-storey"
+      ],
+      "index": 6,
+      "start": 18.084,
+      "end": 20.889,
+      "words": [
+        {
+          "word": "A",
+          "start": 18.084,
+          "end": 18.188
+        },
+        {
+          "word": "tunnel",
+          "start": 18.188,
+          "end": 18.499
+        },
+        {
+          "word": "boring",
+          "start": 18.499,
+          "end": 18.811
+        },
+        {
+          "word": "machine,",
+          "start": 18.811,
+          "end": 19.164
+        },
+        {
+          "word": "taller",
+          "start": 19.268,
+          "end": 19.58
+        },
+        {
+          "word": "than",
+          "start": 19.58,
+          "end": 19.809
+        },
+        {
+          "word": "a",
+          "start": 19.809,
+          "end": 19.912
+        },
+        {
+          "word": "four-storey",
+          "start": 19.912,
+          "end": 20.39
+        },
+        {
+          "word": "building.",
+          "start": 20.39,
+          "end": 20.785
+        }
+      ]
+    },
+    {
+      "text": "Its spinning cutter head grinds through the mud,",
+      "speed": 1.25,
+      "shot": "followTBM",
+      "event": "bore",
+      "label": "CUTTER HEAD",
+      "labelWord": "cutter",
+      "labelAt": "tbmFront",
+      "highlight": [
+        "spinning"
+      ],
+      "index": 7,
+      "start": 20.949,
+      "end": 23.149,
+      "words": [
+        {
+          "word": "Its",
+          "start": 20.949,
+          "end": 21.131
+        },
+        {
+          "word": "spinning",
+          "start": 21.131,
+          "end": 21.514
+        },
+        {
+          "word": "cutter",
+          "start": 21.514,
+          "end": 21.817
+        },
+        {
+          "word": "head",
+          "start": 21.817,
+          "end": 22.039
+        },
+        {
+          "word": "grinds",
+          "start": 22.039,
+          "end": 22.342
+        },
+        {
+          "word": "through",
+          "start": 22.342,
+          "end": 22.685
+        },
+        {
+          "word": "the",
+          "start": 22.685,
+          "end": 22.866
+        },
+        {
+          "word": "mud,",
+          "start": 22.866,
+          "end": 23.048
+        }
+      ]
+    },
+    {
+      "text": "while a steel shield holds the ground up.",
+      "speed": 1.25,
+      "shot": "followTBM",
+      "label": "SHIELD",
+      "labelWord": "shield",
+      "labelAt": "tbmBody",
+      "highlight": [
+        "shield"
+      ],
+      "index": 8,
+      "start": 23.209,
+      "end": 25.185,
+      "words": [
+        {
+          "word": "while",
+          "start": 23.209,
+          "end": 23.479
+        },
+        {
+          "word": "a",
+          "start": 23.479,
+          "end": 23.583
+        },
+        {
+          "word": "steel",
+          "start": 23.583,
+          "end": 23.854
+        },
+        {
+          "word": "shield",
+          "start": 23.854,
+          "end": 24.166
+        },
+        {
+          "word": "holds",
+          "start": 24.166,
+          "end": 24.436
+        },
+        {
+          "word": "the",
+          "start": 24.436,
+          "end": 24.623
+        },
+        {
+          "word": "ground",
+          "start": 24.623,
+          "end": 24.936
+        },
+        {
+          "word": "up.",
+          "start": 24.936,
+          "end": 25.081
+        }
+      ]
+    },
+    {
+      "text": "But the river pushes water in, with huge pressure...",
+      "speed": 1.2,
+      "shot": "faceClose",
+      "event": "leak",
+      "highlight": [
+        "pressure"
+      ],
+      "hold": 0.3,
+      "index": 9,
+      "start": 25.245,
+      "end": 27.897,
+      "words": [
+        {
+          "word": "But",
+          "start": 25.245,
+          "end": 25.449
+        },
+        {
+          "word": "the",
+          "start": 25.449,
+          "end": 25.653
+        },
+        {
+          "word": "river",
+          "start": 25.653,
+          "end": 25.948
+        },
+        {
+          "word": "pushes",
+          "start": 25.948,
+          "end": 26.288
+        },
+        {
+          "word": "water",
+          "start": 26.288,
+          "end": 26.583
+        },
+        {
+          "word": "in,",
+          "start": 26.583,
+          "end": 26.741
+        },
+        {
+          "word": "with",
+          "start": 26.855,
+          "end": 27.104
+        },
+        {
+          "word": "huge",
+          "start": 27.104,
+          "end": 27.353
+        },
+        {
+          "word": "pressure...",
+          "start": 27.353,
+          "end": 27.784
+        }
+      ]
+    },
+    {
+      "text": "so the machine pumps thick slurry against the face, pushing back just as hard.",
+      "speed": 1.3,
+      "shot": "faceClose",
+      "event": "counter",
+      "label": "SLURRY",
+      "labelWord": "slurry",
+      "labelAt": "face",
+      "highlight": [
+        "slurry",
+        "back"
+      ],
+      "index": 10,
+      "start": 28.257,
+      "end": 31.916,
+      "words": [
+        {
+          "word": "so",
+          "start": 28.257,
+          "end": 28.401
+        },
+        {
+          "word": "the",
+          "start": 28.401,
+          "end": 28.586
+        },
+        {
+          "word": "machine",
+          "start": 28.586,
+          "end": 28.936
+        },
+        {
+          "word": "pumps",
+          "start": 28.936,
+          "end": 29.203
+        },
+        {
+          "word": "thick",
+          "start": 29.203,
+          "end": 29.47
+        },
+        {
+          "word": "slurry",
+          "start": 29.47,
+          "end": 29.778
+        },
+        {
+          "word": "against",
+          "start": 29.778,
+          "end": 30.128
+        },
+        {
+          "word": "the",
+          "start": 30.128,
+          "end": 30.313
+        },
+        {
+          "word": "face,",
+          "start": 30.313,
+          "end": 30.539
+        },
+        {
+          "word": "pushing",
+          "start": 30.641,
+          "end": 30.991
+        },
+        {
+          "word": "back",
+          "start": 30.991,
+          "end": 31.217
+        },
+        {
+          "word": "just",
+          "start": 31.217,
+          "end": 31.443
+        },
+        {
+          "word": "as",
+          "start": 31.443,
+          "end": 31.587
+        },
+        {
+          "word": "hard.",
+          "start": 31.587,
+          "end": 31.813
+        }
+      ]
+    },
+    {
+      "text": "The dug-out mud is mixed in, and pumped away through pipes.",
+      "speed": 1.3,
+      "shot": "pipes",
+      "event": "muck",
+      "highlight": [
+        "pipes"
+      ],
+      "index": 11,
+      "start": 31.976,
+      "end": 34.791,
+      "words": [
+        {
+          "word": "The",
+          "start": 31.976,
+          "end": 32.163
+        },
+        {
+          "word": "dug-out",
+          "start": 32.163,
+          "end": 32.476
+        },
+        {
+          "word": "mud",
+          "start": 32.476,
+          "end": 32.664
+        },
+        {
+          "word": "is",
+          "start": 32.664,
+          "end": 32.81
+        },
+        {
+          "word": "mixed",
+          "start": 32.81,
+          "end": 33.081
+        },
+        {
+          "word": "in,",
+          "start": 33.081,
+          "end": 33.227
+        },
+        {
+          "word": "and",
+          "start": 33.331,
+          "end": 33.519
+        },
+        {
+          "word": "pumped",
+          "start": 33.519,
+          "end": 33.832
+        },
+        {
+          "word": "away",
+          "start": 33.832,
+          "end": 34.061
+        },
+        {
+          "word": "through",
+          "start": 34.061,
+          "end": 34.416
+        },
+        {
+          "word": "pipes.",
+          "start": 34.416,
+          "end": 34.687
+        }
+      ]
+    },
+    {
+      "text": "To move forward, huge jacks push off the last ring.",
+      "speed": 1.25,
+      "shot": "tailClose",
+      "event": "jacks",
+      "label": "THRUST JACKS",
+      "labelWord": "jacks",
+      "labelAt": "jacks",
+      "highlight": [
+        "jacks"
+      ],
+      "index": 12,
+      "start": 34.851,
+      "end": 37.645,
+      "words": [
+        {
+          "word": "To",
+          "start": 34.851,
+          "end": 35.014
+        },
+        {
+          "word": "move",
+          "start": 35.014,
+          "end": 35.27
+        },
+        {
+          "word": "forward,",
+          "start": 35.27,
+          "end": 35.666
+        },
+        {
+          "word": "huge",
+          "start": 35.783,
+          "end": 36.039
+        },
+        {
+          "word": "jacks",
+          "start": 36.039,
+          "end": 36.341
+        },
+        {
+          "word": "push",
+          "start": 36.341,
+          "end": 36.597
+        },
+        {
+          "word": "off",
+          "start": 36.597,
+          "end": 36.807
+        },
+        {
+          "word": "the",
+          "start": 36.807,
+          "end": 37.017
+        },
+        {
+          "word": "last",
+          "start": 37.017,
+          "end": 37.273
+        },
+        {
+          "word": "ring.",
+          "start": 37.273,
+          "end": 37.529
+        }
+      ]
+    },
+    {
+      "text": "Then a robot arm builds the next ring, segment by segment.",
+      "speed": 1.25,
+      "shot": "ringsClose",
+      "event": "segments",
+      "label": "SEGMENTS",
+      "labelWord": "segment",
+      "labelAt": "segment",
+      "highlight": [
+        "segment"
+      ],
+      "index": 13,
+      "start": 37.705,
+      "end": 40.949,
+      "words": [
+        {
+          "word": "Then",
+          "start": 37.705,
+          "end": 37.969
+        },
+        {
+          "word": "a",
+          "start": 37.969,
+          "end": 38.09
+        },
+        {
+          "word": "robot",
+          "start": 38.09,
+          "end": 38.402
+        },
+        {
+          "word": "arm",
+          "start": 38.402,
+          "end": 38.618
+        },
+        {
+          "word": "builds",
+          "start": 38.618,
+          "end": 38.979
+        },
+        {
+          "word": "the",
+          "start": 38.979,
+          "end": 39.195
+        },
+        {
+          "word": "next",
+          "start": 39.195,
+          "end": 39.459
+        },
+        {
+          "word": "ring,",
+          "start": 39.459,
+          "end": 39.723
+        },
+        {
+          "word": "segment",
+          "start": 39.843,
+          "end": 40.252
+        },
+        {
+          "word": "by",
+          "start": 40.252,
+          "end": 40.42
+        },
+        {
+          "word": "segment.",
+          "start": 40.42,
+          "end": 40.828
+        }
+      ]
+    },
+    {
+      "text": "Rubber seals and bolts make every joint watertight.",
+      "speed": 1.25,
+      "shot": "insideTube",
+      "event": "seals",
+      "label": "RUBBER SEALS",
+      "labelWord": "rubber",
+      "labelAt": "segment",
+      "highlight": [
+        "watertight"
+      ],
+      "index": 14,
+      "start": 41.009,
+      "end": 43.81,
+      "words": [
+        {
+          "word": "Rubber",
+          "start": 41.009,
+          "end": 41.374
+        },
+        {
+          "word": "seals",
+          "start": 41.374,
+          "end": 41.691
+        },
+        {
+          "word": "and",
+          "start": 41.691,
+          "end": 41.91
+        },
+        {
+          "word": "bolts",
+          "start": 41.91,
+          "end": 42.227
+        },
+        {
+          "word": "make",
+          "start": 42.227,
+          "end": 42.495
+        },
+        {
+          "word": "every",
+          "start": 42.495,
+          "end": 42.812
+        },
+        {
+          "word": "joint",
+          "start": 42.812,
+          "end": 43.128
+        },
+        {
+          "word": "watertight.",
+          "start": 43.128,
+          "end": 43.689
+        }
+      ]
+    },
+    {
+      "text": "But there's a gap behind each ring. Leave it, and the riverbed sinks.",
+      "speed": 1.25,
+      "shot": "gapShot",
+      "event": "gap",
+      "highlight": [
+        "gap",
+        "sinks"
+      ],
+      "hold": 0.3,
+      "index": 15,
+      "start": 43.87,
+      "end": 47.311,
+      "words": [
+        {
+          "word": "But",
+          "start": 43.87,
+          "end": 44.062
+        },
+        {
+          "word": "there's",
+          "start": 44.062,
+          "end": 44.423
+        },
+        {
+          "word": "a",
+          "start": 44.423,
+          "end": 44.529
+        },
+        {
+          "word": "gap",
+          "start": 44.529,
+          "end": 44.72
+        },
+        {
+          "word": "behind",
+          "start": 44.72,
+          "end": 45.039
+        },
+        {
+          "word": "each",
+          "start": 45.039,
+          "end": 45.272
+        },
+        {
+          "word": "ring.",
+          "start": 45.272,
+          "end": 45.506
+        },
+        {
+          "word": "Leave",
+          "start": 45.612,
+          "end": 45.888
+        },
+        {
+          "word": "it,",
+          "start": 45.888,
+          "end": 46.037
+        },
+        {
+          "word": "and",
+          "start": 46.143,
+          "end": 46.334
+        },
+        {
+          "word": "the",
+          "start": 46.334,
+          "end": 46.525
+        },
+        {
+          "word": "riverbed",
+          "start": 46.525,
+          "end": 46.929
+        },
+        {
+          "word": "sinks.",
+          "start": 46.929,
+          "end": 47.205
+        }
+      ]
+    },
+    {
+      "text": "So grout is pumped in to fill it, and the ground stays put.",
+      "speed": 1.25,
+      "shot": "groutShot",
+      "event": "grout",
+      "label": "GROUT",
+      "labelWord": "grout",
+      "labelAt": "grout",
+      "highlight": [
+        "grout"
+      ],
+      "index": 16,
+      "start": 47.671,
+      "end": 50.732,
+      "words": [
+        {
+          "word": "So",
+          "start": 47.671,
+          "end": 47.825
+        },
+        {
+          "word": "grout",
+          "start": 47.825,
+          "end": 48.111
+        },
+        {
+          "word": "is",
+          "start": 48.111,
+          "end": 48.265
+        },
+        {
+          "word": "pumped",
+          "start": 48.265,
+          "end": 48.596
+        },
+        {
+          "word": "in",
+          "start": 48.596,
+          "end": 48.75
+        },
+        {
+          "word": "to",
+          "start": 48.75,
+          "end": 48.904
+        },
+        {
+          "word": "fill",
+          "start": 48.904,
+          "end": 49.146
+        },
+        {
+          "word": "it,",
+          "start": 49.146,
+          "end": 49.3
+        },
+        {
+          "word": "and",
+          "start": 49.411,
+          "end": 49.609
+        },
+        {
+          "word": "the",
+          "start": 49.609,
+          "end": 49.807
+        },
+        {
+          "word": "ground",
+          "start": 49.807,
+          "end": 50.137
+        },
+        {
+          "word": "stays",
+          "start": 50.137,
+          "end": 50.423
+        },
+        {
+          "word": "put.",
+          "start": 50.423,
+          "end": 50.622
+        }
+      ]
+    },
+    {
+      "text": "And a laser keeps it on course, to within a few centimetres.",
+      "speed": 1.25,
+      "shot": "sectionMid",
+      "event": "laser",
+      "label": "LASER",
+      "labelWord": "laser",
+      "labelAt": "laser",
+      "highlight": [
+        "laser",
+        "centimetres"
+      ],
+      "index": 17,
+      "start": 50.792,
+      "end": 53.644,
+      "words": [
+        {
+          "word": "And",
+          "start": 50.792,
+          "end": 50.975
+        },
+        {
+          "word": "a",
+          "start": 50.975,
+          "end": 51.077
+        },
+        {
+          "word": "laser",
+          "start": 51.077,
+          "end": 51.342
+        },
+        {
+          "word": "keeps",
+          "start": 51.342,
+          "end": 51.607
+        },
+        {
+          "word": "it",
+          "start": 51.607,
+          "end": 51.749
+        },
+        {
+          "word": "on",
+          "start": 51.749,
+          "end": 51.892
+        },
+        {
+          "word": "course,",
+          "start": 51.892,
+          "end": 52.198
+        },
+        {
+          "word": "to",
+          "start": 52.299,
+          "end": 52.442
+        },
+        {
+          "word": "within",
+          "start": 52.442,
+          "end": 52.748
+        },
+        {
+          "word": "a",
+          "start": 52.748,
+          "end": 52.849
+        },
+        {
+          "word": "few",
+          "start": 52.849,
+          "end": 53.033
+        },
+        {
+          "word": "centimetres.",
+          "start": 53.033,
+          "end": 53.542
+        }
+      ]
+    },
+    {
+      "text": "Months later, it breaks through into the far shaft.",
+      "speed": 1.25,
+      "shot": "arrival",
+      "event": "breakthrough",
+      "highlight": [
+        "breaks"
+      ],
+      "hold": 0.4,
+      "index": 18,
+      "start": 53.704,
+      "end": 56.119,
+      "words": [
+        {
+          "word": "Months",
+          "start": 53.704,
+          "end": 54.008
+        },
+        {
+          "word": "later,",
+          "start": 54.008,
+          "end": 54.272
+        },
+        {
+          "word": "it",
+          "start": 54.374,
+          "end": 54.516
+        },
+        {
+          "word": "breaks",
+          "start": 54.516,
+          "end": 54.82
+        },
+        {
+          "word": "through",
+          "start": 54.82,
+          "end": 55.165
+        },
+        {
+          "word": "into",
+          "start": 55.165,
+          "end": 55.389
+        },
+        {
+          "word": "the",
+          "start": 55.389,
+          "end": 55.571
+        },
+        {
+          "word": "far",
+          "start": 55.571,
+          "end": 55.754
+        },
+        {
+          "word": "shaft.",
+          "start": 55.754,
+          "end": 56.018
+        }
+      ]
+    },
+    {
+      "text": "Then come the rails, lights, fans and drainage pumps...",
+      "speed": 1.25,
+      "shot": "fitClose",
+      "event": "fitout",
+      "highlight": [
+        "rails"
+      ],
+      "index": 19,
+      "start": 56.579,
+      "end": 59.422,
+      "words": [
+        {
+          "word": "Then",
+          "start": 56.579,
+          "end": 56.827
+        },
+        {
+          "word": "come",
+          "start": 56.827,
+          "end": 57.076
+        },
+        {
+          "word": "the",
+          "start": 57.076,
+          "end": 57.279
+        },
+        {
+          "word": "rails,",
+          "start": 57.279,
+          "end": 57.572
+        },
+        {
+          "word": "lights,",
+          "start": 57.685,
+          "end": 58.023
+        },
+        {
+          "word": "fans",
+          "start": 58.136,
+          "end": 58.384
+        },
+        {
+          "word": "and",
+          "start": 58.384,
+          "end": 58.587
+        },
+        {
+          "word": "drainage",
+          "start": 58.587,
+          "end": 59.016
+        },
+        {
+          "word": "pumps...",
+          "start": 59.016,
+          "end": 59.309
+        }
+      ]
+    },
+    {
+      "text": "and the trains, right under the river!",
+      "speed": 1.25,
+      "shot": "trainClose",
+      "event": "train",
+      "highlight": [
+        "under",
+        "river"
+      ],
+      "hold": 0.4,
+      "index": 20,
+      "start": 59.482,
+      "end": 61.228,
+      "words": [
+        {
+          "word": "and",
+          "start": 59.482,
+          "end": 59.655
+        },
+        {
+          "word": "the",
+          "start": 59.655,
+          "end": 59.827
+        },
+        {
+          "word": "trains,",
+          "start": 59.827,
+          "end": 60.115
+        },
+        {
+          "word": "right",
+          "start": 60.211,
+          "end": 60.46
+        },
+        {
+          "word": "under",
+          "start": 60.46,
+          "end": 60.71
+        },
+        {
+          "word": "the",
+          "start": 60.71,
+          "end": 60.882
+        },
+        {
+          "word": "river!",
+          "start": 60.882,
+          "end": 61.132
+        }
+      ]
+    },
+    {
+      "text": "Would you ride it? Tell me in the comments.",
+      "speed": 1.2,
+      "shot": "aerial",
+      "event": "final",
+      "highlight": [
+        "ride",
+        "comments"
+      ],
+      "index": 21,
+      "start": 61.688,
+      "end": 63.586,
+      "words": [
+        {
+          "word": "Would",
+          "start": 61.688,
+          "end": 61.927
+        },
+        {
+          "word": "you",
+          "start": 61.927,
+          "end": 62.093
+        },
+        {
+          "word": "ride",
+          "start": 62.093,
+          "end": 62.296
+        },
+        {
+          "word": "it?",
+          "start": 62.296,
+          "end": 62.425
+        },
+        {
+          "word": "Tell",
+          "start": 62.517,
+          "end": 62.72
+        },
+        {
+          "word": "me",
+          "start": 62.72,
+          "end": 62.849
+        },
+        {
+          "word": "in",
+          "start": 62.849,
+          "end": 62.978
+        },
+        {
+          "word": "the",
+          "start": 62.978,
+          "end": 63.143
+        },
+        {
+          "word": "comments.",
+          "start": 63.143,
+          "end": 63.494
+        }
+      ]
+    }
+  ]
+}

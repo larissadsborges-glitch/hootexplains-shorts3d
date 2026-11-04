@@ -1,0 +1,728 @@
+{
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "sleep",
+  "music": "music/bed.wav",
+  "id": "sleep1",
+  "title": "What happens if you stay awake for 3 days? Day 1",
+  "day": 1,
+  "hook": {
+    "line1": "3 DAYS WITHOUT SLEEP",
+    "line2": "DAY 1",
+    "top": "15%"
+  },
+  "outro": {
+    "line1": "FOLLOW FOR",
+    "line2": "DAY 2"
+  },
+  "duration": 33.609,
+  "beats": [
+    {
+      "text": "What happens to your body if you stay awake for three days straight? Hoot's finding out, so you don't have to. Day one.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "hook",
+      "highlight": [
+        "three",
+        "days"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 5.431,
+      "words": [
+        {
+          "word": "What",
+          "start": 0.05,
+          "end": 0.265
+        },
+        {
+          "word": "happens",
+          "start": 0.265,
+          "end": 0.598
+        },
+        {
+          "word": "to",
+          "start": 0.598,
+          "end": 0.735
+        },
+        {
+          "word": "your",
+          "start": 0.735,
+          "end": 0.95
+        },
+        {
+          "word": "body",
+          "start": 0.95,
+          "end": 1.165
+        },
+        {
+          "word": "if",
+          "start": 1.165,
+          "end": 1.302
+        },
+        {
+          "word": "you",
+          "start": 1.302,
+          "end": 1.478
+        },
+        {
+          "word": "stay",
+          "start": 1.478,
+          "end": 1.694
+        },
+        {
+          "word": "awake",
+          "start": 1.694,
+          "end": 1.948
+        },
+        {
+          "word": "for",
+          "start": 1.948,
+          "end": 2.124
+        },
+        {
+          "word": "three",
+          "start": 2.124,
+          "end": 2.379
+        },
+        {
+          "word": "days",
+          "start": 2.379,
+          "end": 2.594
+        },
+        {
+          "word": "straight?",
+          "start": 2.594,
+          "end": 2.966
+        },
+        {
+          "word": "Hoot's",
+          "start": 3.063,
+          "end": 3.357
+        },
+        {
+          "word": "finding",
+          "start": 3.357,
+          "end": 3.69
+        },
+        {
+          "word": "out,",
+          "start": 3.69,
+          "end": 3.866
+        },
+        {
+          "word": "so",
+          "start": 3.964,
+          "end": 4.101
+        },
+        {
+          "word": "you",
+          "start": 4.101,
+          "end": 4.277
+        },
+        {
+          "word": "don't",
+          "start": 4.277,
+          "end": 4.531
+        },
+        {
+          "word": "have",
+          "start": 4.531,
+          "end": 4.746
+        },
+        {
+          "word": "to.",
+          "start": 4.746,
+          "end": 4.883
+        },
+        {
+          "word": "Day",
+          "start": 4.981,
+          "end": 5.157
+        },
+        {
+          "word": "one.",
+          "start": 5.157,
+          "end": 5.333
+        }
+      ]
+    },
+    {
+      "text": "Hour 17. Your brain is already as slow as someone who's been drinking.",
+      "speed": 1.25,
+      "shot": "clock",
+      "event": "h17",
+      "highlight": [
+        "17",
+        "drinking"
+      ],
+      "index": 1,
+      "start": 5.491,
+      "end": 9.003,
+      "words": [
+        {
+          "word": "Hour",
+          "start": 5.491,
+          "end": 5.731
+        },
+        {
+          "word": "17.",
+          "start": 5.731,
+          "end": 5.884
+        },
+        {
+          "word": "Your",
+          "start": 5.993,
+          "end": 6.233
+        },
+        {
+          "word": "brain",
+          "start": 6.233,
+          "end": 6.516
+        },
+        {
+          "word": "is",
+          "start": 6.516,
+          "end": 6.669
+        },
+        {
+          "word": "already",
+          "start": 6.669,
+          "end": 7.04
+        },
+        {
+          "word": "as",
+          "start": 7.04,
+          "end": 7.193
+        },
+        {
+          "word": "slow",
+          "start": 7.193,
+          "end": 7.433
+        },
+        {
+          "word": "as",
+          "start": 7.433,
+          "end": 7.585
+        },
+        {
+          "word": "someone",
+          "start": 7.585,
+          "end": 7.956
+        },
+        {
+          "word": "who's",
+          "start": 7.956,
+          "end": 8.24
+        },
+        {
+          "word": "been",
+          "start": 8.24,
+          "end": 8.48
+        },
+        {
+          "word": "drinking.",
+          "start": 8.48,
+          "end": 8.894
+        }
+      ]
+    },
+    {
+      "text": "By hour 24, it's like being legally drunk. Your reactions slow down, your memory slips, and you get cranky.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "h24",
+      "highlight": [
+        "drunk",
+        "cranky"
+      ],
+      "index": 2,
+      "start": 9.063,
+      "end": 14.587,
+      "words": [
+        {
+          "word": "By",
+          "start": 9.063,
+          "end": 9.218
+        },
+        {
+          "word": "hour",
+          "start": 9.218,
+          "end": 9.461
+        },
+        {
+          "word": "24,",
+          "start": 9.461,
+          "end": 9.616
+        },
+        {
+          "word": "it's",
+          "start": 9.726,
+          "end": 9.969
+        },
+        {
+          "word": "like",
+          "start": 9.969,
+          "end": 10.212
+        },
+        {
+          "word": "being",
+          "start": 10.212,
+          "end": 10.5
+        },
+        {
+          "word": "legally",
+          "start": 10.5,
+          "end": 10.875
+        },
+        {
+          "word": "drunk.",
+          "start": 10.875,
+          "end": 11.163
+        },
+        {
+          "word": "Your",
+          "start": 11.273,
+          "end": 11.516
+        },
+        {
+          "word": "reactions",
+          "start": 11.516,
+          "end": 11.98
+        },
+        {
+          "word": "slow",
+          "start": 11.98,
+          "end": 12.223
+        },
+        {
+          "word": "down,",
+          "start": 12.223,
+          "end": 12.466
+        },
+        {
+          "word": "your",
+          "start": 12.577,
+          "end": 12.82
+        },
+        {
+          "word": "memory",
+          "start": 12.82,
+          "end": 13.151
+        },
+        {
+          "word": "slips,",
+          "start": 13.151,
+          "end": 13.438
+        },
+        {
+          "word": "and",
+          "start": 13.549,
+          "end": 13.748
+        },
+        {
+          "word": "you",
+          "start": 13.748,
+          "end": 13.947
+        },
+        {
+          "word": "get",
+          "start": 13.947,
+          "end": 14.146
+        },
+        {
+          "word": "cranky.",
+          "start": 14.146,
+          "end": 14.477
+        }
+      ]
+    },
+    {
+      "text": "Inside, your body panics a little. It pumps out stress hormones, cortisol and adrenaline, just to keep you going.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "stress",
+      "highlight": [
+        "stress",
+        "cortisol"
+      ],
+      "index": 3,
+      "start": 14.647,
+      "end": 20.207,
+      "words": [
+        {
+          "word": "Inside,",
+          "start": 14.647,
+          "end": 14.966
+        },
+        {
+          "word": "your",
+          "start": 15.072,
+          "end": 15.305
+        },
+        {
+          "word": "body",
+          "start": 15.305,
+          "end": 15.539
+        },
+        {
+          "word": "panics",
+          "start": 15.539,
+          "end": 15.857
+        },
+        {
+          "word": "a",
+          "start": 15.857,
+          "end": 15.963
+        },
+        {
+          "word": "little.",
+          "start": 15.963,
+          "end": 16.282
+        },
+        {
+          "word": "It",
+          "start": 16.388,
+          "end": 16.536
+        },
+        {
+          "word": "pumps",
+          "start": 16.536,
+          "end": 16.812
+        },
+        {
+          "word": "out",
+          "start": 16.812,
+          "end": 17.003
+        },
+        {
+          "word": "stress",
+          "start": 17.003,
+          "end": 17.321
+        },
+        {
+          "word": "hormones,",
+          "start": 17.321,
+          "end": 17.725
+        },
+        {
+          "word": "cortisol",
+          "start": 17.831,
+          "end": 18.234
+        },
+        {
+          "word": "and",
+          "start": 18.234,
+          "end": 18.425
+        },
+        {
+          "word": "adrenaline,",
+          "start": 18.425,
+          "end": 18.913
+        },
+        {
+          "word": "just",
+          "start": 19.019,
+          "end": 19.252
+        },
+        {
+          "word": "to",
+          "start": 19.252,
+          "end": 19.401
+        },
+        {
+          "word": "keep",
+          "start": 19.401,
+          "end": 19.634
+        },
+        {
+          "word": "you",
+          "start": 19.634,
+          "end": 19.825
+        },
+        {
+          "word": "going.",
+          "start": 19.825,
+          "end": 20.101
+        }
+      ]
+    },
+    {
+      "text": "And you get hungrier. Your hunger hormone goes up, so you start craving snacks.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "hunger",
+      "highlight": [
+        "hungrier",
+        "snacks"
+      ],
+      "index": 4,
+      "start": 20.267,
+      "end": 23.984,
+      "words": [
+        {
+          "word": "And",
+          "start": 20.267,
+          "end": 20.45
+        },
+        {
+          "word": "you",
+          "start": 20.45,
+          "end": 20.633
+        },
+        {
+          "word": "get",
+          "start": 20.633,
+          "end": 20.816
+        },
+        {
+          "word": "hungrier.",
+          "start": 20.816,
+          "end": 21.202
+        },
+        {
+          "word": "Your",
+          "start": 21.303,
+          "end": 21.527
+        },
+        {
+          "word": "hunger",
+          "start": 21.527,
+          "end": 21.831
+        },
+        {
+          "word": "hormone",
+          "start": 21.831,
+          "end": 22.177
+        },
+        {
+          "word": "goes",
+          "start": 22.177,
+          "end": 22.4
+        },
+        {
+          "word": "up,",
+          "start": 22.4,
+          "end": 22.542
+        },
+        {
+          "word": "so",
+          "start": 22.644,
+          "end": 22.786
+        },
+        {
+          "word": "you",
+          "start": 22.786,
+          "end": 22.969
+        },
+        {
+          "word": "start",
+          "start": 22.969,
+          "end": 23.233
+        },
+        {
+          "word": "craving",
+          "start": 23.233,
+          "end": 23.578
+        },
+        {
+          "word": "snacks.",
+          "start": 23.578,
+          "end": 23.883
+        }
+      ]
+    },
+    {
+      "text": "But that's just day one. On day two, your brain starts switching off, without asking you.",
+      "speed": 1.2,
+      "shot": "room",
+      "event": "rehook",
+      "highlight": [
+        "switching",
+        "off"
+      ],
+      "index": 5,
+      "start": 24.044,
+      "end": 28.249,
+      "words": [
+        {
+          "word": "But",
+          "start": 24.044,
+          "end": 24.226
+        },
+        {
+          "word": "that's",
+          "start": 24.226,
+          "end": 24.529
+        },
+        {
+          "word": "just",
+          "start": 24.529,
+          "end": 24.752
+        },
+        {
+          "word": "day",
+          "start": 24.752,
+          "end": 24.934
+        },
+        {
+          "word": "one.",
+          "start": 24.934,
+          "end": 25.115
+        },
+        {
+          "word": "On",
+          "start": 25.217,
+          "end": 25.358
+        },
+        {
+          "word": "day",
+          "start": 25.358,
+          "end": 25.54
+        },
+        {
+          "word": "two,",
+          "start": 25.54,
+          "end": 25.722
+        },
+        {
+          "word": "your",
+          "start": 25.823,
+          "end": 26.045
+        },
+        {
+          "word": "brain",
+          "start": 26.045,
+          "end": 26.308
+        },
+        {
+          "word": "starts",
+          "start": 26.308,
+          "end": 26.611
+        },
+        {
+          "word": "switching",
+          "start": 26.611,
+          "end": 27.036
+        },
+        {
+          "word": "off,",
+          "start": 27.036,
+          "end": 27.218
+        },
+        {
+          "word": "without",
+          "start": 27.319,
+          "end": 27.662
+        },
+        {
+          "word": "asking",
+          "start": 27.662,
+          "end": 27.966
+        },
+        {
+          "word": "you.",
+          "start": 27.966,
+          "end": 28.148
+        }
+      ]
+    },
+    {
+      "text": "Have you ever pulled an all-nighter? Tell me below, and follow Hoot for day two.",
+      "speed": 1.25,
+      "shot": "hoot",
+      "event": "final",
+      "highlight": [
+        "all-nighter",
+        "two"
+      ],
+      "index": 6,
+      "start": 28.309,
+      "end": 31.809,
+      "words": [
+        {
+          "word": "Have",
+          "start": 28.309,
+          "end": 28.518
+        },
+        {
+          "word": "you",
+          "start": 28.518,
+          "end": 28.689
+        },
+        {
+          "word": "ever",
+          "start": 28.689,
+          "end": 28.898
+        },
+        {
+          "word": "pulled",
+          "start": 28.898,
+          "end": 29.184
+        },
+        {
+          "word": "an",
+          "start": 29.184,
+          "end": 29.317
+        },
+        {
+          "word": "all-nighter?",
+          "start": 29.317,
+          "end": 29.755
+        },
+        {
+          "word": "Tell",
+          "start": 29.85,
+          "end": 30.059
+        },
+        {
+          "word": "me",
+          "start": 30.059,
+          "end": 30.192
+        },
+        {
+          "word": "below,",
+          "start": 30.192,
+          "end": 30.439
+        },
+        {
+          "word": "and",
+          "start": 30.535,
+          "end": 30.706
+        },
+        {
+          "word": "follow",
+          "start": 30.706,
+          "end": 30.991
+        },
+        {
+          "word": "Hoot",
+          "start": 30.991,
+          "end": 31.2
+        },
+        {
+          "word": "for",
+          "start": 31.2,
+          "end": 31.372
+        },
+        {
+          "word": "day",
+          "start": 31.372,
+          "end": 31.543
+        },
+        {
+          "word": "two.",
+          "start": 31.543,
+          "end": 31.714
+        }
+      ]
+    }
+  ]
+}

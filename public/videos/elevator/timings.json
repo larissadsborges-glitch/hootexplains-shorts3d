@@ -1,0 +1,1134 @@
+{
+  "id": "elevator",
+  "title": "What happens if an elevator cable snaps?",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.4,
+  "handle": "@explainland",
+  "scene": "elevator",
+  "hook": {
+    "line1": "WHAT IF AN ELEVATOR",
+    "line2": "CABLE SNAPS?"
+  },
+  "outro": {
+    "line1": "STILL TAKING",
+    "line2": "THE STAIRS?"
+  },
+  "recapItems": [
+    "ROPES",
+    "COUNTERWEIGHT",
+    "BRAKE",
+    "GOVERNOR",
+    "SAFETY WEDGES",
+    "BUFFERS"
+  ],
+  "duration": 52.5,
+  "beats": [
+    {
+      "text": "Your elevator's cable just snapped. Would you fall?",
+      "speed": 1.2,
+      "shot": "followCar",
+      "event": "hook",
+      "highlight": [
+        "snapped",
+        "fall"
+      ],
+      "index": 0,
+      "start": 0.05,
+      "end": 2.681,
+      "words": [
+        {
+          "word": "Your",
+          "start": 0.05,
+          "end": 0.295
+        },
+        {
+          "word": "elevator's",
+          "start": 0.295,
+          "end": 0.808
+        },
+        {
+          "word": "cable",
+          "start": 0.808,
+          "end": 1.098
+        },
+        {
+          "word": "just",
+          "start": 1.098,
+          "end": 1.343
+        },
+        {
+          "word": "snapped.",
+          "start": 1.343,
+          "end": 1.722
+        },
+        {
+          "word": "Would",
+          "start": 1.834,
+          "end": 2.123
+        },
+        {
+          "word": "you",
+          "start": 2.123,
+          "end": 2.324
+        },
+        {
+          "word": "fall?",
+          "start": 2.324,
+          "end": 2.569
+        }
+      ]
+    },
+    {
+      "text": "Let's rewind. Here's why that almost never happens.",
+      "speed": 1.25,
+      "shot": "followCar",
+      "event": "rewind",
+      "highlight": [
+        "rewind"
+      ],
+      "index": 1,
+      "start": 2.741,
+      "end": 5.412,
+      "words": [
+        {
+          "word": "Let's",
+          "start": 2.741,
+          "end": 3.035
+        },
+        {
+          "word": "rewind.",
+          "start": 3.035,
+          "end": 3.374
+        },
+        {
+          "word": "Here's",
+          "start": 3.488,
+          "end": 3.827
+        },
+        {
+          "word": "why",
+          "start": 3.827,
+          "end": 4.031
+        },
+        {
+          "word": "that",
+          "start": 4.031,
+          "end": 4.28
+        },
+        {
+          "word": "almost",
+          "start": 4.28,
+          "end": 4.619
+        },
+        {
+          "word": "never",
+          "start": 4.619,
+          "end": 4.914
+        },
+        {
+          "word": "happens.",
+          "start": 4.914,
+          "end": 5.298
+        }
+      ]
+    },
+    {
+      "text": "First, there isn't one cable. There are four to eight...",
+      "speed": 1.25,
+      "shot": "carTop",
+      "event": "ropes",
+      "label": "HOIST ROPES",
+      "labelWord": "four",
+      "labelAt": "ropes",
+      "highlight": [
+        "four",
+        "eight"
+      ],
+      "index": 2,
+      "start": 5.472,
+      "end": 7.945,
+      "words": [
+        {
+          "word": "First,",
+          "start": 5.472,
+          "end": 5.721
+        },
+        {
+          "word": "there",
+          "start": 5.817,
+          "end": 6.066
+        },
+        {
+          "word": "isn't",
+          "start": 6.066,
+          "end": 6.315
+        },
+        {
+          "word": "one",
+          "start": 6.315,
+          "end": 6.488
+        },
+        {
+          "word": "cable.",
+          "start": 6.488,
+          "end": 6.737
+        },
+        {
+          "word": "There",
+          "start": 6.833,
+          "end": 7.082
+        },
+        {
+          "word": "are",
+          "start": 7.082,
+          "end": 7.255
+        },
+        {
+          "word": "four",
+          "start": 7.255,
+          "end": 7.466
+        },
+        {
+          "word": "to",
+          "start": 7.466,
+          "end": 7.6
+        },
+        {
+          "word": "eight...",
+          "start": 7.6,
+          "end": 7.849
+        }
+      ]
+    },
+    {
+      "text": "and each one could hold the whole car by itself.",
+      "speed": 1.25,
+      "shot": "carTop",
+      "event": "eachRope",
+      "highlight": [
+        "itself"
+      ],
+      "index": 3,
+      "start": 8.005,
+      "end": 10.311,
+      "words": [
+        {
+          "word": "and",
+          "start": 8.005,
+          "end": 8.192
+        },
+        {
+          "word": "each",
+          "start": 8.192,
+          "end": 8.42
+        },
+        {
+          "word": "one",
+          "start": 8.42,
+          "end": 8.607
+        },
+        {
+          "word": "could",
+          "start": 8.607,
+          "end": 8.878
+        },
+        {
+          "word": "hold",
+          "start": 8.878,
+          "end": 9.106
+        },
+        {
+          "word": "the",
+          "start": 9.106,
+          "end": 9.293
+        },
+        {
+          "word": "whole",
+          "start": 9.293,
+          "end": 9.563
+        },
+        {
+          "word": "car",
+          "start": 9.563,
+          "end": 9.75
+        },
+        {
+          "word": "by",
+          "start": 9.75,
+          "end": 9.895
+        },
+        {
+          "word": "itself.",
+          "start": 9.895,
+          "end": 10.207
+        }
+      ]
+    },
+    {
+      "text": "On the other side, a heavy counterweight balances the car.",
+      "speed": 1.25,
+      "shot": "shaftWide",
+      "event": "counterweight",
+      "label": "COUNTERWEIGHT",
+      "labelWord": "counterweight",
+      "labelAt": "cw",
+      "highlight": [
+        "counterweight"
+      ],
+      "index": 4,
+      "start": 10.371,
+      "end": 13.222,
+      "words": [
+        {
+          "word": "On",
+          "start": 10.371,
+          "end": 10.52
+        },
+        {
+          "word": "the",
+          "start": 10.52,
+          "end": 10.711
+        },
+        {
+          "word": "other",
+          "start": 10.711,
+          "end": 10.988
+        },
+        {
+          "word": "side,",
+          "start": 10.988,
+          "end": 11.222
+        },
+        {
+          "word": "a",
+          "start": 11.328,
+          "end": 11.435
+        },
+        {
+          "word": "heavy",
+          "start": 11.435,
+          "end": 11.711
+        },
+        {
+          "word": "counterweight",
+          "start": 11.711,
+          "end": 12.328
+        },
+        {
+          "word": "balances",
+          "start": 12.328,
+          "end": 12.733
+        },
+        {
+          "word": "the",
+          "start": 12.733,
+          "end": 12.924
+        },
+        {
+          "word": "car.",
+          "start": 12.924,
+          "end": 13.116
+        }
+      ]
+    },
+    {
+      "text": "Up top, the motor's brake is held open by electricity. Cut the power, and springs slam it shut.",
+      "speed": 1.3,
+      "shot": "machineRoom",
+      "event": "brake",
+      "label": "BRAKE",
+      "labelWord": "brake",
+      "labelAt": [
+        0.55,
+        20.9,
+        0.5
+      ],
+      "highlight": [
+        "brake",
+        "slam"
+      ],
+      "hold": 0.2,
+      "index": 5,
+      "start": 13.282,
+      "end": 18.341,
+      "words": [
+        {
+          "word": "Up",
+          "start": 13.282,
+          "end": 13.442
+        },
+        {
+          "word": "top,",
+          "start": 13.442,
+          "end": 13.647
+        },
+        {
+          "word": "the",
+          "start": 13.761,
+          "end": 13.966
+        },
+        {
+          "word": "motor's",
+          "start": 13.966,
+          "end": 14.353
+        },
+        {
+          "word": "brake",
+          "start": 14.353,
+          "end": 14.649
+        },
+        {
+          "word": "is",
+          "start": 14.649,
+          "end": 14.809
+        },
+        {
+          "word": "held",
+          "start": 14.809,
+          "end": 15.06
+        },
+        {
+          "word": "open",
+          "start": 15.06,
+          "end": 15.31
+        },
+        {
+          "word": "by",
+          "start": 15.31,
+          "end": 15.47
+        },
+        {
+          "word": "electricity.",
+          "start": 15.47,
+          "end": 16.039
+        },
+        {
+          "word": "Cut",
+          "start": 16.153,
+          "end": 16.358
+        },
+        {
+          "word": "the",
+          "start": 16.358,
+          "end": 16.564
+        },
+        {
+          "word": "power,",
+          "start": 16.564,
+          "end": 16.86
+        },
+        {
+          "word": "and",
+          "start": 16.974,
+          "end": 17.179
+        },
+        {
+          "word": "springs",
+          "start": 17.179,
+          "end": 17.566
+        },
+        {
+          "word": "slam",
+          "start": 17.566,
+          "end": 17.817
+        },
+        {
+          "word": "it",
+          "start": 17.817,
+          "end": 17.976
+        },
+        {
+          "word": "shut.",
+          "start": 17.976,
+          "end": 18.227
+        }
+      ]
+    },
+    {
+      "text": "But what if every single rope snaps?",
+      "speed": 1.2,
+      "shot": "shaftWide",
+      "event": "allSnap",
+      "highlight": [
+        "every",
+        "snaps"
+      ],
+      "hold": 0.2,
+      "index": 6,
+      "start": 18.601,
+      "end": 20.673,
+      "words": [
+        {
+          "word": "But",
+          "start": 18.601,
+          "end": 18.823
+        },
+        {
+          "word": "what",
+          "start": 18.823,
+          "end": 19.094
+        },
+        {
+          "word": "if",
+          "start": 19.094,
+          "end": 19.267
+        },
+        {
+          "word": "every",
+          "start": 19.267,
+          "end": 19.588
+        },
+        {
+          "word": "single",
+          "start": 19.588,
+          "end": 19.958
+        },
+        {
+          "word": "rope",
+          "start": 19.958,
+          "end": 20.229
+        },
+        {
+          "word": "snaps?",
+          "start": 20.229,
+          "end": 20.55
+        }
+      ]
+    },
+    {
+      "text": "A second wheel, the governor, senses the car speeding up...",
+      "speed": 1.25,
+      "shot": "governorClose",
+      "event": "governor",
+      "label": "GOVERNOR",
+      "labelWord": "governor",
+      "labelAt": [
+        -1.25,
+        20.2,
+        0.3
+      ],
+      "highlight": [
+        "governor"
+      ],
+      "index": 7,
+      "start": 20.933,
+      "end": 23.702,
+      "words": [
+        {
+          "word": "A",
+          "start": 20.933,
+          "end": 21.036
+        },
+        {
+          "word": "second",
+          "start": 21.036,
+          "end": 21.343
+        },
+        {
+          "word": "wheel,",
+          "start": 21.343,
+          "end": 21.61
+        },
+        {
+          "word": "the",
+          "start": 21.712,
+          "end": 21.897
+        },
+        {
+          "word": "governor,",
+          "start": 21.897,
+          "end": 22.287
+        },
+        {
+          "word": "senses",
+          "start": 22.389,
+          "end": 22.697
+        },
+        {
+          "word": "the",
+          "start": 22.697,
+          "end": 22.882
+        },
+        {
+          "word": "car",
+          "start": 22.882,
+          "end": 23.066
+        },
+        {
+          "word": "speeding",
+          "start": 23.066,
+          "end": 23.456
+        },
+        {
+          "word": "up...",
+          "start": 23.456,
+          "end": 23.6
+        }
+      ]
+    },
+    {
+      "text": "and yanks a lever. Steel wedges bite into the rails.",
+      "speed": 1.25,
+      "shot": "wedgeClose",
+      "event": "wedges",
+      "label": "SAFETY BRAKES",
+      "labelWord": "wedges",
+      "labelAt": "wedges",
+      "highlight": [
+        "wedges",
+        "bite"
+      ],
+      "index": 8,
+      "start": 23.762,
+      "end": 26.625,
+      "words": [
+        {
+          "word": "and",
+          "start": 23.762,
+          "end": 23.973
+        },
+        {
+          "word": "yanks",
+          "start": 23.973,
+          "end": 24.278
+        },
+        {
+          "word": "a",
+          "start": 24.278,
+          "end": 24.396
+        },
+        {
+          "word": "lever.",
+          "start": 24.396,
+          "end": 24.701
+        },
+        {
+          "word": "Steel",
+          "start": 24.818,
+          "end": 25.123
+        },
+        {
+          "word": "wedges",
+          "start": 25.123,
+          "end": 25.475
+        },
+        {
+          "word": "bite",
+          "start": 25.475,
+          "end": 25.733
+        },
+        {
+          "word": "into",
+          "start": 25.733,
+          "end": 25.992
+        },
+        {
+          "word": "the",
+          "start": 25.992,
+          "end": 26.203
+        },
+        {
+          "word": "rails.",
+          "start": 26.203,
+          "end": 26.508
+        }
+      ]
+    },
+    {
+      "text": "The car stops within a few metres.",
+      "speed": 1.2,
+      "shot": "followCar",
+      "event": "stop",
+      "highlight": [
+        "stops"
+      ],
+      "hold": 0.3,
+      "index": 9,
+      "start": 26.685,
+      "end": 28.472,
+      "words": [
+        {
+          "word": "The",
+          "start": 26.685,
+          "end": 26.886
+        },
+        {
+          "word": "car",
+          "start": 26.886,
+          "end": 27.087
+        },
+        {
+          "word": "stops",
+          "start": 27.087,
+          "end": 27.377
+        },
+        {
+          "word": "within",
+          "start": 27.377,
+          "end": 27.712
+        },
+        {
+          "word": "a",
+          "start": 27.712,
+          "end": 27.824
+        },
+        {
+          "word": "few",
+          "start": 27.824,
+          "end": 28.025
+        },
+        {
+          "word": "metres.",
+          "start": 28.025,
+          "end": 28.36
+        }
+      ]
+    },
+    {
+      "text": "This trick is old. In the 1850s, Elisha Otis cut his own elevator's rope in front of a crowd...",
+      "speed": 1.3,
+      "shot": "otis",
+      "event": "otis",
+      "highlight": [
+        "Otis",
+        "cut"
+      ],
+      "index": 10,
+      "start": 28.832,
+      "end": 35.395,
+      "words": [
+        {
+          "word": "This",
+          "start": 28.832,
+          "end": 29.166
+        },
+        {
+          "word": "trick",
+          "start": 29.166,
+          "end": 29.561
+        },
+        {
+          "word": "is",
+          "start": 29.561,
+          "end": 29.774
+        },
+        {
+          "word": "old.",
+          "start": 29.774,
+          "end": 30.047
+        },
+        {
+          "word": "In",
+          "start": 30.199,
+          "end": 30.412
+        },
+        {
+          "word": "the",
+          "start": 30.412,
+          "end": 30.685
+        },
+        {
+          "word": "1850s,",
+          "start": 30.685,
+          "end": 31.08
+        },
+        {
+          "word": "Elisha",
+          "start": 31.232,
+          "end": 31.688
+        },
+        {
+          "word": "Otis",
+          "start": 31.688,
+          "end": 32.022
+        },
+        {
+          "word": "cut",
+          "start": 32.022,
+          "end": 32.296
+        },
+        {
+          "word": "his",
+          "start": 32.296,
+          "end": 32.569
+        },
+        {
+          "word": "own",
+          "start": 32.569,
+          "end": 32.843
+        },
+        {
+          "word": "elevator's",
+          "start": 32.843,
+          "end": 33.542
+        },
+        {
+          "word": "rope",
+          "start": 33.542,
+          "end": 33.876
+        },
+        {
+          "word": "in",
+          "start": 33.876,
+          "end": 34.089
+        },
+        {
+          "word": "front",
+          "start": 34.089,
+          "end": 34.484
+        },
+        {
+          "word": "of",
+          "start": 34.484,
+          "end": 34.696
+        },
+        {
+          "word": "a",
+          "start": 34.696,
+          "end": 34.848
+        },
+        {
+          "word": "crowd...",
+          "start": 34.848,
+          "end": 35.243
+        }
+      ]
+    },
+    {
+      "text": "and didn't fall.",
+      "speed": 1.15,
+      "shot": "otis",
+      "event": "otisSafe",
+      "highlight": [
+        "didn't"
+      ],
+      "hold": 0.3,
+      "index": 11,
+      "start": 35.455,
+      "end": 36.429,
+      "words": [
+        {
+          "word": "and",
+          "start": 35.455,
+          "end": 35.674
+        },
+        {
+          "word": "didn't",
+          "start": 35.674,
+          "end": 36.04
+        },
+        {
+          "word": "fall.",
+          "start": 36.04,
+          "end": 36.308
+        }
+      ]
+    },
+    {
+      "text": "And if even that fails?",
+      "speed": 1.2,
+      "shot": "followCar",
+      "event": "elseFails",
+      "highlight": [
+        "fails"
+      ],
+      "index": 12,
+      "start": 36.789,
+      "end": 38.181,
+      "words": [
+        {
+          "word": "And",
+          "start": 36.789,
+          "end": 37.013
+        },
+        {
+          "word": "if",
+          "start": 37.013,
+          "end": 37.187
+        },
+        {
+          "word": "even",
+          "start": 37.187,
+          "end": 37.46
+        },
+        {
+          "word": "that",
+          "start": 37.46,
+          "end": 37.733
+        },
+        {
+          "word": "fails?",
+          "start": 37.733,
+          "end": 38.056
+        }
+      ]
+    },
+    {
+      "text": "Giant springs and oil buffers wait at the bottom.",
+      "speed": 1.25,
+      "shot": "pitShot",
+      "event": "buffers",
+      "label": "BUFFERS",
+      "labelWord": "buffers",
+      "labelAt": [
+        -0.2,
+        -0.9,
+        0.6
+      ],
+      "highlight": [
+        "buffers"
+      ],
+      "hold": 0.3,
+      "index": 13,
+      "start": 38.241,
+      "end": 40.734,
+      "words": [
+        {
+          "word": "Giant",
+          "start": 38.241,
+          "end": 38.53
+        },
+        {
+          "word": "springs",
+          "start": 38.53,
+          "end": 38.908
+        },
+        {
+          "word": "and",
+          "start": 38.908,
+          "end": 39.109
+        },
+        {
+          "word": "oil",
+          "start": 39.109,
+          "end": 39.309
+        },
+        {
+          "word": "buffers",
+          "start": 39.309,
+          "end": 39.688
+        },
+        {
+          "word": "wait",
+          "start": 39.688,
+          "end": 39.933
+        },
+        {
+          "word": "at",
+          "start": 39.933,
+          "end": 40.088
+        },
+        {
+          "word": "the",
+          "start": 40.088,
+          "end": 40.289
+        },
+        {
+          "word": "bottom.",
+          "start": 40.289,
+          "end": 40.623
+        }
+      ]
+    },
+    {
+      "text": "Ropes. Counterweight. Brake. Governor. Safety wedges. Buffers.",
+      "speed": 1.15,
+      "shot": "shaftWide",
+      "event": "recap",
+      "highlight": [
+        "ropes",
+        "counterweight",
+        "brake",
+        "governor",
+        "safety",
+        "buffers"
+      ],
+      "index": 14,
+      "start": 41.094,
+      "end": 44.629,
+      "words": [
+        {
+          "word": "Ropes.",
+          "start": 41.094,
+          "end": 41.398
+        },
+        {
+          "word": "Counterweight.",
+          "start": 41.515,
+          "end": 42.194
+        },
+        {
+          "word": "Brake.",
+          "start": 42.311,
+          "end": 42.616
+        },
+        {
+          "word": "Governor.",
+          "start": 42.733,
+          "end": 43.177
+        },
+        {
+          "word": "Safety",
+          "start": 43.294,
+          "end": 43.645
+        },
+        {
+          "word": "wedges.",
+          "start": 43.645,
+          "end": 43.997
+        },
+        {
+          "word": "Buffers.",
+          "start": 44.114,
+          "end": 44.512
+        }
+      ]
+    },
+    {
+      "text": "That's how elevators in the US make about eighteen billion trips a year.",
+      "speed": 1.25,
+      "shot": "buildingWide",
+      "event": "payoff",
+      "highlight": [
+        "eighteen",
+        "billion"
+      ],
+      "index": 15,
+      "start": 44.689,
+      "end": 48.648,
+      "words": [
+        {
+          "word": "That's",
+          "start": 44.689,
+          "end": 45.055
+        },
+        {
+          "word": "how",
+          "start": 45.055,
+          "end": 45.275
+        },
+        {
+          "word": "elevators",
+          "start": 45.275,
+          "end": 45.789
+        },
+        {
+          "word": "in",
+          "start": 45.789,
+          "end": 45.96
+        },
+        {
+          "word": "the",
+          "start": 45.96,
+          "end": 46.18
+        },
+        {
+          "word": "US",
+          "start": 46.18,
+          "end": 46.351
+        },
+        {
+          "word": "make",
+          "start": 46.351,
+          "end": 46.62
+        },
+        {
+          "word": "about",
+          "start": 46.62,
+          "end": 46.937
+        },
+        {
+          "word": "eighteen",
+          "start": 46.937,
+          "end": 47.402
+        },
+        {
+          "word": "billion",
+          "start": 47.402,
+          "end": 47.817
+        },
+        {
+          "word": "trips",
+          "start": 47.817,
+          "end": 48.135
+        },
+        {
+          "word": "a",
+          "start": 48.135,
+          "end": 48.257
+        },
+        {
+          "word": "year.",
+          "start": 48.257,
+          "end": 48.526
+        }
+      ]
+    },
+    {
+      "text": "Still taking the stairs? Tell me in the comments.",
+      "speed": 1.2,
+      "shot": "final",
+      "event": "final",
+      "highlight": [
+        "stairs",
+        "comments"
+      ],
+      "index": 16,
+      "start": 48.709,
+      "end": 51.1,
+      "words": [
+        {
+          "word": "Still",
+          "start": 48.709,
+          "end": 48.979
+        },
+        {
+          "word": "taking",
+          "start": 48.979,
+          "end": 49.291
+        },
+        {
+          "word": "the",
+          "start": 49.291,
+          "end": 49.478
+        },
+        {
+          "word": "stairs?",
+          "start": 49.478,
+          "end": 49.79
+        },
+        {
+          "word": "Tell",
+          "start": 49.894,
+          "end": 50.122
+        },
+        {
+          "word": "me",
+          "start": 50.122,
+          "end": 50.268
+        },
+        {
+          "word": "in",
+          "start": 50.268,
+          "end": 50.414
+        },
+        {
+          "word": "the",
+          "start": 50.414,
+          "end": 50.601
+        },
+        {
+          "word": "comments.",
+          "start": 50.601,
+          "end": 50.996
+        }
+      ]
+    }
+  ]
+}

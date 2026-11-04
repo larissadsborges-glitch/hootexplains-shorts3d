@@ -1,0 +1,176 @@
+{
+  "id": "tunnel",
+  "title": "How tunnels are built under rivers",
+  "lang": "en-gb",
+  "voice": {
+    "bm_george": 0.6,
+    "bm_fable": 0.4
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.4,
+  "handle": "@explainland",
+  "scene": "tunnel",
+  "hook": {
+    "line1": "HOW TUNNELS ARE BUILT",
+    "line2": "UNDER RIVERS"
+  },
+  "outro": {
+    "line1": "WOULD YOU RIDE IT?",
+    "line2": "COMMENT BELOW"
+  },
+  "beats": [
+    {
+      "text": "What happens if you dig under a river?",
+      "speed": 1.2,
+      "shot": "floodClose",
+      "event": "flood",
+      "highlight": [
+        "under",
+        "river"
+      ]
+    },
+    {
+      "text": "Water floods in. Instantly.",
+      "speed": 1.2,
+      "shot": "section",
+      "event": "floodWide",
+      "highlight": [
+        "floods"
+      ],
+      "hold": 0.3
+    },
+    {
+      "text": "The soil down there is soaked, like a sponge.",
+      "speed": 1.25,
+      "shot": "section",
+      "event": "reset",
+      "label": "SOAKED SOIL",
+      "labelWord": "soaked",
+      "labelAt": [
+        -3,
+        -3.0,
+        0.3
+      ],
+      "highlight": [
+        "soaked",
+        "sponge"
+      ]
+    },
+    {
+      "text": "So engineers lower in a giant machine...",
+      "speed": 1.25,
+      "shot": "shaft",
+      "event": "tbmDrop"
+    },
+    {
+      "text": "a tunnel boring machine.",
+      "speed": 1.2,
+      "shot": "shaft",
+      "label": "BORING MACHINE",
+      "labelWord": "boring",
+      "labelAt": [
+        -12,
+        -2.6,
+        0.3
+      ],
+      "highlight": [
+        "boring",
+        "machine"
+      ],
+      "hold": 0.2
+    },
+    {
+      "text": "Its spinning head chews through the mud,",
+      "speed": 1.25,
+      "shot": "followTBM",
+      "event": "bore",
+      "label": "CUTTER HEAD",
+      "labelWord": "head",
+      "labelAt": "tbmFront",
+      "highlight": [
+        "spinning"
+      ]
+    },
+    {
+      "text": "while a steel shield holds the walls up.",
+      "speed": 1.25,
+      "shot": "followTBM",
+      "label": "SHIELD",
+      "labelWord": "shield",
+      "labelAt": "tbmBody",
+      "highlight": [
+        "shield"
+      ]
+    },
+    {
+      "text": "But the river still pushes water in...",
+      "speed": 1.2,
+      "shot": "faceClose",
+      "event": "leak",
+      "highlight": [
+        "water"
+      ],
+      "hold": 0.3
+    },
+    {
+      "text": "so the machine pushes back, just as hard.",
+      "speed": 1.25,
+      "shot": "faceClose",
+      "event": "counter",
+      "highlight": [
+        "back"
+      ]
+    },
+    {
+      "text": "Behind it, a robot arm bolts in concrete rings.",
+      "speed": 1.25,
+      "shot": "ringsClose",
+      "event": "rings",
+      "label": "RINGS",
+      "labelWord": "rings",
+      "labelAt": "ringsEnd",
+      "highlight": [
+        "concrete",
+        "rings"
+      ]
+    },
+    {
+      "text": "Ring after ring, until the tube is sealed.",
+      "speed": 1.25,
+      "shot": "sectionMid",
+      "event": "ringsAll",
+      "highlight": [
+        "sealed"
+      ],
+      "hold": 0.2
+    },
+    {
+      "text": "Then come the rails...",
+      "speed": 1.2,
+      "shot": "sectionMid",
+      "event": "rails"
+    },
+    {
+      "text": "and the trains, right under the river!",
+      "speed": 1.25,
+      "shot": "trainClose",
+      "event": "train",
+      "highlight": [
+        "under",
+        "river"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "Would you ride it? Tell me in the comments.",
+      "speed": 1.2,
+      "shot": "aerial",
+      "event": "final",
+      "highlight": [
+        "ride",
+        "comments"
+      ]
+    }
+  ]
+}

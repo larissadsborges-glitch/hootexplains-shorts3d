@@ -1,0 +1,129 @@
+{
+  "id": "awake1",
+  "title": "What happens if you stay awake for 3 days? Day 1",
+  "day": 1,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "awake",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "WHAT HAPPENS IF YOU",
+    "line2": "DON'T SLEEP FOR 3 DAYS?",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "COULD YOU MAKE IT",
+    "line2": "TO DAY 2?",
+    "top": "15%"
+  },
+  "beats": [
+    {
+      "text": "What happens to a person who doesn't sleep for three days? This is Jake. In just 24 hours, his brain will work like a drunk driver's.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "cold",
+      "highlight": [
+        "three",
+        "Jake",
+        "drunk"
+      ]
+    },
+    {
+      "text": "Day one. Seven in the morning. Jake won't sleep again for 72 hours. Let's watch what happens, hour by hour.",
+      "speed": 1.25,
+      "shot": "bed",
+      "event": "wake",
+      "highlight": [
+        "one",
+        "72"
+      ]
+    },
+    {
+      "text": "For the first 15 hours, it's just a normal day. Coffee, work, dinner. Nothing feels wrong. Then the sun goes down.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "day",
+      "highlight": [
+        "15",
+        "normal"
+      ]
+    },
+    {
+      "text": "Hour 16. Bedtime. A chemical called adenosine has been piling up in his brain all day. The more it builds, the sleepier he gets.",
+      "speed": 1.25,
+      "shot": "room",
+      "event": "h16",
+      "highlight": [
+        "16",
+        "adenosine"
+      ]
+    },
+    {
+      "text": "Hour 17. His reactions are now as slow as someone who's been drinking.",
+      "speed": 1.25,
+      "shot": "test",
+      "event": "h17",
+      "highlight": [
+        "17",
+        "drinking"
+      ]
+    },
+    {
+      "text": "Three in the morning. His body clock hits its lowest point. This is the hardest hour to stay awake.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "h20",
+      "highlight": [
+        "three",
+        "hardest"
+      ]
+    },
+    {
+      "text": "Hour 22. His hunger hormone is up, and he's raiding the fridge for junk food.",
+      "speed": 1.25,
+      "shot": "fridge",
+      "event": "h22",
+      "highlight": [
+        "22",
+        "junk"
+      ]
+    },
+    {
+      "text": "Then, something weird. The sun comes up, and he suddenly feels awake again. That's his body clock, not real energy.",
+      "speed": 1.25,
+      "shot": "window",
+      "event": "second",
+      "highlight": [
+        "weird",
+        "awake"
+      ]
+    },
+    {
+      "text": "Because at hour 24, his brain is as impaired as someone who's legally drunk.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "h24",
+      "highlight": [
+        "24",
+        "drunk"
+      ]
+    },
+    {
+      "text": "And tomorrow, his brain starts switching off without asking. Could you make it to day two? Follow to see what happens to Jake.",
+      "speed": 1.25,
+      "shot": "desk",
+      "event": "final",
+      "highlight": [
+        "switching",
+        "two"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "id": "money4",
+  "title": "Why does your bank pay you so little interest?",
+  "ep": 4,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "WHY DOES YOUR BANK",
+    "line2": "PAY YOU SO LITTLE?",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "DO YOU KNOW",
+    "line2": "YOUR RATE?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "Why does your bank pay you so little? Jake saved 10,000 dollars for a whole year. He earned 38.",
+      "speed": 1.25,
+      "shot": "statementHook",
+      "event": "hook",
+      "highlight": [
+        "little",
+        "38"
+      ],
+      "hold": 0.3
+    },
+    {
+      "text": "That's the national average rate. But prices rose 3.7 percent, so he really lost buying power.",
+      "speed": 1.25,
+      "shot": "statement",
+      "event": "lost",
+      "highlight": [
+        "average",
+        "lost"
+      ]
+    },
+    {
+      "text": "Meanwhile, his bank can earn 3.9 percent just parking money at the Fed.",
+      "speed": 1.25,
+      "shot": "fed",
+      "event": "fed",
+      "highlight": [
+        "3.9",
+        "parking"
+      ]
+    },
+    {
+      "text": "Why pay Jake so little? Because people stay. The average saver keeps the same savings account for 17 years.",
+      "speed": 1.25,
+      "shot": "bank",
+      "event": "stay",
+      "highlight": [
+        "stay",
+        "17"
+      ]
+    },
+    {
+      "text": "Episode 4 of 6. Follow along.",
+      "speed": 1.25,
+      "shot": "bank",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "But some insured savings accounts pay about 4 percent. That's 400 dollars instead of 38.",
+      "speed": 1.25,
+      "shot": "compare",
+      "event": "twist",
+      "highlight": [
+        "4",
+        "400"
+      ]
+    },
+    {
+      "text": "And banks charge about 22 percent on credit cards. Do you know your savings rate?",
+      "speed": 1.25,
+      "shot": "card",
+      "event": "final",
+      "highlight": [
+        "22",
+        "rate"
+      ]
+    }
+  ]
+}

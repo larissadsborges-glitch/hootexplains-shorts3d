@@ -18,7 +18,10 @@
       "highlight": [
         "mentiu",
         "chef"
-      ]
+      ],
+      "tone": "chocado, rápido, como quem conta um escândalo",
+      "exaggeration": 1.35,
+      "pauseBefore": 0
     },
     {
       "text": "Agora a ceia de Natal é dele. Pra doze pessoas.",
@@ -28,7 +31,10 @@
       "highlight": [
         "Natal",
         "doze"
-      ]
+      ],
+      "tone": "subindo o tom, incrédulo no \"doze\"",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
     },
     {
       "text": "Em quarenta e nove dias. E ele não frita nem um ovo.",
@@ -38,7 +44,10 @@
       "highlight": [
         "nove",
         "ovo"
-      ]
+      ],
+      "tone": "pausa curta antes de \"e ele\", depois seco e engraçado",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
     },
     {
       "text": "Quem vai decidir cada passo dele é você.",
@@ -47,7 +56,10 @@
       "event": "you",
       "highlight": [
         "você"
-      ]
+      ],
+      "tone": "cúmplice, falando direto com quem assiste",
+      "exaggeration": 1.0,
+      "pauseBefore": 0
     },
     {
       "text": "Tudo por causa de uma lasanha.",
@@ -56,7 +68,10 @@
       "event": "lasagna",
       "highlight": [
         "lasanha"
-      ]
+      ],
+      "tone": "contando história, mais calmo",
+      "exaggeration": 0.9,
+      "pauseBefore": 0.1
     },
     {
       "text": "A sogra amou. E ele: fui eu que fiz.",
@@ -65,7 +80,10 @@
       "event": "lie",
       "highlight": [
         "eu"
-      ]
+      ],
+      "tone": "orgulhoso, imitando o Tavinho no \"fui eu que fiz\"",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
     },
     {
       "text": "Mas era de mercado. Quatro minutos no micro-ondas.",
@@ -75,7 +93,10 @@
       "highlight": [
         "mercado",
         "quatro"
-      ]
+      ],
+      "tone": "revelação: pausa antes, depois firme",
+      "exaggeration": 1.4,
+      "pauseBefore": 0.25
     },
     {
       "text": "Na geladeira: mostarda vencida, um ovo e um limão triste.",
@@ -86,7 +107,10 @@
         "mostarda",
         "ovo",
         "limão"
-      ]
+      ],
+      "tone": "deadpan, listando com desânimo",
+      "exaggeration": 1.0,
+      "pauseBefore": 0
     },
     {
       "text": "A última vez que ele fritou um ovo, o prédio inteiro desceu.",
@@ -96,7 +120,10 @@
       "highlight": [
         "prédio",
         "desceu"
-      ]
+      ],
+      "tone": "construindo até explodir no \"desceu\"",
+      "exaggeration": 1.5,
+      "pauseBefore": 0
     },
     {
       "text": "Segue o Tavinho. Ele vai precisar.",
@@ -105,7 +132,10 @@
       "event": "follow",
       "highlight": [
         "Segue"
-      ]
+      ],
+      "tone": "rápido, simpático",
+      "exaggeration": 1.2,
+      "pauseBefore": 0
     },
     {
       "text": "Então ele decide contar a verdade.",
@@ -114,7 +144,10 @@
       "event": "truth",
       "highlight": [
         "verdade"
-      ]
+      ],
+      "tone": "mais baixo, quase sério",
+      "exaggeration": 0.8,
+      "pauseBefore": 0
     },
     {
       "text": "Mas a Camila manda: minha mãe já contou pra família inteira.",
@@ -124,7 +157,10 @@
       "highlight": [
         "Camila",
         "inteira"
-      ]
+      ],
+      "tone": "choque, virada da história",
+      "exaggeration": 1.4,
+      "pauseBefore": 0.15
     },
     {
       "text": "E a sogra já criou o grupo: Ceia do Chef Tavinho.",
@@ -134,7 +170,10 @@
       "highlight": [
         "grupo",
         "Chef"
-      ]
+      ],
+      "tone": "cada vez pior, ri de nervoso",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
     },
     {
       "text": "Agora não tem volta.",
@@ -143,7 +182,10 @@
       "event": "noreturn",
       "highlight": [
         "volta"
-      ]
+      ],
+      "tone": "devagar, sem esperança",
+      "exaggeration": 0.7,
+      "pauseBefore": 0.1
     },
     {
       "text": "Hoje ele é dois por cento chef. Graças ao micro-ondas.",
@@ -153,7 +195,10 @@
       "highlight": [
         "dois",
         "micro-ondas"
-      ]
+      ],
+      "tone": "deadpan, piada seca no micro-ondas",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
     },
     {
       "text": "Missão um: com quem ele aprende?",
@@ -162,7 +207,10 @@
       "event": "mission",
       "highlight": [
         "Missão"
-      ]
+      ],
+      "tone": "energia de apresentador, anunciando",
+      "exaggeration": 1.3,
+      "pauseBefore": 0.1
     },
     {
       "text": "Vídeo na internet: custa um dia. Mas ninguém corrige ele.",
@@ -172,7 +220,10 @@
       "highlight": [
         "Vídeo",
         "um"
-      ]
+      ],
+      "tone": "vendendo a opção, rápido",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
     },
     {
       "text": "Ou a Vó Dita: cozinha como ninguém. Custa três dias, mas não guarda segredo.",
@@ -183,7 +234,10 @@
         "Vó",
         "três",
         "segredo"
-      ]
+      ],
+      "tone": "carinhoso, depois alerta no \"segredo\"",
+      "exaggeration": 1.2,
+      "pauseBefore": 0
     },
     {
       "text": "Você decide: vídeo ou vó?",
@@ -193,7 +247,10 @@
       "highlight": [
         "vídeo",
         "vó"
-      ]
+      ],
+      "tone": "pergunta direta, empolgado",
+      "exaggeration": 1.3,
+      "pauseBefore": 0.1
     }
   ]
 }

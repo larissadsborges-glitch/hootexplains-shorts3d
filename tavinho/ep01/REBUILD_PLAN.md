@@ -54,3 +54,4 @@ The owner asked to "rebuild the entire video with what you learn, take your time
     - `twelve` row 1 shows the chat's empty upper half
 - **Next:** step 4 (look: Tavinho against the brightest area, a blurred foreground layer in 3–4 shots, contact shadows), then step 5 (acting), step 6 (sound), step 7 (voice, once the owner approves Jeff E), steps 8 and 9 (QA and reviews).
 - 5 Nov: **Step 4 in progress.** Added a contact shadow under Tavinho (`cast.tsx`) and blurred parallax foregrounds in the building, typing and sunday shots (`Episode.tsx`, `fgBlur`). **Still to verify:** frames that actually show those three shots.
+- 5 Nov: **Step 7 done.** Jeff E voice via `C:/Users/borge/vs/tav/voice_episode.py`: per-beat tone and emotion, pauses before reveals, silences squeezed, words snapped to the audio, tempo 1.15. Measured 64.2 s, 2.92 words/s; 167/167 words have speech in their caption window; 0 freezes. Old Kokoro voice kept in `public/videos/tavinho1/_kokoro`.

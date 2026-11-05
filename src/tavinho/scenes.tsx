@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { clamp01, easeInOutSine, easeOutBack, easeOutCubic, lerp, rng } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
 import { INK, ink } from '../toon2d/Hook2D';
 import { Hand, Limb, place } from '../toon2d/parts';
-import { Camila, Celeste, PAL, Tavinho, TavinhoHead, VoDita } from './cast';
+import { Camila, Celeste, PAL, Tavinho, TavinhoHead, VoDita, type Outfit } from './cast';
 
 type P = { T: MoneyTimeline; t: number };
 const F = 'Montserrat, Arial Black, sans-serif';
@@ -57,37 +57,101 @@ export const Chat: React.FC<{ name: string; avatar: React.ReactNode; msgs: { tex
   );
 };
 
+/** The bedroom's big meter on the "percent" beat: EP1 shows CHEF 2% plus the microwave; other episodes set their own. */
+export const BedMeter = createContext<{ label: string; value: string; word: string; fill: number; micro: boolean }>({ label: 'CHEF', value: '2%', word: 'dois', fill: 22, micro: true });
+
+/** Where the "home" shots happen: EP1's bedroom at night, a morning kitchen, or the living-room sofa by day; and what he wears. */
+export const HomeSet = createContext<{ set: 'bed' | 'kitchen' | 'sofa'; outfit: Outfit }>({ set: 'bed', outfit: 'work' });
+
 /* ------------------------------------------------------------------ bedroom at night: hook, "you", "2% chef" */
 export const Bed: React.FC<P> = ({ T, t }) => {
-  const you = t >= T.s('you') && t < T.s('lasagna');
+  // the "você decide" beat, until just after its last word (any episode)
+  const you = t >= T.s('you') && t < T.e('you', T.s('you') + 3) + 0.3;
   const point = you ? easeOutCubic(clamp01((t - T.s('you') - 0.1) / 0.3)) : 0;
   const pct = t >= T.s('percent');
+  const meter = useContext(BedMeter);
+  const home = useContext(HomeSet);
   const stars = useMemo(() => { const r = rng(3); return Array.from({ length: 24 }, () => [r() * 1080, r() * 600]); }, []);
   const mood = pct ? 'gulp' : you ? 'worried' : 'shock';
   const armL = [[360, 1150], [290, 1330], [440, 1250]];
   const armR = you ? [[720, 1150], [lerp(790, 780, point), lerp(1330, 1260, point)], [lerp(640, 760, point), lerp(1250, 1300, point)]] : [[720, 1150], [790, 1330], [640, 1250]];
   return (
     <g>
-      <rect x={0} y={0} width={1080} height={1920} fill={PAL.navy} />
-      {/* window with stars and moon */}
-      <rect x={90} y={250} width={380} height={460} rx={12} fill="#0e1430" {...ink(8)} />
-      {stars.map(([x, y], i) => x > 100 && x < 460 && y > 260 && y < 700 ? <circle key={i} cx={x} cy={y} r={3} fill="#fff4e0" /> : null)}
-      <circle cx={380} cy={590} r={44} fill="#fff4e0" />
-      <circle cx={398} cy={578} r={40} fill="#0e1430" />
-      <path d="M280 250 L 280 710 M 90 480 L 470 480" stroke="#2a3360" strokeWidth={14} />
-      {/* headboard */}
-      <rect x={140} y={900} width={800} height={520} rx={60} fill="#7a4a2c" {...ink(8)} />
-      <rect x={180} y={940} width={720} height={60} rx={30} fill="#8f5a37" />
+      {home.set === 'bed' && (
+        <g>
+          <rect x={0} y={0} width={1080} height={1920} fill={PAL.navy} />
+          {/* window with stars and moon */}
+          <rect x={90} y={250} width={380} height={460} rx={12} fill="#0e1430" {...ink(8)} />
+          {stars.map(([x, y], i) => x > 100 && x < 460 && y > 260 && y < 700 ? <circle key={i} cx={x} cy={y} r={3} fill="#fff4e0" /> : null)}
+          <circle cx={380} cy={590} r={44} fill="#fff4e0" />
+          <circle cx={398} cy={578} r={40} fill="#0e1430" />
+          <path d="M280 250 L 280 710 M 90 480 L 470 480" stroke="#2a3360" strokeWidth={14} />
+          {/* headboard */}
+          <rect x={140} y={900} width={800} height={520} rx={60} fill="#7a4a2c" {...ink(8)} />
+          <rect x={180} y={940} width={720} height={60} rx={30} fill="#8f5a37" />
+        </g>
+      )}
+      {home.set === 'kitchen' && (
+        <g>
+          {/* morning kitchen: warm wall, tiles, sunny window, cabinets, a clock */}
+          <rect x={0} y={0} width={1080} height={1920} fill="#f3dfb8" />
+          {Array.from({ length: 6 }, (_, r) => Array.from({ length: 9 }, (_, c) => <rect key={`${r}-${c}`} x={c * 124 - 20} y={880 + r * 110} width={118} height={104} fill={(r + c) % 2 ? '#e9f1f4' : '#d7e6ec'} />))}
+          <rect x={90} y={260} width={380} height={440} rx={12} fill="#9fdcff" {...ink(8)} />
+          <circle cx={380} cy={380} r={60} fill="#ffe08a" />
+          <path d="M280 260 L 280 700 M 90 480 L 470 480" stroke="#1b1420" strokeWidth={10} />
+          <rect x={600} y={240} width={420} height={260} rx={14} fill="#e98b5a" {...ink(8)} />
+          <path d="M810 240 L 810 500" stroke="#1b1420" strokeWidth={8} />
+          {[700, 920].map((x, i) => <circle key={i} cx={x} cy={420} r={10} fill="#1b1420" />)}
+          <g transform="translate(810 640)"><circle r={60} fill="#fff" {...ink(6)} /><path d={`M0 0 L ${34 * Math.sin(t * 0.7)} ${-34 * Math.cos(t * 0.7)} M0 0 L 30 0`} stroke={INK} strokeWidth={7} strokeLinecap="round" /></g>
+        </g>
+      )}
+      {home.set === 'sofa' && (
+        <g>
+          {/* living room by day: mint wall, a framed picture, a lamp, the sofa behind him */}
+          <rect x={0} y={0} width={1080} height={1920} fill="#cfe7d6" />
+          <rect x={120} y={300} width={300} height={230} rx={8} fill="#fff4e0" {...ink(8)} />
+          <path d="M150 500 L 230 400 L 290 460 L 340 410 L 390 500 Z" fill="#7fb07a" {...ink(4)} />
+          <circle cx={330} cy={370} r={22} fill="#ffd21f" {...ink(3)} />
+          <path d="M860 300 L 940 300 L 980 420 L 820 420 Z" fill="#ffd166" {...ink(6)} />
+          <rect x={890} y={420} width={20} height={480} fill="#5a4636" {...ink(4)} />
+          <rect x={120} y={900} width={840} height={540} rx={70} fill="#3f8f7a" {...ink(8)} />
+          <rect x={160} y={940} width={760} height={70} rx={34} fill="#4fa58d" />
+        </g>
+      )}
       {/* Tavinho sitting up in bed, phone in hand, lit by the screen */}
       <g transform={place(540, 1800, 0.95)}>
-        <Tavinho t={t} mood={mood} sweat={1} slip={0.4 + 0.4 * Math.abs(Math.sin(t * 0.7))} armL={armL} armR={armR}
+        <Tavinho t={t} mood={mood} sweat={1} slip={0.4 + 0.4 * Math.abs(Math.sin(t * 0.7))} armL={armL} armR={armR} outfit={home.outfit}
           holdL={<g transform="translate(40 -60) rotate(-8)"><rect x={-60} y={-110} width={150} height={240} rx={22} fill="#20232c" {...ink(6)} /><rect x={-46} y={-96} width={122} height={212} rx={14} fill="#bfe6ff" /></g>} />
       </g>
-      {/* phone glow on his face */}
-      <ellipse cx={540} cy={1000} rx={380} ry={420} fill="#9fdcff" opacity={0.14 + 0.03 * Math.sin(t * 9)} />
-      {/* blanket */}
-      <path d="M40 1480 C 240 1400 840 1400 1040 1480 L 1080 1920 L 0 1920 Z" fill="#3a5ba0" {...ink(8)} />
-      {Array.from({ length: 6 }, (_, i) => <path key={i} d={`M${120 + i * 160} 1500 l 40 380`} stroke="#2c4680" strokeWidth={10} />)}
+      {home.set === 'bed' && (
+        <g>
+          {/* phone glow on his face */}
+          <ellipse cx={540} cy={1000} rx={380} ry={420} fill="#9fdcff" opacity={0.14 + 0.03 * Math.sin(t * 9)} />
+          {/* blanket */}
+          <path d="M40 1480 C 240 1400 840 1400 1040 1480 L 1080 1920 L 0 1920 Z" fill="#3a5ba0" {...ink(8)} />
+          {Array.from({ length: 6 }, (_, i) => <path key={i} d={`M${120 + i * 160} 1500 l 40 380`} stroke="#2c4680" strokeWidth={10} />)}
+        </g>
+      )}
+      {home.set === 'kitchen' && (
+        <g>
+          {/* the breakfast table in front of him, a steaming mug */}
+          <rect x={0} y={1440} width={1080} height={480} fill="#b07a48" {...ink(8)} />
+          <rect x={0} y={1440} width={1080} height={40} fill="#c98f58" />
+          <g transform="translate(860 1400)">
+            <rect x={-60} y={-90} width={120} height={130} rx={16} fill="#ffffff" {...ink(6)} />
+            <path d="M60 -60 q 50 0 50 35 q 0 35 -50 35" fill="none" {...ink(8)} />
+            {[0, 1].map((i) => <path key={i} d={`M${-20 + i * 36} -110 q 14 -30 0 -60 q -14 -30 0 -60`} fill="none" stroke="#ffffff" strokeWidth={8} opacity={0.6 + 0.3 * Math.sin(t * 3 + i)} strokeLinecap="round" />)}
+          </g>
+        </g>
+      )}
+      {home.set === 'sofa' && (
+        <g>
+          {/* sofa seat and arms in front of his legs */}
+          <rect x={60} y={1440} width={960} height={260} rx={50} fill="#4fa58d" {...ink(8)} />
+          {[80, 1000].map((x, i) => <rect key={i} x={x - 80} y={1200} width={160} height={520} rx={60} fill="#3f8f7a" {...ink(8)} />)}
+          <rect x={0} y={1700} width={1080} height={220} fill="#d9b98a" />
+        </g>
+      )}
       {/* "it's you" ring when he points */}
       {you && t >= W(T, 'you', 'decide', 0.3) - 0.1 && (
         <g data-qa-label="voce" transform={`translate(540 450) scale(${pop(t, W(T, 'you', 'decide', 0.3) - 0.1) * (t >= W(T, 'you', 'você', 1.6) - 0.1 ? 0.8 + 0.2 * pop(t, W(T, 'you', 'você', 1.6) - 0.1, 0.2) : 0.45)}) rotate(-5)`}>
@@ -96,13 +160,13 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       )}
       {/* "2% chef" meter, big, with a microwave on "micro-ondas" */}
       {pct && (
-        <g transform={`translate(540 1150) scale(${pop(t, W(T, 'percent', 'dois', 0.9) - 0.05)})`}>
+        <g transform={`translate(540 1150) scale(${pop(t, W(T, 'percent', meter.word, 0.9) - 0.05)})`}>
           <rect data-qa-label="chef" x={-330} y={-110} width={660} height={220} rx={30} fill="#1b1420" {...ink(6)} />
-          <text x={0} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#fff4e0">CHEF</text>
+          <text x={0} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#fff4e0">{meter.label}</text>
           <rect x={-280} y={10} width={560} height={60} rx={30} fill="#2c3550" stroke="#fff4e0" strokeWidth={5} />
-          <rect x={-276} y={14} width={22} height={52} rx={20} fill={PAL.mint} />
-          <text x={240} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={PAL.orange}>2%</text>
-          {t >= W(T, 'percent', 'graças', 2.9) - 0.1 && (
+          <rect x={-276} y={14} width={meter.fill} height={52} rx={20} fill={PAL.mint} />
+          <text x={240} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={PAL.orange}>{meter.value}</text>
+          {meter.micro && t >= W(T, 'percent', 'graças', 2.9) - 0.1 && (
             <g data-qa-label="gracas" transform={`translate(200 -215) scale(${1.6 * pop(t, W(T, 'percent', 'graças', 2.9) - 0.1)})`}>
               <rect x={-80} y={-50} width={160} height={100} rx={12} fill="#f4f6fb" {...ink(5)} />
               <rect x={-68} y={-38} width={92} height={76} rx={6} fill="#ffe9a8" {...ink(3)} />

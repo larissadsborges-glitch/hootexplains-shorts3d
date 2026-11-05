@@ -1,24 +1,17 @@
-import React, { useMemo } from 'react';
-import { AbsoluteFill, Audio, getInputProps, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
-import { limitSfx, Music, Sfx, type Cue } from '../audio/Sfx';
+import React from 'react';
+import { limitSfx, type Cue } from '../audio/Sfx';
 import { clamp01, easeOutBack, easeOutCubic } from '../lib/anim';
 import { TitleCard } from '../overlays/Overlays';
-import { cleanWord } from '../lib/anim';
-import { buildMoneyTimeline, type MoneyTimeline } from '../scenes/money/timeline';
+import type { MoneyTimeline } from '../scenes/money/timeline';
 import type { ShortProps, Timings } from '../types';
-import { Act, Camila, PAL, type Mood } from './cast';
-import { QaProbe } from './QaProbe';
+import { Camila, PAL } from './cast';
+import { EP_AUDIO } from './epAudio';
+import { EP_CACHORRA } from './epCachorra';
 import { Bed, Building, ChatSogra, Fridge, Group, Sunday, Table12, Trash, Typing, Vote } from './scenes';
-
-const FONT = "'Montserrat', 'Arial Black', sans-serif";
-const W = (T: MoneyTimeline, ev: string, w: string, d = 0.5) => T.wordTime(ev, w, T.s(ev) + d);
-
-const SCENES: Record<string, React.FC<{ T: MoneyTimeline; t: number }>> = {
-  bed: Bed, chat: ChatSogra, table: Table12, sunday: Sunday, trash: Trash, fridge: Fridge, building: Building, typing: Typing, group: Group, vote: Vote,
-};
+import { Cliffhanger, EpisodeShell, FollowPill, FONT, RedCard, twistDip, W, type EpConfig, type ShotRow } from './Shell';
 
 /** Sound cues for EP1, all pinned to spoken words. Story cues first: limitSfx keeps at most 2 at once and drops the later-listed filler. */
-export const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
+const cuesEp1 = (tm: Timings, T: MoneyTimeline): Cue[] => {
   const c: Cue[] = [
     // twist sting on "Mas a Camila manda": a low hit while the music dips (see musicDip)
     { at: T.s('camilamsg') - 0.02, sfx: 'hit', volume: 0.9 },
@@ -50,64 +43,6 @@ export const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
   return limitSfx(c, 2);
 };
 
-/** Music gain multiplier: the bed drops out under the twist ("Mas a Camila manda") and comes back. */
-const musicDip = (T: MoneyTimeline) => (t: number) => {
-  const a = T.s('camilamsg') - 0.05, hold = 1.3, back = 0.6;
-  if (t < a - 0.08 || t > a + hold + back) return 1;
-  if (t < a) return 1 - 0.85 * ((t - (a - 0.08)) / 0.08);
-  if (t < a + hold) return 0.15;
-  return 0.15 + 0.85 * ((t - a - hold) / back);
-};
-
-/**
- * Phrase captions (2–4 words, broken at punctuation), the spoken word highlighted, the beat's key words in orange.
- * Placed at ~74% height: under the story props, above the apps' bottom UI.
- */
-const PhraseCaptions: React.FC<{ timings: Timings; t: number }> = ({ timings, t }) => {
-  const groups = phraseGroups(timings);
-  const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1]?.words[0].start ?? x.words[x.words.length - 1].end + 0.8));
-  if (!g) return null;
-  const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
-  const NAME: Record<string, string> = { camila: '#5fb3ff', sogra: '#ff5a6a', celeste: '#ff5a6a', 'vó': '#7fd36a', tavinho: '#ffd21f' };
-  return (
-    <div style={{ position: 'absolute', left: 60, right: 60, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 22px' }}>
-      {g.words.map((w, i) => {
-        const on = t >= w.start - 0.03;
-        return (
-          <span key={i} data-qa="capword" style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: NAME[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
-            {clean(w.word).toUpperCase()}
-          </span>
-        );
-      })}
-    </div>
-  );
-};
-
-/**
- * Virtual camera, cut on every caption phrase (~1 s), like the reference episodes:
- * each shot cycles through framings [x, y, zoom] in canvas units. The first framing of a shot is its opener.
- */
-type Framing = [number, number, number];
-const FRAMES: Record<string, Framing[]> = {
-  bed: [[540, 960, 1], [540, 700, 2.1], [540, 960, 1.15], [560, 1120, 1.7]],
-  chat: [[540, 900, 1.05], [540, 560, 1.7], [540, 780, 1.35]],
-  table: [[540, 960, 1], [190, 1200, 2.4], [540, 780, 1.4], [790, 1240, 2.2]],
-  sunday: [[540, 960, 1], [230, 1060, 2.3], [800, 1000, 2.0], [540, 1200, 1.6]],
-  trash: [[540, 900, 1], [560, 600, 1.9], [540, 1150, 1.9]],
-  fridge: [[540, 960, 1], [540, 900, 2.0], [450, 1260, 2.0]],
-  building: [[540, 960, 1], [640, 720, 1.9], [540, 1210, 2.4], [320, 1470, 1.9], [540, 1000, 1.25]],
-  typing: [[540, 900, 1.05], [540, 1300, 1.8], [200, 1250, 2.3], [540, 1080, 1.35]],
-  group: [[540, 900, 1.05], [540, 620, 1.6], [700, 520, 1.9]],
-  vote: [[540, 960, 1]],
-};
-const clampCam = ([x, y, z]: Framing): Framing => {
-  const hw = 540 / z, hh = 960 / z;
-  return [Math.min(1080 - hw, Math.max(hw, x)), Math.min(1920 - hh, Math.max(hh, y)), z];
-};
-
-type Move = 'push' | 'drift' | 'roll' | 'shake';
-/** x, y, zoom (canvas units), camera move, and Tavinho's mood for that phrase (undefined = the scene's own). */
-type ShotRow = [number, number, number, Move, Mood?];
 /**
  * Shot plan from tavinho/ep01/SHOTS.md (script v4): per beat event, one row per caption phrase (extra phrases reuse the last row).
  * Two phrases in a row with the same framing are one shot (no cut), so a one-word phrase never restarts the move.
@@ -133,99 +68,23 @@ const SHOT_PLAN: Record<string, ShotRow[]> = {
   vo: [[540, 960, 1.0, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 800, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
   decide: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.12, 'shake', 'gulp']],
 };
-/** Phrase groups (2–4 words), shared by the captions and the camera cuts. */
-const phraseGroups = (timings: Timings) => {
-  const groups: { start: number; beat: number; words: { word: string; start: number; end: number; hl: boolean }[] }[] = [];
-  timings.beats.forEach((b, bi) => {
-    let cur: { word: string; start: number; end: number; hl: boolean }[] = [];
-    b.words.forEach((w, i) => {
-      cur.push({ ...w, hl: (b.highlight ?? []).map((x) => x.toLowerCase()).includes(cleanWord(w.word)) });
-      if (/[.,:;?!]$/.test(w.word) || cur.length >= 3 || i === b.words.length - 1) { groups.push({ start: cur[0].start, beat: bi, words: cur }); cur = []; }
-    });
-  });
-  return groups;
-};
 
-/** A Vida do Tavinho, T1 EP1. */
-export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const T = useMemo(() => (timings ? buildMoneyTimeline(timings) : null), [timings]);
-  const cues = useMemo(() => (timings && T ? cuesFor(timings, T) : []), [timings, T]);
-  if (!timings || !T) return null;
-  const t = frame / fps;
+/** EP1's own overlays: the MENTIRA card, DOMINGO tag, hook text, days chip, CHEF bar, follow ask, notifications. */
+const OverlaysEp1: EpConfig['Overlays'] = ({ T, t, timings }) => {
   const beat = timings.beats.reduce((b, x) => (t >= x.start ? x : b), timings.beats[0]);
-  const idx = timings.beats.indexOf(beat);
-  let a = idx;
-  while (a > 0 && timings.beats[a - 1].shot === beat.shot) a--;
-  const since = t - (a === 0 ? 0 : timings.beats[a].start);
-  void since;
-  const groups = phraseGroups(timings);
-  let gi = 0;
-  for (let i = 0; i < groups.length; i++) if (t >= groups[i].start - 0.04) gi = i;
-  // index of this phrase within the current run of the same shot
-  let k = 0;
-  for (let i = gi; i > 0 && timings.beats[groups[i - 1].beat].shot === beat.shot && groups[i - 1].start >= (a === 0 ? -1 : timings.beats[a].start - 0.05); i--) k++;
-  // the shot for this phrase: from the per-beat plan (index of the phrase inside its beat), else the shot's framing cycle
-  const curGroup = groups[gi];
-  const rowOf = (g: number): ShotRow => {
-    const rows = SHOT_PLAN[timings.beats[groups[g].beat].event ?? ''];
-    const inBeat = groups.filter((x, i) => i <= g && x.beat === groups[g].beat).length - 1;
-    const fr = FRAMES[timings.beats[groups[g].beat].shot] ?? [[540, 960, 1]];
-    return rows ? rows[Math.min(inBeat, rows.length - 1)] : [...fr[k % fr.length], 'push'];
-  };
-  const row: ShotRow = curGroup ? rowOf(gi) : [540, 960, 1, 'push'];
-  // a phrase framed like the one before it continues that shot (no cut)
-  let g0 = gi;
-  const same = (p: ShotRow, q: ShotRow) => p[0] === q[0] && p[1] === q[1] && p[2] === q[2] && p[3] === q[3];
-  while (curGroup && g0 > 0 && groups[g0 - 1].beat === groups[gi].beat && same(rowOf(g0 - 1), row)) g0--;
-  const [cx0, cy0, cz] = clampCam([row[0], row[1], row[2]]);
-  const sinceCut = t - Math.max(groups[g0]?.start ?? 0, timings.beats[a].start);
-  const move = row[3];
-  // every move keeps moving until the next cut (never a static frame, even in gaps between sentences); the twist roll pushes in too
-  const zMove = move === 'push' || move === 'roll' ? 1 + 0.065 * Math.min(sinceCut, 3) : 1 + 0.03 * Math.min(sinceCut, 3);
-  const z = cz * zMove * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25))));
-  const shake = move === 'shake' && sinceCut < 7 / 30 ? 14 * Math.sin(sinceCut * 90) : 0;
-  const [cx, cy] = clampCam([cx0 + (move === 'drift' ? 30 * Math.sin(sinceCut * 1.4) : 0) + shake, cy0 + (move === 'shake' ? shake * 0.6 : 0), z]);
-  const roll = move === 'roll' ? -3.5 * easeOutCubic(clamp01(sinceCut / 0.3)) : 0;
-  const Scene = SCENES[beat.shot] ?? Bed;
-  // head bob on the beat's stressed (highlighted) words: a quick nod over 0.3 s
-  const bob = Math.max(0, ...(curGroup ? groups[gi].words : []).filter((w) => w.hl).map((w) => { const u = (t - w.start) / 0.3; return u > 0 && u < 1 ? Math.sin(Math.PI * u) : 0; }));
   const days = W(T, 'twelve', 'quarenta', 2.0) - 0.05;
   const pct = W(T, 'percent', 'dois', 0.9);
-  const sepia = beat.shot === 'sunday';
-  const followT = T.s('follow');
-  const last = timings.beats[timings.beats.length - 1];
-  const notifT = T.s('decide') + 0.3;
   const camT = W(T, 'camilamsg', 'camila', 0.4) - 0.1;
   const mentiraEnd = T.s('market') + Math.max(1.0, Math.min(1.5, W(T, 'market', 'mercado', 1.5) - T.s('market') - 0.05));
-  const qa = Boolean((getInputProps() as { qa?: boolean }).qa);
   return (
-    <AbsoluteFill style={{ background: PAL.navy }} data-qa="root">
-      <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-        <defs><filter id="fgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14" /></filter></defs>
-        <Act.Provider value={{ mood: row[4], bob }}>
-          <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
-        </Act.Provider>
-        {/* out-of-focus foreground for depth, moving a little faster than the scene (parallax) */}
-        {beat.shot === 'building' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-40 * Math.sin(t * 0.3)} 0)`}><rect x={-40} y={300} width={70} height={1700} fill="#0e1430" /><ellipse cx={-5} cy={300} rx={70} ry={40} fill="#ffd98a" opacity={0.8} /></g>}
-        {beat.shot === 'typing' && <g filter="url(#fgBlur)" opacity={0.9}><ellipse cx={-60} cy={1820} rx={360} ry={260} fill="#7fb2df" /></g>}
-      </svg>
-      {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
-      {t >= T.s('market') - 0.02 && t < mentiraEnd && (
-        <AbsoluteFill data-qa-label="fui" data-qa-cover="1" style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
-          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - T.s('market') + 0.02) / 0.2)) * (1 + 0.04 * Math.sin((t - T.s('market')) * 14))}) rotate(${-3 + 1.5 * Math.sin((t - T.s('market')) * 9)}deg)` }}>MENTIRA<br /><span style={{ fontSize: 220 }}>#1</span></div>
-          <div style={{ marginTop: 30, background: '#fff', color: '#e2453c', borderRadius: 20, padding: '8px 24px', fontFamily: FONT, fontWeight: 900, fontSize: 46 }}>"FUI EU QUE FIZ"</div>
-        </AbsoluteFill>
-      )}
-      {sepia && (
+    <>
+      <RedCard t={t} t0={T.s('market')} t1={mentiraEnd} word="MENTIRA" num="#1" tag={'"FUI EU QUE FIZ"'} qa="fui" />
+      {beat.shot === 'sunday' && (
         <div data-qa-label="domingo" style={{ position: 'absolute', left: 60, top: 300, background: '#fff4e0', border: '5px solid #1b1420', borderRadius: 14, padding: '6px 22px', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#1b1420', transform: 'rotate(-4deg)' }}>DOMINGO</div>
       )}
       {/* hook text, matching the spoken hook */}
       <TitleCard line1="MENTIU" line2="PRA SOGRA" t={t} tIn={-0.7} tOut={T.s('twelve') - 0.05} top="12%" />
-      {/* days counter: on from "dias" to the end */}
-      {/* the chip and the CHEF bar make room for the vote panels' own titles */}
+      {/* days counter: on from "quarenta"; the chip and the CHEF bar make room for the vote panels' own titles */}
       {t >= days && t < T.s('video') + 0.3 && (
         <div style={{ opacity: 1 - clamp01((t - T.s('video')) / 0.3) }}>
         <div style={{ position: 'absolute', left: 0, right: 0, top: 200, display: 'flex', justifyContent: 'center' }}>
@@ -245,19 +104,9 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
         </div>
       )}
       {/* follow ask at the laugh peak */}
-      {t >= followT && t < T.s('truth') - 0.05 && (
-        <div style={{ position: 'absolute', left: 0, right: 0, top: 560, display: 'flex', justifyContent: 'center' }}>
-          <div data-qa-label="segue" style={{ display: 'flex', alignItems: 'center', gap: 16, background: PAL.orange, border: '5px solid #1b1420', borderRadius: 40, padding: '12px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 42, color: '#fff', transform: `scale(${easeOutBack(clamp01((t - followT) / 0.25))})` }}>
-            SEGUE O @avidadotavinho
-          </div>
-        </div>
-      )}
+      <FollowPill t={t} t0={T.s('follow')} t1={T.s('truth') - 0.05} text="SEGUE O @avidadotavinho" />
       {/* cliffhanger: a message nobody opens yet */}
-      {t >= notifT && (
-        <div data-qa-label="celeste" style={{ position: 'absolute', left: 50, right: 50, top: Math.round(150 - 220 * (1 - easeOutCubic(clamp01((t - notifT) / 0.3)))), background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '22px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#1b1420', boxShadow: '0 14px 26px rgba(0,0,0,0.45)', transform: `rotate(${1.5 * Math.sin(t * 20) * (1 - clamp01((t - notifT - 0.4) / 0.3))}deg)` }}>
-          🌹 Dona Celeste<div style={{ fontWeight: 700, fontSize: 38, color: '#e2453c' }}>1 nova mensagem</div>
-        </div>
-      )}
+      <Cliffhanger t={t} t0={T.s('decide') + 0.3} who="🌹 Dona Celeste" line="1 nova mensagem" qa="celeste" />
       {/* Camila's message drops in like a phone notification and stays up through the face cut-ins */}
       {t >= camT && t < T.s('group') && (
         <div data-qa-label="camila" style={{ position: 'absolute', left: 70, right: 70, top: Math.round(300 - 420 * (1 - easeOutCubic(clamp01((t - camT) / 0.25)))), display: 'flex', alignItems: 'center', gap: 22, background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '18px 26px', boxShadow: '0 14px 26px rgba(0,0,0,0.45)' }}>
@@ -268,13 +117,44 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
           </div>
         </div>
       )}
-      <PhraseCaptions timings={timings} t={t} />
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: 'rgba(255,244,224,0.9)', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{timings.handle}</div>
-      <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
-      <Sfx cues={cues} timings={timings} />
-      <Music timings={timings} src={timings.music} dip={musicDip(T)} />
-      {qa && <QaProbe />}
-      {void last}
-    </AbsoluteFill>
+    </>
   );
 };
+
+/** A Vida do Tavinho, T1 EP1 "A mentira". */
+export const EP1: EpConfig = {
+  scenes: { bed: Bed, chat: ChatSogra, table: Table12, sunday: Sunday, trash: Trash, fridge: Fridge, building: Building, typing: Typing, group: Group, vote: Vote },
+  fallback: Bed,
+  shotPlan: SHOT_PLAN,
+  frames: {
+    bed: [[540, 960, 1], [540, 700, 2.1], [540, 960, 1.15], [560, 1120, 1.7]],
+    chat: [[540, 900, 1.05], [540, 560, 1.7], [540, 780, 1.35]],
+    table: [[540, 960, 1], [190, 1200, 2.4], [540, 780, 1.4], [790, 1240, 2.2]],
+    sunday: [[540, 960, 1], [230, 1060, 2.3], [800, 1000, 2.0], [540, 1200, 1.6]],
+    trash: [[540, 900, 1], [560, 600, 1.9], [540, 1150, 1.9]],
+    fridge: [[540, 960, 1], [540, 900, 2.0], [450, 1260, 2.0]],
+    building: [[540, 960, 1], [640, 720, 1.9], [540, 1210, 2.4], [320, 1470, 1.9], [540, 1000, 1.25]],
+    typing: [[540, 900, 1.05], [540, 1300, 1.8], [200, 1250, 2.3], [540, 1080, 1.35]],
+    group: [[540, 900, 1.05], [540, 620, 1.6], [700, 520, 1.9]],
+    vote: [[540, 960, 1]],
+  },
+  cues: cuesEp1,
+  musicDip: twistDip('camilamsg'),
+  sepia: ['sunday'],
+  foreground: (shot, t) => (
+    <>
+      {shot === 'building' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-40 * Math.sin(t * 0.3)} 0)`}><rect x={-40} y={300} width={70} height={1700} fill="#0e1430" /><ellipse cx={-5} cy={300} rx={70} ry={40} fill="#ffd98a" opacity={0.8} /></g>}
+      {shot === 'typing' && <g filter="url(#fgBlur)" opacity={0.9}><ellipse cx={-60} cy={1820} rx={360} ry={260} fill="#7fb2df" /></g>}
+    </>
+  ),
+  Overlays: OverlaysEp1,
+};
+
+/** Every episode, by video id (the composition "Tavinho" renders any of them). */
+export const EPISODES: Record<string, EpConfig> = { tavinho1: EP1, tavinho1nb: EP1, tavaudio: EP_AUDIO, tavcachorra: EP_CACHORRA };
+
+/** Sound cues of whichever episode these timings belong to (used by scripts/qa/tavinho.mjs). */
+export const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => (EPISODES[tm.id] ?? EP1).cues(tm, T);
+
+/** A Vida do Tavinho: any episode. */
+export const TavinhoEpisode: React.FC<ShortProps> = (props) => <EpisodeShell {...props} cfg={EPISODES[props.videoId] ?? EP1} />;

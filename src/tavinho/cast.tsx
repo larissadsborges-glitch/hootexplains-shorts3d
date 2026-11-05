@@ -26,6 +26,8 @@ export type Face = {
   look?: [number, number];
   slip?: number;     // Tavinho's glasses sliding down the nose, 0..1
   sweat?: number;    // 0..1 number/intensity of sweat drops
+  shades?: boolean;  // Tavinho: dark "hacker" lenses over his glasses
+  stache?: number;   // Tavinho: a paper mustache on his lip, 0..1 (pops in)
 };
 
 /** Each character blinks on its own period (s), so blinks never sync; none in the first 1.4 s (thumbnail). */
@@ -116,15 +118,28 @@ export const TavinhoHead: React.FC<Face> = (props) => {
         {[470, 612].map((x, i) => <circle key={i} cx={x} cy={ey} r={64} fill="rgba(200,230,255,0.18)" stroke={INK} strokeWidth={11} />)}
         <path d="M534 848 Q 541 836 548 848" fill="none" stroke={INK} strokeWidth={10} />
         {[470, 612].map((x, i) => <path key={i} d={`M${x - 30} ${ey - 34} l 18 -8`} stroke="#ffffff" strokeWidth={7} strokeLinecap="round" opacity={0.85} />)}
+        {f.shades && [470, 612].map((x, i) => <circle key={`s${i}`} cx={x} cy={ey} r={58} fill="#14171a" opacity={0.92} />)}
+        {f.shades && [470, 612].map((x, i) => <path key={`h${i}`} d={`M${x - 34} ${ey - 26} l 26 -12`} stroke="#ffffff" strokeWidth={8} strokeLinecap="round" opacity={0.6} />)}
       </g>
+      {/* paper mustache (he imitates the boss) */}
+      {(f.stache ?? 0) > 0 && (
+        <g transform={`translate(541 936) scale(${f.stache}) rotate(${4 * Math.sin(f.t * 6)})`}>
+          <path d="M0 -6 C -30 -24 -70 -20 -96 6 C -70 0 -40 6 0 10 C 40 6 70 0 96 6 C 70 -20 30 -24 0 -6 Z" fill="#9a9aa6" {...ink(6)} />
+        </g>
+      )}
       <Sweat t={f.t} n={f.sweat ?? 0} cx={540} cy={760} r={190} />
     </g>
   );
 };
 
 /** Tavinho standing: short, round, tight light-blue shirt, crooked red tie. */
-export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; holdR?: React.ReactNode; holdL?: React.ReactNode; puff?: number }> = (f) => {
-  const SHIRT = '#a9d2f5', SHIRT_SH = '#7fb2df';
+export type Outfit = 'work' | 'pajama' | 'hoodie' | 'tee';
+const OUTFIT: Record<Outfit, [string, string]> = { work: ['#a9d2f5', '#7fb2df'], pajama: ['#bfe3cf', '#93c4ab'], hoodie: ['#2b2b33', '#1d1d24'], tee: ['#ffd166', '#e8b23f'] };
+
+/** Tavinho standing. Outfits: work (light-blue shirt, crooked red tie: the default), striped pyjamas, a black hoodie, a yellow tee. */
+export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; holdR?: React.ReactNode; holdL?: React.ReactNode; puff?: number; outfit?: Outfit }> = (f) => {
+  const outfit = f.outfit ?? 'work';
+  const [SHIRT, SHIRT_SH] = OUTFIT[outfit];
   const breathe = 5 * Math.sin(f.t * 2.2) + 14 * (f.puff ?? 0);
   const armL = f.armL ?? [[360, 1150], [250, 1340], [270, 1500]];
   const armR = f.armR ?? [[720, 1150], [830, 1340], [810, 1500]];
@@ -141,26 +156,43 @@ export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; ho
         {/* round belly in a shirt that's too tight */}
         <path d={`M330 1780 C 200 1640 210 1200 400 1100 L 680 1100 C 870 1200 ${880 + breathe} 1640 750 1780 Z`} fill={SHIRT} {...ink(8)} />
         <path d={`M700 1130 C 830 1220 ${850 + breathe} 1600 740 1770 L 690 1770 C 760 1600 760 1260 700 1130 Z`} fill={SHIRT_SH} />
-        {/* strained buttons: little pull lines */}
-        {[1250, 1380, 1510, 1640].map((y, i) => (
+        {/* pyjama stripes, kept inside the belly */}
+        {outfit === 'pajama' && [300, 380, 460, 620, 700, 780].map((x, i) => <path key={i} d={`M${x} ${1150 + Math.abs(x - 540) * 0.25} L ${x + (x - 540) * 0.12} 1760`} stroke="#6fae92" strokeWidth={10} opacity={0.7} />)}
+        {/* hoodie: front pocket */}
+        {outfit === 'hoodie' && <path d="M400 1560 L 680 1560 L 720 1720 L 360 1720 Z" fill="none" stroke="#45454f" strokeWidth={8} strokeLinejoin="round" />}
+        {/* strained buttons (shirt and pyjamas): little pull lines */}
+        {(outfit === 'work' || outfit === 'pajama') && [1250, 1380, 1510, 1640].map((y, i) => (
           <g key={i}>
             <circle cx={548} cy={y} r={11} fill="#ffffff" {...ink(4)} />
             {i > 0 && i < 3 && [[-1], [1]].map(([s]) => <path key={s} d={`M${548 + s * 18} ${y} q ${s * 24} -10 ${s * 46} -4`} fill="none" stroke={SHIRT_SH} strokeWidth={5} strokeLinecap="round" />)}
           </g>
         ))}
         <path d="M340 1770 C 450 1800 630 1800 740 1770" fill="none" {...ink(6)} />
-        {/* collar + crooked red tie */}
-        <path d="M455 1095 L 520 1160 L 540 1100 Z M625 1095 L 560 1160 L 540 1100 Z" fill="#ffffff" {...ink(6)} />
-        <g transform="rotate(14 540 1120)">
-          <path d="M522 1110 L 558 1110 L 552 1140 L 528 1140 Z" fill="#e2453c" {...ink(5)} />
-          <path d="M528 1140 L 552 1140 L 572 1330 L 540 1370 L 508 1330 Z" fill="#e2453c" {...ink(6)} />
-          <path d="M534 1180 L 556 1200 M 530 1240 L 560 1262" stroke="#b5302a" strokeWidth={6} />
-        </g>
+        {/* collar + crooked red tie (work); pyjama collar; hood behind the neck; tee neckline */}
+        {outfit === 'work' && (
+          <g>
+            <path d="M455 1095 L 520 1160 L 540 1100 Z M625 1095 L 560 1160 L 540 1100 Z" fill="#ffffff" {...ink(6)} />
+            <g transform="rotate(14 540 1120)">
+              <path d="M522 1110 L 558 1110 L 552 1140 L 528 1140 Z" fill="#e2453c" {...ink(5)} />
+              <path d="M528 1140 L 552 1140 L 572 1330 L 540 1370 L 508 1330 Z" fill="#e2453c" {...ink(6)} />
+              <path d="M534 1180 L 556 1200 M 530 1240 L 560 1262" stroke="#b5302a" strokeWidth={6} />
+            </g>
+          </g>
+        )}
+        {outfit === 'pajama' && <path d="M455 1095 L 520 1170 L 540 1105 Z M625 1095 L 560 1170 L 540 1105 Z" fill="#e9f6ef" {...ink(6)} />}
+        {outfit === 'hoodie' && (
+          <g>
+            <path d="M420 1110 C 420 1040 660 1040 660 1110 C 620 1150 460 1150 420 1110 Z" fill="#3a3a44" {...ink(7)} />
+            {[505, 575].map((x, i) => <path key={i} d={`M${x} 1130 L ${x + (i ? 6 : -6)} 1260`} stroke="#d9d9e0" strokeWidth={7} strokeLinecap="round" />)}
+          </g>
+        )}
+        {outfit === 'tee' && <path d="M470 1100 Q 540 1150 610 1100" fill="none" {...ink(7)} />}
         {/* neck */}
         <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SKIN_SH} {...ink(6)} />
-        {/* arms (short sleeves rolled? no: long shirt sleeves) */}
-        <Limb pts={armL} w={84} color={SHIRT} />
-        <Limb pts={armR} w={84} color={SHIRT} />
+        {/* arms: long sleeves, or a tee's short sleeves over bare forearms */}
+        <Limb pts={armL} w={84} color={outfit === 'tee' ? SKIN : SHIRT} />
+        <Limb pts={armR} w={84} color={outfit === 'tee' ? SKIN : SHIRT} />
+        {outfit === 'tee' && [armL, armR].map((a, i) => <Limb key={i} pts={[a[0], [a[0][0] + (a[1][0] - a[0][0]) * 0.55, a[0][1] + (a[1][1] - a[0][1]) * 0.55]]} w={96} color={SHIRT} />)}
         {f.holdL && <g transform={`translate(${hL[0]} ${hL[1]})`}>{f.holdL}</g>}
         {f.holdR && <g transform={`translate(${hR[0]} ${hR[1]})`}>{f.holdR}</g>}
         <Hand x={hL[0]} y={hL[1]} angle={(Math.atan2(hL[0] - armL[1][0], hL[1] - armL[1][1]) * -180) / Math.PI} color={SKIN} flipThumb r={40} />
@@ -273,6 +305,37 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
         <ellipse cx={803} cy={860} rx={40} ry={56} fill="#b98250" {...ink(6)} />
         <Hand x={800} y={1140} angle={180} color={SK} />
       </g>
+    </g>
+  );
+};
+
+/* ------------------------------------------------------------------ Seu Valdir (Tavinho's boss) */
+export const Valdir: React.FC<Face> = (f) => {
+  const SK = '#e7b48e', SK_SH = '#c98f68', SUIT = '#7a5434', SUIT_SH = '#5e3f25';
+  return (
+    <g transform={breathe(f.t, 2.4)}>
+      {/* brown suit, white shirt, dark green tie */}
+      <path d="M300 1660 C 290 1380 330 1140 430 1100 L 650 1100 C 750 1140 790 1380 780 1660 Z" fill={SUIT} {...ink(8)} />
+      <path d="M690 1140 C 760 1200 780 1420 770 1660 L 720 1660 C 730 1420 720 1240 690 1140 Z" fill={SUIT_SH} />
+      <path d="M470 1100 L 540 1260 L 610 1100 Z" fill="#ffffff" {...ink(6)} />
+      <path d="M526 1120 L 554 1120 L 566 1250 L 540 1290 L 514 1250 Z" fill="#2f6b4f" {...ink(5)} />
+      <path d="M430 1100 L 500 1300 L 470 1110 Z M650 1100 L 580 1300 L 610 1110 Z" fill={SUIT_SH} {...ink(5)} />
+      <Limb pts={[[370, 1170], [320, 1360], [420, 1480]]} w={84} color={SUIT} />
+      <Limb pts={[[710, 1170], [760, 1360], [660, 1480]]} w={84} color={SUIT} />
+      <Hand x={420} y={1480} angle={-60} color={SK} flipThumb />
+      <Hand x={660} y={1480} angle={60} color={SK} />
+      <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
+      {[366, 714].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={28} ry={38} fill={SK} {...ink(7)} />)}
+      {/* big bald head, a little shine, grey tufts over the ears */}
+      <path data-qa="face" d="M372 830 C 372 680 450 630 540 630 C 630 630 708 680 708 830 C 708 950 650 1030 540 1030 C 430 1030 372 950 372 830 Z" fill={SK} {...ink(8)} />
+      <ellipse cx={600} cy={690} rx={50} ry={22} fill="#ffffff" opacity={0.35} transform="rotate(-18 600 690)" />
+      {[[380, -1], [700, 1]].map(([x, s], i) => <path key={i} d={`M${x} 760 q ${s * 30} 20 ${s * 4} 60 q ${s * 30} 10 ${s * 8} 50`} fill="#c9c9cf" stroke="#c9c9cf" strokeWidth={26} strokeLinecap="round" />)}
+      {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={930} rx={34} ry={18} fill={BLUSH} opacity={0.35} />)}
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={985} seed={0.9} period={3.9} eyeR={24} />
+      {/* bushy grey brows (on top of the thin ones) and a thick grey mustache */}
+      {[[480, -1], [600, 1]].map(([x, s], i) => <path key={`b${i}`} d={`M${x - 42} ${f.mood === 'shock' ? 776 : 790} Q ${x} ${f.mood === 'shock' ? 750 : 770 + s * 0} ${x + 42} ${f.mood === 'shock' ? 776 : 792 - s * 8}`} fill="none" stroke="#bdbdc6" strokeWidth={22} strokeLinecap="round" />)}
+      <ellipse cx={540} cy={910} rx={22} ry={18} fill={SK_SH} {...ink(5)} />
+      <path d="M540 936 C 500 920 450 930 436 966 C 470 952 510 958 540 964 C 570 958 610 952 644 966 C 630 930 580 920 540 936 Z" fill="#bdbdc6" {...ink(6)} />
     </g>
   );
 };

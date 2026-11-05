@@ -1,0 +1,1133 @@
+{
+ "id": "tavcachorra",
+ "title": "A Vida do Tavinho: A cachorra da sogra",
+ "lang": "pt-br",
+ "voice": "none (script timing; ElevenLabs pending)",
+ "leadIn": 0.05,
+ "gap": 0.08,
+ "tail": 1.0,
+ "handle": "@avidadotavinho",
+ "scene": "tavinho",
+ "music": "music/upbeat_a.wav",
+ "duration": 60.24,
+ "beats": [
+  {
+   "text": "A sogra deixou a cachorra com o Tavinho.",
+   "shot": "living",
+   "event": "hook",
+   "highlight": [
+    "sogra",
+    "cachorra"
+   ],
+   "tone": "chocado, rápido",
+   "exaggeration": 1.35,
+   "pauseBefore": 0,
+   "index": 0,
+   "start": 0.05,
+   "end": 2.29,
+   "words": [
+    {
+     "word": "A",
+     "start": 0.05,
+     "end": 0.18
+    },
+    {
+     "word": "sogra",
+     "start": 0.18,
+     "end": 0.51
+    },
+    {
+     "word": "deixou",
+     "start": 0.51,
+     "end": 0.89
+    },
+    {
+     "word": "a",
+     "start": 0.89,
+     "end": 1.02
+    },
+    {
+     "word": "cachorra",
+     "start": 1.02,
+     "end": 1.5
+    },
+    {
+     "word": "com",
+     "start": 1.5,
+     "end": 1.73
+    },
+    {
+     "word": "o",
+     "start": 1.73,
+     "end": 1.86
+    },
+    {
+     "word": "Tavinho.",
+     "start": 1.86,
+     "end": 2.29
+    }
+   ]
+  },
+  {
+   "text": "Ela fugiu em dez minutos.",
+   "shot": "street",
+   "event": "punch",
+   "highlight": [
+    "fugiu",
+    "dez"
+   ],
+   "tone": "seco, pausa curta antes",
+   "exaggeration": 1.25,
+   "pauseBefore": 0,
+   "index": 1,
+   "start": 2.8,
+   "end": 4.2,
+   "words": [
+    {
+     "word": "Ela",
+     "start": 2.8,
+     "end": 3.03
+    },
+    {
+     "word": "fugiu",
+     "start": 3.03,
+     "end": 3.36
+    },
+    {
+     "word": "em",
+     "start": 3.36,
+     "end": 3.54
+    },
+    {
+     "word": "dez",
+     "start": 3.54,
+     "end": 3.77
+    },
+    {
+     "word": "minutos.",
+     "start": 3.77,
+     "end": 4.2
+    }
+   ]
+  },
+  {
+   "text": "E quem decide como ele acha a Princesa é você.",
+   "shot": "living",
+   "event": "you",
+   "highlight": [
+    "você"
+   ],
+   "tone": "cúmplice, direto pra quem assiste",
+   "exaggeration": 1.1,
+   "pauseBefore": 0,
+   "index": 2,
+   "start": 4.71,
+   "end": 7.31,
+   "words": [
+    {
+     "word": "E",
+     "start": 4.71,
+     "end": 4.84
+    },
+    {
+     "word": "quem",
+     "start": 4.84,
+     "end": 5.12
+    },
+    {
+     "word": "decide",
+     "start": 5.12,
+     "end": 5.5
+    },
+    {
+     "word": "como",
+     "start": 5.5,
+     "end": 5.78
+    },
+    {
+     "word": "ele",
+     "start": 5.78,
+     "end": 6.01
+    },
+    {
+     "word": "acha",
+     "start": 6.01,
+     "end": 6.29
+    },
+    {
+     "word": "a",
+     "start": 6.29,
+     "end": 6.42
+    },
+    {
+     "word": "Princesa",
+     "start": 6.42,
+     "end": 6.9
+    },
+    {
+     "word": "é",
+     "start": 6.9,
+     "end": 7.03
+    },
+    {
+     "word": "você.",
+     "start": 7.03,
+     "end": 7.31
+    }
+   ]
+  },
+  {
+   "text": "O problema: a Dona Celeste volta em duas horas.",
+   "shot": "living",
+   "event": "stakes",
+   "highlight": [
+    "problema",
+    "duas"
+   ],
+   "tone": "tenso",
+   "exaggeration": 1.1,
+   "pauseBefore": 0,
+   "index": 3,
+   "start": 7.82,
+   "end": 10.53,
+   "words": [
+    {
+     "word": "O",
+     "start": 7.82,
+     "end": 7.95
+    },
+    {
+     "word": "problema:",
+     "start": 7.95,
+     "end": 8.43
+    },
+    {
+     "word": "a",
+     "start": 8.57,
+     "end": 8.7
+    },
+    {
+     "word": "Dona",
+     "start": 8.7,
+     "end": 8.98
+    },
+    {
+     "word": "Celeste",
+     "start": 8.98,
+     "end": 9.41
+    },
+    {
+     "word": "volta",
+     "start": 9.41,
+     "end": 9.74
+    },
+    {
+     "word": "em",
+     "start": 9.74,
+     "end": 9.92
+    },
+    {
+     "word": "duas",
+     "start": 9.92,
+     "end": 10.2
+    },
+    {
+     "word": "horas.",
+     "start": 10.2,
+     "end": 10.53
+    }
+   ]
+  },
+  {
+   "text": "Tudo começou com uma lista na geladeira.",
+   "shot": "note",
+   "event": "back",
+   "highlight": [
+    "lista"
+   ],
+   "tone": "contando história, mais calmo",
+   "exaggeration": 0.9,
+   "pauseBefore": 0,
+   "index": 4,
+   "start": 11.04,
+   "end": 13.25,
+   "words": [
+    {
+     "word": "Tudo",
+     "start": 11.04,
+     "end": 11.32
+    },
+    {
+     "word": "começou",
+     "start": 11.32,
+     "end": 11.75
+    },
+    {
+     "word": "com",
+     "start": 11.75,
+     "end": 11.98
+    },
+    {
+     "word": "uma",
+     "start": 11.98,
+     "end": 12.21
+    },
+    {
+     "word": "lista",
+     "start": 12.21,
+     "end": 12.54
+    },
+    {
+     "word": "na",
+     "start": 12.54,
+     "end": 12.72
+    },
+    {
+     "word": "geladeira.",
+     "start": 12.72,
+     "end": 13.25
+    }
+   ]
+  },
+  {
+   "text": "Ração importada, música clássica e escovar os dentes da Princesa.",
+   "shot": "note",
+   "event": "rant",
+   "highlight": [
+    "princesa"
+   ],
+   "tone": "deadpan, listando",
+   "exaggeration": 1.0,
+   "pauseBefore": 0,
+   "index": 5,
+   "start": 13.76,
+   "end": 17.4,
+   "words": [
+    {
+     "word": "Ração",
+     "start": 13.76,
+     "end": 14.09
+    },
+    {
+     "word": "importada,",
+     "start": 14.09,
+     "end": 14.62
+    },
+    {
+     "word": "música",
+     "start": 14.76,
+     "end": 15.14
+    },
+    {
+     "word": "clássica",
+     "start": 15.14,
+     "end": 15.62
+    },
+    {
+     "word": "e",
+     "start": 15.62,
+     "end": 15.75
+    },
+    {
+     "word": "escovar",
+     "start": 15.75,
+     "end": 16.18
+    },
+    {
+     "word": "os",
+     "start": 16.18,
+     "end": 16.36
+    },
+    {
+     "word": "dentes",
+     "start": 16.36,
+     "end": 16.74
+    },
+    {
+     "word": "da",
+     "start": 16.74,
+     "end": 16.92
+    },
+    {
+     "word": "Princesa.",
+     "start": 16.92,
+     "end": 17.4
+    }
+   ]
+  },
+  {
+   "text": "Ela usa casaco de oncinha e um laço gigante.",
+   "shot": "living",
+   "event": "rant2",
+   "highlight": [
+    "oncinha",
+    "laço"
+   ],
+   "tone": "debochado",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 6,
+   "start": 17.91,
+   "end": 20.38,
+   "words": [
+    {
+     "word": "Ela",
+     "start": 17.91,
+     "end": 18.14
+    },
+    {
+     "word": "usa",
+     "start": 18.14,
+     "end": 18.37
+    },
+    {
+     "word": "casaco",
+     "start": 18.37,
+     "end": 18.75
+    },
+    {
+     "word": "de",
+     "start": 18.75,
+     "end": 18.93
+    },
+    {
+     "word": "oncinha",
+     "start": 18.93,
+     "end": 19.36
+    },
+    {
+     "word": "e",
+     "start": 19.36,
+     "end": 19.49
+    },
+    {
+     "word": "um",
+     "start": 19.49,
+     "end": 19.67
+    },
+    {
+     "word": "laço",
+     "start": 19.67,
+     "end": 19.95
+    },
+    {
+     "word": "gigante.",
+     "start": 19.95,
+     "end": 20.38
+    }
+   ]
+  },
+  {
+   "text": "Aí chegou o lanche dele.",
+   "shot": "street",
+   "event": "lunch",
+   "highlight": [
+    "lanche"
+   ],
+   "tone": "animado",
+   "exaggeration": 1.1,
+   "pauseBefore": 0,
+   "index": 7,
+   "start": 20.89,
+   "end": 22.24,
+   "words": [
+    {
+     "word": "Aí",
+     "start": 20.89,
+     "end": 21.07
+    },
+    {
+     "word": "chegou",
+     "start": 21.07,
+     "end": 21.45
+    },
+    {
+     "word": "o",
+     "start": 21.45,
+     "end": 21.58
+    },
+    {
+     "word": "lanche",
+     "start": 21.58,
+     "end": 21.96
+    },
+    {
+     "word": "dele.",
+     "start": 21.96,
+     "end": 22.24
+    }
+   ]
+  },
+  {
+   "text": "Mas ele deixou o portão aberto.",
+   "shot": "street",
+   "event": "card",
+   "highlight": [
+    "portão"
+   ],
+   "tone": "revelação: firme",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 8,
+   "start": 23.0,
+   "end": 24.73,
+   "words": [
+    {
+     "word": "Mas",
+     "start": 23.0,
+     "end": 23.23
+    },
+    {
+     "word": "ele",
+     "start": 23.23,
+     "end": 23.46
+    },
+    {
+     "word": "deixou",
+     "start": 23.46,
+     "end": 23.84
+    },
+    {
+     "word": "o",
+     "start": 23.84,
+     "end": 23.97
+    },
+    {
+     "word": "portão",
+     "start": 23.97,
+     "end": 24.35
+    },
+    {
+     "word": "aberto.",
+     "start": 24.35,
+     "end": 24.73
+    }
+   ]
+  },
+  {
+   "text": "A Princesa saiu correndo atrás do motoboy.",
+   "shot": "street",
+   "event": "run",
+   "highlight": [
+    "princesa"
+   ],
+   "tone": "rápido",
+   "exaggeration": 1.25,
+   "pauseBefore": 0,
+   "index": 9,
+   "start": 25.24,
+   "end": 27.55,
+   "words": [
+    {
+     "word": "A",
+     "start": 25.24,
+     "end": 25.37
+    },
+    {
+     "word": "Princesa",
+     "start": 25.37,
+     "end": 25.85
+    },
+    {
+     "word": "saiu",
+     "start": 25.85,
+     "end": 26.13
+    },
+    {
+     "word": "correndo",
+     "start": 26.13,
+     "end": 26.61
+    },
+    {
+     "word": "atrás",
+     "start": 26.61,
+     "end": 26.94
+    },
+    {
+     "word": "do",
+     "start": 26.94,
+     "end": 27.12
+    },
+    {
+     "word": "motoboy.",
+     "start": 27.12,
+     "end": 27.55
+    }
+   ]
+  },
+  {
+   "text": "O Tavinho correu dois quarteirões e teve que sentar.",
+   "shot": "street",
+   "event": "sit",
+   "highlight": [
+    "dois",
+    "sentar"
+   ],
+   "tone": "construindo até a piada",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 10,
+   "start": 28.06,
+   "end": 30.93,
+   "words": [
+    {
+     "word": "O",
+     "start": 28.06,
+     "end": 28.19
+    },
+    {
+     "word": "Tavinho",
+     "start": 28.19,
+     "end": 28.62
+    },
+    {
+     "word": "correu",
+     "start": 28.62,
+     "end": 29.0
+    },
+    {
+     "word": "dois",
+     "start": 29.0,
+     "end": 29.28
+    },
+    {
+     "word": "quarteirões",
+     "start": 29.28,
+     "end": 29.91
+    },
+    {
+     "word": "e",
+     "start": 29.91,
+     "end": 30.04
+    },
+    {
+     "word": "teve",
+     "start": 30.04,
+     "end": 30.32
+    },
+    {
+     "word": "que",
+     "start": 30.32,
+     "end": 30.55
+    },
+    {
+     "word": "sentar.",
+     "start": 30.55,
+     "end": 30.93
+    }
+   ]
+  },
+  {
+   "text": "Segue o Tavinho. Ele precisa de ajuda.",
+   "shot": "street",
+   "event": "follow",
+   "highlight": [
+    "tavinho"
+   ],
+   "tone": "rápido, simpático",
+   "exaggeration": 1.1,
+   "pauseBefore": 0,
+   "index": 11,
+   "start": 31.44,
+   "end": 33.71,
+   "words": [
+    {
+     "word": "Segue",
+     "start": 31.44,
+     "end": 31.77
+    },
+    {
+     "word": "o",
+     "start": 31.77,
+     "end": 31.9
+    },
+    {
+     "word": "Tavinho.",
+     "start": 31.9,
+     "end": 32.33
+    },
+    {
+     "word": "Ele",
+     "start": 32.54,
+     "end": 32.77
+    },
+    {
+     "word": "precisa",
+     "start": 32.77,
+     "end": 33.2
+    },
+    {
+     "word": "de",
+     "start": 33.2,
+     "end": 33.38
+    },
+    {
+     "word": "ajuda.",
+     "start": 33.38,
+     "end": 33.71
+    }
+   ]
+  },
+  {
+   "text": "Então ele decide comprar outra cachorra igual.",
+   "shot": "petshop",
+   "event": "truth",
+   "highlight": [
+    "igual"
+   ],
+   "tone": "mais baixo, esperançoso",
+   "exaggeration": 1.0,
+   "pauseBefore": 0,
+   "index": 12,
+   "start": 34.22,
+   "end": 36.73,
+   "words": [
+    {
+     "word": "Então",
+     "start": 34.22,
+     "end": 34.55
+    },
+    {
+     "word": "ele",
+     "start": 34.55,
+     "end": 34.78
+    },
+    {
+     "word": "decide",
+     "start": 34.78,
+     "end": 35.16
+    },
+    {
+     "word": "comprar",
+     "start": 35.16,
+     "end": 35.59
+    },
+    {
+     "word": "outra",
+     "start": 35.59,
+     "end": 35.92
+    },
+    {
+     "word": "cachorra",
+     "start": 35.92,
+     "end": 36.4
+    },
+    {
+     "word": "igual.",
+     "start": 36.4,
+     "end": 36.73
+    }
+   ]
+  },
+  {
+   "text": "Mas a sogra manda: me manda um vídeo da minha princesa.",
+   "shot": "celestechat",
+   "event": "twist",
+   "highlight": [
+    "sogra",
+    "princesa"
+   ],
+   "tone": "choque, virada da história",
+   "exaggeration": 1.3,
+   "pauseBefore": 0,
+   "index": 13,
+   "start": 37.49,
+   "end": 40.66,
+   "words": [
+    {
+     "word": "Mas",
+     "start": 37.49,
+     "end": 37.72
+    },
+    {
+     "word": "a",
+     "start": 37.72,
+     "end": 37.85
+    },
+    {
+     "word": "sogra",
+     "start": 37.85,
+     "end": 38.18
+    },
+    {
+     "word": "manda:",
+     "start": 38.18,
+     "end": 38.51
+    },
+    {
+     "word": "me",
+     "start": 38.65,
+     "end": 38.83
+    },
+    {
+     "word": "manda",
+     "start": 38.83,
+     "end": 39.16
+    },
+    {
+     "word": "um",
+     "start": 39.16,
+     "end": 39.34
+    },
+    {
+     "word": "vídeo",
+     "start": 39.34,
+     "end": 39.67
+    },
+    {
+     "word": "da",
+     "start": 39.67,
+     "end": 39.85
+    },
+    {
+     "word": "minha",
+     "start": 39.85,
+     "end": 40.18
+    },
+    {
+     "word": "princesa.",
+     "start": 40.18,
+     "end": 40.66
+    }
+   ]
+  },
+  {
+   "text": "Ele tem cinco minutos.",
+   "shot": "celestechat",
+   "event": "noreturn",
+   "highlight": [
+    "cinco"
+   ],
+   "tone": "devagar, sem esperança",
+   "exaggeration": 1.1,
+   "pauseBefore": 0,
+   "index": 14,
+   "start": 41.17,
+   "end": 42.39,
+   "words": [
+    {
+     "word": "Ele",
+     "start": 41.17,
+     "end": 41.4
+    },
+    {
+     "word": "tem",
+     "start": 41.4,
+     "end": 41.63
+    },
+    {
+     "word": "cinco",
+     "start": 41.63,
+     "end": 41.96
+    },
+    {
+     "word": "minutos.",
+     "start": 41.96,
+     "end": 42.39
+    }
+   ]
+  },
+  {
+   "text": "Chance de achar a Princesa: quatro por cento.",
+   "shot": "living",
+   "event": "percent",
+   "highlight": [
+    "quatro"
+   ],
+   "tone": "deadpan, piada seca",
+   "exaggeration": 1.0,
+   "pauseBefore": 0,
+   "index": 15,
+   "start": 42.9,
+   "end": 45.48,
+   "words": [
+    {
+     "word": "Chance",
+     "start": 42.9,
+     "end": 43.28
+    },
+    {
+     "word": "de",
+     "start": 43.28,
+     "end": 43.46
+    },
+    {
+     "word": "achar",
+     "start": 43.46,
+     "end": 43.79
+    },
+    {
+     "word": "a",
+     "start": 43.79,
+     "end": 43.92
+    },
+    {
+     "word": "Princesa:",
+     "start": 43.92,
+     "end": 44.4
+    },
+    {
+     "word": "quatro",
+     "start": 44.54,
+     "end": 44.92
+    },
+    {
+     "word": "por",
+     "start": 44.92,
+     "end": 45.15
+    },
+    {
+     "word": "cento.",
+     "start": 45.15,
+     "end": 45.48
+    }
+   ]
+  },
+  {
+   "text": "Missão um: como ele procura?",
+   "shot": "vote",
+   "event": "mission",
+   "highlight": [
+    "missão"
+   ],
+   "tone": "energia de apresentador",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 16,
+   "start": 45.99,
+   "end": 47.63,
+   "words": [
+    {
+     "word": "Missão",
+     "start": 45.99,
+     "end": 46.37
+    },
+    {
+     "word": "um:",
+     "start": 46.37,
+     "end": 46.55
+    },
+    {
+     "word": "como",
+     "start": 46.69,
+     "end": 46.97
+    },
+    {
+     "word": "ele",
+     "start": 46.97,
+     "end": 47.2
+    },
+    {
+     "word": "procura?",
+     "start": 47.2,
+     "end": 47.63
+    }
+   ]
+  },
+  {
+   "text": "No grupo do bairro: é rápido. Mas a sogra está no grupo.",
+   "shot": "vote",
+   "event": "video",
+   "highlight": [
+    "grupo",
+    "sogra"
+   ],
+   "tone": "vendendo a opção, rápido",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 17,
+   "start": 48.14,
+   "end": 51.55,
+   "words": [
+    {
+     "word": "No",
+     "start": 48.14,
+     "end": 48.32
+    },
+    {
+     "word": "grupo",
+     "start": 48.32,
+     "end": 48.65
+    },
+    {
+     "word": "do",
+     "start": 48.65,
+     "end": 48.83
+    },
+    {
+     "word": "bairro:",
+     "start": 48.83,
+     "end": 49.21
+    },
+    {
+     "word": "é",
+     "start": 49.35,
+     "end": 49.48
+    },
+    {
+     "word": "rápido.",
+     "start": 49.48,
+     "end": 49.86
+    },
+    {
+     "word": "Mas",
+     "start": 50.07,
+     "end": 50.3
+    },
+    {
+     "word": "a",
+     "start": 50.3,
+     "end": 50.43
+    },
+    {
+     "word": "sogra",
+     "start": 50.43,
+     "end": 50.76
+    },
+    {
+     "word": "está",
+     "start": 50.76,
+     "end": 51.04
+    },
+    {
+     "word": "no",
+     "start": 51.04,
+     "end": 51.22
+    },
+    {
+     "word": "grupo.",
+     "start": 51.22,
+     "end": 51.55
+    }
+   ]
+  },
+  {
+   "text": "Ou com uma salsicha: a Princesa ama salsicha. Mas os cachorros do bairro também.",
+   "shot": "vote",
+   "event": "vo",
+   "highlight": [
+    "salsicha"
+   ],
+   "tone": "carinhoso, depois alerta no final",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 18,
+   "start": 52.06,
+   "end": 56.73,
+   "words": [
+    {
+     "word": "Ou",
+     "start": 52.06,
+     "end": 52.24
+    },
+    {
+     "word": "com",
+     "start": 52.24,
+     "end": 52.47
+    },
+    {
+     "word": "uma",
+     "start": 52.47,
+     "end": 52.7
+    },
+    {
+     "word": "salsicha:",
+     "start": 52.7,
+     "end": 53.18
+    },
+    {
+     "word": "a",
+     "start": 53.32,
+     "end": 53.45
+    },
+    {
+     "word": "Princesa",
+     "start": 53.45,
+     "end": 53.93
+    },
+    {
+     "word": "ama",
+     "start": 53.93,
+     "end": 54.16
+    },
+    {
+     "word": "salsicha.",
+     "start": 54.16,
+     "end": 54.64
+    },
+    {
+     "word": "Mas",
+     "start": 54.85,
+     "end": 55.08
+    },
+    {
+     "word": "os",
+     "start": 55.08,
+     "end": 55.26
+    },
+    {
+     "word": "cachorros",
+     "start": 55.26,
+     "end": 55.79
+    },
+    {
+     "word": "do",
+     "start": 55.79,
+     "end": 55.97
+    },
+    {
+     "word": "bairro",
+     "start": 55.97,
+     "end": 56.35
+    },
+    {
+     "word": "também.",
+     "start": 56.35,
+     "end": 56.73
+    }
+   ]
+  },
+  {
+   "text": "Você decide: grupo ou salsicha?",
+   "shot": "vote",
+   "event": "decide",
+   "highlight": [
+    "grupo",
+    "salsicha"
+   ],
+   "tone": "pergunta direta, empolgado",
+   "exaggeration": 1.2,
+   "pauseBefore": 0,
+   "index": 19,
+   "start": 57.24,
+   "end": 59.03,
+   "words": [
+    {
+     "word": "Você",
+     "start": 57.24,
+     "end": 57.52
+    },
+    {
+     "word": "decide:",
+     "start": 57.52,
+     "end": 57.9
+    },
+    {
+     "word": "grupo",
+     "start": 58.04,
+     "end": 58.37
+    },
+    {
+     "word": "ou",
+     "start": 58.37,
+     "end": 58.55
+    },
+    {
+     "word": "salsicha?",
+     "start": 58.55,
+     "end": 59.03
+    }
+   ]
+  }
+ ]
+}

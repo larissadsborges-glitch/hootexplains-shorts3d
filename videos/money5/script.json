@@ -1,7 +1,6 @@
 {
   "id": "money5",
-  "title": "The credit card minimum payment trap",
-  "ep": 5,
+  "title": "Paying the minimum on a $3,000 credit card takes over 12 years",
   "lang": "en-us",
   "voice": {
     "am_adam": 0.7,
@@ -11,88 +10,76 @@
   "gap": 0.06,
   "tail": 1.8,
   "handle": "@hootexplains",
-  "scene": "money",
+  "scene": "card",
   "music": "music/bed.wav",
   "hook": {
-    "line1": "MINIMUM PAYMENTS ON $3,000",
-    "line2": "= OVER 12 YEARS",
+    "line1": "$3,000 CREDIT CARD",
+    "line2": "MINIMUM = 12+ YEARS",
     "top": "14%"
   },
   "outro": {
-    "line1": "DO YOU PAY YOUR",
-    "line2": "CARD IN FULL?",
+    "line1": "SAME DEBT,",
+    "line2": "9 YEARS SOONER",
     "top": "11%"
   },
   "beats": [
     {
-      "text": "Jake pays the minimum on his 3,000 dollar credit card. It'll take over 12 years.",
+      "text": "Jake owes 3,000 dollars on his credit card. Paying just the minimum? It takes over 12 years.",
       "speed": 1.25,
-      "shot": "cardHook",
+      "shot": "desk",
       "event": "hook",
-      "highlight": [
-        "minimum",
-        "12"
-      ]
+      "highlight": ["minimum", "12", "years"]
     },
     {
-      "text": "In total, he'll pay over 7,000 dollars, because his card charges 22 percent a year.",
+      "text": "Here's where his money really goes, and the number on his bill that gets him out.",
       "speed": 1.25,
-      "shot": "statement",
-      "event": "total",
-      "highlight": [
-        "7,000",
-        "22"
-      ]
+      "shot": "desk",
+      "event": "bridge",
+      "highlight": ["goes", "number"]
     },
     {
-      "text": "His first payment is 85 dollars. But 55 of that is interest.",
+      "text": "His first minimum payment is 85 dollars. But 55 of that is interest.",
       "speed": 1.25,
-      "shot": "payment",
+      "shot": "pay",
       "event": "split",
-      "highlight": [
-        "85",
-        "55"
-      ],
-      "hold": 0.4
+      "highlight": ["85", "55", "interest"],
+      "hold": 0.35
     },
     {
-      "text": "Worse: as the debt shrinks, so does the minimum. So it drags on, and on.",
+      "text": "His card charges 22 percent a year, so only 30 dollars touches the debt.",
+      "speed": 1.25,
+      "shot": "pay",
+      "event": "rate",
+      "highlight": ["22", "30"]
+    },
+    {
+      "text": "Worse, as the debt shrinks, the minimum shrinks too. So it drags on, and on.",
       "speed": 1.25,
       "shot": "treadmill",
       "event": "shrink",
-      "highlight": [
-        "shrinks",
-        "drags"
-      ]
+      "highlight": ["shrinks", "on"]
     },
     {
-      "text": "Episode 5 of 6. Follow along.",
-      "speed": 1.25,
-      "shot": "treadmill",
-      "event": "cta",
-      "highlight": [
-        "Follow"
-      ]
+      "text": "In the end, he pays over 7,000 dollars. For a 3,000 dollar debt.",
+      "speed": 1.2,
+      "shot": "towers",
+      "event": "total",
+      "highlight": ["7,000", "3,000"],
+      "hold": 0.4
     },
     {
-      "text": "The exit is printed on his statement: about 115 dollars a month clears it in 3 years.",
+      "text": "But the way out is printed right on his bill. About 115 dollars a month clears it in 3 years.",
       "speed": 1.25,
-      "shot": "box",
+      "shot": "exit",
       "event": "exit",
-      "highlight": [
-        "115",
-        "3"
-      ]
+      "highlight": ["printed", "115", "3"]
     },
     {
-      "text": "Interest just worked against Jake. Next, it works for him. Do you pay your card in full?",
+      "text": "Same debt, 9 years sooner, and he keeps about 2,900 dollars. Do you pay more than the minimum?",
       "speed": 1.25,
-      "shot": "cardHook",
+      "shot": "exit",
       "event": "final",
-      "highlight": [
-        "against",
-        "for"
-      ]
+      "highlight": ["9", "2,900", "more"]
     }
   ]
 }

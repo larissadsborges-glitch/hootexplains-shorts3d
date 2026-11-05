@@ -1,0 +1,98 @@
+{
+  "id": "money5",
+  "title": "The credit card minimum payment trap",
+  "ep": 5,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "MINIMUM PAYMENTS ON $3,000",
+    "line2": "= OVER 12 YEARS",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "DO YOU PAY YOUR",
+    "line2": "CARD IN FULL?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "Jake pays the minimum on his 3,000 dollar credit card. It'll take over 12 years.",
+      "speed": 1.25,
+      "shot": "cardHook",
+      "event": "hook",
+      "highlight": [
+        "minimum",
+        "12"
+      ]
+    },
+    {
+      "text": "In total, he'll pay over 7,000 dollars, because his card charges 22 percent a year.",
+      "speed": 1.25,
+      "shot": "statement",
+      "event": "total",
+      "highlight": [
+        "7,000",
+        "22"
+      ]
+    },
+    {
+      "text": "His first payment is 85 dollars. But 55 of that is interest.",
+      "speed": 1.25,
+      "shot": "payment",
+      "event": "split",
+      "highlight": [
+        "85",
+        "55"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "Worse: as the debt shrinks, so does the minimum. So it drags on, and on.",
+      "speed": 1.25,
+      "shot": "treadmill",
+      "event": "shrink",
+      "highlight": [
+        "shrinks",
+        "drags"
+      ]
+    },
+    {
+      "text": "Episode 5 of 6. Follow along.",
+      "speed": 1.25,
+      "shot": "treadmill",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "The exit is printed on his statement: about 115 dollars a month clears it in 3 years.",
+      "speed": 1.25,
+      "shot": "box",
+      "event": "exit",
+      "highlight": [
+        "115",
+        "3"
+      ]
+    },
+    {
+      "text": "Interest just worked against Jake. Next, it works for him. Do you pay your card in full?",
+      "speed": 1.25,
+      "shot": "cardHook",
+      "event": "final",
+      "highlight": [
+        "against",
+        "for"
+      ]
+    }
+  ]
+}

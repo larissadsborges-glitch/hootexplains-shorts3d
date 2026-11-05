@@ -1,51 +1,36 @@
-# EP 5/6 post kit: "The minimum payment trap"
+# Post kit: "Paying the minimum on a $3,000 credit card takes over 12 years" (standalone, 2D)
+
+Files: `out/hootexplains_money_minimum.mp4` (video, 38.8 s, −14 LUFS) and `out/hootexplains_money_minimum_cover.png` (cover).
 
 ## Cover
-- **Tag:** `• HOOT EXPLAINS · MONEY, EXPLAINED · EP 5/6`
-- **Title:** THE MINIMUM / PAYMENT / **TRAP**. Accent: **TRAP**.
-- **Under the title:** a chip "$3,000 → 12+ YEARS".
-- **Image:** Hoot (worried face, pencil up) plus Jake on the treadmill holding the red card.
+- **Tag:** HOOT EXPLAINS · MONEY
+- **Title:** MINIMUM PAYMENT / **= 12+ YEARS** (yellow bar)
+- **Image:** Jake gasping at his credit card bill with the red 12+ YEARS stamp, Hoot on the books
 
-## Caption
-Jake owes $3,000 on his card. Paying only the minimum, it takes him over 12 years and costs over $7,000. 😳
-His first $85 payment? $55 of it is interest. And as the debt shrinks, so does the minimum, so it drags on and on.
-The way out is printed on your statement: the CFPB requires a box showing what to pay to clear it in 3 years.
+## Caption (Instagram / TikTok)
+Paying the minimum on a $3,000 credit card? That's over 12 years and over $7,000. 💳
 
-Send this to the friend who always pays "just the minimum" 💳
+His first $85 payment: $55 went to interest. The way out is printed on every card statement. 👀
 
-Money, Explained · Episode 5 of 6. Next (finale): how interest works FOR you.
-Not financial advice. Assumes 22% APR, minimum = 1% of balance + interest, no new charges. Your statement shows your exact numbers.
+Send this to the friend who always pays "just the minimum".
+
+Sources in the comments.
 
 ## Hashtags
-#creditcard #debt #money #personalfinance #moneyexplained #financetips #creditcarddebt #moneytips #explained #hootexplains
+- **Instagram (5 max):** #creditcard #moneytips #personalfinance #explained #hootexplains
+- **TikTok:** #creditcard #debt #moneytips #personalfinance #learnontiktok #hootexplains
 
-## YouTube
-- **Title:** The Credit Card Minimum Payment Trap (Money, Explained Ep 5)
+## YouTube Shorts
+- **Title:** Paying the Minimum on a $3,000 Credit Card Takes Over 12 Years
 - **Description:**
-  $3,000 on a card at 22% (the Federal Reserve's Q2 2026 average for accounts paying interest), paying only the minimum: over 12 years and over $7,000 in total. Hoot shows where your payment really goes, why minimums shrink, and the 3-year box every US card statement must show (CFPB).
+  Jake owes $3,000 on a card at 22% a year. Paying only the minimum takes over 12 years and costs over $7,000. His first $85 payment: $55 is interest. The fix is on every statement: the 3-year payment (about $115 a month here) clears it in 3 years and keeps about $2,900.
 
-  Episode 5 of 6. Next: the finale, where interest works for you.
-  Not financial advice. Assumptions: minimum = 1% of balance + interest (floor $25–$35), no new purchases or fees.
-  Animated explainer; Jake is a fictional character.
+  Math: 22.15% APR, minimum = 1% of the balance + interest, $35 floor, no new charges. Animated explainer; Jake is a fictional character.
 
   Sources:
-  - Federal Reserve G.19 (card rates, Q2 2026): https://www.federalreserve.gov/releases/g19/current/default.htm
-  - CFPB, three-year payment information: https://www.consumerfinance.gov/ask-cfpb/what-is-the-three-year-payment-information-on-a-credit-card-statement-en-36/
-  - TD Bank, how minimums are calculated: https://www.td.com/us/en/personal-banking/learning/what-is-a-minimum-payment-on-a-credit-card
+  - Federal Reserve G.19, credit card interest rates: https://www.federalreserve.gov/releases/g19/current/default.htm
+  - CFPB, the 3-year payment on your statement: https://www.consumerfinance.gov/ask-cfpb/what-is-the-three-year-payment-information-on-a-credit-card-statement-en-36/
+  - TD Bank, how minimum payments are calculated: https://www.td.com/us/en/personal-banking/learning/what-is-a-minimum-payment-on-a-credit-card
 
 ## Pinned comment
-The maths: $3,000 at 22.15% ÷ 12 = $55.38 interest in month 1. Plus 1% of the balance ($30) = $85.38 minimum. Paying the minimum (floor $35): 146 months, $7,039 total. Paying $114.80/mo: 36 months, $4,133 total. Your own statement shows your numbers in the "minimum payment warning" box. Do you pay your card in full every month? YES / NO 👇
-
-## Story poll
-"How do you pay your credit card?" → In full every month / More than the minimum / Just the minimum
-
-## Sources (checked 3 Nov 2026)
-See the BRIEF.md table.
-
-## Ready replies
-- **"My card's minimum is different."** Yes, every issuer uses its own formula. Check the box on your statement: it shows your exact time and cost.
-- **"What about balance transfers?"** That's a topic for its own video. Watch the fees and when the intro rate ends. (Not financial advice.)
-
-## Alternative hooks (trial reels)
-1. "Jake paid 85 dollars. Only 30 touched his debt." (specific number; first frame = the torn bill)
-2. "There's a box on your credit card statement that gets you out faster." (curiosity; first frame = the warning box being circled)
+Sources: Federal Reserve G.19 (22.15% card rate, Q2 2026) · CFPB (the 3-year box on every statement) · TD Bank (minimum = 1% + interest). Math: $35 floor, no new charges. Check your own statement: it shows your 3-year number.

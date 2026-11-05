@@ -14,7 +14,7 @@ export const SKIN = '#f3c29b', SKIN_SH = '#dc9f78', HAIR = '#4a2c1a', HAIR_HI = 
 export const HOODIE = '#e2553c', HOODIE_SH = '#b9402b', HOODIE_HI = '#f07a5f';
 
 /* ---------------------------------------------------------------- room */
-const Room: React.FC<{ t: number }> = ({ t }) => (
+export const Room: React.FC<{ t: number }> = ({ t }) => (
   <g>
     {/* wall with soft vertical stripes */}
     <rect x={0} y={0} width={1080} height={1400} fill="#c7d3ea" />
@@ -100,7 +100,7 @@ export const JakeHead: React.FC<{ t: number; brows?: number; smile?: number; swa
 };
 
 /* ---------------------------------------------------------------- Jake (sitting, waist up) */
-const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: number; wide?: number; gasp?: number }> = ({ t, brows, flip, smile, wide = 0, gasp = 0 }) => {
+export const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: number; wide?: number; gasp?: number; sad?: number; look?: [number, number] }> = ({ t, brows, flip, smile, wide = 0, gasp = 0, sad = 0, look = [0, 0] }) => {
   const breathe = 3 * Math.sin(t * 2.1);
   const sway = 3 * Math.sin(t * 1.3);
   return (
@@ -123,7 +123,7 @@ const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: number; 
         {/* pocket seam */}
         <path d="M420 1330 C 470 1300 610 1300 660 1330" fill="none" {...ink(6)} stroke={HOODIE_SH} />
 
-        <JakeHead t={t} brows={brows} smile={smile} sway={sway} wide={wide} gasp={gasp} />
+        <JakeHead t={t} brows={brows} smile={smile} sway={sway} wide={wide} gasp={gasp} sad={sad} look={look} />
 
         {/* ---- both arms come up to present the note at chest height (hands are drawn with the note) */}
         {[[[410, 1110], [312, 1270], [400, 1135]], [[670, 1110], [768, 1270], [680, 1135]]].map((pts, i) => {

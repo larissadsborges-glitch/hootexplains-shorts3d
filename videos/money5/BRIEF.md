@@ -1,3 +1,45 @@
+# money5 (standalone, 2D): "Paying the minimum on a $3,000 credit card takes over 12 years"
+
+Rewritten 5 Nov 2026 as a **standalone** video (owner rule: no "EP n/6", no series lines, no "not financial advice" tag). The old series script is `script_series_v1.json`; the series brief is kept below for its sources.
+
+## Titles (A chosen on 5 Nov after the owner said "just go on")
+- **A (built):** Paying the minimum on a $3,000 credit card takes over 12 years
+- B: "I always pay the minimum. I'm fine."
+- C: He paid $85. His debt only dropped $30.
+- **Cover text:** MINIMUM PAYMENT / = 12+ YEARS
+
+## Script (125 words, 38.8 s with the 1.8 s tail)
+1. Jake owes 3,000 dollars on his credit card. Paying just the minimum? It takes over 12 years. *(hook: who + what in 3 words)*
+2. Here's where his money really goes, and the number on his bill that gets him out. *(bridge at 5.4 s, opens the loop)*
+3. His first minimum payment is 85 dollars. But 55 of that is interest. *(first payoff ~12 s)*
+4. His card charges 22 percent a year, so only 30 dollars touches the debt.
+5. Worse, as the debt shrinks, the minimum shrinks too. So it drags on, and on.
+6. In the end, he pays over 7,000 dollars. For a 3,000 dollar debt. *(sendable line, ~24 s)*
+7. But the way out is printed right on his bill. About 115 dollars a month clears it in 3 years. *(answer to the hook)*
+8. Same debt, 9 years sooner, and he keeps about 2,900 dollars. Do you pay more than the minimum? *(closing question, on screen too)*
+
+## Maths (checked 5 Nov 2026 with a month-by-month simulation)
+Assumptions (on screen as a MATH chip): 22.15% APR, minimum = 1% of balance + that month's interest, $35 floor, no new charges or fees.
+- First payment: $30 (1%) + $55.38 interest = **$85.38** → "85 dollars, 55 of it interest, 30 touches the debt".
+- Minimum-only path: **146 months = 12.2 years**, total paid **$7,039** ("over 12 years", "over 7,000").
+- With a $25 floor instead: 15 years, $7,467 (the claims stay true).
+- 36-month payment: **$114.80**, total **$4,133** → saves **$2,906** ("about 2,900"), 9.2 years sooner ("9 years sooner").
+
+## Sources
+- Fed G.19 (released 7 Oct 2026, Q2 2026): credit card rate, accounts assessed interest 22.15%. https://www.federalreserve.gov/releases/g19/current/default.htm
+- CFPB: statements must show the 3-year payment and how long minimum payments take. https://www.consumerfinance.gov/ask-cfpb/what-is-the-three-year-payment-information-on-a-credit-card-statement-en-36/
+- TD Bank: common minimum-payment formula (1% of balance + interest and fees). https://www.td.com/us/en/personal-banking/learning/what-is-a-minimum-payment-on-a-credit-card
+
+## Who would someone send this to?
+The friend who always pays "just the minimum", or a younger sibling with a first credit card.
+
+## Build
+Composition `Look2D` (routes `money5` to `src/toon2d/card/CardVideo.tsx`; scenes in `card/scenes.tsx`, labels in `card/overlays.tsx`). Shots: desk (hook, bridge) → CARD CO. machine (split, rate) → treadmill (shrink) → cash towers (total) → desk (exit, final). The camera reframes on every phrase (Tavinho lesson).
+
+---
+
+# (Old series brief, kept for reference)
+
 # EP 5/6: "The minimum payment trap"
 
 Series: MONEY, EXPLAINED. The series plan is in `videos/money1/BRIEF.md`.

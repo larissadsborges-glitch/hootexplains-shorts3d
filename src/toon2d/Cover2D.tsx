@@ -3,6 +3,7 @@ import { AbsoluteFill, Img, staticFile } from 'remotion';
 import { buildMoneyTimeline } from '../scenes/money/timeline';
 import type { Timings } from '../types';
 import { Hook2D, HootGesture } from './Hook2D';
+import { Desk2D } from './card/scenes';
 
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
 const outline = (px: number) =>
@@ -20,7 +21,15 @@ export const Cover2D: React.FC<Cover2DProps> = ({ timings, at, small, line1, lin
   return (
     <AbsoluteFill style={{ background: '#c7d3ea' }}>
       <HootGesture.Provider value={{ raise: 0, cheer: false }}>
-      <Hook2D t={at} talk={0} worth={T.wordTime('hook', 'worth', T.s('hook') + 3.4)} cents={T.wordTime('hook', 'cents', T.s('hook') + 1.7)} />
+      {timings.id === 'money5'
+        ? (
+          <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+            <g transform="translate(540 1060) scale(1.3) translate(-540 -960)">
+              <Desk2D t={at} talk={0} brows={1} smile={0} wide={1} gasp={1} sad={0} nod={0} hl={1} peel={0} stamp12={1} stamp3={0} q={0} />
+            </g>
+          </svg>
+        )
+        : <Hook2D t={at} talk={0} worth={T.wordTime('hook', 'worth', T.s('hook') + 3.4)} cents={T.wordTime('hook', 'cents', T.s('hook') + 1.7)} />}
       </HootGesture.Provider>
       <AbsoluteFill style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.12) 30%, rgba(0,0,0,0) 42%)' }} />
       <AbsoluteFill style={{ justifyContent: 'flex-start', alignItems: 'center', top: '7%' }}>

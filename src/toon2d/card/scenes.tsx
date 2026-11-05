@@ -50,7 +50,7 @@ const Bill: React.FC<{ t: number; hl: number; peel: number; stamp12: number; sta
           </g>
         )}
       </g>
-      <Stamp p={stamp12} x={555} y={1005} rot={-10} lines={['12+ YEARS']} color="#d6281c" w={330} />
+      <Stamp p={stamp12} x={560} y={978} rot={-10} lines={['12+ YEARS']} color="#d6281c" w={330} />
       <Stamp p={stamp3} x={445} y={990} rot={-8} lines={['3 YEARS']} color="#1f8a45" w={280} />
       {/* hands: fingers wrap over the front of the bill at both ends */}
       {[[330, 1055, 1], [750, 1055, -1]].map(([x, y, s], i) => (
@@ -67,7 +67,7 @@ const Bill: React.FC<{ t: number; hl: number; peel: number; stamp12: number; sta
 export type DeskProps = {
   t: number; talk: number;
   brows: number; smile: number; wide: number; gasp: number; sad: number; nod: number;
-  hl: number; peel: number; stamp12: number; stamp3: number; q: number;
+  hl: number; peel: number; stamp12: number; stamp3: number; q: number; hop?: number;
 };
 
 /** Jake at his desk holding the bill, Hoot on the books (same room as the $20 video). */
@@ -87,12 +87,12 @@ export const Desk2D: React.FC<DeskProps> = (p) => (
       <ellipse cx={0} cy={0} rx={40} ry={10} fill="#4a2c1a" {...ink(5)} />
     </g>
     {/* books + Hoot */}
-    <rect x={65} y={1318} width={270} height={44} rx={6} fill="#2f6fd6" {...ink(7)} />
-    <rect x={80} y={1278} width={245} height={42} rx={6} fill="#e2453c" {...ink(7)} transform="rotate(-2 202 1300)" />
-    <rect x={73} y={1240} width={255} height={40} rx={6} fill="#f0b429" {...ink(7)} transform="rotate(1.5 200 1260)" />
+    <rect x={90} y={1318} width={270} height={44} rx={6} fill="#2f6fd6" {...ink(7)} />
+    <rect x={105} y={1278} width={245} height={42} rx={6} fill="#e2453c" {...ink(7)} transform="rotate(-2 227 1300)" />
+    <rect x={98} y={1240} width={255} height={40} rx={6} fill="#f0b429" {...ink(7)} transform="rotate(1.5 225 1260)" />
     <Bill t={p.t} hl={p.hl} peel={p.peel} stamp12={p.stamp12} stamp3={p.stamp3} />
     {/* Hoot sits in front of the bill's left end so his wink and pencil stay visible */}
-    <Hoot2D t={p.t} talk={p.talk} x={200} y={1240} s={0.95} />
+    <Hoot2D t={p.t} talk={p.talk} x={225} y={1240 - 28 * (p.hop ?? 0)} s={0.95} />
     {p.q > 0 && (
       <g transform={`translate(800 800) scale(${p.q}) rotate(12)`}>
         <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill="#ffd21f" stroke={INK} strokeWidth={10} paintOrder="stroke">?</text>
@@ -129,12 +129,12 @@ export const Pay2D: React.FC<PayProps> = ({ t, talk, cashIn, eat, give, rateOn, 
   const hand: [number, number] = [520, 960];
   const mouth: [number, number] = [770, 1050];
   const screen: [number, number] = [770, 820];
-  const fly = (from: [number, number], to: [number, number], k: number): [number, number] => {
+  const fly = (from: [number, number], to: [number, number], k: number, lift: number): [number, number] => {
     const e = easeOutCubic(k);
-    return [lerp(from[0], to[0], e), lerp(from[1], to[1], e) - 120 * Math.sin(Math.PI * k)];
+    return [lerp(from[0], to[0], e), lerp(from[1], to[1], e) - lift * Math.sin(Math.PI * k)];
   };
-  const p55 = fly([hand[0] - 30, hand[1]], mouth, eat);
-  const p30 = fly([hand[0] + 50, hand[1] + 10], screen, give);
+  const p55 = fly([hand[0] - 30, hand[1]], [mouth[0], mouth[1] + 20], eat, 30);
+  const p30 = fly([hand[0] + 50, hand[1] + 10], screen, give, 120);
   return (
     <g>
       <rect x={-600} y={-400} width={2280} height={1900} fill="#f1d9a8" />
@@ -173,7 +173,7 @@ export const Pay2D: React.FC<PayProps> = ({ t, talk, cashIn, eat, give, rateOn, 
         {/* lower panels */}
         {[0, 1].map((i) => <rect key={i} x={625} y={1250 + i * 110} width={290} height={86} rx={12} fill="#47308a" {...ink(5)} />)}
       </g>
-      <Hoot2D t={t} talk={talk} x={700} y={642} s={0.66} />
+      <Hoot2D t={t} talk={talk} x={665} y={642} s={0.66} />
       {/* Jake: right hand holds the cash out towards the machine */}
       <g transform={place(300, 1500, 0.62)}>
         <ellipse cx={540} cy={2025} rx={260} ry={30} fill="rgba(0,0,0,0.18)" />

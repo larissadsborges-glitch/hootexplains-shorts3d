@@ -6,7 +6,7 @@ import { Captions, Handle, TitleCard } from '../../overlays/Overlays';
 import { buildMoneyTimeline, type MoneyTimeline } from '../../scenes/money/timeline';
 import type { ShortProps, Timings } from '../../types';
 import { HootGesture } from '../Hook2D';
-import { CardOverlays } from './overlays';
+import { CardOverlays, yearAt } from './overlays';
 import { Desk2D, Pay2D, Towers2D, Treadmill2D } from './scenes';
 
 /** Word time helpers bound to this video's timeline. */
@@ -31,7 +31,7 @@ const framings = (T: MoneyTimeline): Record<string, Key[]> => {
       [w('split', '85', 1.5) - 0.3, 430, 920, 1.45],
       [w('split', '55', 2.6) - 0.2, 660, 1040, 1.3],
       [w('split', 'interest', 3.6) - 0.15, 760, 1060, 1.5],
-      [T.s('rate') - 0.05, 700, 880, 1.4],
+      [T.s('rate') - 0.05, 600, 900, 1.25],
       [w('rate', 'so', 2) - 0.1, 560, 900, 1.15],
     ],
     treadmill: [
@@ -49,7 +49,7 @@ const framings = (T: MoneyTimeline): Record<string, Key[]> => {
       [w('exit', 'about', 2.8) - 0.1, 570, 990, 1.42],
       [w('exit', 'clears', 4) - 0.2, 540, 960, 1.3],
       [T.s('final') - 0.05, 540, 950, 1.15],
-      [w('final', 'do', 3.6) - 0.15, 500, 980, 1.2],
+      [w('final', 'do', 3.6) - 0.15, 450, 980, 1.2],
     ],
   };
 };
@@ -144,7 +144,7 @@ export const CardVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
     return clamp01((t - w0 + 0.15) / 0.18) * (1 - clamp01((t - w0 - 1.15) / 0.25));
   }));
   const cheer = t >= w('final', 'do', 3.6) - 0.1;
-  const wink = t >= last.end + 0.5 && t < last.end + 1.2;
+  const wink = t >= last.end + 0.5;
   const on = (t0: number, dur = 0.2) => clamp01((t - t0) / dur);
   const pulse = (t0: number, dur: number) => clamp01((t - t0 + 0.12) / 0.15) * (1 - clamp01((t - t0 - dur) / 0.3));
 
@@ -170,6 +170,7 @@ export const CardVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
         peel={inExit ? on(tP + 0.05, 0.55) : 0}
         stamp12={!inExit && t >= t12 - 0.05 ? on(t12 - 0.05, 0.2) * (1 - on(T.s('bridge') + 0.5, 0.3)) : 0}
         stamp3={inExit && t >= t3 - 0.05 ? on(t3 - 0.05, 0.2) : 0}
+        hop={cheer && !wink ? Math.abs(Math.sin((t - w('final', 'do', 3.6)) * 7)) : 0}
         q={inExit ? 0 : easeOutBack(on(w('bridge', 'goes', 1) - 0.05, 0.25)) * (1 - on(T.s('split') - 0.25, 0.2))}
       />
     );
@@ -184,14 +185,13 @@ export const CardVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
         t={t} talk={talk}
         cashIn={on(w('split', '85', 1.5) - 0.2, 0.25)} eat={eat} give={give}
         rateOn={on(w('rate', '22', 1) - 0.1, 0.25)}
-        debt={lerp(3000, 2970, easeOutCubic(on(tDebt - 0.2, 0.6)))}
+        debt={lerp(3000, 2970, easeOutCubic(on(tDebt - 0.45, 0.4)))}
         chomp={chomp}
         jake={{ brows: lerp(0.2, -0.6, sadK), smile: lerp(0.5, -0.2, sadK), sad: 0.6 * sadK, wide: pulse(t55 + 0.4, 0.6), gasp: 0 }}
       />
     );
   } else if (shot === 'treadmill') {
-    const s0 = T.s('shrink'), s1 = T.s('total');
-    const year = Math.min(12, 1 + Math.floor(12 * clamp01((t - s0 - 0.3) / Math.max(1, s1 - s0 - 0.9))));
+    const year = yearAt(T, t);
     const tired = on(w('shrink', 'drags', 2.6) - 0.1, 0.3);
     scene = <Treadmill2D t={t} talk={talk} year={year} run={1} jake={{ brows: -0.5 - 0.4 * tired, smile: -0.2, sad: 0.4 + 0.4 * tired, grit: tired }} />;
   } else if (shot === 'towers') {
@@ -210,7 +210,7 @@ export const CardVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
         <CardOverlays T={T} t={t} />
         {timings.hook && <TitleCard {...timings.hook} t={t} tIn={-0.7} tOut={T.s('bridge') - 0.1} />}
         <Captions timings={timings} t={t} />
-        {timings.outro && <TitleCard {...timings.outro} t={t} tIn={T.s('final') + 0.02} tOut={timings.duration + 1} top={(timings.outro as { top?: string }).top ?? '11%'} />}
+        {timings.outro && <TitleCard {...timings.outro} t={t} tIn={T.s('final') + 0.02} tOut={timings.duration + 1} top="13%" />}
         <Handle handle={timings.handle} />
         <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
         <Sfx cues={cues} timings={timings} />

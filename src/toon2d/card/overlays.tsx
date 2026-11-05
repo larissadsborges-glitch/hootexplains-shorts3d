@@ -8,6 +8,13 @@ import type { MoneyTimeline } from '../../scenes/money/timeline';
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
 const pop = (t: number, t0: number) => easeOutBack(clamp01((t - t0) / 0.22));
 const fade = (t: number, t1: number) => clamp01((t1 - t) / 0.15);
+/** Year on Jake's wall calendar during the treadmill shot (1..12). */
+export const yearAt = (T: MoneyTimeline, t: number) => {
+  const s0 = T.s('shrink'), s1 = T.s('total');
+  return Math.min(12, 1 + Math.floor(12 * clamp01((t - s0 - 0.3) / Math.max(1, s1 - s0 - 0.9))));
+};
+/** Minimum due at the start of each year: $3,000 at 22.15%, 1% + interest, $35 floor (BRIEF.md). */
+const MIN_BY_YEAR = [85, 76, 67, 59, 53, 47, 41, 37, 35, 35, 35, 35];
 const money = (v: number) => `$${Math.round(v).toLocaleString('en-US')}`;
 
 /** A dark rounded card, centred, at `top`. */
@@ -25,7 +32,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
   const t85 = w('split', '85', 1.5), t55 = w('split', '55', 2.6);
   const split = clamp01((t - t55 + 0.05) / 0.35);
   const tShr = w('shrink', 'shrinks', 1);
-  const minDue = lerp(85, 35, clamp01((t - tShr) / Math.max(0.5, T.s('total') - tShr - 0.4)));
+  const minDue = MIN_BY_YEAR[yearAt(T, t) - 1];
   const t7 = w('total', '7000', 1.5);
   const paid = 7039 * easeOutCubic(clamp01((t - T.s('total') - 0.1) / Math.max(0.5, t7 - T.s('total') - 0.1)));
   const tDo = w('final', 'do', 3.6);
@@ -52,7 +59,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
           <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 36, color: '#fff' }}>MINIMUM DUE</div>
           <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 64, color: '#ffd21f' }}>${Math.round(minDue)}</div>
-          <div style={{ width: 0, height: 0, borderLeft: '20px solid transparent', borderRight: '20px solid transparent', borderTop: '30px solid #ff4a3d', opacity: t > tShr ? 1 : 0 }} />
+          <div style={{ width: 0, height: 0, borderLeft: '20px solid transparent', borderRight: '20px solid transparent', borderTop: '30px solid #ff4a3d', opacity: t > tShr && minDue < 85 ? 1 : 0 }} />
         </div>
       </Card>
 
@@ -62,7 +69,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 84, color: '#ff4a3d', lineHeight: 1.05 }}>{money(paid)}</div>
       </Card>
       <Card t={t} t0={T.s('total') + 0.3} t1={T.s('exit') - 0.05} top="71%" width={860}>
-        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 24, color: '#e6e9ef', lineHeight: 1.35 }}>MATH: 22% A YEAR · MINIMUM = 1% + INTEREST<br />($35 FLOOR) · NO NEW CHARGES · ~12.2 YEARS</div>
+        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#e6e9ef', lineHeight: 1.3 }}>MATH: 22% A YEAR · MINIMUM = 1% + INTEREST<br />($35 FLOOR) · NO NEW CHARGES · ~12.2 YEARS</div>
       </Card>
 
       {/* the way out */}
@@ -70,7 +77,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
       <Pill t={t} t0={w('exit', '115', 3) - 0.1} t1={T.s('final') - 0.05} text="$115 A MONTH → DONE IN 3 YEARS" top="21.5%" dot="#2fa84f" />
 
       {/* same debt, two plans */}
-      <Card t={t} t0={T.s('final') + 0.1} t1={tDo - 0.05} top="21.5%" width={860}>
+      <Card t={t} t0={T.s('final') + 0.1} t1={tDo - 0.05} top="23.5%" width={860}>
         {([['MINIMUM ONLY', '12+ YEARS', '#ff4a3d', 1], ['$115 A MONTH', '3 YEARS', '#7fd36a', 0.25]] as const).map(([who, yrs, c, len], i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '6px 0' }}>
             <div style={{ width: 250, fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#fff' }}>{who}</div>
@@ -88,7 +95,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
       </Card>
 
       {/* the closing question, on screen for sound-off viewers */}
-      <Card t={t} t0={tDo - 0.05} t1={T.end + 1} top="22.5%" width={800}>
+      <Card t={t} t0={tDo - 0.05} t1={T.end + 1} top="24%" width={800}>
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#fff', lineHeight: 1.15 }}>DO YOU PAY MORE<br /><span style={{ color: '#ffd21f' }}>THAN THE MINIMUM?</span></div>
       </Card>
     </>

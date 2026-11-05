@@ -8,17 +8,19 @@ You are continuing the **Hoot Explains** project: code-generated 3D explainer Sh
   - **Hoot:** a brown owl with navy round glasses, a teal bow tie and a pencil. He is the narrator and host, appears in the first frame, always faces the camera, and has **ONE beak** that opens with the voice (driven by `timings.mouth`). Never draw a separate mouth or nose.
   - **Jake:** a young guy in a red hoodie. He lives the stories so viewers relate to him (`src/mascot/Jake.tsx`). His arms must stay attached to his body, he must never sink into furniture, his hands must touch what they hold, and his look must fit the moment (fresh in the morning, tired later).
 - **Voice:** Kokoro TTS blend of 70% `am_adam` + 30% `am_michael`, `lang: en-us`, speed 1.25. ElevenLabs is the planned upgrade when there's budget.
-- **House visual style:** "real", a stylised 3D look with a realistic finish (`src/style/StylePass.tsx`). It is the default.
+- **House visual style (since 5 Nov 2026): flat 2D cartoon** drawn as SVG in Remotion (`src/toon2d/`, composition `Look2D`): dark ink outlines, flat colours with one cel-shadow tone, big expressive faces. The owner loved it and dislikes the old round 3D look. The 3D "real" style (`src/style/StylePass.tsx`) only remains for old videos.
+- **Hoot rules set by the owner (5 Nov 2026):** his beak opens to half at most (the lower beak must stay tucked under the upper one); he rests his wings while talking and raises the pencil only to point on key words (`HootGesture` context in `Hook2D.tsx`), cheers on the closing question and winks at the very end.
+- **Videos are standalone:** no "EP n/6" chips or series lines; the owner prefers each video to make sense on its own. The owner also asked to drop the "NOT FINANCIAL ADVICE" tag.
 - **Posting:** 2 videos a day. The launch plan recommends **18:00 and 22:00 Lisbon** (13:00 and 17:00 New York) over the owner's original 12:00/18:00. Series episodes go one per day in the 18:00 slot. Instagram allows only 5 hashtags.
 
-## 2. Status (4 Nov 2026)
+## 2. Status (5 Nov 2026)
 | Video | State |
 |---|---|
 | Plane window (`planewindow`) | Posted. Its airliner tail cone was modelled back to front (fixed afterwards in the shared plane). |
 | Airplane mode (`airplanemode`) | Final v3 delivered (`out/hootexplains_airplanemode_v3.mp4`), with a cover and post kit. |
 | Sleep series Day 1 (`awake1`, scene `awake`) | Re-rendered on 4 Nov with all review fixes. Needs the final 2-pass review, then delivery. Days 2–3 not built yet (the old `sleep*` folders are an earlier version; ignore them). |
-| Money series EP1–6 (`videos/money1..6`) | Scripts, briefs (with sources), shot lists and post kits written and checked. **Next to build: EP1.** Send the owner a 10 s preview first, since money may get a new look. |
-| Profile picture | Hoot close-up, winking (`src/mascot/Avatar.tsx`, `bust`). The owner wasn't fully happy; revisit. |
+| Money video 1 (`videos/money1`, standalone, 2D) | Built in 2D on the owner's PC: `out/money1_upload.mp4` (38 s), `out/cover_money1.png`, post kit in `videos/money1/POSTKIT.md`. Script rewritten in story order (owner's pick, "Option A"); the old series script is `script_series_v1.json`. money2–6 scripts still assume a series: rewrite them as standalone before building. |
+| Profile picture | New 2D version: composition `Avatar2D` → `out/profile_hoot_2d.png` (also copied to `public/brand/hoot.png`; the old 3D one is `public/brand/hoot_3d_old.png`). |
 | Automated QA checker (`scripts/qa/`) | Partly built by an agent that was cut off by a usage limit. Read scripts/qa/README.md, test it, and finish it. |
 | Better Jake (rigged glTF character, outlines, contact shadows) | Not started. See docs/GAME_PLAN.md section 3. |
 

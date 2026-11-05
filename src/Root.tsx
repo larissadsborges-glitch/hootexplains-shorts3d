@@ -3,6 +3,9 @@ import '@fontsource/montserrat/900.css';
 import React from 'react';
 import { Composition, staticFile } from 'remotion';
 import { Short } from './Short';
+import { Look2D } from './toon2d/Look2D';
+import { Avatar2D } from './toon2d/Avatar2D';
+import { Cover2D, type Cover2DProps } from './toon2d/Cover2D';
 import { MascotStill } from './mascot/MascotStill';
 import { Avatar } from './mascot/Avatar';
 import { Cover, type CoverProps } from './overlays/Cover';
@@ -26,8 +29,37 @@ export const RemotionRoot: React.FC = () => (
       return { props: { ...props, timings } };
     }}
   />
+  <Composition id="Avatar2D" component={Avatar2D} width={1080} height={1080} fps={30} durationInFrames={1} />
   <Composition id="Avatar" component={Avatar} width={1080} height={1080} fps={30} durationInFrames={30} />
   <Composition id="Mascot" component={MascotStill} width={1080} height={1350} fps={30} durationInFrames={60} defaultProps={{ which: 'bolt' }} />
+  <Composition
+    id="Cover2D"
+    component={Cover2D}
+    width={1080}
+    height={1920}
+    fps={FPS}
+    durationInFrames={1}
+    defaultProps={{ videoId: 'money1', timings: null, at: 1.95, small: 'HOOT EXPLAINS · MONEY', line1: 'THIS $20 COST', line2: '7¢ TO PRINT' } as Cover2DProps}
+    calculateMetadata={async ({ props }) => {
+      const res = await fetch(staticFile(`videos/${props.videoId}/timings.json`));
+      const timings = (await res.json()) as Timings;
+      return { props: { ...props, timings } };
+    }}
+  />
+  <Composition
+    id="Look2D"
+    component={Look2D}
+    width={1080}
+    height={1920}
+    fps={FPS}
+    durationInFrames={360}
+    defaultProps={{ videoId: 'money1', timings: null } as ShortProps}
+    calculateMetadata={async ({ props }) => {
+      const res = await fetch(staticFile(`videos/${props.videoId}/timings.json`));
+      const timings = (await res.json()) as Timings;
+      return { durationInFrames: Math.ceil(timings.duration * FPS), props: { ...props, timings } };
+    }}
+  />
   <Composition
     id="Short"
     component={Short}

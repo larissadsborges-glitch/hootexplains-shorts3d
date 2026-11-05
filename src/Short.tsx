@@ -44,6 +44,10 @@ import { AwakeScene } from './scenes/awake/Scene';
 import { AwakeOverlays } from './scenes/awake/overlays';
 import { awakeSfxCues } from './scenes/awake/sfx';
 import { buildAwakeTimeline, cameraPose as awakeCameraPose } from './scenes/awake/timeline';
+import { MoneyScene } from './scenes/money/Scene';
+import { MoneyOverlays } from './scenes/money/overlays';
+import { moneySfxCues } from './scenes/money/sfx';
+import { buildMoneyTimeline, cameraPose as moneyCameraPose } from './scenes/money/timeline';
 import type { ShortProps, Timings } from './types';
 import { StylePass } from './style/StylePass';
 import type { CameraPose } from './world/Props';
@@ -67,6 +71,7 @@ export const SCENES: Record<string, SceneDef> = {
   planewindow: { Scene: PlaneWindowScene, timeline: buildPlaneWindowTimeline, pose: pwCameraPose, cues: planeWindowSfxCues, Overlays: PlaneWindowOverlays, anchor: (T, k) => pwAnchor(T, k) },
   airplanemode: { Scene: AirplaneModeScene, timeline: buildAirplaneModeTimeline, pose: amCameraPose, cues: airplaneModeSfxCues, Overlays: AirplaneModeOverlays, anchor: (T, k) => amAnchor(T, k) },
   sleep: { Scene: SleepScene, timeline: buildSleepTimeline, pose: sleepCameraPose, cues: sleepSfxCues, Overlays: SleepOverlays, anchor: (T, k) => sleepAnchor(T, k) },
+  money: { Scene: MoneyScene, timeline: buildMoneyTimeline, pose: moneyCameraPose, cues: moneySfxCues, Overlays: MoneyOverlays },
   awake: { Scene: AwakeScene, timeline: buildAwakeTimeline, pose: awakeCameraPose, cues: awakeSfxCues, Overlays: AwakeOverlays },
   tunnel: { Scene: TunnelScene, timeline: buildTunnelTimeline, pose: tunnelCameraPose, cues: tunnelSfxCues, anchor: tunnelAnchor, sceneTime: tunnelSceneTime },
   house: { Scene: HouseScene, timeline: buildHouseTimeline, pose: houseCameraPose, cues: houseSfxCues, Overlays: HouseOverlays, sceneTime: houseSceneTime },
@@ -88,7 +93,7 @@ export const Short: React.FC<ShortProps> = ({ videoId, timings, style }) => {
   const last = timings.beats[timings.beats.length - 1];
   return (
     <AbsoluteFill style={{ backgroundColor: '#9fd3fb' }}>
-      <AbsoluteFill style={{ filter: vs === 'real' ? 'saturate(1.18) contrast(1.06)' : vs === 'soft' ? 'saturate(1.08)' : undefined }}>
+      <AbsoluteFill style={{ filter: vs === 'real' ? 'saturate(1.18) contrast(1.06)' : vs === 'toon' ? 'saturate(1.12)' : vs === 'soft' ? 'saturate(1.08)' : undefined }}>
       <ThreeCanvas width={width} height={height} shadows gl={{ antialias: true }} camera={{ fov: 45, position: [0, 10, 20] }}>
         <S.Scene timings={timings} t={S.sceneTime ? S.sceneTime(T, t) : t} />
         <StylePass style={vs} />

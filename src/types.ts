@@ -23,7 +23,7 @@ export type Timings = {
   handle: string;
   scene?: string;
   music?: string;
-  style?: 'blocky' | 'soft' | 'real';
+  style?: 'blocky' | 'soft' | 'real' | 'toon';
   recapItems?: string[];
   /** per-frame (30 fps) mouth openness 0..1 from the voice, see scripts/mouth.py */
   mouth?: number[];
@@ -33,4 +33,4 @@ export type Timings = {
   beats: Beat[];
 };
 
-export type ShortProps = { videoId: string; timings: Timings | null; style?: 'blocky' | 'soft' | 'real' };
+export type ShortProps = { videoId: string; timings: Timings | null; style?: 'blocky' | 'soft' | 'real' | 'toon' };

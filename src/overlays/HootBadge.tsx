@@ -9,7 +9,8 @@ const FONT = "'Montserrat', 'Arial Black', sans-serif";
  */
 export const HootBadge: React.FC<{ t: number; introUntil?: number }> = ({ t, introUntil = 2.6 }) => {
   const { fps } = useVideoConfig();
-  const pop = spring({ frame: Math.round(t * fps), fps, config: { damping: 12, stiffness: 200 } });
+  // start the pop a few frames early so frame 0 (the thumbnail) already shows the tag
+  const pop = spring({ frame: Math.round(t * fps) + 8, fps, config: { damping: 12, stiffness: 200 } });
   const intro = t < introUntil;
   return (
     <>

@@ -3,6 +3,18 @@
 A running record of what went wrong, what fixed it, and ideas to decide on.
 Read this before starting a new video; add to it after every render and review.
 
+## 4 Nov 2026: owner's PC + switch to the 2D cartoon style
+
+- **Style decision (owner):** videos are now **flat 2D vector cartoons** drawn as SVG in Remotion (`src/toon2d/`): dark ink outlines, flat colours with one cel-shadow tone, big expressive heads, story-telling room details. The owner disliked the 3D characters ("everything is round", tube legs) even after a cel-shaded + ink-outline pass (`style: 'toon'` in `StylePass.tsx`, kept as an option). Their reference was a viral 2D cartoon reel. Owner on the first 2D test: "it's perfect, I love it". Use our own characters; never copy a reference's character.
+- **2D parts to reuse:** `Hook2D.tsx` (room, sitting Jake, `JakeHead` with brows/smile/sad/look, `Hoot2D` with one beak driven by `timings.mouth`), `parts.tsx` (`place()`, `Limb`, `Hand`, `JakeStanding` with hat option, `Fish2D`, `Shoes2D`, `Merchant`), `scenes.tsx` (`Market2D`, `Table2D`). Composition `Look2D` (Root.tsx) runs the money scene in 2D with the normal overlays, SFX and music.
+- **Layout rules learned in 2D:** keep held props and key objects above the caption band (62–68% height) and out of the bottom 20% (Instagram UI). Hoot needs his own clear spot per shot (on books, on the awning end, on the table edge); a middle-of-the-counter perch got hidden by the fish. With fast word-by-word reveals (0.6 s apart), zoom close (×1.75) and whip the camera to each item as it is spoken; a slow pan missed every item.
+- **Thumbnail:** `HootBadge`'s pop now starts 8 frames early so frame 0 already shows the tag. Keep blinks out of the first 1.5 s.
+- **Windows PC setup:** project at `C:/Users/borge/hoot/hootexplains-shorts3d` (the app's scratch path was too long: Windows' 260-character limit broke git clone, uv's Python and Remotion's Chrome). Python venv `C:/Users/borge/.hoottools/venv`, FFmpeg `C:/Users/borge/.hoottools/ffmpeg` (winget installs were invisible to the app). Render with `--gl=angle` on the GTX 1050 Ti: a 12 s full-res 2D preview renders in ~18 s. Helpers: `scripts/draft.ps1 <id> <lastFrame> <sheet> [composition]` (half-size draft + 0.5 s contact sheet) and `scripts/compare.ps1` (two styles side by side).
+- **Script structure (owner):** a shock hook must be followed by an explicit bridge ("Let's go back to the start") and an explicit answer later; jumping from the hook straight into history confused the owner. Tell the story in order and answer the hook's question by name.
+- **Hoot (owner):** the beak looked bad when it opened wide (the lower half detached), so it now opens to half at most. Constant pencil waving read as a tic and looked like a pencil stuck in Jake's hair; Hoot now rests and points the pencil only on key words.
+- **Review rounds that paid off:** labels needed ≥1.5 s on screen (stacked cards that stay up beat the one-by-one pills); props must not be covered by labels or by Hoot; years shown must be sourced ("LONG AGO" instead of an invented 3000 BC); the closing ask must state the question on screen for sound-off viewers.
+- **3D toon pass gotcha:** material/geometry changes made in a `useLayoutEffect` after the canvas has drawn don't show in a single still; call `gl.render(scene, camera)` at the end of the pass.
+
 ## Standing rules (from the user)
 
 - **Hook + promise:** the first 1–2 seconds must tell viewers what they'll get by staying to the end (e.g. "how to build a bridge that won't fall"). Use both spoken words and on-screen text, with motion from frame 0.

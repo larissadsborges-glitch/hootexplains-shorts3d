@@ -109,3 +109,4 @@ The owner asked to "rebuild the entire video with what you learn, take your time
     - the handle and chip overlap the phone header and the VÍDEO title
     - Camila is never seen in the present day
     - Vó's upside is not on her card
+- 5 Nov: **Owner decision: the Chatterbox "Jeff E" voice is rejected completely.** The owner is buying ElevenLabs. Next step: they put the API key in `C:\Users\borge\hoot\.elevenlabs_key` (never in chat) and pick a pt-BR voice from the ElevenLabs Voice Library (no clones). Then voice script v4 with the "with timestamps" endpoint into `public/videos/tavinho1/voice.wav` + `timings.json` (same format), then QA, a review and delivery. No more Chatterbox, Kokoro or Piper work for Tavinho.

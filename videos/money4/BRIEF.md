@@ -10,7 +10,7 @@ Rewritten 5 Nov 2026 as a **standalone** video (no "EP n/6", no series teaser, n
 
 ## Script (119 words, 39.4 s with the 1.8 s tail)
 1. This is Jake. He kept 10,000 dollars in his savings for a whole year. His bank paid him 38 dollars. *(intro + who/what in 3 words)*
-2. Here's where his money really works, and how he gets ten times more. *(bridge at 5.8 s)*
+2. Here's who really earns on his money, and how he gets ten times more. *(bridge at 5.8 s)*
 3. His rate is the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.
 4. Meanwhile, his bank can earn 3.9 percent, just by parking cash at the Fed, the bank for banks.
 5. So why pay Jake so little? Because people don't leave. The average saver keeps the same account for 17 years. *(sendable line)*

@@ -87,12 +87,12 @@ export const Desk2D: React.FC<DeskProps> = (p) => (
       <ellipse cx={0} cy={0} rx={40} ry={10} fill="#4a2c1a" {...ink(5)} />
     </g>
     {/* books + Hoot */}
-    <rect x={90} y={1318} width={270} height={44} rx={6} fill="#2f6fd6" {...ink(7)} />
-    <rect x={105} y={1278} width={245} height={42} rx={6} fill="#e2453c" {...ink(7)} transform="rotate(-2 227 1300)" />
-    <rect x={98} y={1240} width={255} height={40} rx={6} fill="#f0b429" {...ink(7)} transform="rotate(1.5 225 1260)" />
+    <rect x={40} y={1318} width={270} height={44} rx={6} fill="#2f6fd6" {...ink(7)} />
+    <rect x={55} y={1278} width={245} height={42} rx={6} fill="#e2453c" {...ink(7)} transform="rotate(-2 177 1300)" />
+    <rect x={48} y={1240} width={255} height={40} rx={6} fill="#f0b429" {...ink(7)} transform="rotate(1.5 175 1260)" />
     <Bill t={p.t} hl={p.hl} peel={p.peel} stamp12={p.stamp12} stamp3={p.stamp3} />
     {/* Hoot sits in front of the bill's left end so his wink and pencil stay visible */}
-    <Hoot2D t={p.t} talk={p.talk} x={225} y={1240 - 28 * (p.hop ?? 0)} s={0.95} />
+    <Hoot2D t={p.t} talk={p.talk} x={175} y={1240 - 28 * (p.hop ?? 0)} s={0.95} />
     {p.q > 0 && (
       <g transform={`translate(800 800) scale(${p.q}) rotate(12)`}>
         <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill="#ffd21f" stroke={INK} strokeWidth={10} paintOrder="stroke">?</text>

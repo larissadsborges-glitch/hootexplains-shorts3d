@@ -183,7 +183,7 @@ export const CardVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
     scene = (
       <Pay2D
         t={t} talk={talk}
-        cashIn={on(w('split', '85', 1.5) - 0.2, 0.25)} eat={eat} give={give}
+        cashIn={1} eat={eat} give={give}
         rateOn={on(w('rate', '22', 1) - 0.1, 0.25)}
         debt={lerp(3000, 2970, easeOutCubic(on(tDebt - 0.45, 0.4)))}
         chomp={chomp}

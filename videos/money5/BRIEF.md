@@ -11,7 +11,7 @@ Rewritten 5 Nov 2026 as a **standalone** video (owner rule: no "EP n/6", no seri
 ## Script (125 words, 38.8 s with the 1.8 s tail)
 1. Jake owes 3,000 dollars on his credit card. Paying just the minimum? It takes over 12 years. *(hook: who + what in 3 words)*
 2. Here's where his money really goes, and the number on his bill that gets him out. *(bridge at 5.4 s, opens the loop)*
-3. His first minimum payment is 85 dollars. But 55 of that is interest. *(first payoff ~12 s)*
+3. His first monthly minimum is 85 dollars. But 55 of that is interest. *(first payoff ~12 s)*
 4. His card charges 22 percent a year, so only 30 dollars touches the debt.
 5. Worse, as the debt shrinks, the minimum shrinks too. So it drags on, and on.
 6. In the end, he pays over 7,000 dollars. For a 3,000 dollar debt. *(sendable line, ~24 s)*

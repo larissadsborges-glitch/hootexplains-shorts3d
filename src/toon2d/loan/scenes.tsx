@@ -101,16 +101,9 @@ export const Screen2D: React.FC<ScreenProps> = ({ t, talk, face, balance, approv
     <rect x={355} y={525} width={570} height={480} rx={14} fill="#f7f5f0" />
     <rect x={355} y={525} width={570} height={70} rx={14} fill="#2f4a78" />
     <text x={640} y={573} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={34} fill="#ffffff" letterSpacing={2}>BIG BANK · JAKE</text>
-    <text x={640} y={650} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={28} fill="#5b6270">ACCOUNT BALANCE</text>
-    <text x={640} y={760} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={glow > 0 ? '#1f8a45' : '#14171a'}>{balance}</text>
+    <text x={640} y={650} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={28} fill={loanLeft !== null ? '#d6281c' : '#5b6270'}>{loanLeft !== null ? 'LOAN LEFT TO PAY' : 'ACCOUNT BALANCE'}</text>
+    <text x={640} y={760} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={loanLeft !== null ? '#d6281c' : glow > 0 ? '#1f8a45' : '#14171a'}>{loanLeft !== null ? `$${Math.round(loanLeft).toLocaleString('en-US')}` : balance}</text>
     {glow > 0 && [0, 1, 2, 3, 4, 5].map((i) => <path key={i} d="M0 -26 L 6 -6 L 26 0 L 6 6 L 0 26 L -6 6 L -26 0 L -6 -6 Z" fill="#ffd21f" {...ink(3)} transform={`translate(${420 + i * 90} ${690 + 70 * Math.sin(i * 2.1)}) scale(${0.6 + 0.4 * Math.sin(t * 8 + i)})`} />)}
-    {loanLeft !== null && (
-      <g>
-        <rect x={420} y={820} width={440} height={80} rx={14} fill="#fde7e3" stroke="#d6281c" strokeWidth={5} />
-        <text x={445} y={872} fontFamily={F} fontWeight={800} fontSize={28} fill="#d6281c">LOAN LEFT</text>
-        <text x={835} y={874} textAnchor="end" fontFamily={F} fontWeight={900} fontSize={40} fill="#d6281c">${Math.round(loanLeft).toLocaleString('en-US')}</text>
-      </g>
-    )}
     {approved > 0 && loanLeft === null && (
       <g transform={`translate(640 850) rotate(-6) scale(${0.85 * lerp(1.8, 1, easeOutBack(clamp01(approved)))})`} opacity={clamp01(approved * 3)}>
         <rect x={-200} y={-46} width={400} height={92} rx={12} fill="rgba(255,255,255,0.6)" stroke="#1f8a45" strokeWidth={10} />

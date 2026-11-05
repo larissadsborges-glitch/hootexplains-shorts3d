@@ -31,11 +31,11 @@
       "highlight": ["10,000", "38"]
     },
     {
-      "text": "Here's where his money really works, and how he gets ten times more.",
+      "text": "Here's who really earns on his money, and how he gets ten times more.",
       "speed": 1.25,
       "shot": "lobby",
       "event": "bridge",
-      "highlight": ["works", "ten"]
+      "highlight": ["earns", "ten"]
     },
     {
       "text": "His rate is the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.",

@@ -149,7 +149,7 @@ export type FedProps = { t: number; talk: number; face: Face; drive: number; pla
 
 /** Street: the bank's armoured truck drives cash to THE FED, which pays the bank 3.9%. */
 export const Fed2D: React.FC<FedProps> = ({ t, talk, face, drive, plate }) => {
-  const tx = lerp(150, 640, easeOutCubic(clamp01(drive)));
+  const tx = lerp(330, 640, easeOutCubic(clamp01(drive)));
   return (
     <g>
       <rect x={-600} y={-400} width={2280} height={1600} fill="#8fd0ff" />
@@ -282,7 +282,7 @@ export const Jars2D: React.FC<JarsProps> = ({ t, talk, face, fill }) => {
       <rect x={-600} y={1150} width={2280} height={44} fill="#a86f45" {...ink(7)} />
       <rect x={-600} y={1192} width={2280} height={1300} fill="#8a5a3a" />
       {jar(235, 'BIG BANK', '0.38%', 0.05 + 0.03 * k, '$38', '#d6281c')}
-      {jar(830, 'INSURED SAVINGS', '~4%', 0.05 + 0.75 * k, `$${Math.round(400 * k)}`, '#1f8a45')}
+      {jar(830, 'INSURED SAVINGS', '~4%', 0.05 + 0.75 * k, k > 0 ? `$${Math.round(400 * k)}` : '?', '#1f8a45')}
       <Hoot2D t={t} talk={talk} x={830} y={748} s={0.52} />
     </g>
   );

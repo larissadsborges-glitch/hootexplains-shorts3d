@@ -38,7 +38,7 @@
       "highlight": ["goes", "number"]
     },
     {
-      "text": "His first minimum payment is 85 dollars. But 55 of that is interest.",
+      "text": "His first monthly minimum is 85 dollars. But 55 of that is interest.",
       "speed": 1.25,
       "shot": "pay",
       "event": "split",

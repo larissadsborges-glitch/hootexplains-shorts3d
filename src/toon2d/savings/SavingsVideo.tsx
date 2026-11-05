@@ -102,7 +102,7 @@ const Overlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }) => {
   return (
     <>
       <HootBadge t={t} />
-      <Pill t={t} t0={w('bridge', 'where', 0.3) - 0.1} t1={T.s('shrink') - 0.05} text="WHERE'S HIS MONEY WORKING?" top="14.5%" dot="#ffd21f" />
+      <Pill t={t} t0={w('bridge', 'where', 0.3) - 0.1} t1={T.s('shrink') - 0.05} text="WHO EARNS ON HIS MONEY?" top="14.5%" dot="#ffd21f" />
       <Card t={t} t0={tHalf} t1={T.s('fed') - 0.05} top="14.5%" width={720}>
         <Row left="HIS SAVINGS" right="+0.38%" color="#7fd36a" />
         {t >= t37 && <Row left="PRICES" right="+3.7%" color="#ff4a3d" p={easeOutBack(clamp01((t - t37) / 0.2))} />}
@@ -184,7 +184,7 @@ export const SavingsVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
   } else if (shot === 'fed') {
     scene = <Fed2D t={t} talk={talk} face={{ brows: -0.3, smile: 0, sad: 0.3, wide: pulse(w('fed', '39', 1.4), 0.8) }} drive={on(w('fed', 'parking', 2.6) - 0.2, 1.4)} plate={on(w('fed', '39', 1.4) - 0.1, 0.25)} />;
   } else if (shot === 'couch') {
-    const y0 = w('stay', 'leave', 2.6) - 0.1, y1 = w('stay', '17', 5.5);
+    const y0 = T.s('stay') + 0.2, y1 = w('stay', '17', 5.5);
     const k = clamp01((t - y0) / Math.max(0.5, y1 - y0));
     scene = <Couch2D t={t} talk={talk} face={{ smile: 0.6, brows: 0 }} year={1 + Math.round(16 * k)} web={easeOutCubic(k)} />;
   } else if (shot === 'jars') {

@@ -110,3 +110,9 @@ The owner asked to "rebuild the entire video with what you learn, take your time
     - Camila is never seen in the present day
     - Vó's upside is not on her card
 - 5 Nov: **Owner decision: the Chatterbox "Jeff E" voice is rejected completely.** The owner is buying ElevenLabs. Next step: they put the API key in `C:\Users\borge\hoot\.elevenlabs_key` (never in chat) and pick a pt-BR voice from the ElevenLabs Voice Library (no clones). Then voice script v4 with the "with timestamps" endpoint into `public/videos/tavinho1/voice.wav` + `timings.json` (same format), then QA, a review and delivery. No more Chatterbox, Kokoro or Piper work for Tavinho.
+- 5 Nov: **Owner: a sound "like a fart" at the microwave, and they can't tell the whooshes from the breaths.**
+  - **The fart:** measured. The "mercado" in the Jeff voice ends in creaky vocal fry at 35–60 Hz (18.6–18.9 s), followed by a fake breath puff, so it goes with the voice. No effect was low there.
+  - **New effects** (`scripts/make_sfx_tavinho.py`, nothing low and buzzy, no falling low pitch): swish (scene changes; bright and airy, unlike a breath), ding (the microwave PIM!, which had no sound), notif (replaces the 217 Hz GSM buzz), splat (egg) and hit (twist, fixed pitch).
+  - **Music:** the owner finds the slow bed too sleepy. `scripts/make_music_upbeat.py` makes `upbeat_a` (124 BPM bouncy pop) and `upbeat_b` (132 BPM sneaky chase). Waiting for the owner's pick; Tavinho still points at `bed.wav`.
+  - **Test copy:** `out/avidadotavinho_ep1_sem_respiracao.mp4` (breath gaps muted; voice in the uncommitted `public/videos/tavinho1nb`).
+  - **GitHub push of `2d-style-money1`:** blocked until the owner signs in to Git Credential Manager on the PC.

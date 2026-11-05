@@ -18,7 +18,7 @@ export const speechEnvelope = (timings: Timings, t: number, ramp = 0.15) => {
 };
 
 /** Length (s) of each effect file in public/sfx (measured with ffprobe), for limitSfx. */
-export const SFX_LEN: Record<string, number> = { riser: 0.9, thud: 1.0, rumble: 3.0, whoosh: 0.45, pop: 0.12, ping: 0.55, toggle: 0.12, splash: 1.3, alarm: 2.4, siren: 5.0, buzz: 2.6 };
+export const SFX_LEN: Record<string, number> = { swish: 0.22, ding: 1.2, notif: 1.1, splat: 0.25, hit: 1.4, riser: 0.9, thud: 1.0, rumble: 3.0, whoosh: 0.45, pop: 0.12, ping: 0.55, toggle: 0.12, splash: 1.3, alarm: 2.4, siren: 5.0, buzz: 2.6 };
 
 /**
  * Keep at most `max` effects sounding at once. Cues are taken in priority order (the array order),

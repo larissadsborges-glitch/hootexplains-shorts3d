@@ -21,30 +21,32 @@ const SCENES: Record<string, React.FC<{ T: MoneyTimeline; t: number }>> = {
 export const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
   const c: Cue[] = [
     // twist sting on "Mas a Camila manda": a low hit while the music dips (see musicDip)
-    { at: T.s('camilamsg') - 0.02, sfx: 'thud', volume: 0.9 },
+    { at: T.s('camilamsg') - 0.02, sfx: 'hit', volume: 0.9 },
     // riser into the final question
     { at: T.s('decide') - 0.9, sfx: 'riser', volume: 0.3 },
     { at: T.s('twelve') - 0.1, sfx: 'pop', volume: 0.2 },
     { at: W(T, 'twelve', 'natal', 1.1) - 0.1, sfx: 'pop', volume: 0.2 },
     { at: W(T, 'twelve', 'doze', 2.5) - 0.1, sfx: 'pop', volume: 0.2 },
-    { at: W(T, 'stakes', 'ovo', 2.8) + 0.05, sfx: 'splash', volume: 0.2 },
+    { at: W(T, 'stakes', 'ovo', 2.8) + 0.05, sfx: 'splat', volume: 0.3 },
     { at: W(T, 'twelve', 'quarenta', 2.0) - 0.05, sfx: 'pop', volume: 0.25 },
     { at: W(T, 'lie', 'fui', 0.9), sfx: 'ping', volume: 0.2 },
     { at: W(T, 'market', 'quatro', 1.0), sfx: 'ping', volume: 0.3 },
+    // the microwave's PIM! (same time as the PIM! text in scenes.tsx Trash)
+    { at: W(T, 'market', 'micro-ondas', 1.8), sfx: 'ding', volume: 0.3 },
     { at: W(T, 'building', 'fritou', 1.9) + 0.3, sfx: 'alarm', volume: 0.18 },
     { at: W(T, 'building', 'desceu', 4.9) - 0.3, sfx: 'siren', volume: 0.12, dur: 2.5 },
     { at: W(T, 'camilamsg', 'camila', 0.4) - 0.1, sfx: 'ping', volume: 0.22 },
-    { at: T.s('group') + 0.6, sfx: 'buzz', volume: 0.14 },
+    { at: T.s('group') + 0.6, sfx: 'notif', volume: 0.22 },
     { at: W(T, 'percent', 'dois', 0.9), sfx: 'toggle', volume: 0.2 },
     { at: T.s('mission'), sfx: 'riser', volume: 0.18 },
-    { at: T.s('video'), sfx: 'whoosh', volume: 0.18 },
-    { at: T.s('vo'), sfx: 'whoosh', volume: 0.18 },
+    { at: T.s('video'), sfx: 'swish', volume: 0.18 },
+    { at: T.s('vo'), sfx: 'swish', volume: 0.18 },
     { at: T.s('decide') + 0.3, sfx: 'ping', volume: 0.22 },
   ];
   // typing clicks while he writes the truth
   const ts = W(T, 'truth', 'decide', 0.6), te = W(T, 'truth', 'verdade', 1.7);
   for (let x = ts; x < te; x += 0.16) c.push({ at: x, sfx: 'toggle', volume: 0.08 });
-  tm.beats.slice(1).forEach((b, i) => { if (b.shot !== tm.beats[i].shot) c.push({ at: b.start - 0.1, sfx: 'whoosh', volume: 0.14 }); });
+  tm.beats.slice(1).forEach((b, i) => { if (b.shot !== tm.beats[i].shot) c.push({ at: b.start - 0.06, sfx: 'swish', volume: 0.14 }); });
   return limitSfx(c, 2);
 };
 

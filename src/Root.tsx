@@ -8,6 +8,7 @@ import { CastSheet } from './tavinho/CastSheet';
 import { TavinhoEpisode } from './tavinho/Episode';
 import { TavinhoAvatar, TavinhoCover } from './tavinho/Art';
 import { TavinhoLooks } from './tavinho/Looks';
+import { TavinhoNewStyle } from './tavinho/NewStyle';
 import { Avatar2D } from './toon2d/Avatar2D';
 import { Cover2D, type Cover2DProps } from './toon2d/Cover2D';
 import { MascotStill } from './mascot/MascotStill';
@@ -51,6 +52,7 @@ export const RemotionRoot: React.FC = () => (
   <Composition id="TavinhoCover" component={TavinhoCover} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{ line1: 'MENTIU PRA', line2: 'SOGRA 😳', tag: 'EP 1 · A CEIA DA SOGRA' }} />
   <Composition id="TavinhoCast" component={CastSheet} width={2160} height={1920} fps={30} durationInFrames={1} />
   <Composition id="TavinhoLooks" component={TavinhoLooks} width={1080} height={1350} fps={30} durationInFrames={1} defaultProps={{ look: 0 }} />
+  <Composition id="TavinhoNewStyle" component={TavinhoNewStyle} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{ shot: 0 }} />
   <Composition id="Avatar2D" component={Avatar2D} width={1080} height={1080} fps={30} durationInFrames={1} />
   <Composition id="Avatar" component={Avatar} width={1080} height={1080} fps={30} durationInFrames={30} />
   <Composition id="Mascot" component={MascotStill} width={1080} height={1350} fps={30} durationInFrames={60} defaultProps={{ which: 'bolt' }} />

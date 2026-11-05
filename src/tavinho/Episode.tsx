@@ -51,12 +51,13 @@ const PhraseCaptions: React.FC<{ timings: Timings; t: number }> = ({ timings, t 
   const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1]?.words[0].start ?? x.words[x.words.length - 1].end + 0.8));
   if (!g) return null;
   const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
+  const NAME: Record<string, string> = { camila: '#5fb3ff', sogra: '#ff5a6a', celeste: '#ff5a6a', 'vó': '#7fd36a', tavinho: '#ffd21f' };
   return (
     <div style={{ position: 'absolute', left: 60, right: 60, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 22px' }}>
       {g.words.map((w, i) => {
         const on = t >= w.start - 0.03;
         return (
-          <span key={i} style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)', textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
+          <span key={i} style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: NAME[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
             {clean(w.word).toUpperCase()}
           </span>
         );
@@ -136,6 +137,13 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
         <g transform={`translate(540 960) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
+      {t >= T.s('market') - 0.02 && t < T.s('market') + 0.75 && (
+        <AbsoluteFill style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
+          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - T.s('market') + 0.02) / 0.2))}) rotate(-3deg)` }}>MENTIRA<br /><span style={{ fontSize: 220 }}>#1</span></div>
+          <div style={{ marginTop: 30, background: '#fff', color: '#e2453c', borderRadius: 20, padding: '8px 24px', fontFamily: FONT, fontWeight: 900, fontSize: 46 }}>"FUI EU QUE FIZ"</div>
+        </AbsoluteFill>
+      )}
       {sepia && (
         <div style={{ position: 'absolute', left: 60, top: 300, background: '#fff4e0', border: '5px solid #1b1420', borderRadius: 14, padding: '6px 22px', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#1b1420', transform: 'rotate(-4deg)' }}>DOMINGO</div>
       )}

@@ -92,14 +92,19 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       {you && point > 0 && (
         <g>
           {/* pointing finger toward the viewer */}
-          {/* foreshortened hand pointing straight at the viewer */}
-          <g transform={`translate(${540 + (760 - 540) * 0.95} ${1800 - (2020 - 1300) * 0.95}) scale(${0.4 + 1.1 * point})`}>
-            <circle cx={0} cy={0} r={70} fill="#f1bf94" {...ink(7)} />
-            {[-1, 1].map((s) => <path key={s} d={`M${s * 30} 40 q ${s * 10} 20 0 34`} fill="none" {...ink(5)} />)}
-            <circle cx={-6} cy={-10} r={36} fill="#f6caa4" {...ink(6)} />
-            <ellipse cx={-6} cy={-16} rx={16} ry={12} fill="#ffe2cf" {...ink(3)} />
+          {/* his hand: a fist with the index finger pointing out at the viewer */}
+          <g transform={`translate(${540 + (760 - 540) * 0.95} ${1800 - (2020 - 1300) * 0.95}) rotate(-20) scale(${0.5 + 0.9 * point})`}>
+            {/* index finger, pointing up-left toward the camera */}
+            <rect x={-26} y={-150} width={52} height={150} rx={26} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+            <ellipse cx={0} cy={-128} rx={16} ry={14} fill="#ffe2cf" stroke="#1b1420" strokeWidth={3} />
+            {/* fist: knuckles + curled fingers + thumb */}
+            <rect x={-58} y={-30} width={130} height={110} rx={40} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+            {[0, 1, 2].map((i) => <path key={i} d={`M${-20 + i * 30} -20 q 14 8 0 22`} fill="none" stroke="#1b1420" strokeWidth={5} strokeLinecap="round" />)}
+            <path d="M-58 20 C -86 10 -86 -30 -50 -30" fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+            {/* sleeve cuff */}
+            <rect x={-60} y={70} width={134} height={60} rx={18} fill="#a9d2f5" stroke="#1b1420" strokeWidth={7} />
           </g>
-          <g transform={`translate(540 430) scale(${pop(t, W(T, 'you', 'você', 3.6) - 0.1)}) rotate(-5)`}>
+          <g transform={`translate(540 540) scale(${pop(t, W(T, 'you', 'você', 3.6) - 0.1)}) rotate(-5)`}>
             <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill={PAL.orange} stroke="#1b1420" strokeWidth={14} paintOrder="stroke">VOCÊ</text>
           </g>
         </g>
@@ -255,18 +260,35 @@ export const Trash: React.FC<P> = ({ T, t }) => {
 /* ------------------------------------------------------------------ the fridge: expired mustard, one egg, a sad lemon */
 export const Fridge: React.FC<P> = ({ T, t }) => {
   const items = [
-    { w: 'mostarda', label: 'MOSTARDA VENCIDA', x: 540, y: 900, el: <g><rect x={-40} y={-90} width={80} height={170} rx={20} fill="#ffc21f" {...ink(6)} /><rect x={-20} y={-130} width={40} height={50} rx={8} fill="#c8322a" {...ink(5)} /></g> },
-    { w: 'ovo', label: '1 OVO', x: 720, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
-    { w: 'limão', label: 'LIMÃO TRISTE', x: 380, y: 1290, el: <g><ellipse cx={0} cy={0} rx={70} ry={54} fill="#d8e85a" {...ink(6)} /><path d="M-30 -6 q 10 8 20 0 M10 -6 q 10 8 20 0" fill="none" {...ink(5)} /><path d="M-34 -24 l 18 -8 M34 -24 l -18 -8" {...ink(4)} /><path d="M-16 26 Q 0 14 16 26" fill="none" {...ink(5)} /><path d="M-22 6 q 4 10 0 16 q -4 -6 0 -16" fill="#8fd0ff" {...ink(2)} /></g> },
+    { w: 'mostarda', label: 'MOSTARDA VENCIDA', x: 500, y: 900, el: <g><rect x={-40} y={-90} width={80} height={170} rx={20} fill="#ffc21f" {...ink(6)} /><rect x={-20} y={-130} width={40} height={50} rx={8} fill="#c8322a" {...ink(5)} /></g> },
+    { w: 'ovo', label: '1 OVO', x: 672, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
+    { w: 'limão', label: 'LIMÃO TRISTE', x: 360, y: 1290, el: <g><ellipse cx={0} cy={0} rx={70} ry={54} fill="#d8e85a" {...ink(6)} /><path d="M-30 -6 q 10 8 20 0 M10 -6 q 10 8 20 0" fill="none" {...ink(5)} /><path d="M-34 -24 l 18 -8 M34 -24 l -18 -8" {...ink(4)} /><path d="M-16 26 Q 0 14 16 26" fill="none" {...ink(5)} /><path d="M-22 6 q 4 10 0 16 q -4 -6 0 -16" fill="#8fd0ff" {...ink(2)} /></g> },
   ];
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#2a3a55" />
-      {/* the open fridge, cold light */}
-      <rect x={170} y={420} width={740} height={1180} rx={40} fill="#dfe8f0" {...ink(10)} />
-      <rect x={210} y={460} width={660} height={1100} rx={24} fill="#eaf6ff" />
-      <ellipse cx={540} cy={700} rx={420} ry={600} fill="#bfe6ff" opacity={0.35} />
-      {[1000, 1380].map((y, i) => <rect key={i} x={210} y={y} width={660} height={16} fill="#a9c6e0" {...ink(4)} />)}
+      {/* kitchen wall tiles + floor */}
+      {Array.from({ length: 9 }, (_, r) => Array.from({ length: 6 }, (_, c) => <rect key={`${r}-${c}`} x={c * 180 + (r % 2) * 90 - 90} y={r * 160} width={176} height={156} fill="#33466a" />))}
+      <rect x={0} y={1640} width={1080} height={280} fill="#5a4636" />
+      {/* the fridge body: freezer on top, main door open, feet */}
+      <rect x={200} y={300} width={600} height={1340} rx={40} fill="#eef3f8" stroke="#1b1420" strokeWidth={12} />
+      <rect x={200} y={300} width={600} height={300} rx={40} fill="#e2e9f1" stroke="#1b1420" strokeWidth={12} />
+      <rect x={250} y={420} width={30} height={120} rx={14} fill="#9aa6b8" stroke="#1b1420" strokeWidth={6} />
+      {/* open interior with a cold blue-white light */}
+      <rect x={232} y={630} width={536} height={980} rx={18} fill="#dff3ff" stroke="#1b1420" strokeWidth={8} />
+      <ellipse cx={500} cy={700} rx={300} ry={160} fill="#ffffff" opacity={0.75} />
+      <circle cx={500} cy={660} r={22} fill="#ffffff" stroke="#1b1420" strokeWidth={5} />
+      {[1000, 1380].map((y, i) => <rect key={i} x={232} y={y} width={536} height={18} fill="#a9c6e0" stroke="#1b1420" strokeWidth={5} />)}
+      <rect x={250} y={1470} width={500} height={120} rx={14} fill="#c9e6f7" stroke="#1b1420" strokeWidth={6} />
+      <text x={500} y={1545} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={34} fill="#7fa6c4">VAZIA</text>
+      {[260, 740].map((x, i) => <rect key={i} x={x - 30} y={1636} width={60} height={30} rx={8} fill="#5f6b7a" stroke="#1b1420" strokeWidth={6} />)}
+      {/* the open door, swung toward us on the right, with its own shelves and handle */}
+      <path d="M800 610 L 1010 520 L 1010 1700 L 800 1610 Z" fill="#e2e9f1" stroke="#1b1420" strokeWidth={12} strokeLinejoin="round" />
+      <path d="M822 660 L 990 590 L 990 1640 L 822 1570 Z" fill="#d3e6f5" stroke="#1b1420" strokeWidth={6} strokeLinejoin="round" />
+      {[880, 1180, 1460].map((y, i) => <path key={i} d={`M822 ${y} L 990 ${y - 66} L 990 ${y - 20} L 822 ${y + 46} Z`} fill="#b9d6ee" stroke="#1b1420" strokeWidth={5} />)}
+      <rect x={812} y={900} width={22} height={260} rx={10} fill="#9aa6b8" stroke="#1b1420" strokeWidth={6} />
+      {/* cold air puffing out */}
+      {[0, 1].map((i) => <path key={i} d={`M260 ${1660 + i * 30} q 120 ${-20 - 10 * Math.sin(t * 3 + i)} 240 0 q 120 ${20 + 10 * Math.sin(t * 3 + i)} 240 0`} fill="none" stroke="#ffffff" strokeWidth={10} opacity={0.55} strokeLinecap="round" />)}
       {items.map((it, i) => {
         const p = pop(t, W(T, 'fridge', it.w, 0.8 + i) - 0.1);
         return (

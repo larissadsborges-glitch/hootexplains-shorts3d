@@ -6,8 +6,11 @@ Key:    read from C:\\Users\\borge\\hoot\\.elevenlabs_key (just the key on one l
 Model:  eleven_multilingual_v2 (pt-BR). One request per beat to the "with-timestamps" endpoint, so every caption and
         animation gets the real word times. Beats are joined with short pauses (a held beat before "card"/"twist" reveals).
 --dry:  print the character count (credits) and exit without calling the API.
+Cache:  every line is paid for once. Results are kept in public/videos/<id>/_eleven_cache/ (keyed by text, neighbours,
+        voice and settings), so re-runs reuse them and only changed lines are voiced again.
 """
 import base64
+import hashlib
 import json
 import os
 import re
@@ -38,6 +41,9 @@ SR = 24000
 GAP, REVEAL = 0.30, 0.25
 
 
+CACHE = os.path.join(root, "public", "videos", vid, "_eleven_cache")
+
+
 def tts(text, prev, nxt):
     body = {
         "text": text, "model_id": "eleven_multilingual_v2",
@@ -45,14 +51,28 @@ def tts(text, prev, nxt):
         # neighbouring lines keep the intonation continuous across beats
         "previous_text": prev or None, "next_text": nxt or None,
     }
-    req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{voice}/with-timestamps?output_format=mp3_44100_128",
-                                 data=json.dumps(body).encode("utf-8"), headers={"xi-api-key": key, "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        res = json.loads(r.read().decode("utf-8"))
+    tag = hashlib.sha1(json.dumps([voice, body], sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
+    hit = os.path.join(CACHE, f"{tag}.json")
+    if os.path.exists(hit):
+        res = json.load(open(hit, encoding="utf-8"))
+        print("  (cached, 0 credits)", flush=True)
+    else:
+        res = None
+    if res is None:
+        res = _call(body)
+        os.makedirs(CACHE, exist_ok=True)
+        json.dump(res, open(hit, "w", encoding="utf-8"))
     mp3 = base64.b64decode(res["audio_base64"])
     pcm = subprocess.run([FF, "-v", "error", "-i", "pipe:0", "-f", "f32le", "-ac", "1", "-ar", str(SR), "pipe:1"], input=mp3, capture_output=True, check=True).stdout
     al = res.get("normalized_alignment") or res["alignment"]
     return np.frombuffer(pcm, dtype=np.float32), al
+
+
+def _call(body):
+    req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{voice}/with-timestamps?output_format=mp3_44100_128",
+                                 data=json.dumps(body).encode("utf-8"), headers={"xi-api-key": key, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        return json.loads(r.read().decode("utf-8"))
 
 
 def words_from(al, text, offset):

@@ -36,7 +36,7 @@ const blinkAt = (t: number, period: number, phase: number) => t > 1.4 && (t + ph
 const breathe = (t: number, phase: number) => `translate(540 1660) scale(1 ${1 + 0.008 * Math.sin(t * 2.1 + phase)}) translate(-540 -1660)`;
 
 /** Shared eyes + brows + mouth, drawn around eye centres ex1/ex2 at y ey. */
-const Features: React.FC<Face & { ex: [number, number]; ey: number; mouthY: number; seed: number; period: number; lips?: string; eyeR?: number }> = ({ t, mood = 'neutral', talk = 0, look = [0, 0], ex, ey, mouthY, seed, period, lips, eyeR = 34 }) => {
+export const Features: React.FC<Face & { ex: [number, number]; ey: number; mouthY: number; seed: number; period: number; lips?: string; eyeR?: number }> = ({ t, mood = 'neutral', talk = 0, look = [0, 0], ex, ey, mouthY, seed, period, lips, eyeR = 34 }) => {
   const blink = blinkAt(t, period, seed);
   const wide = mood === 'shock' ? 1 : 0;
   const happyEyes = mood === 'proud' || mood === 'happy';

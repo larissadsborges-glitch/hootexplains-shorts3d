@@ -182,9 +182,13 @@ export const EpisodeShell: React.FC<ShortProps & { cfg: EpConfig }> = ({ videoId
   return (
     <AbsoluteFill style={{ background: PAL.navy }} data-qa="root">
       <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-        <defs><filter id="fgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14" /></filter></defs>
+        <defs>
+          <filter id="fgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14" /></filter>
+          {/* house style: a muted palette (a little less saturation, a touch warmer), for every set at once */}
+          <filter id="muted" colorInterpolationFilters="sRGB"><feColorMatrix type="saturate" values="0.8" /><feColorMatrix type="matrix" values="0.97 0.03 0 0 0.01  0.01 0.96 0.02 0 0.005  0 0.03 0.93 0 0  0 0 0 1 0" /></filter>
+        </defs>
         <Act.Provider value={{ mood: row[4], bob }}>
-          <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
+          <g filter="url(#muted)"><g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g></g>
         </Act.Provider>
         {/* out-of-focus foreground for depth, moving a little faster than the scene (parallax) */}
         {cfg.foreground?.(beat.shot, t)}

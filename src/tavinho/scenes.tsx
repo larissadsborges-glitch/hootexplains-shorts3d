@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { clamp01, easeInOutSine, easeOutBack, easeOutCubic, lerp, rng } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
-import { INK, ink } from '../toon2d/Hook2D';
-import { Hand, Limb, place } from '../toon2d/parts';
+import { INK, ink } from './style';
+import { place } from '../toon2d/parts';
+import { Hand, Limb } from './style';
 import { Camila, Celeste, PAL, Tavinho, TavinhoHead, VoDita, type Outfit } from './cast';
 
 type P = { T: MoneyTimeline; t: number };

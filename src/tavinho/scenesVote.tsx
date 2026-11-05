@@ -1,7 +1,7 @@
 import React from 'react';
 import { clamp01, easeOutBack, easeOutCubic, lerp } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
-import { INK, ink } from '../toon2d/Hook2D';
+import { INK, ink } from './style';
 import { place } from '../toon2d/parts';
 import { PAL, TavinhoHead } from './cast';
 import type { SceneFC } from './Shell';

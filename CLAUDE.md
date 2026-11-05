@@ -43,7 +43,7 @@ The same docs also live in the owner's claude.ai Project "Video Shirt Tutorials"
 - **Previews first:** send a 10 s preview before building a full video with a new design.
 - **Propose titles and scripts** and let the owner choose.
 - **Updates:** keep them short. When asked for progress, show a text progress bar with ETAs.
-- **English** answers.
+- **Answers in Portuguese** (European Portuguese; the owner asked on 5 Nov 2026). Docs and code comments stay in English.
 - **Topics:** test topics and see what grows; don't lock the page to one niche.
 - Never send the owner's email address anywhere.
 

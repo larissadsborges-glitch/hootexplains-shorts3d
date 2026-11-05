@@ -35,6 +35,19 @@ Página nova do Instagram, separada do Hoot Explains. Série de humor em cartoon
 3. Pré-visualização de 10 s do Tavinho, para aprovar o estilo.
 4. EP1 completo e EP2 pronto antes de publicar.
 
+## Estilo da página (aprovado pela dona a 5 nov 2026)
+- Vetor plano com **contorno castanho-escuro fino e uniforme** (#3b2622) e **paleta suave**: cores um pouco menos saturadas e ligeiramente quentes. Cenários com muitos pormenores. Nos grandes planos, o fundo fica desfocado.
+- Inspirado no tipo de desenho das referências da dona, **sem copiar**: os cenários, as cores e as formas das caras são nossos.
+- O código está em `src/tavinho/style.tsx` (contorno, braços e mãos) e `src/tavinho/cast.tsx` (elenco). O filtro da paleta suave está em `Shell.tsx`. A ficha da personagem é a composição `TavinhoSheet`.
+
+## O novo Tavinho (aprovado a 5 nov 2026): desajeitado e engraçado só de olhar
+- Cara redonda e bochechuda, com bochechas coradas. Orelhas um pouco grandes. Nariz pequeno e redondo. Dois dentes da frente salientes.
+- Olhos grandes com pálpebras que mudam com o humor. Óculos redondos com aro fino em tartaruga, tortos (uma lente mais alta) e a escorregar pelo nariz.
+- Cabelo castanho com o caracol na testa e um remoinho espetado.
+- Barriga redonda numa camisa pequena demais: um botão a abrir, uma ponta fora das calças, gravata vermelha curta e torta.
+- Pernas finas de joelhos para dentro, calças curtas, meias trocadas (uma às riscas, outra às bolinhas) e sapatos castanhos grandes.
+- Roupas: camisa e gravata (por defeito), pijama, moletom, t-shirt amarela.
+
 ## Personagem: Tavinho (Otávio, 27 anos)
 - Baixinho e redondinho, com óculos enormes que escorregam pelo nariz.
 - Camisa social azul-clara de botões, apertada na barriga, e gravata vermelha torta.

@@ -47,15 +47,7 @@ const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
  * Placed at ~74% height: under the story props, above the apps' bottom UI.
  */
 const PhraseCaptions: React.FC<{ timings: Timings; t: number }> = ({ timings, t }) => {
-  const groups: { words: { word: string; start: number; end: number; hl: boolean }[] }[] = [];
-  for (const b of timings.beats) {
-    let cur: { word: string; start: number; end: number; hl: boolean }[] = [];
-    b.words.forEach((w, i) => {
-      cur.push({ ...w, hl: (b.highlight ?? []).map((x) => x.toLowerCase()).includes(cleanWord(w.word)) });
-      const endOfPhrase = /[.,:;?!]$/.test(w.word) || cur.length >= 3 || i === b.words.length - 1;
-      if (endOfPhrase) { groups.push({ words: cur }); cur = []; }
-    });
-  }
+  const groups = phraseGroups(timings);
   const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1]?.words[0].start ?? x.words[x.words.length - 1].end + 0.8));
   if (!g) return null;
   const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
@@ -73,6 +65,40 @@ const PhraseCaptions: React.FC<{ timings: Timings; t: number }> = ({ timings, t 
   );
 };
 
+/**
+ * Virtual camera, cut on every caption phrase (~1 s), like the reference episodes:
+ * each shot cycles through framings [x, y, zoom] in canvas units. The first framing of a shot is its opener.
+ */
+type Framing = [number, number, number];
+const FRAMES: Record<string, Framing[]> = {
+  bed: [[540, 960, 1], [540, 700, 2.1], [540, 960, 1.15], [560, 1120, 1.7]],
+  chat: [[540, 900, 1.05], [540, 560, 1.7], [540, 780, 1.35]],
+  table: [[540, 960, 1], [190, 1200, 2.4], [540, 780, 1.4], [790, 1240, 2.2]],
+  sunday: [[540, 960, 1], [230, 1060, 2.3], [800, 1000, 2.0], [540, 1200, 1.6]],
+  trash: [[540, 900, 1], [560, 600, 1.9], [540, 1150, 1.9]],
+  fridge: [[540, 960, 1], [540, 900, 2.0], [450, 1260, 2.0]],
+  building: [[540, 960, 1], [640, 720, 1.9], [540, 1210, 2.4], [320, 1470, 1.9], [540, 1000, 1.25]],
+  typing: [[540, 900, 1.05], [540, 1300, 1.8], [200, 1250, 2.3], [540, 1080, 1.35]],
+  group: [[540, 900, 1.05], [540, 620, 1.6], [700, 520, 1.9]],
+  vote: [[540, 960, 1]],
+};
+const clampCam = ([x, y, z]: Framing): Framing => {
+  const hw = 540 / z, hh = 960 / z;
+  return [Math.min(1080 - hw, Math.max(hw, x)), Math.min(1920 - hh, Math.max(hh, y)), z];
+};
+/** Phrase groups (2–4 words), shared by the captions and the camera cuts. */
+const phraseGroups = (timings: Timings) => {
+  const groups: { start: number; beat: number; words: { word: string; start: number; end: number; hl: boolean }[] }[] = [];
+  timings.beats.forEach((b, bi) => {
+    let cur: { word: string; start: number; end: number; hl: boolean }[] = [];
+    b.words.forEach((w, i) => {
+      cur.push({ ...w, hl: (b.highlight ?? []).map((x) => x.toLowerCase()).includes(cleanWord(w.word)) });
+      if (/[.,:;?!]$/.test(w.word) || cur.length >= 3 || i === b.words.length - 1) { groups.push({ start: cur[0].start, beat: bi, words: cur }); cur = []; }
+    });
+  });
+  return groups;
+};
+
 /** A Vida do Tavinho, T1 EP1. */
 export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   const frame = useCurrentFrame();
@@ -86,7 +112,17 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   let a = idx;
   while (a > 0 && timings.beats[a - 1].shot === beat.shot) a--;
   const since = t - (a === 0 ? 0 : timings.beats[a].start);
-  const z = (1 + (a === 0 ? 0 : 0.06 * (1 - easeOutCubic(clamp01(since / 0.3))))) * (1 + 0.03 * clamp01(since / 5));
+  void since;
+  const groups = phraseGroups(timings);
+  let gi = 0;
+  for (let i = 0; i < groups.length; i++) if (t >= groups[i].start - 0.04) gi = i;
+  // index of this phrase within the current run of the same shot
+  let k = 0;
+  for (let i = gi; i > 0 && timings.beats[groups[i - 1].beat].shot === beat.shot && groups[i - 1].start >= (a === 0 ? -1 : timings.beats[a].start - 0.05); i--) k++;
+  const frames = FRAMES[beat.shot] ?? [[540, 960, 1]];
+  const [cx, cy, cz] = clampCam(frames[k % frames.length] as Framing);
+  const sinceCut = t - Math.max(groups[gi]?.start ?? 0, timings.beats[a].start);
+  const z = cz * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25)))) * (1 + 0.02 * clamp01(sinceCut / 1.5));
   const Scene = SCENES[beat.shot] ?? Bed;
   const days = W(T, 'stakes', 'dias', 1.1);
   const pct = W(T, 'percent', 'dois', 0.9);
@@ -97,7 +133,7 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   return (
     <AbsoluteFill style={{ background: PAL.navy }}>
       <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-        <g transform={`translate(540 1000) scale(${z}) translate(-540 -1000)`}><Scene T={T} t={t} /></g>
+        <g transform={`translate(540 960) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
       {sepia && (

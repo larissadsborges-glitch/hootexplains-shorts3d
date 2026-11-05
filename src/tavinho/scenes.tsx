@@ -352,6 +352,14 @@ export const Typing: React.FC<P> = ({ T, t }) => {
         <Chat name="Dona Celeste 🌹" avatar={<Celeste t={t} mood="happy" />} t={t}
           msgs={[{ text: 'então a ceia de Natal\né SUA 🎄', at: 0 }, { text: 'somos 12 😘', at: 0 }]} typing={full.slice(0, n)} />
       </Phone>
+      {/* a big finger tapping the keyboard while he types / deletes */}
+      {((t >= tStart && t < tEnd) || (t >= del0 && t < del1)) && (
+        <g transform={`translate(${470 + 60 * Math.sin(t * 13)} ${1330 - 30 * Math.abs(Math.sin(t * 16))})`}>
+          <rect x={-46} y={0} width={92} height={420} rx={46} fill="#f1bf94" stroke="#1b1420" strokeWidth={8} />
+          <ellipse cx={0} cy={36} rx={30} ry={26} fill="#ffe2cf" stroke="#1b1420" strokeWidth={4} />
+          <rect x={-48} y={300} width={96} height={130} fill="#a9d2f5" stroke="#1b1420" strokeWidth={8} />
+        </g>
+      )}
       {/* Camila's notification drops in over the phone */}
       {bp > 0 && (
         <g transform={`translate(110 ${lerp(-200, 330, easeOutCubic(bp))})`}>

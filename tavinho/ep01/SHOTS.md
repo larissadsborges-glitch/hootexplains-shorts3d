@@ -1,4 +1,6 @@
-# EP1 "A mentira": shot plan (per caption phrase)
+# EP1 "A mentira": shot plan (per caption phrase, script v4)
+
+Script v4 (owner approved, 5 Nov): the "você decide" bridge moved up, the egg line became "O problema: …", and the Vó's downside is "mas conta tudo pra sogra". Rows 14+ keep their v3 numbers; the exact per-phrase rows (with moods) live in `SHOT_PLAN` in `src/tavinho/Episode.tsx`.
 
 Each row is one caption phrase (2–3 words, about 1 s) and one shot.
 
@@ -23,16 +25,16 @@ Expressions change on the phrase. The narrator is never lip-synced.
 | 1 | O Tavinho mentiu | FACE | bed 540,700,2.0 | push | shock, sweat, glasses slip | riser low |
 | 2 | pra sogra que | INS | bed 470,1150,2.2 (phone in hand) | drift | thumb on phone | tap |
 | 3 | cozinha igual chef. | WIDE | bed 540,960,1.0 | push | gulp | |
-| 4 | Agora a ceia | INS | chat 540,600,1.6 (bubble lands) | push | | pop |
-| 5 | de Natal é dele. | INS | chat 540,820,1.5 (2nd bubble) | push | | pop |
-| 6 | Pra doze pessoas. | INS | chat 540,980,1.4 (12 😘) | shake | | pop |
-| 7 | Em quarenta e | WIDE | table 540,800,1.2 (12 chairs pop) | push | | pops ×12 |
-| 8 | nove dias. | FRZ | table 540,370,1.8 (49 DIAS) | roll 3° | | hit |
-| 9 | E ele não | FACE | table 190,1200,2.4 | push | worried | |
-| 10 | frita nem um ovo. | INS | table 790,1250,2.2 (egg splat) | shake | | splat |
-| 11 | Quem vai decidir | WIDE | bed 540,960,1.0 | push | worried, looks at camera | |
-| 12 | cada passo dele | FACE | bed 540,700,2.0 | drift | eyebrows up | |
-| 13 | é você. | WIDE | bed 540,900,1.15 (VOCÊ title) | push | normal hands, leans in | whoosh |
+| 4 | Agora a ceia | INS | chat 540,640,2.0 (bubble lands) | push | | pop |
+| 5 | de Natal é / dele: | INS | chat 540,760,1.8 (2nd bubble) | push | | pop |
+| 6 | doze pessoas | INS | chat 540,840,1.6 (12 😘) | shake | | pop |
+| 7 | em quarenta e nove dias. | INS | chat 540,900,1.25 (FALTAM 49 DIAS chip pops big) | push | | pop |
+| 8 | E quem decide | WIDE | bed 540,960,1.0 (QUEM DECIDE?) | push | worried | |
+| 9 | cada passo dele | FACE | bed 540,760,1.5 | drift | shock | |
+| 10 | é você. | WIDE | bed 540,900,1.15 (VOCÊ) | push | neutral, normal hands | whoosh |
+| 11 | O problema: | WIDE | table 540,800,1.2 (12 chairs pop, 49 DIAS, egg wobbles) | push | worried | pops ×12 |
+| 12 | ele não frita | FACE | table 190,1200,2.4 | push | gulp | |
+| 13 | nem um ovo. | INS | table 790,1150,2.0 (egg falls, splat) | shake | shock | splat |
 | 14 | Tudo por causa | WIDE | sunday 540,960,1.0 (sepia) | push | | tape rewind |
 | 15 | de uma lasanha. | INS | sunday 540,1250,2.0 (lasagna) | push | | |
 | 16 | A sogra amou. | FACE | sunday 230,1060,2.3 (Celeste, hearts) | push | eyes closed, happy | |

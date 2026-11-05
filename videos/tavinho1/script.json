@@ -2,7 +2,7 @@
   "id": "tavinho1",
   "title": "A Vida do Tavinho T1EP1: A mentira",
   "lang": "pt-br",
-  "voice": "pm_alex",
+  "voice": "chatterbox-jeffE",
   "leadIn": 0.05,
   "gap": 0.08,
   "tail": 1.2,
@@ -24,41 +24,42 @@
       "pauseBefore": 0
     },
     {
-      "text": "Agora a ceia de Natal é dele. Pra doze pessoas.",
+      "text": "Agora a ceia de Natal é dele: doze pessoas em quarenta e nove dias.",
       "speed": 1.0,
       "shot": "chat",
       "event": "twelve",
       "highlight": [
         "Natal",
-        "doze"
+        "doze",
+        "nove"
       ],
-      "tone": "subindo o tom, incrédulo no \"doze\"",
+      "tone": "subindo o tom, incrédulo no \"doze\" e no \"quarenta e nove\"",
       "exaggeration": 1.3,
       "pauseBefore": 0
     },
     {
-      "text": "Em quarenta e nove dias. E ele não frita nem um ovo.",
-      "speed": 1.0,
-      "shot": "table",
-      "event": "stakes",
-      "highlight": [
-        "nove",
-        "ovo"
-      ],
-      "tone": "pausa curta antes de \"e ele\", depois seco e engraçado",
-      "exaggeration": 1.1,
-      "pauseBefore": 0
-    },
-    {
-      "text": "Quem vai decidir cada passo dele é você.",
+      "text": "E quem decide cada passo dele é você.",
       "speed": 1.0,
       "shot": "bed",
       "event": "you",
       "highlight": [
         "você"
       ],
-      "tone": "cúmplice, falando direto com quem assiste",
-      "exaggeration": 1.0,
+      "tone": "cúmplice, falando direto com quem assiste, rápido",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
+    },
+    {
+      "text": "O problema: ele não frita nem um ovo.",
+      "speed": 1.0,
+      "shot": "table",
+      "event": "stakes",
+      "highlight": [
+        "problema",
+        "ovo"
+      ],
+      "tone": "pausa curta depois de \"problema\", depois seco e engraçado",
+      "exaggeration": 1.1,
       "pauseBefore": 0
     },
     {
@@ -226,16 +227,16 @@
       "pauseBefore": 0
     },
     {
-      "text": "Ou a Vó Dita: cozinha como ninguém. Custa três dias, mas não guarda segredo.",
+      "text": "Ou a Vó Dita: cozinha como ninguém. Custa três dias, mas conta tudo pra sogra.",
       "speed": 1.0,
       "shot": "vote",
       "event": "vo",
       "highlight": [
         "Vó",
         "três",
-        "segredo"
+        "sogra"
       ],
-      "tone": "carinhoso, depois alerta no \"segredo\"",
+      "tone": "carinhoso, depois alerta no \"conta tudo pra sogra\"",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },

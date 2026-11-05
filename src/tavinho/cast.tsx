@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { INK, ink } from '../toon2d/Hook2D';
 import { Hand, Limb } from '../toon2d/parts';
 
@@ -11,21 +11,31 @@ import { Hand, Limb } from '../toon2d/parts';
 export const PAL = { navy: '#1c2340', cream: '#fff4e0', orange: '#ff7a2e', mint: '#3ddc97' };
 const SKIN = '#f1bf94', SKIN_SH = '#d99d70', BLUSH = '#ff8f86';
 
+export type Mood = 'neutral' | 'worried' | 'proud' | 'shock' | 'gulp' | 'happy' | 'talk';
+/**
+ * Acting cues from the episode (per caption phrase): Tavinho's mood for this phrase and a head bob (0..1) on stressed words.
+ * Set by Episode.tsx; when no mood is given, each scene's own mood is used.
+ */
+export const Act = createContext<{ mood?: Mood; bob: number }>({ bob: 0 });
+
 export type Face = {
   t: number;
   /** expression mix */
-  mood?: 'neutral' | 'worried' | 'proud' | 'shock' | 'gulp' | 'happy' | 'talk';
+  mood?: Mood;
   talk?: number;     // 0..1 mouth open for characters who speak
   look?: [number, number];
   slip?: number;     // Tavinho's glasses sliding down the nose, 0..1
   sweat?: number;    // 0..1 number/intensity of sweat drops
 };
 
-const blinkAt = (t: number, seed: number) => t > 1.4 && Math.sin(t * 1.6 + seed) > 0.993;
+/** Each character blinks on its own period (s), so blinks never sync; none in the first 1.4 s (thumbnail). */
+const blinkAt = (t: number, period: number, phase: number) => t > 1.4 && (t + phase) % period < 0.13;
+/** Idle breathing for the seated/standing extras: a tiny vertical stretch from the waist. */
+const breathe = (t: number, phase: number) => `translate(540 1660) scale(1 ${1 + 0.008 * Math.sin(t * 2.1 + phase)}) translate(-540 -1660)`;
 
 /** Shared eyes + brows + mouth, drawn around eye centres ex1/ex2 at y ey. */
-const Features: React.FC<Face & { ex: [number, number]; ey: number; mouthY: number; seed: number; lips?: string; eyeR?: number }> = ({ t, mood = 'neutral', talk = 0, look = [0, 0], ex, ey, mouthY, seed, lips, eyeR = 34 }) => {
-  const blink = blinkAt(t, seed);
+const Features: React.FC<Face & { ex: [number, number]; ey: number; mouthY: number; seed: number; period: number; lips?: string; eyeR?: number }> = ({ t, mood = 'neutral', talk = 0, look = [0, 0], ex, ey, mouthY, seed, period, lips, eyeR = 34 }) => {
+  const blink = blinkAt(t, period, seed);
   const wide = mood === 'shock' ? 1 : 0;
   const happyEyes = mood === 'proud' || mood === 'happy';
   const browUp = mood === 'shock' ? 22 : mood === 'proud' ? 10 : 0;
@@ -78,15 +88,19 @@ export const Sweat: React.FC<{ t: number; n: number; cx: number; cy: number; r: 
 );
 
 /* ------------------------------------------------------------------ Tavinho */
-export const TavinhoHead: React.FC<Face> = (f) => {
+export const TavinhoHead: React.FC<Face> = (props) => {
+  const act = useContext(Act);
+  const f = { ...props, mood: act.mood ?? props.mood };
   const slip = f.slip ?? 0;
   const ey = 852;
+  // head bob on stressed words (a quick nod down + tilt), plus a slow idle sway
+  const nod = 22 * act.bob, tilt = 3 * act.bob + 1.2 * Math.sin(f.t * 1.3);
   return (
-    <g>
+    <g transform={`translate(0 ${nod + 3 * Math.sin(f.t * 2.2 + 1)}) rotate(${tilt} 540 1000)`}>
       {/* ears */}
       {[352, 728].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={30} ry={40} fill={SKIN} {...ink(7)} />)}
       {/* round, chubby face with soft jowls */}
-      <path d="M362 820 C 362 690 450 640 540 640 C 630 640 718 690 718 820 C 718 930 670 1030 540 1030 C 410 1030 362 930 362 820 Z" fill={SKIN} {...ink(8)} />
+      <path data-qa="face" d="M362 820 C 362 690 450 640 540 640 C 630 640 718 690 718 820 C 718 930 670 1030 540 1030 C 410 1030 362 930 362 820 Z" fill={SKIN} {...ink(8)} />
       <path d="M650 680 C 700 720 716 790 712 850 C 706 940 664 1000 600 1022 C 650 970 676 905 680 840 C 684 770 672 715 650 680 Z" fill={SKIN_SH} opacity={0.8} />
       {/* neat short brown hair + the rebel curl on the forehead */}
       <path d="M362 800 C 350 680 430 610 540 606 C 650 602 728 668 718 800 C 700 740 650 712 600 712 C 560 712 520 720 480 712 C 430 704 380 730 362 800 Z" fill="#5a3a24" {...ink(8)} />
@@ -94,7 +108,7 @@ export const TavinhoHead: React.FC<Face> = (f) => {
       <path d="M548 712 C 520 690 520 650 552 646 C 584 642 590 680 566 690 C 548 698 540 680 552 672" fill="none" stroke={INK} strokeWidth={4} strokeLinecap="round" />
       {/* rosy cheeks */}
       {[420, 660].map((x, i) => <ellipse key={i} cx={x} cy={930} rx={42} ry={24} fill={BLUSH} opacity={0.55} />)}
-      <Features {...f} ex={[470, 612]} ey={ey + 4 * slip} mouthY={965} seed={0.3} eyeR={30} />
+      <Features {...f} ex={[470, 612]} ey={ey + 4 * slip} mouthY={965} seed={0.3} period={3.1} eyeR={30} />
       {/* small round nose */}
       <ellipse cx={541} cy={905} rx={20} ry={16} fill={SKIN_SH} {...ink(5)} />
       {/* huge round glasses, sliding down the nose */}
@@ -161,7 +175,7 @@ export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; ho
 export const Camila: React.FC<Face> = (f) => {
   const SK = '#c98b5e', SK_SH = '#a86f45';
   return (
-    <g>
+    <g transform={breathe(f.t, 0.7)}>
       {/* big curly hair behind */}
       {Array.from({ length: 14 }, (_, i) => {
         const a = (i / 14) * Math.PI * 2;
@@ -177,12 +191,12 @@ export const Camila: React.FC<Face> = (f) => {
       <Hand x={680} y={1500} angle={30} color={SK} />
       <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
       {[372, 708].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} />)}
-      <path d="M380 830 C 380 700 450 650 540 650 C 630 650 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
+      <path data-qa="face" d="M380 830 C 380 700 450 650 540 650 C 630 650 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
       {/* fringe curls */}
       {[430, 490, 560, 630].map((x, i) => <circle key={i} cx={x} cy={680 + (i % 2) * 14} r={52} fill="#2a1a12" />)}
       {[708, 372].map((x, i) => <circle key={i} cx={x} cy={900} r={10} fill="#f2b33d" {...ink(4)} />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.5} />)}
-      <Features {...f} ex={[480, 600]} ey={840} mouthY={958} seed={1.7} lips="#c2364a" />
+      <Features {...f} ex={[480, 600]} ey={840} mouthY={958} seed={1.7} period={3.7} lips="#c2364a" />
       {/* lashes */}
       {[480, 600].map((x, i) => <path key={i} d={`M${x + (i ? 30 : -30)} 812 l ${i ? 14 : -14} -12`} {...ink(5)} />)}
       <ellipse cx={540} cy={902} rx={14} ry={11} fill={SK_SH} />
@@ -194,7 +208,7 @@ export const Camila: React.FC<Face> = (f) => {
 export const Celeste: React.FC<Face> = (f) => {
   const SK = '#f0c3a0', SK_SH = '#d79f7a';
   return (
-    <g>
+    <g transform={breathe(f.t, 1.9)}>
       {/* violet blouse with a pearl necklace */}
       <path d="M320 1660 C 310 1400 340 1140 430 1100 L 650 1100 C 740 1140 770 1400 760 1660 Z" fill="#7b4bb8" {...ink(8)} />
       <Limb pts={[[380, 1160], [325, 1350], [390, 1500]]} w={78} color="#7b4bb8" />
@@ -207,10 +221,10 @@ export const Celeste: React.FC<Face> = (f) => {
       {Array.from({ length: 11 }, (_, i) => { const a = Math.PI + (i / 10) * Math.PI; return <circle key={i} cx={540 + 200 * Math.cos(a)} cy={790 + 190 * Math.sin(a)} r={70} fill="#e8d3a0" {...ink(6)} />; })}
       <ellipse cx={540} cy={720} rx={205} ry={150} fill="#e8d3a0" />
       {[372, 708].map((x, i) => <g key={i}><ellipse cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} /><circle cx={x} cy={900} r={12} fill="#f7f3ea" {...ink(4)} /></g>)}
-      <path d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
+      <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
       <path d="M392 790 C 430 690 650 690 690 790 C 640 730 440 730 392 790 Z" fill="#e8d3a0" {...ink(6)} />
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.45} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={2.9} lips="#d81f3a" eyeR={26} />
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={2.9} period={4.3} lips="#d81f3a" eyeR={26} />
       {/* cat-eye glasses on a chain */}
       {[480, 600].map((x, i) => <path key={i} d={`M${x - 52} 830 Q ${x} 800 ${x + 52} 826 Q ${x + 50} 880 ${x} 884 Q ${x - 50} 880 ${x - 52} 830 Z`} fill="rgba(255,255,255,0.12)" stroke="#d81f3a" strokeWidth={8} />)}
       <path d="M428 840 C 380 930 400 1060 470 1110 M652 840 C 700 930 680 1060 610 1110" fill="none" stroke="#c99a1e" strokeWidth={4} strokeDasharray="6 6" />
@@ -223,7 +237,7 @@ export const Celeste: React.FC<Face> = (f) => {
 export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
   const SK = '#e8b48d', SK_SH = '#c99069';
   return (
-    <g>
+    <g transform={breathe(f.t, 3.1)}>
       {/* flowered dress + apron */}
       <path d="M310 1660 C 300 1400 340 1140 430 1100 L 650 1100 C 740 1140 780 1400 770 1660 Z" fill="#3a8f7a" {...ink(8)} />
       {[[400, 1250], [690, 1300], [380, 1500], [700, 1540]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={14} fill="#ffd21f" {...ink(3)} />)}
@@ -231,14 +245,14 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
       <path d="M470 1300 L 610 1300 L 600 1400 L 480 1400 Z" fill="none" {...ink(5)} />
       <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
       {[372, 708].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} />)}
-      <path d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
+      <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
       {/* white hair with a bun */}
       <circle cx={540} cy={600} r={70} fill="#f2f2f2" {...ink(7)} />
       <path d="M380 800 C 380 690 450 650 540 650 C 630 650 700 690 700 800 C 660 730 600 720 540 728 C 480 720 420 730 380 800 Z" fill="#f2f2f2" {...ink(7)} />
       {/* smile wrinkles */}
       {[410, 670].map((x, i) => <path key={i} d={`M${x} 820 q ${i ? 16 : -16} 10 0 24`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.55} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={4.1} eyeR={22} />
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={4.1} period={3.4} eyeR={22} />
       {/* small round glasses */}
       {[480, 600].map((x, i) => <circle key={i} cx={x} cy={846} r={44} fill="none" stroke="#8a6440" strokeWidth={7} />)}
       <path d="M524 846 L 556 846" stroke="#8a6440" strokeWidth={6} />

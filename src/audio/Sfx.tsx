@@ -17,6 +17,27 @@ export const speechEnvelope = (timings: Timings, t: number, ramp = 0.15) => {
   return Math.min(1, d / ramp);
 };
 
+/** Length (s) of each effect file in public/sfx (measured with ffprobe), for limitSfx. */
+export const SFX_LEN: Record<string, number> = { riser: 0.9, thud: 1.0, rumble: 3.0, whoosh: 0.45, pop: 0.12, ping: 0.55, toggle: 0.12, splash: 1.3, alarm: 2.4, siren: 5.0, buzz: 2.6 };
+
+/**
+ * Keep at most `max` effects sounding at once. Cues are taken in priority order (the array order),
+ * so list story cues first and filler (whooshes) last; a cue that would make a 3rd overlapping sound is dropped.
+ */
+export const limitSfx = (cues: Cue[], max = 2): Cue[] => {
+  const len = (c: Cue) => c.dur ?? SFX_LEN[c.sfx] ?? 1;
+  const kept: Cue[] = [];
+  for (const c of cues) {
+    const a = c.at, b = c.at + len(c);
+    const over = kept.filter((k) => k.at < b && k.at + len(k) > a);
+    // the most sounds at once inside [a, b): check at a and at every overlapping cue's start inside it
+    const points = [a, ...over.map((k) => k.at).filter((x) => x > a && x < b)];
+    const worst = Math.max(0, ...points.map((p) => over.filter((k) => k.at <= p && k.at + len(k) > p).length));
+    if (worst < max) kept.push(c);
+  }
+  return kept.sort((x, y) => x.at - y.at);
+};
+
 /** Plays each sound effect at its cue time (seconds), ducked under the voice. */
 export const Sfx: React.FC<{ cues: Cue[]; timings: Timings }> = ({ cues, timings }) => {
   const { fps } = useVideoConfig();
@@ -42,7 +63,7 @@ export const Sfx: React.FC<{ cues: Cue[]; timings: Timings }> = ({ cues, timings
 };
 
 /** Background music bed, ducked under the voice, fading out at the end. */
-export const Music: React.FC<{ timings: Timings; src?: string }> = ({ timings, src = 'music/bed.wav' }) => {
+export const Music: React.FC<{ timings: Timings; src?: string; dip?: (t: number) => number }> = ({ timings, src = 'music/bed.wav', dip }) => {
   const { fps, durationInFrames } = useVideoConfig();
   return (
     <Audio
@@ -51,7 +72,7 @@ export const Music: React.FC<{ timings: Timings; src?: string }> = ({ timings, s
         const s = speechEnvelope(timings, f / fps, 0.3);
         const duck = MIX.musicWhileSpeaking + (1 - MIX.musicWhileSpeaking) * s;
         const fadeOut = Math.min(1, (durationInFrames - f) / (fps * 0.8));
-        return MIX.music * duck * Math.max(0, fadeOut);
+        return MIX.music * duck * Math.max(0, fadeOut) * (dip ? dip(f / fps) : 1);
       }}
     />
   );

@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
-import { AbsoluteFill, Audio, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Music, Sfx, type Cue } from '../audio/Sfx';
+import { AbsoluteFill, Audio, getInputProps, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { limitSfx, Music, Sfx, type Cue } from '../audio/Sfx';
 import { clamp01, easeOutBack, easeOutCubic } from '../lib/anim';
 import { TitleCard } from '../overlays/Overlays';
 import { cleanWord } from '../lib/anim';
 import { buildMoneyTimeline, type MoneyTimeline } from '../scenes/money/timeline';
 import type { ShortProps, Timings } from '../types';
-import { PAL } from './cast';
+import { Act, Camila, PAL, type Mood } from './cast';
+import { QaProbe } from './QaProbe';
 import { Bed, Building, ChatSogra, Fridge, Group, Sunday, Table12, Trash, Typing, Vote } from './scenes';
 
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
@@ -16,30 +17,44 @@ const SCENES: Record<string, React.FC<{ T: MoneyTimeline; t: number }>> = {
   bed: Bed, chat: ChatSogra, table: Table12, sunday: Sunday, trash: Trash, fridge: Fridge, building: Building, typing: Typing, group: Group, vote: Vote,
 };
 
-/** Sound cues for EP1, all pinned to spoken words. */
-const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
+/** Sound cues for EP1, all pinned to spoken words. Story cues first: limitSfx keeps at most 2 at once and drops the later-listed filler. */
+export const cuesFor = (tm: Timings, T: MoneyTimeline): Cue[] => {
   const c: Cue[] = [
+    // twist sting on "Mas a Camila manda": a low hit while the music dips (see musicDip)
+    { at: T.s('camilamsg') - 0.02, sfx: 'thud', volume: 0.9 },
+    // riser into the final question
+    { at: T.s('decide') - 0.9, sfx: 'riser', volume: 0.3 },
     { at: T.s('twelve') - 0.1, sfx: 'pop', volume: 0.2 },
     { at: W(T, 'twelve', 'natal', 1.1) - 0.1, sfx: 'pop', volume: 0.2 },
     { at: W(T, 'twelve', 'doze', 2.5) - 0.1, sfx: 'pop', volume: 0.2 },
     { at: W(T, 'stakes', 'ovo', 2.8) + 0.05, sfx: 'splash', volume: 0.2 },
+    { at: W(T, 'twelve', 'quarenta', 2.0) - 0.05, sfx: 'pop', volume: 0.25 },
     { at: W(T, 'lie', 'fui', 0.9), sfx: 'ping', volume: 0.2 },
     { at: W(T, 'market', 'quatro', 1.0), sfx: 'ping', volume: 0.3 },
     { at: W(T, 'building', 'fritou', 1.9) + 0.3, sfx: 'alarm', volume: 0.18 },
-    { at: W(T, 'building', 'desceu', 4.9) - 0.3, sfx: 'siren', volume: 0.12 },
+    { at: W(T, 'building', 'desceu', 4.9) - 0.3, sfx: 'siren', volume: 0.12, dur: 2.5 },
     { at: W(T, 'camilamsg', 'camila', 0.4) - 0.1, sfx: 'ping', volume: 0.22 },
     { at: T.s('group') + 0.6, sfx: 'buzz', volume: 0.14 },
     { at: W(T, 'percent', 'dois', 0.9), sfx: 'toggle', volume: 0.2 },
     { at: T.s('mission'), sfx: 'riser', volume: 0.18 },
     { at: T.s('video'), sfx: 'whoosh', volume: 0.18 },
     { at: T.s('vo'), sfx: 'whoosh', volume: 0.18 },
-    { at: W(T, 'decide', 'vó', 2.6) + 0.1, sfx: 'ping', volume: 0.22 },
+    { at: T.s('decide') + 0.3, sfx: 'ping', volume: 0.22 },
   ];
   // typing clicks while he writes the truth
   const ts = W(T, 'truth', 'decide', 0.6), te = W(T, 'truth', 'verdade', 1.7);
   for (let x = ts; x < te; x += 0.16) c.push({ at: x, sfx: 'toggle', volume: 0.08 });
   tm.beats.slice(1).forEach((b, i) => { if (b.shot !== tm.beats[i].shot) c.push({ at: b.start - 0.1, sfx: 'whoosh', volume: 0.14 }); });
-  return c;
+  return limitSfx(c, 2);
+};
+
+/** Music gain multiplier: the bed drops out under the twist ("Mas a Camila manda") and comes back. */
+const musicDip = (T: MoneyTimeline) => (t: number) => {
+  const a = T.s('camilamsg') - 0.05, hold = 1.3, back = 0.6;
+  if (t < a - 0.08 || t > a + hold + back) return 1;
+  if (t < a) return 1 - 0.85 * ((t - (a - 0.08)) / 0.08);
+  if (t < a + hold) return 0.15;
+  return 0.15 + 0.85 * ((t - a - hold) / back);
 };
 
 /**
@@ -57,7 +72,7 @@ const PhraseCaptions: React.FC<{ timings: Timings; t: number }> = ({ timings, t 
       {g.words.map((w, i) => {
         const on = t >= w.start - 0.03;
         return (
-          <span key={i} style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: NAME[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
+          <span key={i} data-qa="capword" style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: NAME[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
             {clean(w.word).toUpperCase()}
           </span>
         );
@@ -89,28 +104,32 @@ const clampCam = ([x, y, z]: Framing): Framing => {
 };
 
 type Move = 'push' | 'drift' | 'roll' | 'shake';
-type ShotRow = [number, number, number, Move];
-/** Shot plan from tavinho/ep01/SHOTS.md: per beat event, one row per caption phrase (extra phrases reuse the last row). */
+/** x, y, zoom (canvas units), camera move, and Tavinho's mood for that phrase (undefined = the scene's own). */
+type ShotRow = [number, number, number, Move, Mood?];
+/**
+ * Shot plan from tavinho/ep01/SHOTS.md (script v4): per beat event, one row per caption phrase (extra phrases reuse the last row).
+ * Two phrases in a row with the same framing are one shot (no cut), so a one-word phrase never restarts the move.
+ */
 const SHOT_PLAN: Record<string, ShotRow[]> = {
-  hook: [[540, 700, 2.0, 'push'], [470, 1150, 2.2, 'drift'], [540, 960, 1.0, 'push']],
-  twelve: [[540, 600, 1.6, 'push'], [540, 820, 1.5, 'push'], [540, 980, 1.4, 'shake']],
-  stakes: [[540, 800, 1.2, 'push'], [540, 370, 1.8, 'roll'], [190, 1200, 2.4, 'push'], [790, 1250, 2.2, 'shake']],
-  you: [[540, 960, 1.0, 'push'], [540, 700, 2.0, 'drift'], [540, 900, 1.15, 'push']],
-  lasagna: [[540, 960, 1.0, 'push'], [540, 1250, 2.0, 'push']],
-  lie: [[230, 1060, 2.3, 'push'], [800, 1000, 2.0, 'drift'], [640, 900, 1.4, 'push']],
-  market: [[540, 960, 1.0, 'shake'], [540, 1150, 1.9, 'push'], [560, 600, 1.9, 'shake']],
-  fridge: [[540, 960, 1.0, 'push'], [500, 900, 2.0, 'drift'], [450, 1260, 2.0, 'push'], [450, 1260, 2.0, 'push']],
-  building: [[540, 960, 1.0, 'push'], [640, 720, 1.9, 'drift'], [540, 1000, 1.25, 'push'], [320, 1470, 1.9, 'shake']],
-  follow: [[540, 1210, 2.4, 'push'], [540, 960, 1.0, 'push']],
-  truth: [[540, 1080, 1.35, 'push'], [540, 1300, 1.8, 'drift']],
-  camilamsg: [[200, 1250, 2.3, 'roll'], [540, 700, 1.5, 'push'], [200, 1250, 2.3, 'shake']],
-  group: [[540, 620, 1.6, 'push'], [700, 520, 1.9, 'shake']],
-  noreturn: [[540, 1300, 1.8, 'drift']],
-  percent: [[540, 700, 2.0, 'push'], [540, 1150, 1.8, 'push'], [330, 950, 2.0, 'drift']],
-  mission: [[540, 960, 1.0, 'push']],
-  video: [[540, 960, 1.0, 'push']],
-  vo: [[540, 960, 1.0, 'push']],
-  decide: [[540, 960, 1.0, 'push'], [540, 860, 1.25, 'shake']],
+  hook: [[540, 700, 2.0, 'push', 'shock'], [470, 1150, 2.2, 'drift', 'worried'], [540, 960, 1.0, 'push', 'gulp']],
+  twelve: [[540, 640, 2.0, 'push'], [540, 760, 1.8, 'push'], [540, 760, 1.8, 'push'], [540, 840, 1.6, 'shake'], [540, 900, 1.25, 'push'], [540, 900, 1.25, 'push']],
+  you: [[540, 960, 1.0, 'push', 'worried'], [540, 760, 1.5, 'drift', 'shock'], [540, 900, 1.15, 'push', 'neutral']],
+  stakes: [[540, 800, 1.2, 'push', 'worried'], [190, 1200, 2.4, 'push', 'gulp'], [790, 1150, 2.0, 'shake', 'shock']],
+  lasagna: [[540, 960, 1.0, 'push', 'neutral'], [540, 1250, 2.0, 'push', 'happy']],
+  lie: [[230, 1060, 2.3, 'push', 'happy'], [800, 1000, 2.0, 'drift', 'neutral'], [640, 900, 1.4, 'push', 'proud']],
+  market: [[540, 960, 1.0, 'shake'], [540, 1150, 1.9, 'push'], [560, 720, 1.2, 'push'], [560, 460, 2.2, 'shake']],
+  fridge: [[540, 960, 1.0, 'push'], [500, 900, 2.0, 'drift'], [510, 1240, 1.5, 'push'], [400, 1250, 1.9, 'push']],
+  building: [[540, 960, 1.0, 'push', 'worried'], [640, 720, 1.9, 'drift', 'gulp'], [640, 640, 1.5, 'push', 'shock'], [540, 960, 1.05, 'push', 'gulp'], [320, 1470, 1.9, 'shake', 'worried']],
+  follow: [[540, 1210, 2.4, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
+  truth: [[540, 1000, 1.25, 'push', 'neutral'], [540, 1300, 1.8, 'drift', 'worried']],
+  camilamsg: [[200, 1250, 2.3, 'roll', 'shock'], [540, 960, 1.05, 'push', 'shock'], [200, 1250, 2.3, 'drift', 'worried'], [540, 1300, 1.8, 'push', 'gulp'], [200, 1250, 2.3, 'shake', 'shock']],
+  group: [[540, 620, 1.6, 'push'], [540, 620, 1.6, 'push'], [560, 600, 1.45, 'shake'], [540, 960, 1.05, 'push']],
+  noreturn: [[540, 1300, 1.8, 'drift', 'worried'], [200, 1250, 2.3, 'push', 'gulp']],
+  percent: [[540, 700, 2.0, 'push', 'gulp'], [540, 1150, 1.45, 'push', 'worried'], [540, 1150, 1.45, 'push', 'worried'], [540, 1050, 1.3, 'drift', 'happy']],
+  mission: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.3, 'push', 'shock'], [540, 1000, 1.15, 'drift', 'worried']],
+  video: [[540, 960, 1.0, 'push', 'neutral'], [337, 900, 1.6, 'push', 'happy'], [540, 960, 1.0, 'push', 'worried'], [337, 900, 1.6, 'shake', 'gulp']],
+  vo: [[540, 960, 1.0, 'push', 'worried'], [743, 900, 1.6, 'push', 'worried'], [743, 900, 1.6, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 800, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
+  decide: [[540, 960, 1.0, 'push', 'worried'], [540, 860, 1.25, 'shake', 'gulp']],
 };
 /** Phrase groups (2–4 words), shared by the captions and the camera cuts. */
 const phraseGroups = (timings: Timings) => {
@@ -147,60 +166,78 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   for (let i = gi; i > 0 && timings.beats[groups[i - 1].beat].shot === beat.shot && groups[i - 1].start >= (a === 0 ? -1 : timings.beats[a].start - 0.05); i--) k++;
   // the shot for this phrase: from the per-beat plan (index of the phrase inside its beat), else the shot's framing cycle
   const curGroup = groups[gi];
-  const inBeat = curGroup ? groups.filter((g, i) => i <= gi && g.beat === curGroup.beat).length - 1 : 0;
-  const rows = SHOT_PLAN[beat.event ?? ''];
-  const row: ShotRow = rows ? rows[Math.min(inBeat, rows.length - 1)] : [...((FRAMES[beat.shot] ?? [[540, 960, 1]])[k % (FRAMES[beat.shot] ?? [[540, 960, 1]]).length] as Framing), 'push'];
+  const rowOf = (g: number): ShotRow => {
+    const rows = SHOT_PLAN[timings.beats[groups[g].beat].event ?? ''];
+    const inBeat = groups.filter((x, i) => i <= g && x.beat === groups[g].beat).length - 1;
+    const fr = FRAMES[timings.beats[groups[g].beat].shot] ?? [[540, 960, 1]];
+    return rows ? rows[Math.min(inBeat, rows.length - 1)] : [...fr[k % fr.length], 'push'];
+  };
+  const row: ShotRow = curGroup ? rowOf(gi) : [540, 960, 1, 'push'];
+  // a phrase framed like the one before it continues that shot (no cut)
+  let g0 = gi;
+  const same = (p: ShotRow, q: ShotRow) => p[0] === q[0] && p[1] === q[1] && p[2] === q[2] && p[3] === q[3];
+  while (curGroup && g0 > 0 && groups[g0 - 1].beat === groups[gi].beat && same(rowOf(g0 - 1), row)) g0--;
   const [cx0, cy0, cz] = clampCam([row[0], row[1], row[2]]);
-  const sinceCut = t - Math.max(curGroup?.start ?? 0, timings.beats[a].start);
+  const sinceCut = t - Math.max(groups[g0]?.start ?? 0, timings.beats[a].start);
   const move = row[3];
-  // every move keeps moving until the next cut (never a static frame, even in gaps between sentences)
-  const zMove = move === 'push' ? 1 + 0.065 * Math.min(sinceCut, 3) : 1 + 0.03 * Math.min(sinceCut, 3);
+  // every move keeps moving until the next cut (never a static frame, even in gaps between sentences); the twist roll pushes in too
+  const zMove = move === 'push' || move === 'roll' ? 1 + 0.065 * Math.min(sinceCut, 3) : 1 + 0.03 * Math.min(sinceCut, 3);
   const z = cz * zMove * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25))));
   const shake = move === 'shake' && sinceCut < 7 / 30 ? 14 * Math.sin(sinceCut * 90) : 0;
   const cx = cx0 + (move === 'drift' ? 30 * Math.sin(sinceCut * 1.4) : 0) + shake;
   const cy = cy0 + (move === 'shake' ? shake * 0.6 : 0);
   const roll = move === 'roll' ? -3.5 * easeOutCubic(clamp01(sinceCut / 0.3)) : 0;
   const Scene = SCENES[beat.shot] ?? Bed;
-  const days = W(T, 'stakes', 'dias', 1.1);
+  // head bob on the beat's stressed (highlighted) words: a quick nod over 0.3 s
+  const bob = Math.max(0, ...(curGroup ? groups[gi].words : []).filter((w) => w.hl).map((w) => { const u = (t - w.start) / 0.3; return u > 0 && u < 1 ? Math.sin(Math.PI * u) : 0; }));
+  const days = W(T, 'twelve', 'quarenta', 2.0) - 0.05;
   const pct = W(T, 'percent', 'dois', 0.9);
   const sepia = beat.shot === 'sunday';
   const followT = T.s('follow');
   const last = timings.beats[timings.beats.length - 1];
-  const notifT = W(T, 'decide', 'vó', 2.6) + 0.05;
+  const notifT = T.s('decide') + 0.3;
+  const camT = W(T, 'camilamsg', 'camila', 0.4) - 0.1;
+  const mentiraEnd = T.s('market') + Math.max(1.0, Math.min(1.5, W(T, 'market', 'mercado', 1.5) - T.s('market') - 0.05));
+  const qa = Boolean((getInputProps() as { qa?: boolean }).qa);
   return (
-    <AbsoluteFill style={{ background: PAL.navy }}>
+    <AbsoluteFill style={{ background: PAL.navy }} data-qa="root">
       <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
         <defs><filter id="fgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14" /></filter></defs>
-        <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
+        <Act.Provider value={{ mood: row[4], bob }}>
+          <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
+        </Act.Provider>
         {/* out-of-focus foreground for depth, moving a little faster than the scene (parallax) */}
         {beat.shot === 'building' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-40 * Math.sin(t * 0.3)} 0)`}><rect x={-40} y={300} width={70} height={1700} fill="#0e1430" /><ellipse cx={-5} cy={300} rx={70} ry={40} fill="#ffd98a" opacity={0.8} /></g>}
         {beat.shot === 'typing' && <g filter="url(#fgBlur)" opacity={0.9}><ellipse cx={-60} cy={1820} rx={360} ry={260} fill="#7fb2df" /></g>}
         {beat.shot === 'sunday' && <g filter="url(#fgBlur)" opacity={0.75}><path d="M980 2000 L 1010 1500 L 1090 1500 L 1120 2000 Z" fill="#c9e6f7" /><ellipse cx={1050} cy={1500} rx={50} ry={16} fill="#e9f6ff" /></g>}
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
-      {t >= T.s('market') - 0.02 && t < T.s('market') + 0.75 && (
-        <AbsoluteFill style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
+      {t >= T.s('market') - 0.02 && t < mentiraEnd && (
+        <AbsoluteFill data-qa-label="fui" data-qa-cover="1" style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
           <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - T.s('market') + 0.02) / 0.2)) * (1 + 0.04 * Math.sin((t - T.s('market')) * 14))}) rotate(${-3 + 1.5 * Math.sin((t - T.s('market')) * 9)}deg)` }}>MENTIRA<br /><span style={{ fontSize: 220 }}>#1</span></div>
           <div style={{ marginTop: 30, background: '#fff', color: '#e2453c', borderRadius: 20, padding: '8px 24px', fontFamily: FONT, fontWeight: 900, fontSize: 46 }}>"FUI EU QUE FIZ"</div>
         </AbsoluteFill>
       )}
       {sepia && (
-        <div style={{ position: 'absolute', left: 60, top: 300, background: '#fff4e0', border: '5px solid #1b1420', borderRadius: 14, padding: '6px 22px', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#1b1420', transform: 'rotate(-4deg)' }}>DOMINGO</div>
+        <div data-qa-label="domingo" style={{ position: 'absolute', left: 60, top: 300, background: '#fff4e0', border: '5px solid #1b1420', borderRadius: 14, padding: '6px 22px', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#1b1420', transform: 'rotate(-4deg)' }}>DOMINGO</div>
       )}
       {/* hook text, matching the spoken hook */}
       <TitleCard line1="MENTIU" line2="PRA SOGRA" t={t} tIn={-0.7} tOut={T.s('twelve') - 0.05} top="12%" />
       {/* days counter: on from "dias" to the end */}
-      {t >= days && (
+      {/* the chip and the CHEF bar make room for the vote panels' own titles */}
+      {t >= days && t < T.s('video') + 0.3 && (
+        <div style={{ opacity: 1 - clamp01((t - T.s('video')) / 0.3) }}>
         <div style={{ position: 'absolute', left: 0, right: 0, top: 200, display: 'flex', justifyContent: 'center' }}>
-          <div style={{ background: '#1b1420', border: '4px solid #fff4e0', borderRadius: 20, padding: '6px 26px', fontFamily: FONT, fontWeight: 900, fontSize: 44, color: '#fff4e0', letterSpacing: 2, transform: `scale(${easeOutBack(clamp01((t - days) / 0.25))})` }}>
+          <div data-qa-label="dias" style={{ background: '#1b1420', border: '4px solid #fff4e0', borderRadius: 20, padding: '6px 26px', fontFamily: FONT, fontWeight: 900, fontSize: 44, color: '#fff4e0', letterSpacing: 2, transform: `scale(${easeOutBack(clamp01((t - days) / 0.25)) * (1 + 0.5 * Math.exp(-Math.max(0, t - days - 0.25) * 4))})` }}>
             FALTAM <span style={{ color: PAL.orange }}>49</span> DIAS
           </div>
         </div>
+        </div>
       )}
       {/* CHEF % bar: on from "dois por cento" */}
-      {t >= T.s('mission') && (
-        <div style={{ position: 'absolute', left: 140, right: 140, top: 282, transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
+      {t >= T.s('mission') && t < T.s('video') + 0.3 && (
+        <div data-qa-label="chef" style={{ opacity: 1 - clamp01((t - T.s('video')) / 0.3), position: 'absolute', left: 140, right: 140, top: 282, transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
           <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 30, color: '#fff4e0', textAlign: 'center', marginBottom: 6 }}>CHEF <span style={{ color: Math.floor(t * 4) % 2 ? PAL.orange : '#fff4e0' }}>2%</span></div>
           <div style={{ height: 30, borderRadius: 15, background: '#2c3550', border: '4px solid #fff4e0', overflow: 'hidden' }}>
             <div style={{ width: '4%', height: '100%', background: PAL.mint }} />
@@ -210,22 +247,33 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
       {/* follow ask at the laugh peak */}
       {t >= followT && t < T.s('truth') - 0.05 && (
         <div style={{ position: 'absolute', left: 0, right: 0, top: 560, display: 'flex', justifyContent: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, background: PAL.orange, border: '5px solid #1b1420', borderRadius: 40, padding: '12px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 42, color: '#fff', transform: `scale(${easeOutBack(clamp01((t - followT) / 0.25))})` }}>
+          <div data-qa-label="segue" style={{ display: 'flex', alignItems: 'center', gap: 16, background: PAL.orange, border: '5px solid #1b1420', borderRadius: 40, padding: '12px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 42, color: '#fff', transform: `scale(${easeOutBack(clamp01((t - followT) / 0.25))})` }}>
             SEGUE O @avidadotavinho
           </div>
         </div>
       )}
       {/* cliffhanger: a message nobody opens yet */}
       {t >= notifT && (
-        <div style={{ position: 'absolute', left: 50, right: 50, top: Math.round(260 - 220 * (1 - easeOutCubic(clamp01((t - notifT) / 0.3)))), background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '22px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#1b1420', boxShadow: '0 14px 26px rgba(0,0,0,0.45)', transform: `rotate(${1.5 * Math.sin(t * 20) * (1 - clamp01((t - notifT - 0.4) / 0.3))}deg)` }}>
+        <div data-qa-label="celeste" style={{ position: 'absolute', left: 50, right: 50, top: Math.round(260 - 220 * (1 - easeOutCubic(clamp01((t - notifT) / 0.3)))), background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '22px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#1b1420', boxShadow: '0 14px 26px rgba(0,0,0,0.45)', transform: `rotate(${1.5 * Math.sin(t * 20) * (1 - clamp01((t - notifT - 0.4) / 0.3))}deg)` }}>
           🌹 Dona Celeste<div style={{ fontWeight: 700, fontSize: 38, color: '#e2453c' }}>1 nova mensagem</div>
+        </div>
+      )}
+      {/* Camila's message drops in like a phone notification and stays up through the face cut-ins */}
+      {t >= camT && t < T.s('group') && (
+        <div data-qa-label="camila" style={{ position: 'absolute', left: 70, right: 70, top: Math.round(300 - 420 * (1 - easeOutCubic(clamp01((t - camT) / 0.25)))), display: 'flex', alignItems: 'center', gap: 22, background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '18px 26px', boxShadow: '0 14px 26px rgba(0,0,0,0.45)' }}>
+          <svg viewBox="380 640 320 320" width={100} height={100} style={{ flex: 'none', borderRadius: 50, background: '#fff4e0', border: '4px solid #1b1420' }}><Camila t={t} mood="happy" /></svg>
+          <div style={{ fontFamily: FONT, color: '#14171a', lineHeight: 1.25 }}>
+            <div style={{ fontWeight: 900, fontSize: 34 }}>Camila 💛</div>
+            <div style={{ fontWeight: 700, fontSize: 32 }}>minha mãe já contou pra família <span style={{ fontWeight: 900, color: '#c8322a' }}>INTEIRA</span> 🥹</div>
+          </div>
         </div>
       )}
       <PhraseCaptions timings={timings} t={t} />
       <div style={{ position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: 'rgba(255,244,224,0.9)', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{timings.handle}</div>
       <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
       <Sfx cues={cues} timings={timings} />
-      <Music timings={timings} src={timings.music} />
+      <Music timings={timings} src={timings.music} dip={musicDip(T)} />
+      {qa && <QaProbe />}
       {void last}
     </AbsoluteFill>
   );

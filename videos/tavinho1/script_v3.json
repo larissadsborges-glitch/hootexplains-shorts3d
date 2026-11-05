@@ -1,0 +1,256 @@
+{
+  "id": "tavinho1",
+  "title": "A Vida do Tavinho T1EP1: A mentira",
+  "lang": "pt-br",
+  "voice": "pm_alex",
+  "leadIn": 0.05,
+  "gap": 0.08,
+  "tail": 1.2,
+  "handle": "@avidadotavinho",
+  "scene": "tavinho",
+  "music": "music/bed.wav",
+  "beats": [
+    {
+      "text": "O Tavinho mentiu pra sogra que cozinha igual chef.",
+      "speed": 1.0,
+      "shot": "bed",
+      "event": "hook",
+      "highlight": [
+        "mentiu",
+        "chef"
+      ],
+      "tone": "chocado, rápido, como quem conta um escândalo",
+      "exaggeration": 1.35,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Agora a ceia de Natal é dele. Pra doze pessoas.",
+      "speed": 1.0,
+      "shot": "chat",
+      "event": "twelve",
+      "highlight": [
+        "Natal",
+        "doze"
+      ],
+      "tone": "subindo o tom, incrédulo no \"doze\"",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Em quarenta e nove dias. E ele não frita nem um ovo.",
+      "speed": 1.0,
+      "shot": "table",
+      "event": "stakes",
+      "highlight": [
+        "nove",
+        "ovo"
+      ],
+      "tone": "pausa curta antes de \"e ele\", depois seco e engraçado",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Quem vai decidir cada passo dele é você.",
+      "speed": 1.0,
+      "shot": "bed",
+      "event": "you",
+      "highlight": [
+        "você"
+      ],
+      "tone": "cúmplice, falando direto com quem assiste",
+      "exaggeration": 1.0,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Tudo por causa de uma lasanha.",
+      "speed": 1.0,
+      "shot": "sunday",
+      "event": "lasagna",
+      "highlight": [
+        "lasanha"
+      ],
+      "tone": "contando história, mais calmo",
+      "exaggeration": 0.9,
+      "pauseBefore": 0.1
+    },
+    {
+      "text": "A sogra amou. E ele: fui eu que fiz.",
+      "speed": 1.0,
+      "shot": "sunday",
+      "event": "lie",
+      "highlight": [
+        "eu"
+      ],
+      "tone": "orgulhoso, imitando o Tavinho no \"fui eu que fiz\"",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Mas era de mercado. Quatro minutos no micro-ondas.",
+      "speed": 1.0,
+      "shot": "trash",
+      "event": "market",
+      "highlight": [
+        "mercado",
+        "quatro"
+      ],
+      "tone": "revelação: pausa antes, depois firme",
+      "exaggeration": 1.4,
+      "pauseBefore": 0.25
+    },
+    {
+      "text": "Na geladeira: mostarda vencida, um ovo e um limão triste.",
+      "speed": 1.0,
+      "shot": "fridge",
+      "event": "fridge",
+      "highlight": [
+        "mostarda",
+        "ovo",
+        "limão"
+      ],
+      "tone": "deadpan, listando com desânimo",
+      "exaggeration": 1.0,
+      "pauseBefore": 0
+    },
+    {
+      "text": "A última vez que ele fritou um ovo, o prédio inteiro desceu.",
+      "speed": 1.0,
+      "shot": "building",
+      "event": "building",
+      "highlight": [
+        "prédio",
+        "desceu"
+      ],
+      "tone": "construindo até explodir no \"desceu\"",
+      "exaggeration": 1.5,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Segue o Tavinho. Ele vai precisar.",
+      "speed": 1.0,
+      "shot": "building",
+      "event": "follow",
+      "highlight": [
+        "Segue"
+      ],
+      "tone": "rápido, simpático",
+      "exaggeration": 1.2,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Então ele decide contar a verdade.",
+      "speed": 1.0,
+      "shot": "typing",
+      "event": "truth",
+      "highlight": [
+        "verdade"
+      ],
+      "tone": "mais baixo, quase sério",
+      "exaggeration": 0.8,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Mas a Camila manda: minha mãe já contou pra família inteira.",
+      "speed": 1.0,
+      "shot": "typing",
+      "event": "camilamsg",
+      "highlight": [
+        "Camila",
+        "inteira"
+      ],
+      "tone": "choque, virada da história",
+      "exaggeration": 1.4,
+      "pauseBefore": 0.15
+    },
+    {
+      "text": "E a sogra já criou o grupo: Ceia do Chef Tavinho.",
+      "speed": 1.0,
+      "shot": "group",
+      "event": "group",
+      "highlight": [
+        "grupo",
+        "Chef"
+      ],
+      "tone": "cada vez pior, ri de nervoso",
+      "exaggeration": 1.3,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Agora não tem volta.",
+      "speed": 1.0,
+      "shot": "typing",
+      "event": "noreturn",
+      "highlight": [
+        "volta"
+      ],
+      "tone": "devagar, sem esperança",
+      "exaggeration": 0.7,
+      "pauseBefore": 0.1
+    },
+    {
+      "text": "Hoje ele é dois por cento chef. Graças ao micro-ondas.",
+      "speed": 1.0,
+      "shot": "bed",
+      "event": "percent",
+      "highlight": [
+        "dois",
+        "micro-ondas"
+      ],
+      "tone": "deadpan, piada seca no micro-ondas",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Missão um: com quem ele aprende?",
+      "speed": 1.0,
+      "shot": "vote",
+      "event": "mission",
+      "highlight": [
+        "Missão"
+      ],
+      "tone": "energia de apresentador, anunciando",
+      "exaggeration": 1.3,
+      "pauseBefore": 0.1
+    },
+    {
+      "text": "Vídeo na internet: custa um dia. Mas ninguém corrige ele.",
+      "speed": 1.0,
+      "shot": "vote",
+      "event": "video",
+      "highlight": [
+        "Vídeo",
+        "um"
+      ],
+      "tone": "vendendo a opção, rápido",
+      "exaggeration": 1.1,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Ou a Vó Dita: cozinha como ninguém. Custa três dias, mas não guarda segredo.",
+      "speed": 1.0,
+      "shot": "vote",
+      "event": "vo",
+      "highlight": [
+        "Vó",
+        "três",
+        "segredo"
+      ],
+      "tone": "carinhoso, depois alerta no \"segredo\"",
+      "exaggeration": 1.2,
+      "pauseBefore": 0
+    },
+    {
+      "text": "Você decide: vídeo ou vó?",
+      "speed": 1.0,
+      "shot": "vote",
+      "event": "decide",
+      "highlight": [
+        "vídeo",
+        "vó"
+      ],
+      "tone": "pergunta direta, empolgado",
+      "exaggeration": 1.3,
+      "pauseBefore": 0.1
+    }
+  ]
+}

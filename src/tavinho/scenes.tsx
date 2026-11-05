@@ -92,17 +92,20 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       {you && point > 0 && (
         <g>
           {/* pointing finger toward the viewer */}
-          {/* his hand: a fist with the index finger pointing out at the viewer */}
-          <g transform={`translate(${540 + (760 - 540) * 0.95} ${1800 - (2020 - 1300) * 0.95}) rotate(-20) scale(${0.5 + 0.9 * point})`}>
-            {/* index finger, pointing up-left toward the camera */}
-            <rect x={-26} y={-150} width={52} height={150} rx={26} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
-            <ellipse cx={0} cy={-128} rx={16} ry={14} fill="#ffe2cf" stroke="#1b1420" strokeWidth={3} />
-            {/* fist: knuckles + curled fingers + thumb */}
-            <rect x={-58} y={-30} width={130} height={110} rx={40} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
-            {[0, 1, 2].map((i) => <path key={i} d={`M${-20 + i * 30} -20 q 14 8 0 22`} fill="none" stroke="#1b1420" strokeWidth={5} strokeLinecap="round" />)}
-            <path d="M-58 20 C -86 10 -86 -30 -50 -30" fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+          {/* his hand pointing sideways at the viewer: the INDEX finger comes from the thumb side (top edge),
+              the other three fingers are curled below it and the thumb rests on top, so it can only read as a point */}
+          <g transform={`translate(${540 + (760 - 540) * 0.95} ${1800 - (2020 - 1300) * 0.95}) scale(${0.5 + 0.9 * point})`}>
+            {/* palm/fist, seen from the side */}
+            <rect x={-40} y={-40} width={120} height={110} rx={36} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+            {/* three curled fingers stacked under the index */}
+            {[0, 1, 2].map((i) => <rect key={i} x={-62} y={-4 + i * 26} width={60} height={30} rx={15} fill="#f1bf94" stroke="#1b1420" strokeWidth={6} />)}
+            {/* index finger, straight out to the left along the top edge */}
+            <rect x={-190} y={-40} width={190} height={40} rx={20} fill="#f1bf94" stroke="#1b1420" strokeWidth={7} />
+            <ellipse cx={-172} cy={-26} rx={12} ry={9} fill="#ffe2cf" stroke="#1b1420" strokeWidth={3} />
+            {/* thumb resting on top of the curled fingers */}
+            <path d="M10 -38 C -20 -66 -60 -50 -50 -30 C -40 -14 -10 -20 14 -14 Z" fill="#f1bf94" stroke="#1b1420" strokeWidth={6} strokeLinejoin="round" />
             {/* sleeve cuff */}
-            <rect x={-60} y={70} width={134} height={60} rx={18} fill="#a9d2f5" stroke="#1b1420" strokeWidth={7} />
+            <rect x={70} y={-50} width={60} height={130} rx={18} fill="#a9d2f5" stroke="#1b1420" strokeWidth={7} />
           </g>
           <g transform={`translate(540 540) scale(${pop(t, W(T, 'you', 'você', 3.6) - 0.1)}) rotate(-5)`}>
             <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill={PAL.orange} stroke="#1b1420" strokeWidth={14} paintOrder="stroke">VOCÊ</text>

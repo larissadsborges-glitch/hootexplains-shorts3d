@@ -100,28 +100,34 @@ export const JakeHead: React.FC<{ t: number; brows?: number; smile?: number; swa
 };
 
 /* ---------------------------------------------------------------- Jake (sitting, waist up) */
-export const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: number; wide?: number; gasp?: number; sad?: number; look?: [number, number] }> = ({ t, brows, flip, smile, wide = 0, gasp = 0, sad = 0, look = [0, 0] }) => {
+export const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: number; wide?: number; gasp?: number; sad?: number; look?: [number, number]; jacket?: { main: string; shade: string }; noChair?: boolean }> = ({ t, brows, flip, smile, wide = 0, gasp = 0, sad = 0, look = [0, 0], jacket, noChair }) => {
+  const TOP = jacket?.main ?? HOODIE, TOP_SH = jacket?.shade ?? HOODIE_SH;
   const breathe = 3 * Math.sin(t * 2.1);
   const sway = 3 * Math.sin(t * 1.3);
   return (
     <g>
       {/* chair back */}
-      <rect x={300} y={930} width={480} height={460} rx={60} fill="#3b4a63" {...ink(8)} />
-      <rect x={330} y={960} width={420} height={60} rx={30} fill="#4b5d7c" />
+      {!noChair && <rect x={300} y={930} width={480} height={460} rx={60} fill="#3b4a63" {...ink(8)} />}
+      {!noChair && <rect x={330} y={960} width={420} height={60} rx={30} fill="#4b5d7c" />}
       <g transform={`translate(0 ${breathe})`}>
         {/* hood behind the neck */}
-        <path d="M410 1075 C 420 1010 660 1010 670 1075 Z" fill={HOODIE_SH} {...ink(7)} />
+        {!jacket && <path d="M410 1075 C 420 1010 660 1010 670 1075 Z" fill={HOODIE_SH} {...ink(7)} />}
         {/* torso */}
-        <path d="M300 1400 C 295 1230 330 1110 420 1075 L 660 1075 C 750 1110 785 1230 780 1400 Z" fill={HOODIE} {...ink(8)} />
-        <path d="M690 1100 C 750 1140 775 1250 772 1400 L 700 1400 C 712 1260 705 1170 690 1100 Z" fill={HOODIE_SH} />
-        <path d="M340 1170 C 350 1130 380 1100 410 1090" fill="none" stroke={HOODIE_HI} strokeWidth={10} strokeLinecap="round" />
+        <path d="M300 1400 C 295 1230 330 1110 420 1075 L 660 1075 C 750 1110 785 1230 780 1400 Z" fill={TOP} {...ink(8)} />
+        <path d="M690 1100 C 750 1140 775 1250 772 1400 L 700 1400 C 712 1260 705 1170 690 1100 Z" fill={TOP_SH} />
+        {!jacket && <path d="M340 1170 C 350 1130 380 1100 410 1090" fill="none" stroke={HOODIE_HI} strokeWidth={10} strokeLinecap="round" />}
+        {jacket && <g>
+          <path d="M488 1080 L 592 1080 L 600 1400 L 480 1400 Z" fill="#f7f5f0" {...ink(6)} />
+          <path d="M486 1086 L 478 1400 M 594 1086 L 602 1400" fill="none" stroke={TOP_SH} strokeWidth={8} />
+          <path d="M420 1075 L 488 1078 L 470 1160 Z M 660 1075 L 592 1078 L 610 1160 Z" fill={TOP_SH} {...ink(6)} />
+        </g>}
         {/* neck */}
         <path d="M500 1000 L 500 1080 C 520 1095 560 1095 580 1080 L 580 1000 Z" fill={SKIN_SH} {...ink(6)} />
         {/* collar + drawstrings */}
         <path d="M455 1078 C 490 1118 590 1118 625 1078" fill="none" {...ink(7)} />
-        {[510, 570].map((x, i) => <g key={i}><path d={`M${x} 1105 L ${x + (i ? 4 : -4)} 1185`} fill="none" stroke="#f4f1e6" strokeWidth={8} strokeLinecap="round" /><circle cx={x + (i ? 4 : -4)} cy={1190} r={8} fill="#f4f1e6" {...ink(4)} /></g>)}
+        {!jacket && [510, 570].map((x, i) => <g key={i}><path d={`M${x} 1105 L ${x + (i ? 4 : -4)} 1185`} fill="none" stroke="#f4f1e6" strokeWidth={8} strokeLinecap="round" /><circle cx={x + (i ? 4 : -4)} cy={1190} r={8} fill="#f4f1e6" {...ink(4)} /></g>)}
         {/* pocket seam */}
-        <path d="M420 1330 C 470 1300 610 1300 660 1330" fill="none" {...ink(6)} stroke={HOODIE_SH} />
+        {!jacket && <path d="M420 1330 C 470 1300 610 1300 660 1330" fill="none" {...ink(6)} stroke={HOODIE_SH} />}
 
         <JakeHead t={t} brows={brows} smile={smile} sway={sway} wide={wide} gasp={gasp} sad={sad} look={look} />
 
@@ -131,8 +137,8 @@ export const Jake2D: React.FC<{ t: number; brows: number; flip: number; smile: n
           return (
             <g key={i}>
               <path d={d} fill="none" stroke={INK} strokeWidth={92} strokeLinecap="round" strokeLinejoin="round" />
-              <path d={d} fill="none" stroke={HOODIE} strokeWidth={76} strokeLinecap="round" strokeLinejoin="round" />
-              <path d={`M${pts[1][0] + (i ? 16 : -16)} ${pts[1][1] - 10} L ${pts[2][0] + (i ? 14 : -14)} ${pts[2][1] + 40}`} fill="none" stroke={HOODIE_SH} strokeWidth={16} strokeLinecap="round" />
+              <path d={d} fill="none" stroke={TOP} strokeWidth={76} strokeLinecap="round" strokeLinejoin="round" />
+              <path d={`M${pts[1][0] + (i ? 16 : -16)} ${pts[1][1] - 10} L ${pts[2][0] + (i ? 14 : -14)} ${pts[2][1] + 40}`} fill="none" stroke={TOP_SH} strokeWidth={16} strokeLinecap="round" />
             </g>
           );
         })}

@@ -1,3 +1,41 @@
+# money4 (standalone, 2D): "Your bank paid you $38 on $10,000. Here's why."
+
+Rewritten 5 Nov 2026 as a **standalone** video (no "EP n/6", no series teaser, no advice tag). The old series script is `script_series_v1.json`; the series brief below keeps its sources. The owner picked this topic on 5 Nov.
+
+## Titles
+- **A (built):** Your bank paid you $38 on $10,000. Here's why.
+- B: $10,000 in savings earned him $38. His bank earned 3.9%.
+- C: Why does your bank pay you so little?
+- **Cover text:** $10,000 SAVED / BANK PAID $38
+
+## Script (117 words, 38.9 s with the 1.8 s tail)
+1. This is Jake. He kept 10,000 dollars in his savings for a whole year. His bank paid him 38 dollars. *(intro + who/what in 3 words)*
+2. Here's where his money really works, and how he gets ten times more. *(bridge at 5.8 s)*
+3. That's the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.
+4. Meanwhile, his bank earns 3.9 percent, just by parking cash at the Fed, the bank for banks.
+5. So why pay Jake so little? Because people don't leave. The average saver keeps the same account for 17 years. *(sendable line)*
+6. But some insured savings accounts pay about 4 percent. That's 400 dollars a year, not 38. *(answer)*
+7. Same 10,000 dollars, ten times the interest. When did you last check your rate? *(closing question, on screen)*
+
+## Maths
+- $10,000 × 0.38% = $38. $10,000 × 3.97% = $397 ≈ $400 (10.4× → "ten times").
+- Buying power: $10,038 ÷ 1.037 = $9,680 → "his $10,038 now buys what $9,680 did".
+
+## Sources (all in the table below; checked 3 Nov 2026)
+- FDIC national savings rate 0.38% (Oct 2026), via FRED SNDR: https://fred.stlouisfed.org/series/SNDR
+- BLS CPI-U +3.7% for the 12 months to Sept 2026: https://www.bls.gov/news.release/cpi.nr0.htm
+- Fed interest on reserve balances 3.90%, via FRED IORB: https://fred.stlouisfed.org/series/IORB
+- Bankrate survey (Jan 2025): average 17 years with the same savings account: https://www.bankrate.com/press-releases/bank-account-holders-stick-with-same-accounts-for-decades/
+- Bankrate top savings offers 3.97% APY (3 Nov 2026): https://www.bankrate.com/banking/savings/savings-apys-are-still-high
+- FDIC deposit insurance: https://www.fdic.gov/resources/deposit-insurance
+
+## Look (owner: vary sets and outfits)
+New sets: bank lobby (BIG BANK), supermarket aisle, street with BIG BANK and THE FED, living-room couch, two coin jars. Jake wears a mustard jacket over a white tee (`jacket` option on `JakeStanding` / `Jake2D`) and a "HELLO, I'M JAKE" sticker on "This is Jake." Code: `src/toon2d/savings/`.
+
+---
+
+# (Old series brief, kept for reference)
+
 # EP 4/6: "Why does your bank pay you so little?"
 
 Series: MONEY, EXPLAINED. The series plan is in `videos/money1/BRIEF.md`.

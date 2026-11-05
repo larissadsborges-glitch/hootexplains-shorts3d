@@ -12,7 +12,7 @@ import { Desk2D, Pay2D, Towers2D, Treadmill2D } from './scenes';
 /** Word time helpers bound to this video's timeline. */
 export const wt = (T: MoneyTimeline) => (ev: string, word: string, d = 1) => T.wordTime(ev, word, T.s(ev) + d);
 
-type Key = [number, number, number, number]; // time, cx, cy, zoom (scene units)
+export type Key = [number, number, number, number]; // time, cx, cy, zoom (scene units)
 
 /** Per-phrase framings for each shot (Tavinho lesson: the frame changes on every phrase, never static). */
 const framings = (T: MoneyTimeline): Record<string, Key[]> => {
@@ -56,10 +56,10 @@ const framings = (T: MoneyTimeline): Record<string, Key[]> => {
 
 /** Scene bounds for clamping the camera (the desk room is only 1080 wide). */
 const BOUNDS: Record<string, [number, number, number, number]> = {
-  desk: [0, 1080, 0, 1976], exit: [0, 1080, 0, 1976],
+  desk: [0, 1080, 0, 1976], exit: [0, 1080, 0, 1976], couch: [-100, 1180, 0, 2000],
 };
 
-const camAt = (keys: Key[], t: number, shot: string) => {
+export const camAt = (keys: Key[], t: number, shot: string) => {
   let i = 0;
   for (let k = 0; k < keys.length; k++) if (t >= keys[k][0]) i = k;
   const cur = keys[i], prev = keys[Math.max(0, i - 1)];

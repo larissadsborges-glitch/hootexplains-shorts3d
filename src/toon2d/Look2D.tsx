@@ -11,12 +11,13 @@ import { Hook2D, HootGesture } from './Hook2D';
 import { Market2D, Table2D } from './scenes';
 import { China2D, Vault2D } from './scenes2';
 import { CardVideo } from './card/CardVideo';
+import { SavingsVideo } from './savings/SavingsVideo';
 
 /**
  * Money series in the 2D cartoon style. Each beat's "shot" picks a drawn scene; on every cut the
  * frame punches in slightly and settles, then drifts in slowly (a living camera, never static).
  */
-export const Look2D: React.FC<ShortProps> = (p) => (p.videoId === 'money5' ? <CardVideo {...p} /> : <Money1Look {...p} />);
+export const Look2D: React.FC<ShortProps> = (p) => (p.videoId === 'money5' ? <CardVideo {...p} /> : p.videoId === 'money4' ? <SavingsVideo {...p} /> : <Money1Look {...p} />);
 
 const Money1Look: React.FC<ShortProps> = ({ videoId, timings }) => {
   const frame = useCurrentFrame();

@@ -4,6 +4,7 @@ import { buildMoneyTimeline } from '../scenes/money/timeline';
 import type { Timings } from '../types';
 import { Hook2D, HootGesture } from './Hook2D';
 import { Desk2D } from './card/scenes';
+import { Lobby2D } from './savings/scenes';
 
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
 const outline = (px: number) =>
@@ -21,7 +22,14 @@ export const Cover2D: React.FC<Cover2DProps> = ({ timings, at, small, line1, lin
   return (
     <AbsoluteFill style={{ background: '#c7d3ea' }}>
       <HootGesture.Provider value={{ raise: 0, cheer: false }}>
-      {timings.id === 'money5'
+      {timings.id === 'money4' && (
+        <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+          <g transform="translate(540 1080) scale(1.4) translate(-560 -900)">
+            <Lobby2D t={at} talk={0} face={{ brows: 1, smile: 0, wide: 1, gasp: 1 }} tag={0} receipt={1} good={0} pulse={0} />
+          </g>
+        </svg>
+      )}
+      {timings.id === 'money4' ? null : timings.id === 'money5'
         ? (
           <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
             <g transform="translate(540 1060) scale(1.3) translate(-540 -960)">

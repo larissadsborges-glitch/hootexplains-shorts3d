@@ -35,7 +35,10 @@ export const Hand: React.FC<{ x: number; y: number; angle?: number; r?: number; 
 export const JakeStanding: React.FC<{
   t: number; brows?: number; smile?: number; sad?: number; look?: [number, number]; wide?: number; gasp?: number; grit?: number;
   armL: number[][]; armR: number[][]; holdR?: React.ReactNode; hat?: boolean; front?: React.ReactNode;
-}> = ({ t, brows = 0, smile = 0.4, sad = 0, look = [0, 0], wide = 0, gasp = 0, grit = 0, armL, armR, holdR, hat, front }) => {
+  /** an open jacket over a white tee instead of the red hoodie (outfit variety between videos) */
+  jacket?: { main: string; shade: string };
+}> = ({ t, brows = 0, smile = 0.4, sad = 0, look = [0, 0], wide = 0, gasp = 0, grit = 0, armL, armR, holdR, hat, front, jacket }) => {
+  const TOP = jacket?.main ?? HOODIE, TOP_SH = jacket?.shade ?? HOODIE_SH;
   const breathe = 4 * Math.sin(t * 2.1);
   const hR = armR[armR.length - 1], hL = armL[armL.length - 1];
   const aR = (Math.atan2(hR[0] - armR[1][0], hR[1] - armR[1][1]) * -180) / Math.PI;
@@ -57,17 +60,26 @@ export const JakeStanding: React.FC<{
       ))}
       <g transform={`translate(0 ${breathe})`}>
         {/* hood + torso (hoodie hem with ribbing) */}
-        <path d="M410 1075 C 420 1010 660 1010 670 1075 Z" fill={HOODIE_SH} {...ink(7)} />
-        <path d="M335 1420 C 325 1240 340 1110 420 1075 L 660 1075 C 740 1110 755 1240 745 1420 Z" fill={HOODIE} {...ink(8)} />
-        <path d="M690 1100 C 735 1140 750 1260 744 1420 L 690 1420 C 698 1280 700 1170 690 1100 Z" fill={HOODIE_SH} />
-        <rect x={330} y={1395} width={420} height={50} rx={18} fill={HOODIE_SH} {...ink(7)} />
-        <path d="M425 1300 C 470 1275 610 1275 655 1300 L 640 1380 L 440 1380 Z" fill="none" {...ink(6)} stroke={HOODIE_SH} />
+        {!jacket && <path d="M410 1075 C 420 1010 660 1010 670 1075 Z" fill={HOODIE_SH} {...ink(7)} />}
+        <path d="M335 1420 C 325 1240 340 1110 420 1075 L 660 1075 C 740 1110 755 1240 745 1420 Z" fill={TOP} {...ink(8)} />
+        <path d="M690 1100 C 735 1140 750 1260 744 1420 L 690 1420 C 698 1280 700 1170 690 1100 Z" fill={TOP_SH} />
+        <rect x={330} y={1395} width={420} height={50} rx={18} fill={TOP_SH} {...ink(7)} />
+        {jacket ? (
+          <g>
+            {/* white tee in the open front, zip edges, collar flaps */}
+            <path d="M488 1080 L 592 1080 L 600 1398 L 480 1398 Z" fill="#f7f5f0" {...ink(6)} />
+            <path d="M486 1086 L 478 1398 M 594 1086 L 602 1398" fill="none" stroke={TOP_SH} strokeWidth={8} />
+            <path d="M420 1075 L 488 1078 L 470 1160 Z M 660 1075 L 592 1078 L 610 1160 Z" fill={TOP_SH} {...ink(6)} />
+          </g>
+        ) : (
+          <path d="M425 1300 C 470 1275 610 1275 655 1300 L 640 1380 L 440 1380 Z" fill="none" {...ink(6)} stroke={HOODIE_SH} />
+        )}
         <path d="M500 1000 L 500 1080 C 520 1095 560 1095 580 1080 L 580 1000 Z" fill="#dc9f78" {...ink(6)} />
         <path d="M455 1078 C 490 1118 590 1118 625 1078" fill="none" {...ink(7)} />
-        {[510, 570].map((x, i) => <g key={i}><path d={`M${x} 1105 L ${x + (i ? 4 : -4)} 1185`} fill="none" stroke="#f4f1e6" strokeWidth={8} strokeLinecap="round" /><circle cx={x + (i ? 4 : -4)} cy={1190} r={8} fill="#f4f1e6" {...ink(4)} /></g>)}
+        {!jacket && [510, 570].map((x, i) => <g key={i}><path d={`M${x} 1105 L ${x + (i ? 4 : -4)} 1185`} fill="none" stroke="#f4f1e6" strokeWidth={8} strokeLinecap="round" /><circle cx={x + (i ? 4 : -4)} cy={1190} r={8} fill="#f4f1e6" {...ink(4)} /></g>)}
         {/* arms */}
-        <Limb pts={armL} w={74} color={HOODIE} />
-        <Limb pts={armR} w={74} color={HOODIE} />
+        <Limb pts={armL} w={74} color={TOP} />
+        <Limb pts={armR} w={74} color={TOP} />
         {holdR && <g transform={`translate(${hR[0]} ${hR[1]})`}>{holdR}</g>}
         {/* something carried in front (a sack): over the sleeves, under the hands that grip it */}
         {front}

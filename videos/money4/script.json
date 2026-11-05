@@ -1,7 +1,6 @@
 {
   "id": "money4",
-  "title": "Why does your bank pay you so little interest?",
-  "ep": 4,
+  "title": "Your bank paid you $38 on $10,000. Here's why.",
   "lang": "en-us",
   "voice": {
     "am_adam": 0.7,
@@ -11,88 +10,69 @@
   "gap": 0.06,
   "tail": 1.8,
   "handle": "@hootexplains",
-  "scene": "money",
+  "scene": "savings",
   "music": "music/bed.wav",
   "hook": {
-    "line1": "WHY DOES YOUR BANK",
-    "line2": "PAY YOU SO LITTLE?",
+    "line1": "$10,000 SAVED A YEAR",
+    "line2": "BANK PAID HIM $38",
     "top": "14%"
   },
   "outro": {
-    "line1": "DO YOU KNOW",
-    "line2": "YOUR RATE?",
-    "top": "11%"
+    "line1": "SAME $10,000,",
+    "line2": "10× THE INTEREST",
+    "top": "13%"
   },
   "beats": [
     {
-      "text": "Why does your bank pay you so little? Jake saved 10,000 dollars for a whole year. He earned 38.",
+      "text": "This is Jake. He kept 10,000 dollars in his savings for a whole year. His bank paid him 38 dollars.",
       "speed": 1.25,
-      "shot": "statementHook",
+      "shot": "lobby",
       "event": "hook",
-      "highlight": [
-        "little",
-        "38"
-      ],
+      "highlight": ["10,000", "38"]
+    },
+    {
+      "text": "Here's where his money really works, and how he gets ten times more.",
+      "speed": 1.25,
+      "shot": "lobby",
+      "event": "bridge",
+      "highlight": ["works", "ten"]
+    },
+    {
+      "text": "That's the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.",
+      "speed": 1.25,
+      "shot": "shop",
+      "event": "shrink",
+      "highlight": ["half", "3.7", "less"],
       "hold": 0.3
     },
     {
-      "text": "That's the national average rate. But prices rose 3.7 percent, so he really lost buying power.",
-      "speed": 1.25,
-      "shot": "statement",
-      "event": "lost",
-      "highlight": [
-        "average",
-        "lost"
-      ]
-    },
-    {
-      "text": "Meanwhile, his bank can earn 3.9 percent just parking money at the Fed.",
+      "text": "Meanwhile, his bank earns 3.9 percent, just by parking cash at the Fed, the bank for banks.",
       "speed": 1.25,
       "shot": "fed",
       "event": "fed",
-      "highlight": [
-        "3.9",
-        "parking"
-      ]
+      "highlight": ["3.9", "parking"]
     },
     {
-      "text": "Why pay Jake so little? Because people stay. The average saver keeps the same savings account for 17 years.",
-      "speed": 1.25,
-      "shot": "bank",
+      "text": "So why pay Jake so little? Because people don't leave. The average saver keeps the same account for 17 years.",
+      "speed": 1.2,
+      "shot": "couch",
       "event": "stay",
-      "highlight": [
-        "stay",
-        "17"
-      ]
+      "highlight": ["leave", "17"],
+      "hold": 0.35
     },
     {
-      "text": "Episode 4 of 6. Follow along.",
+      "text": "But some insured savings accounts pay about 4 percent. That's 400 dollars a year, not 38.",
       "speed": 1.25,
-      "shot": "bank",
-      "event": "cta",
-      "highlight": [
-        "Follow"
-      ]
+      "shot": "jars",
+      "event": "exit",
+      "highlight": ["insured", "4", "400"]
     },
     {
-      "text": "But some insured savings accounts pay about 4 percent. That's 400 dollars instead of 38.",
+      "text": "Same 10,000 dollars, ten times the interest. When did you last check your rate?",
       "speed": 1.25,
-      "shot": "compare",
-      "event": "twist",
-      "highlight": [
-        "4",
-        "400"
-      ]
-    },
-    {
-      "text": "And banks charge about 22 percent on credit cards. Do you know your savings rate?",
-      "speed": 1.25,
-      "shot": "card",
+      "shot": "lobby",
       "event": "final",
-      "highlight": [
-        "22",
-        "rate"
-      ]
+      "highlight": ["ten", "rate"]
     }
   ]
 }

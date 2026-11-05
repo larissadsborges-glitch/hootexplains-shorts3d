@@ -1,6 +1,6 @@
 # Post kit: "Your bank paid you $38 on $10,000. Here's why." (standalone, 2D)
 
-Files: `out/hootexplains_money_savings.mp4` (38.9 s, −14 LUFS) and `out/hootexplains_money_savings_cover.png`.
+Files: `out/hootexplains_money_savings.mp4` (39.4 s, −14 LUFS) and `out/hootexplains_money_savings_cover.png`.
 
 ## Cover
 - **Tag:** HOOT EXPLAINS · MONEY

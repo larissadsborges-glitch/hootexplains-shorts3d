@@ -20,11 +20,11 @@ const framings = (T: MoneyTimeline): Record<string, Key[]> => {
       [0, 540, 960, 1.0],
       [w('hook', 'jake', 0.5) - 0.1, 400, 900, 1.35],
       [w('hook', '10000', 1.3) - 0.1, 520, 900, 1.15],
-      [w('hook', 'paid', 4.5) - 0.2, 690, 840, 1.55],
+      [w('hook', 'paid', 4.5) - 0.2, 650, 840, 1.45],
       [T.s('bridge') - 0.05, 540, 960, 1.05],
       [w('bridge', 'ten', 2.3) - 0.2, 600, 900, 1.25],
-      [T.s('final') - 0.05, 690, 840, 1.5],
-      [w('final', 'when', 2.3) - 0.15, 620, 960, 1.1],
+      [T.s('final') - 0.05, 640, 860, 1.35],
+      [w('final', 'when', 2.3) - 0.15, 480, 960, 1.05],
     ],
     shop: [
       [T.s('shrink'), 540, 960, 1.0],
@@ -85,7 +85,7 @@ const Card: React.FC<{ t: number; t0: number; t1: number; top: string; width?: n
   if (t < t0 || t > t1) return null;
   return (
     <AbsoluteFill style={{ justifyContent: 'flex-start', alignItems: 'center', top, opacity: clamp01((t1 - t) / 0.15) }}>
-      <div style={{ width, background: 'rgba(10,12,16,0.8)', borderRadius: 28, padding: '16px 26px', boxShadow: '0 8px 20px rgba(0,0,0,0.35)', transform: `scale(${easeOutBack(clamp01((t - t0) / 0.22))})` }}>{children}</div>
+      <div style={{ width, background: 'rgba(14,16,20,0.96)', borderRadius: 28, padding: '16px 26px', boxShadow: '0 8px 20px rgba(0,0,0,0.35)', transform: `scale(${easeOutBack(clamp01((t - t0) / 0.22))})` }}>{children}</div>
     </AbsoluteFill>
   );
 };
@@ -111,7 +111,7 @@ const Overlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }) => {
       <Card t={t} t0={w('shrink', 'buy', 5.4) - 0.15} t1={T.s('fed') - 0.05} top="70.5%" width={860}>
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#fff', lineHeight: 1.2 }}>HIS $10,038 NOW BUYS<br /><span style={{ color: '#ff4a3d' }}>WHAT $9,680 DID</span></div>
       </Card>
-      <Pill t={t} t0={w('fed', '39', 1.4) - 0.1} t1={T.s('stay') - 0.05} text="FED PAYS BANKS 3.9% ON RESERVES" top="14.5%" dot="#7fd36a" />
+      <Pill t={t} t0={w('fed', '39', 1.4) - 0.1} t1={T.s('stay') - 0.05} text="SOURCE: FED · 3.9% ON RESERVES" top="14.5%" dot="#7fd36a" />
       <Pill t={t} t0={w('fed', 'cash', 3) - 0.1} t1={T.s('stay') - 0.05} text="THE FED = THE BANK FOR BANKS" top="21.5%" dot="#ffffff" />
       <Pill t={t} t0={w('stay', 'leave', 2.6) - 0.1} t1={w('stay', 'same', 4.6) - 0.1} text="PEOPLE DON'T LEAVE" top="14.5%" dot="#ff4a3d" />
       <Pill t={t} t0={w('stay', 'same', 4.6) - 0.1} t1={T.s('exit') - 0.05} text="SAME ACCOUNT FOR 17 YEARS" top="14.5%" dot="#ffd21f" />

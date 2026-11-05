@@ -13,7 +13,7 @@
   "scene": "savings",
   "music": "music/bed.wav",
   "hook": {
-    "line1": "$10,000 SAVED A YEAR",
+    "line1": "$10,000 IN SAVINGS",
     "line2": "BANK PAID HIM $38",
     "top": "14%"
   },
@@ -38,7 +38,7 @@
       "highlight": ["works", "ten"]
     },
     {
-      "text": "That's the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.",
+      "text": "His rate is the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.",
       "speed": 1.25,
       "shot": "shop",
       "event": "shrink",
@@ -46,7 +46,7 @@
       "hold": 0.3
     },
     {
-      "text": "Meanwhile, his bank earns 3.9 percent, just by parking cash at the Fed, the bank for banks.",
+      "text": "Meanwhile, his bank can earn 3.9 percent, just by parking cash at the Fed, the bank for banks.",
       "speed": 1.25,
       "shot": "fed",
       "event": "fed",

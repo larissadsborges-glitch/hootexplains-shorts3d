@@ -8,11 +8,11 @@ Rewritten 5 Nov 2026 as a **standalone** video (no "EP n/6", no series teaser, n
 - C: Why does your bank pay you so little?
 - **Cover text:** $10,000 SAVED / BANK PAID $38
 
-## Script (117 words, 38.9 s with the 1.8 s tail)
+## Script (119 words, 39.4 s with the 1.8 s tail)
 1. This is Jake. He kept 10,000 dollars in his savings for a whole year. His bank paid him 38 dollars. *(intro + who/what in 3 words)*
 2. Here's where his money really works, and how he gets ten times more. *(bridge at 5.8 s)*
-3. That's the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.
-4. Meanwhile, his bank earns 3.9 percent, just by parking cash at the Fed, the bank for banks.
+3. His rate is the national average, less than half a percent. But prices rose 3.7 percent, so his savings buy less than last year.
+4. Meanwhile, his bank can earn 3.9 percent, just by parking cash at the Fed, the bank for banks.
 5. So why pay Jake so little? Because people don't leave. The average saver keeps the same account for 17 years. *(sendable line)*
 6. But some insured savings accounts pay about 4 percent. That's 400 dollars a year, not 38. *(answer)*
 7. Same 10,000 dollars, ten times the interest. When did you last check your rate? *(closing question, on screen)*

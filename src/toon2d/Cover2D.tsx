@@ -24,7 +24,7 @@ export const Cover2D: React.FC<Cover2DProps> = ({ timings, at, small, line1, lin
       <HootGesture.Provider value={{ raise: 0, cheer: false }}>
       {timings.id === 'money4' && (
         <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-          <g transform="translate(540 1080) scale(1.4) translate(-560 -900)">
+          <g transform="translate(540 1080) scale(1.25) translate(-470 -900)">
             <Lobby2D t={at} talk={0} face={{ brows: 1, smile: 0, wide: 1, gasp: 1 }} tag={0} receipt={1} good={0} pulse={0} />
           </g>
         </svg>

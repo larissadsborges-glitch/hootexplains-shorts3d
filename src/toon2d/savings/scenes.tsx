@@ -60,7 +60,9 @@ export const Lobby2D: React.FC<LobbyProps> = ({ t, talk, face, tag, receipt, goo
     {Array.from({ length: 8 }, (_, i) => <rect key={i} x={-520 + i * 300} y={1260} width={220} height={280} rx={10} fill="#7a4e32" />)}
     <rect x={-600} y={1560} width={2280} height={800} fill="#c9b79a" />
     <path d="M-600 1560 L 1680 1560" {...ink(8)} />
-    <Hoot2D t={t} talk={talk} x={870} y={1182} s={0.72} />
+    {/* coin rolls on the counter, Hoot on top */}
+    {[0, 1, 2].map((i) => <rect key={i} x={40 + i * 50} y={1110} width={44} height={72} rx={10} fill="#f0c040" {...ink(5)} />)}
+    <Hoot2D t={t} talk={talk} x={112} y={1112} s={0.62} />
     {/* the receipt sits behind Jake so his raised hand grips its edge */}
     {receipt > 0 && <g opacity={clamp01(receipt * 3)}><Receipt t={t} good={good} pulse={pulse} /></g>}
     {/* Jake (new outfit) */}
@@ -69,7 +71,7 @@ export const Lobby2D: React.FC<LobbyProps> = ({ t, talk, face, tag, receipt, goo
       <JakeStanding t={t} {...face} jacket={JACKET} armL={[[410, 1110], [345, 1300], [355, 1450]]} armR={[[670, 1110], [820, 1200], [945, 1060]]} />
       {/* "HELLO, I'M JAKE" name sticker on "This is Jake" */}
       {tag > 0 && (
-        <g transform={`translate(420 1170) rotate(-6) scale(${easeOutBack(clamp01(tag))})`}>
+        <g transform={`translate(430 1160) rotate(-6) scale(${1.4 * easeOutBack(clamp01(tag))})`}>
           <rect x={-95} y={-62} width={190} height={124} rx={14} fill="#ffffff" stroke="#d6281c" strokeWidth={8} />
           <rect x={-95} y={-62} width={190} height={46} rx={10} fill="#d6281c" />
           <text x={0} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={24} fill="#ffffff">HELLO, I'M</text>

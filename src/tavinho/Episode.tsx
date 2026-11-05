@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Music, Sfx, type Cue } from '../audio/Sfx';
 import { clamp01, easeOutBack, easeOutCubic } from '../lib/anim';
-import { Handle, TitleCard } from '../overlays/Overlays';
+import { TitleCard } from '../overlays/Overlays';
 import { cleanWord } from '../lib/anim';
 import { buildMoneyTimeline, type MoneyTimeline } from '../scenes/money/timeline';
 import type { ShortProps, Timings } from '../types';
@@ -115,7 +115,7 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
       )}
       {/* CHEF % bar: on from "dois por cento" */}
       {t >= T.s('mission') && (
-        <div style={{ position: 'absolute', left: 140, right: 140, top: 286, transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
+        <div style={{ position: 'absolute', left: 140, right: 140, top: 282, transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
           <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 30, color: '#fff4e0', textAlign: 'center', marginBottom: 6 }}>CHEF <span style={{ color: Math.floor(t * 4) % 2 ? PAL.orange : '#fff4e0' }}>2%</span></div>
           <div style={{ height: 30, borderRadius: 15, background: '#2c3550', border: '4px solid #fff4e0', overflow: 'hidden' }}>
             <div style={{ width: '4%', height: '100%', background: PAL.mint }} />
@@ -137,7 +137,7 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
         </div>
       )}
       <PhraseCaptions timings={timings} t={t} />
-      <Handle handle={timings.handle} />
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: 'rgba(255,244,224,0.9)', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{timings.handle}</div>
       <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
       <Sfx cues={cues} timings={timings} />
       <Music timings={timings} src={timings.music} />

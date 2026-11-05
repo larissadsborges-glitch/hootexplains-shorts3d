@@ -65,7 +65,7 @@ export const Bed: React.FC<P> = ({ T, t }) => {
   const stars = useMemo(() => { const r = rng(3); return Array.from({ length: 24 }, () => [r() * 1080, r() * 600]); }, []);
   const mood = pct ? 'gulp' : you ? 'worried' : 'shock';
   const armL = [[360, 1150], [290, 1330], [440, 1250]];
-  const armR = you ? [[720, 1150], [lerp(790, 700, point), lerp(1330, 1180, point)], [lerp(640, 600, point), lerp(1250, 1060, point)]] : [[720, 1150], [790, 1330], [640, 1250]];
+  const armR = you ? [[720, 1150], [lerp(790, 780, point), lerp(1330, 1260, point)], [lerp(640, 760, point), lerp(1250, 1300, point)]] : [[720, 1150], [790, 1330], [640, 1250]];
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill={PAL.navy} />
@@ -92,8 +92,12 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       {you && point > 0 && (
         <g>
           {/* pointing finger toward the viewer */}
-          <g transform={`translate(${540 + (600 - 540) * 0.95} ${1800 - (2020 - 1060) * 0.95 - 30}) scale(${point})`}>
-            <rect x={-18} y={-80} width={36} height={90} rx={18} fill="#f1bf94" {...ink(6)} />
+          {/* foreshortened hand pointing straight at the viewer */}
+          <g transform={`translate(${540 + (760 - 540) * 0.95} ${1800 - (2020 - 1300) * 0.95}) scale(${0.4 + 1.1 * point})`}>
+            <circle cx={0} cy={0} r={70} fill="#f1bf94" {...ink(7)} />
+            {[-1, 1].map((s) => <path key={s} d={`M${s * 30} 40 q ${s * 10} 20 0 34`} fill="none" {...ink(5)} />)}
+            <circle cx={-6} cy={-10} r={36} fill="#f6caa4" {...ink(6)} />
+            <ellipse cx={-6} cy={-16} rx={16} ry={12} fill="#ffe2cf" {...ink(3)} />
           </g>
           <g transform={`translate(540 430) scale(${pop(t, W(T, 'you', 'você', 3.6) - 0.1)}) rotate(-5)`}>
             <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill={PAL.orange} stroke="#1b1420" strokeWidth={14} paintOrder="stroke">VOCÊ</text>
@@ -102,16 +106,19 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       )}
       {/* "2% chef" meter, big, with a microwave on "micro-ondas" */}
       {pct && (
-        <g transform={`translate(540 600) scale(${pop(t, W(T, 'percent', 'dois', 0.9) - 0.05)})`}>
+        <g transform={`translate(540 1150) scale(${pop(t, W(T, 'percent', 'dois', 0.9) - 0.05)})`}>
           <rect x={-330} y={-110} width={660} height={220} rx={30} fill="#1b1420" {...ink(6)} />
           <text x={0} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#fff4e0">CHEF</text>
           <rect x={-280} y={10} width={560} height={60} rx={30} fill="#2c3550" stroke="#fff4e0" strokeWidth={5} />
           <rect x={-276} y={14} width={22} height={52} rx={20} fill={PAL.mint} />
           <text x={240} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={PAL.orange}>2%</text>
           {t >= W(T, 'percent', 'micro-ondas', 3.4) - 0.1 && (
-            <g transform={`translate(-210 -40) scale(${pop(t, W(T, 'percent', 'micro-ondas', 3.4) - 0.1)})`}>
-              <rect x={-60} y={-40} width={120} height={80} rx={10} fill="#f4f6fb" {...ink(5)} />
-              <rect x={-50} y={-30} width={70} height={60} rx={6} fill="#ffe9a8" {...ink(3)} />
+            <g transform={`translate(-210 -200) scale(${1.6 * pop(t, W(T, 'percent', 'micro-ondas', 3.4) - 0.1)})`}>
+              <rect x={-80} y={-50} width={160} height={100} rx={12} fill="#f4f6fb" {...ink(5)} />
+              <rect x={-68} y={-38} width={92} height={76} rx={6} fill="#ffe9a8" {...ink(3)} />
+              <rect x={34} y={-34} width={34} height={18} rx={3} fill="#14171a" />
+              <circle cx={51} cy={14} r={12} fill="#c9ced6" {...ink(3)} />
+              <text x={0} y={-62} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill={PAL.orange} stroke="#1b1420" strokeWidth={6} paintOrder="stroke">GRAÇAS A ELE</text>
             </g>
           )}
         </g>
@@ -190,8 +197,8 @@ export const Sunday: React.FC<P> = ({ T, t }) => {
       {/* Celeste tasting with eyes closed, Camila proud, Tavinho puffing his chest (all seated behind the table) */}
       <g transform={place(220, 1640, 0.5)}><Celeste t={t} mood="happy" /></g>
       <g transform={place(540, 1650, 0.48)}><Camila t={t} mood="happy" /></g>
-      <g transform={`${place(860, 1700, 0.52)}`}><Tavinho t={t} mood={puff > 0 ? 'proud' : 'neutral'} puff={puff} sweat={0}
-        armL={puff > 0 ? [[360, 1150], [250, 1280], [420, 1250]] : undefined} armR={puff > 0 ? [[720, 1150], [860, 1100], [800, 900]] : undefined} /></g>
+      <g transform={`${place(800, 1700, 0.52)}`}><Tavinho t={t} mood={puff > 0 ? 'proud' : 'neutral'} puff={puff} sweat={0}
+        armL={puff > 0 ? [[360, 1150], [250, 1280], [420, 1250]] : undefined} armR={puff > 0 ? [[720, 1150], [800, 1080], [730, 930]] : undefined} /></g>
       {/* family table, in front of their bodies */}
       <rect x={40} y={1290} width={1000} height={70} rx={14} fill="#b07a48" {...ink(8)} />
       <rect x={70} y={1356} width={940} height={300} fill="#9a6a3c" {...ink(7)} />
@@ -201,13 +208,13 @@ export const Sunday: React.FC<P> = ({ T, t }) => {
       {t >= W(T, 'lie', 'amou', 0.3) && [0, 1, 2].map((i) => { const k = ((t - W(T, 'lie', 'amou', 0.3)) * 0.9 + i * 0.3) % 1; return <path key={i} transform={`translate(${200 + i * 50} ${980 - 260 * k}) scale(${0.8})`} d="M0 10 C -30 -20 -20 -40 0 -24 C 20 -40 30 -20 0 10 Z" fill="#e2453c" opacity={1 - k} {...ink(3)} />; })}
       {/* his speech bubble */}
       {puff > 0 && (
-        <g transform={`translate(760 620) scale(${puff})`}>
-          <path d="M-230 -80 L 230 -80 Q 260 -80 260 -50 L 260 50 Q 260 80 230 80 L 80 80 L 60 140 L 20 80 L -230 80 Q -260 80 -260 50 L -260 -50 Q -260 -80 -230 -80 Z" fill="#fff" {...ink(7)} />
+        <g transform={`translate(600 760) scale(${puff})`}>
+          <path d="M-230 -80 L 230 -80 Q 260 -80 260 -50 L 260 50 Q 260 80 230 80 L 200 80 L 230 150 L 140 80 L -230 80 Q -260 80 -260 50 L -260 -50 Q -260 -80 -230 -80 Z" fill="#fff" {...ink(7)} />
           <text x={0} y={22} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#14171a">FUI EU QUE FIZ!</text>
         </g>
       )}
       {/* thumbs-up sparkle */}
-      {puff > 0 && [[780, 640], [930, 700], [860, 560]].map(([x, y], i) => <path key={i} transform={`translate(${x} ${y}) scale(${0.5 + 0.5 * Math.abs(Math.sin(t * 6 + i))})`} d="M0 -26 L 6 -6 L 26 0 L 6 6 L 0 26 L -6 6 L -26 0 L -6 -6 Z" fill="#fff6c8" {...ink(3)} />)}
+      {puff > 0 && [[960, 1000], [900, 1120], [1000, 1180]].map(([x, y], i) => <path key={i} transform={`translate(${x} ${y}) scale(${0.5 + 0.5 * Math.abs(Math.sin(t * 6 + i))})`} d="M0 -26 L 6 -6 L 26 0 L 6 6 L 0 26 L -6 6 L -26 0 L -6 -6 Z" fill="#fff6c8" {...ink(3)} />)}
     </g>
   );
 };
@@ -226,7 +233,7 @@ export const Trash: React.FC<P> = ({ T, t }) => {
         <rect x={-190} y={-110} width={280} height={220} rx={12} fill={t > ding ? '#ffe9a8' : '#2c3550'} {...ink(5)} />
         <rect x={110} y={-100} width={90} height={50} rx={8} fill="#14171a" />
         <text x={155} y={-64} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#3ddc97">{t > ding ? '0:00' : '4:00'}</text>
-        {t > ding && t < ding + 1.2 && <text x={0} y={-200} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={PAL.orange} stroke={INK} strokeWidth={10} paintOrder="stroke" transform={`scale(${pop(t, ding)})`}>PIM!</text>}
+        {t > ding && t < ding + 1.2 && <text x={0} y={-170} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={PAL.orange} stroke={INK} strokeWidth={10} paintOrder="stroke" transform={`scale(${pop(t, ding)})`}>PIM!</text>}
       </g>
       <rect x={300} y={700} width={520} height={30} rx={8} fill="#8a9099" {...ink(5)} />
       {/* bin with the box sticking out */}
@@ -248,9 +255,9 @@ export const Trash: React.FC<P> = ({ T, t }) => {
 /* ------------------------------------------------------------------ the fridge: expired mustard, one egg, a sad lemon */
 export const Fridge: React.FC<P> = ({ T, t }) => {
   const items = [
-    { w: 'mostarda', label: 'MOSTARDA VENCIDA', x: 400, y: 900, el: <g><rect x={-40} y={-90} width={80} height={170} rx={20} fill="#ffc21f" {...ink(6)} /><rect x={-20} y={-130} width={40} height={50} rx={8} fill="#c8322a" {...ink(5)} /></g> },
-    { w: 'ovo', label: '1 OVO', x: 650, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
-    { w: 'limão', label: 'LIMÃO TRISTE', x: 440, y: 1290, el: <g><ellipse cx={0} cy={0} rx={70} ry={54} fill="#d8e85a" {...ink(6)} /><path d="M-30 -6 q 10 8 20 0 M10 -6 q 10 8 20 0" fill="none" {...ink(5)} /><path d="M-34 -24 l 18 -8 M34 -24 l -18 -8" {...ink(4)} /><path d="M-16 26 Q 0 14 16 26" fill="none" {...ink(5)} /><path d="M-22 6 q 4 10 0 16 q -4 -6 0 -16" fill="#8fd0ff" {...ink(2)} /></g> },
+    { w: 'mostarda', label: 'MOSTARDA VENCIDA', x: 540, y: 900, el: <g><rect x={-40} y={-90} width={80} height={170} rx={20} fill="#ffc21f" {...ink(6)} /><rect x={-20} y={-130} width={40} height={50} rx={8} fill="#c8322a" {...ink(5)} /></g> },
+    { w: 'ovo', label: '1 OVO', x: 720, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
+    { w: 'limão', label: 'LIMÃO TRISTE', x: 380, y: 1290, el: <g><ellipse cx={0} cy={0} rx={70} ry={54} fill="#d8e85a" {...ink(6)} /><path d="M-30 -6 q 10 8 20 0 M10 -6 q 10 8 20 0" fill="none" {...ink(5)} /><path d="M-34 -24 l 18 -8 M34 -24 l -18 -8" {...ink(4)} /><path d="M-16 26 Q 0 14 16 26" fill="none" {...ink(5)} /><path d="M-22 6 q 4 10 0 16 q -4 -6 0 -16" fill="#8fd0ff" {...ink(2)} /></g> },
   ];
   return (
     <g>
@@ -267,8 +274,8 @@ export const Fridge: React.FC<P> = ({ T, t }) => {
             <g transform={`translate(${it.x} ${it.y - (it.w === 'mostarda' ? 0 : 60)}) scale(${0.6 + 0.4 * p})`}>{it.el}</g>
             {p > 0 && (
               <g transform={`translate(${it.x} ${it.y + (it.w === 'mostarda' ? 120 : 40)}) scale(${p})`}>
-                <rect x={-150} y={-26} width={300} height={52} rx={12} fill={PAL.orange} {...ink(5)} />
-                <text x={0} y={14} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#fff">{it.label}</text>
+                <rect x={-(it.label.length * 14 + 30)} y={-32} width={2 * (it.label.length * 14 + 30)} height={64} rx={14} fill={PAL.orange} {...ink(5)} />
+                <text x={0} y={14} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#fff">{it.label}</text>
               </g>
             )}
           </g>
@@ -393,7 +400,7 @@ export const Group: React.FC<P> = ({ T, t }) => {
       </Phone>
       {/* notifications climbing */}
       {count > 0 && (
-        <g transform={`translate(820 300) scale(${1 + 0.1 * Math.sin(t * 12)})`}>
+        <g transform={`translate(830 420) scale(${1 + 0.1 * Math.sin(t * 12)})`}>
           <circle cx={0} cy={0} r={70} fill="#e2453c" {...ink(7)} />
           <text x={0} y={22} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#fff">{count >= 99 ? '99+' : count}</text>
         </g>
@@ -416,10 +423,16 @@ export const Vote: React.FC<P> = ({ T, t }) => {
         <rect x={0} y={330} width={540} height={1180} fill={PAL.orange} {...ink(8)} />
         <g transform={place(270, 1560, 0.56)}><Tavinho t={t} mood={focusL ? 'neutral' : 'worried'} sweat={0.5} slip={0.5} armL={[[360, 1150], [300, 1300], [470, 1260]]} armR={[[720, 1150], [780, 1300], [610, 1260]]}
           holdL={<g transform="translate(70 -40)"><rect x={-120} y={-70} width={240} height={150} rx={12} fill="#20232c" {...ink(6)} /><rect x={-104} y={-56} width={208} height={118} rx={8} fill="#e2453c" /><path d="M-20 -20 L 30 2 L -20 24 Z" fill="#fff" /></g>} /></g>
+        {focusL && (
+          <g>
+            {[0, 1, 2].map((i) => { const k = ((t * 0.8 + i * 0.33) % 1); return <circle key={i} cx={300 + 30 * Math.sin(k * 6 + i)} cy={1000 - 260 * k} r={30 + 50 * k} fill="#8a8f9a" opacity={0.7 * (1 - k)} {...ink(3)} />; })}
+            <g transform={`translate(150 900) scale(${1 + 0.08 * Math.sin(t * 10)})`}><rect x={-60} y={-34} width={120} height={68} rx={14} fill="#1b1420" /><text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">2x ▶▶</text></g>
+          </g>
+        )}
         <rect x={60} y={380} width={420} height={110} rx={24} fill="#fff" {...ink(6)} />
         <text x={270} y={458} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={66} fill={PAL.orange}>VÍDEO</text>
         <text x={270} y={560} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={48} fill="#fff" stroke={INK} strokeWidth={8} paintOrder="stroke">custa 1 dia</text>
-        {t >= W(T, 'video', 'ninguém', 2.8) - 0.1 && <text x={270} y={628} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={38} fill="#1b1420">mas ninguém te corrige</text>}
+        {t >= W(T, 'video', 'ninguém', 2.8) - 0.1 && <g>{['mas ninguém', 'te corrige'].map((l, i) => <text key={i} x={270} y={624 + i * 44} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={38} fill="#1b1420">{l}</text>)}</g>}
       </g>
       <defs><filter id="grey"><feColorMatrix type="saturate" values="0.15" /></filter></defs>
       <g transform={`translate(${lerp(560, 0, easeOutCubic(right))} 0)`} filter={focusL ? 'url(#grey)' : undefined} opacity={focusL ? 0.75 : 1}>
@@ -430,7 +443,7 @@ export const Vote: React.FC<P> = ({ T, t }) => {
         <rect x={600} y={380} width={420} height={110} rx={24} fill="#fff" {...ink(6)} />
         <text x={810} y={458} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={66} fill="#3a5ba0">VÓ</text>
         <text x={810} y={560} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={48} fill="#fff" stroke={INK} strokeWidth={8} paintOrder="stroke">custa 3 dias</text>
-        {t >= W(T, 'vo', 'segredo', 6.8) - 0.6 && <text x={810} y={628} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={36} fill="#fff4e0">mas conta tudo pra família</text>}
+        {t >= W(T, 'vo', 'segredo', 6.8) - 0.6 && <g>{['mas conta tudo', 'pra família'].map((l, i) => <text key={i} x={810} y={624 + i * 44} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={38} fill="#fff4e0">{l}</text>)}</g>}
       </g>
       {/* the empty right half waits with a "?" until the Vó arrives */}
       {focusL && right <= 0 && t > v0 + 0.3 && <text x={810} y={1000} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={300} fill="#3a5ba0" opacity={0.7}>?</text>}
@@ -438,7 +451,7 @@ export const Vote: React.FC<P> = ({ T, t }) => {
       {t < v0 && (
         <g transform={`${place(540, 1700, 0.55)}`} opacity={1 - clamp01((t - v0 + 0.25) / 0.25)}>
           <Tavinho t={t} mood="worried" sweat={0.8} slip={0.8} armL={[[360, 1150], [300, 1300], [450, 1240]]} armR={[[720, 1150], [780, 1300], [630, 1240]]}
-            holdL={<g transform="translate(90 -60) rotate(180)"><rect x={-130} y={-90} width={260} height={180} rx={10} fill="#c8322a" {...ink(6)} /><rect x={-110} y={-70} width={220} height={140} rx={6} fill="#fff4e0" /><text x={0} y={20} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#c8322a">RECEITAS</text></g>} />
+            holdL={<g transform="translate(90 -60) rotate(-6)"><rect x={-130} y={-90} width={260} height={180} rx={10} fill="#c8322a" {...ink(6)} /><rect x={-110} y={-70} width={220} height={140} rx={6} fill="#fff4e0" /><text x={0} y={20} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#c8322a">RECEITAS</text></g>} />
         </g>
       )}
       {t < v0 + 0.3 && (
@@ -453,7 +466,8 @@ export const Vote: React.FC<P> = ({ T, t }) => {
           <rect x={0} y={330} width={1080} height={1180} fill={PAL.navy} opacity={0.55 * clamp01((t - d0) / 0.2)} />
           <g transform={`translate(540 760) scale(${pop(t, d0)})`}>
             <circle cx={0} cy={0} r={260} fill="#fff4e0" {...ink(8)} />
-            <g transform="scale(0.62) translate(-540 -840)"><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
+            <g transform={`scale(${0.62 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.62 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
+            {t > d0 + 1.2 && <text x={190} y={-170} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={70} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GULP!</text>}
           </g>
           <g transform={`translate(540 1050) scale(${pop(t, W(T, 'decide', 'vídeo', 1.6) - 0.1)})`}>
             <rect x={-330} y={-70} width={660} height={140} rx={30} fill="#fff" {...ink(8)} />

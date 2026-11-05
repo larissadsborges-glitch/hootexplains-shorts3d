@@ -242,7 +242,7 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
       <path d="M524 846 L 556 846" stroke="#8a6440" strokeWidth={6} />
       <ellipse cx={540} cy={904} rx={16} ry={13} fill={SK_SH} />
       {/* wooden spoon raised in her right hand */}
-      <g transform={`rotate(${-10 + 14 * Math.sin((f.spoon ?? 0) * 8)} 760 1240)`}>
+      <g transform={`rotate(${12 + 8 * Math.sin((f.spoon ?? 0) * 8)} 760 1240)`}>
         <Limb pts={[[720, 1150], [800, 1300], [800, 1140]]} w={78} color="#3a8f7a" />
         <rect x={792} y={880} width={22} height={260} rx={10} fill="#b98250" {...ink(5)} />
         <ellipse cx={803} cy={860} rx={40} ry={56} fill="#b98250" {...ink(6)} />

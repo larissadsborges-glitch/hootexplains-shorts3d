@@ -1,6 +1,6 @@
 ---
 name: hootexplains-short
-description: Build, review and deliver a Hoot Explains 3D explainer Short (Remotion + Three.js) in the house style, from topic to post kit.
+description: Build, review and deliver a Hoot Explains (or A Vida do Tavinho) 2D cartoon Short in the house style (flat SVG in Remotion, src/toon2d and src/tavinho), from topic to post kit.
 ---
 
 # Hoot Explains Short

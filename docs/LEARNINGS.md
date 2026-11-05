@@ -1,5 +1,15 @@
 # Learnings log
 
+## Active rules index (read this first; details are below)
+- **Style:** flat 2D SVG cartoons (`src/toon2d`, `src/tavinho`). The 3D style is only for old videos.
+- **Hoot:** one beak, opening to half at most; pencil points only on key words; cheers and winks at the end.
+- **Hands:** normal hands only. No pointing or other gestures (a pointing hand once read as a middle finger).
+- **Layout:** keep props and faces out of the caption band and the bottom 20%; nothing beyond ~85% width at 35–80% height; labels on screen ≥ 1.5 s.
+- **Editing (Tavinho):** cut on every phrase (~1 s); big face close-ups every 3–5 s; never a static frame.
+- **Script:** name who and what in the first 3–5 words; bridge by ~5 s; story in order; answer the hook; no engagement bait; standalone videos.
+- **Review:** show fresh evidence before saying "done"; my contact-sheet pass, then an independent review; fix P0/P1 before sending.
+- **Windows:** short paths (`C:/Users/borge/hoot`); `PYTHONUTF8=1` for the voice scripts; FFmpeg and Python in `C:/Users/borge/.hoottools`.
+
 A running record of what went wrong, what fixed it, and ideas to decide on.
 Read this before starting a new video; add to it after every render and review.
 
@@ -22,7 +32,7 @@ Read this before starting a new video; add to it after every render and review.
 - **Hook + promise:** the first 1–2 seconds must tell viewers what they'll get by staying to the end (e.g. "how to build a bridge that won't fall"). Use both spoken words and on-screen text, with motion from frame 0.
 - **Retention all the way through:** from the hook to the end, something new must catch the eye every ~2 seconds (a cut, an event, a sound, a label), and the payoff comes at the end. Give viewers no dead moments that make them want to leave.
 - **Channel handle:** @hootexplains (on-screen, top right).
-- **Voice:** Kokoro blend of 60% `bm_george` + 40% `bm_fable`, speed 1.2–1.35 per line, ~0.06s gaps, short punchy lines.
+- **Voice (superseded):** the early videos used Kokoro 60% `bm_george` + 40% `bm_fable`. The current Hoot voice is in CLAUDE.md (70% `am_adam` + 30% `am_michael`). Tavinho uses Chatterbox (Voice Studio, Jeff base); see `tavinho/ESTADO.md`.
 - **Every narrated line has an on-screen action at that moment** (from the v1 review).
 - **Target length is 1.5–2 min** (Shorts/Reels allow 3). Structure each video as acts with a re-hook every 15–20s ("but there's a catch…"). Perfect the format on short segments first, then chain segments into full videos. Expect ~45 min render time here for 2 min.
 - **Audio mix:** the voice is always on top. Effects are at 45% and dip to 60% of that while the narrator speaks. Music is a light, playful explainer bed at 16% that dips to 45% under the voice. Levels live in `MIX` in `src/audio/Sfx.tsx`. The user found v2's effects too loud.

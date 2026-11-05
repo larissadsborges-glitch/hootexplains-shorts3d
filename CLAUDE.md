@@ -36,6 +36,7 @@ You are continuing the **Hoot Explains** project: code-generated 3D explainer Sh
 The same docs also live in the owner's claude.ai Project "Video Shirt Tutorials" (under `claude/hootexplains-*` and `claude/explainland-*`). If you have Project access, keep both copies in sync.
 
 ## 4. How the owner wants you to work
+- **Third-party skills and plugins:** read every file first; copy ideas and text rather than running installers; record the license; never use `-y` or global installs; ask the owner before installing anything that adds hooks, background workers or network services. Reviews so far: `docs/SKILLS_REVIEW.md` and `docs/REFERENCES_2D_PROMPT.md`.
 - **Coding rules (owner's choice, 5 Nov 2026):** follow `.claude/skills/karpathy-guidelines/SKILL.md` (from github.com/multica-ai/andrej-karpathy-skills, MIT). Think before coding and surface assumptions, keep changes simple and surgical, and set a check for every step (for videos: render the frames and look) before calling it done.
 - **Slow and careful.** Check every step, look again, then improve. Sub-agents get the same rule.
 - **Review twice before sending anything:** your own pass (a sheet every 0.5 s plus sound scans) AND an independent review agent. **Never send before both pass.**

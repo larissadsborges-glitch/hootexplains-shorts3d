@@ -400,3 +400,8 @@ Posted as is (no re-render), but the shared Airliner model was fixed for future 
   - Idle standing arms hang close to the body (roll ≈ 0.04).
   - Every fact label starts with its first spoken word, lasts ≥1.5 s, and carries its source.
   - Labels never sit at the 71–72% band where the hour pill lives.
+
+## Voice change to ElevenLabs (5 Nov 2026, owner decision)
+- **Hoot is now ElevenLabs "Mark - Natural Conversations"** (library voice, one of the most-used American voices). The owner compared 14 samples (`out/voice_samples/`) and picked Mark. money2, money4 and money5 were re-voiced and re-rendered with it.
+- `scripts/voice_eleven.py` uses the with-timestamps endpoint, so word times are exact (no estimates). It trims each clip, shortens pauses inside a line to 0.32 s (ElevenLabs pauses ~1 s at full stops, which pushed the bridge past 6 s), and runs the hook at speed 1.2 so the bridge still lands at ~5.5 s.
+- The ElevenLabs CLI (`npx @elevenlabs/cli onboard`) writes the key to `.env.local`. If the browser approval fails, the key can go there by hand. Never print the env file.

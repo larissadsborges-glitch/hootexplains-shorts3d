@@ -7,7 +7,7 @@ You are continuing the **Hoot Explains** project: code-generated 3D explainer Sh
 - **Characters:**
   - **Hoot:** a brown owl with navy round glasses, a teal bow tie and a pencil. He is the narrator and host, appears in the first frame, always faces the camera, and has **ONE beak** that opens with the voice (driven by `timings.mouth`). Never draw a separate mouth or nose.
   - **Jake:** a young guy in a red hoodie. He lives the stories so viewers relate to him (`src/mascot/Jake.tsx`). His arms must stay attached to his body, he must never sink into furniture, his hands must touch what they hold, and his look must fit the moment (fresh in the morning, tired later).
-- **Voice:** Kokoro TTS blend of 70% `am_adam` + 30% `am_michael`, `lang: en-us`, speed 1.25. ElevenLabs is the planned upgrade when there's budget.
+- **Voice (since 5 Nov 2026, owner's pick):** ElevenLabs library voice **"Mark - Natural Conversations"** (`UgBBYS2sOqTuMpoF3BR0`), model `eleven_multilingual_v2`, speed 1.12 (hook line 1.2). Run `python scripts/voice_eleven.py <id>` then `python scripts/mouth.py <id>`. The key is in `.env.local` (git-ignored; never print or commit it). Creator plan: 131k characters/month, commercial use allowed; a video costs ~650 characters, and lines are cached in `public/videos/<id>/_eleven_cache/`. The old Kokoro blend (70% `am_adam` + 30% `am_michael`, `scripts/tts.py`) is the free fallback.
 - **House visual style (since 5 Nov 2026): flat 2D cartoon** drawn as SVG in Remotion (`src/toon2d/`, composition `Look2D`): dark ink outlines, flat colours with one cel-shadow tone, big expressive faces. The owner loved it and dislikes the old round 3D look. The 3D "real" style (`src/style/StylePass.tsx`) only remains for old videos.
 - **Hoot rules set by the owner (5 Nov 2026):** his beak opens to half at most (the lower beak must stay tucked under the upper one); he rests his wings while talking and raises the pencil only to point on key words (`HootGesture` context in `Hook2D.tsx`), cheers on the closing question and winks at the very end.
 - **Videos are standalone:** no "EP n/6" chips or series lines; the owner prefers each video to make sense on its own. The owner also asked to drop the "NOT FINANCIAL ADVICE" tag.
@@ -63,7 +63,7 @@ cd ..
 
 ## 6. Making a video (short version)
 1. Write `videos/<id>/script.json` (copy `videos/awake1/script.json`) plus a BRIEF.md with sources.
-2. Generate the voice: `python3 scripts/tts.py videos/<id>/script.json`. This writes `public/videos/<id>/voice.wav` and `timings.json`.
+2. Generate the voice: `python scripts/voice_eleven.py <id>` (ElevenLabs, Mark; Kokoro fallback: `python3 scripts/tts.py videos/<id>/script.json`), then `python scripts/mouth.py <id>`. This writes `public/videos/<id>/voice.wav` and `timings.json`.
 3. Generate Hoot's beak sync: `python3 scripts/mouth.py <id>`.
 4. **Scene:** `src/scenes/<id>/` holds `timeline.ts`, `Scene.tsx`, `overlays.tsx` and `sfx.ts`. Register it in `src/Short.tsx` (`SCENES`).
 5. **Stills:** `npx remotion bundle src/index.ts --out-dir=build_x`, then `BUNDLE=build_x VID=<id> STYLE=real scripts/sheet.sh out/sheet.jpg 0 60 120 …`.

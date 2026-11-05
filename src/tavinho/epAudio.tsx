@@ -14,7 +14,7 @@ import { Cliffhanger, FollowPill, FONT, RedCard, twistDip, W, type EpConfig, typ
 
 const BedA: SceneFC = (p) => (
   // present day: Saturday morning in the kitchen, still in pyjamas
-  <HomeSet.Provider value={{ set: 'kitchen', outfit: 'pajama' }}>
+  <HomeSet.Provider value={{ set: 'kitchen', outfit: 'pajama', screen: <g><rect x={-40} y={-20} width={104} height={46} rx={14} fill="#3ddc97" /><text x={12} y={11} textAnchor="middle" fontFamily={FONT} fontWeight={900} fontSize={20} fill="#14171a">🎤 3:12</text></g> }}>
     <BedMeter.Provider value={{ label: 'EMPREGO', value: '3%', word: 'três', fill: 26, micro: false }}><Bed {...p} /></BedMeter.Provider>
   </HomeSet.Provider>
 );
@@ -72,21 +72,21 @@ const SHOTS: Record<string, ShotRow[]> = {
   you: [[540, 960, 1.0, 'push', 'worried'], [540, 760, 1.5, 'drift', 'shock'], [540, 900, 1.15, 'push', 'neutral']],
   stakes: [[540, 960, 1.0, 'push'], [800, 560, 1.8, 'push'], [480, 1050, 1.8, 'push']],
   back: [[540, 960, 1.0, 'push', 'neutral'], [540, 960, 1.0, 'push', 'neutral'], [540, 900, 1.3, 'drift', 'happy']],
-  rant: [[540, 1000, 1.6, 'push', 'happy'], [540, 1000, 1.6, 'push', 'happy'], [560, 560, 1.22, 'push', 'happy'], [560, 560, 1.22, 'shake', 'proud']],
-  rant2: [[540, 780, 1.2, 'push', 'proud'], [560, 900, 1.22, 'push', 'happy']],
+  rant: [[540, 860, 1.6, 'push', 'happy'], [540, 860, 1.6, 'push', 'happy'], [560, 620, 1.22, 'push', 'happy'], [560, 620, 1.22, 'shake', 'proud']],
+  rant2: [[540, 760, 1.2, 'push', 'proud'], [560, 760, 1.22, 'push', 'happy']],
   card: [[540, 960, 1.0, 'shake'], [540, 620, 1.6, 'push']],
   contacts: [[600, 640, 1.7, 'push'], [600, 640, 1.7, 'push'], [620, 620, 1.4, 'shake']],
-  detail: [[580, 600, 1.8, 'push'], [600, 680, 1.4, 'drift'], [150, 1250, 2.3, 'push', 'gulp']],
-  follow: [[150, 1250, 2.3, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
-  truth: [[540, 860, 1.25, 'push', 'neutral'], [540, 820, 1.7, 'push', 'worried']],
-  twist: [[150, 1250, 2.3, 'roll', 'shock'], [620, 600, 1.6, 'push'], [620, 600, 1.6, 'shake']],
-  twist2: [[540, 460, 1.8, 'push', 'shock'], [540, 1300, 1.7, 'push'], [150, 1250, 2.3, 'shake', 'gulp']],
+  detail: [[580, 600, 1.8, 'push'], [600, 680, 1.4, 'drift'], [190, 1110, 2.3, 'push', 'gulp']],
+  follow: [[190, 1110, 2.3, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
+  truth: [[560, 800, 1.15, 'push', 'neutral'], [540, 820, 1.7, 'push', 'worried']],
+  twist: [[190, 1110, 2.3, 'roll', 'shock'], [620, 600, 1.6, 'push'], [620, 600, 1.6, 'shake']],
+  twist2: [[540, 460, 1.8, 'push', 'shock'], [540, 460, 1.8, 'drift', 'shock'], [190, 1110, 2.3, 'shake', 'gulp']],
   noreturn: [[480, 680, 1.6, 'shake', 'gulp']],
   percent: [[540, 620, 2.0, 'push', 'gulp'], [540, 1000, 1.45, 'push', 'worried'], [540, 1000, 1.45, 'push', 'worried']],
   mission: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.3, 'push', 'shock'], [540, 1000, 1.15, 'drift', 'worried']],
   video: [[540, 960, 1.0, 'push', 'neutral'], [337, 900, 1.6, 'push', 'proud'], [337, 900, 1.6, 'push', 'proud'], [540, 960, 1.0, 'push', 'worried'], [337, 900, 1.6, 'shake', 'gulp']],
   vo: [[540, 960, 1.0, 'push', 'worried'], [743, 880, 1.7, 'push', 'worried'], [743, 880, 1.7, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 860, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
-  decide: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.08, 'shake', 'gulp']],
+  decide: [[540, 960, 1.0, 'push', 'worried'], [540, 920, 1.0, 'shake', 'gulp']],
 };
 
 const OverlaysA: EpConfig['Overlays'] = ({ T, t, timings }) => {
@@ -131,7 +131,7 @@ export const EP_AUDIO: EpConfig = {
   cues: cuesA,
   musicDip: twistDip('twist'),
   sepia: ['friday'],
-  names: { valdir: '#ffd21f', chefe: '#ff9a3d' },
+  names: { valdir: '#c9a6ff', chefe: '#ff9a3d' },
   foreground: (shot, t) => (
     <>
       {shot === 'office' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-30 * Math.sin(t * 0.4)} 0)`}><rect x={940} y={1300} width={220} height={700} rx={40} fill="#3a6b3a" /><ellipse cx={1050} cy={1290} rx={160} ry={120} fill="#4f8f4a" /></g>}

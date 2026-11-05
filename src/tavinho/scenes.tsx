@@ -61,7 +61,7 @@ export const Chat: React.FC<{ name: string; avatar: React.ReactNode; msgs: { tex
 export const BedMeter = createContext<{ label: string; value: string; word: string; fill: number; micro: boolean }>({ label: 'CHEF', value: '2%', word: 'dois', fill: 22, micro: true });
 
 /** Where the "home" shots happen: EP1's bedroom at night, a morning kitchen, or the living-room sofa by day; and what he wears. */
-export const HomeSet = createContext<{ set: 'bed' | 'kitchen' | 'sofa'; outfit: Outfit }>({ set: 'bed', outfit: 'work' });
+export const HomeSet = createContext<{ set: 'bed' | 'kitchen' | 'sofa'; outfit: Outfit; screen?: React.ReactNode }>({ set: 'bed', outfit: 'work' });
 
 /* ------------------------------------------------------------------ bedroom at night: hook, "you", "2% chef" */
 export const Bed: React.FC<P> = ({ T, t }) => {
@@ -121,7 +121,7 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       {/* Tavinho sitting up in bed, phone in hand, lit by the screen */}
       <g transform={place(540, 1800, 0.95)}>
         <Tavinho t={t} mood={mood} sweat={1} slip={0.4 + 0.4 * Math.abs(Math.sin(t * 0.7))} armL={armL} armR={armR} outfit={home.outfit}
-          holdL={<g transform="translate(40 -60) rotate(-8)"><rect x={-60} y={-110} width={150} height={240} rx={22} fill="#20232c" {...ink(6)} /><rect x={-46} y={-96} width={122} height={212} rx={14} fill="#bfe6ff" /></g>} />
+          holdL={<g transform="translate(40 -60) rotate(-8)"><rect x={-60} y={-110} width={150} height={240} rx={22} fill="#20232c" {...ink(6)} /><rect x={-46} y={-96} width={122} height={212} rx={14} fill="#bfe6ff" />{home.screen}</g>} />
       </g>
       {home.set === 'bed' && (
         <g>

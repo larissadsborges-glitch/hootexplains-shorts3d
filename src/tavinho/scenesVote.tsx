@@ -68,7 +68,7 @@ export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string;
             <g transform={`translate(540 905) scale(${pop(t, d0)})`}>
               <circle cx={0} cy={0} r={195} fill="#fff4e0" {...ink(8)} />
               <g transform={`scale(${0.47 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.47 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
-              {t > d0 + 1.2 && <text x={170} y={-140} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={62} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GULP!</text>}
+              {t > d0 + 1.2 && <text x={170} y={-140} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={62} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GLUP!</text>}
             </g>
             <g data-qa-label="pergunta" transform={`translate(540 1180) scale(${pop(t, W(T, 'decide', o.questionWord, 1.4) - 0.1)})`}>
               <rect x={-360} y={-70} width={720} height={140} rx={30} fill="#fff" {...ink(8)} />

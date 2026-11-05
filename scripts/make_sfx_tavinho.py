@@ -55,7 +55,9 @@ def hit(d=1.4):
     boom = np.sin(2 * np.pi * 58 * tt) * np.exp(-tt * 9) * np.minimum(1, tt / 0.003)
     punch = lp(noise(d), 1200) * np.exp(-tt * 40) * 0.5
     crash = bp(noise(d), 3000, 11000) * np.exp(-tt * 3.2) * 0.35
-    return norm(boom + punch + crash, 0.9)
+    # a short bright stab (A minor triad, 440/523/659 Hz) so phone speakers hear the hit too
+    stab = sum(np.sin(2 * np.pi * f * tt) for f in (440, 523.25, 659.25)) * np.exp(-tt * 7) * np.minimum(1, tt / 0.002) * 0.35
+    return norm(boom + punch + crash + stab, 0.9)
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@
  "tail": 1.0,
  "handle": "@avidadotavinho",
  "scene": "tavinho",
- "music": "music/upbeat_a.wav",
+ "music": "music/upbeat_b.wav",
  "duration": 60.24,
  "beats": [
   {
@@ -112,7 +112,7 @@
   },
   {
    "text": "E quem decide como ele acha a Princesa é você.",
-   "shot": "living",
+   "shot": "home",
    "event": "you",
    "highlight": [
     "você"
@@ -829,7 +829,7 @@
   },
   {
    "text": "Chance de achar a Princesa: quatro por cento.",
-   "shot": "living",
+   "shot": "home",
    "event": "percent",
    "highlight": [
     "quatro"

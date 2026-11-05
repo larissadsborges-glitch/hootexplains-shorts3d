@@ -65,7 +65,7 @@ const PhraseCaptions: React.FC<{ timings: Timings; t: number; names: Record<stri
   if (!g) return null;
   const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
   return (
-    <div style={{ position: 'absolute', left: 60, right: 60, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 22px' }}>
+    <div style={{ position: 'absolute', left: 60, right: 60, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 30px' }}>
       {g.words.map((w, i) => {
         const on = t >= w.start - 0.03;
         return (
@@ -137,7 +137,8 @@ export const EpisodeShell: React.FC<ShortProps & { cfg: EpConfig }> = ({ videoId
   const cues = useMemo(() => (timings && T ? cfg.cues(timings, T) : []), [timings, T, cfg]);
   if (!timings || !T) return null;
   const t = frame / fps;
-  const beat = timings.beats.reduce((b, x) => (t >= x.start ? x : b), timings.beats[0]);
+  // the scene switches on the same frame as the camera cut (both 0.04 s ahead of the first word), so no 1-frame flash of the old scene
+  const beat = timings.beats.reduce((b, x) => (t >= x.start - 0.04 ? x : b), timings.beats[0]);
   const idx = timings.beats.indexOf(beat);
   let a = idx;
   while (a > 0 && timings.beats[a - 1].shot === beat.shot) a--;

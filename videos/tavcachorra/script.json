@@ -8,7 +8,7 @@
   "tail": 1.0,
   "handle": "@avidadotavinho",
   "scene": "tavinho",
-  "music": "music/upbeat_a.wav",
+  "music": "music/upbeat_b.wav",
   "beats": [
     {
       "text": "A sogra deixou a cachorra com o Tavinho.",
@@ -39,7 +39,7 @@
     {
       "text": "E quem decide como ele acha a Princesa é você.",
       "speed": 1.0,
-      "shot": "living",
+      "shot": "home",
       "event": "you",
       "highlight": [
         "você"
@@ -199,7 +199,7 @@
     {
       "text": "Chance de achar a Princesa: quatro por cento.",
       "speed": 1.0,
-      "shot": "living",
+      "shot": "home",
       "event": "percent",
       "highlight": [
         "quatro"

@@ -16,8 +16,8 @@ const outline = (px: number, color = '#000') => {
 };
 
 const displayWord = (w: string) => {
-  // keep thousands separators in numbers (10,000), drop other punctuation
-  const c = w.replace(/(\d),(\d)/g, '$1\u0000$2').replace(/[^A-Za-z0-9'’\u0000-]/g, '').replace(/\u0000/g, ',');
+  // keep thousands separators in numbers (10,000) and accented letters (você, limão); drop other punctuation
+  const c = w.replace(/(\d),(\d)/g, '$1\u0000$2').replace(/[^\p{L}\p{N}'’\u0000-]/gu, '').replace(/\u0000/g, ',');
   return c.charAt(0).toUpperCase() + c.slice(1);
 };
 

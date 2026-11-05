@@ -29,7 +29,8 @@ export const rng = (seed: number) => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-export const cleanWord = (w: string) => w.replace(/[^A-Za-z0-9'’-]/g, '').toLowerCase();
+/** Lower-cased word without punctuation; keeps accented letters (você, limão, vó). */
+export const cleanWord = (w: string) => w.replace(/[^\p{L}\p{N}'’-]/gu, '').toLowerCase();
 
 export const beatByEvent = (timings: Timings, event: string): Beat | undefined =>
   timings.beats.find((b) => b.event === event);

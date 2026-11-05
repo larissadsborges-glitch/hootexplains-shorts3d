@@ -13,6 +13,8 @@ Read this before starting a new video; add to it after every render and review.
 - **Script structure (owner):** a shock hook must be followed by an explicit bridge ("Let's go back to the start") and an explicit answer later; jumping from the hook straight into history confused the owner. Tell the story in order and answer the hook's question by name.
 - **Hoot (owner):** the beak looked bad when it opened wide (the lower half detached), so it now opens to half at most. Constant pencil waving read as a tic and looked like a pencil stuck in Jake's hair; Hoot now rests and points the pencil only on key words.
 - **Review rounds that paid off:** labels needed ≥1.5 s on screen (stacked cards that stay up beat the one-by-one pills); props must not be covered by labels or by Hoot; years shown must be sourced ("LONG AGO" instead of an invented 3000 BC); the closing ask must state the question on screen for sound-off viewers.
+- **Windows + accents:** run the voice scripts with `PYTHONUTF8=1`, otherwise Python reads script.json as cp1252, the TTS reads mojibake ("VocÃª") and the timings carry broken words. `cleanWord`/captions now keep Unicode letters (`\p{L}`), so word cues like "vó" and "limão" work.
+- **Tavinho format (vote series):** use phrase captions (2–4 words) low on screen (~74%), keep the punchline props clear of them, and put both sides of the vote's trade-off on screen; viewers watching muted can't vote on a cost they never saw.
 - **3D toon pass gotcha:** material/geometry changes made in a `useLayoutEffect` after the canvas has drawn don't show in a single still; call `gl.render(scene, camera)` at the end of the pass.
 
 ## Standing rules (from the user)

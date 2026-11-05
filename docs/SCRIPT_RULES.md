@@ -68,3 +68,43 @@ Every idea, title and script is checked against this before any production start
 - [ ] Does the title/cover follow the template, with a twist statement or a sharp "you" question?
 
 Sources: [Paddy Galloway's Shorts study](https://threadreaderapp.com/thread/1646898356419981315.html) · [Jenny Hoyos teardown (Demand Curve)](https://www.demandcurve.com/newsletters/growth-newsletter-187) · [South Park but/therefore](https://breakingtherules.substack.com/p/the-south-park-technical-writing) · [Hooked: script rules](https://www.hooked.so/blog/how-to-script-a-video) · [STEPPS (Entrepreneur)](https://entrepreneur.com/article/233254) · [TikTok hook data (Opus)](https://www.opus.pro/blog/tiktok-hooks-that-go-viral-2026) · Berger & Milkman, "What Makes Online Content Viral?", *Journal of Marketing Research* (2012).
+
+## I. 2026 research update (5 Nov 2026)
+
+**Hook and bridge**
+- Name the familiar subject (coffee, paycheck, microwave, credit score) in the **first 3–5 spoken words AND on screen** before any twist. Shock without a named subject is banned.
+- On-screen hook text is **3–5 bold words that match the spoken hook** exactly. First frame, text and VO all point at the same single question.
+- Frame 1 shows the payoff's **subject and stakes**, never the answer itself.
+- A **bridge line by ~3–6 s** states the conflict and what the viewer will know by the end. No history, backstory or date may appear before the bridge.
+- **Timeline topics:** never open on a date. Open on the present-day consequence, bridge, then 2–4 dated beats, each tied back to "you".
+- Jake voices the common belief or mistake (lean-in). The owl delivers the "But…" snapback.
+- Phrase the first sentence as a **US search query** where possible ("Why does…", "How does… actually work"), spoken and shown on screen.
+
+**Structure and timing**
+- Write the **hook and the last line first**, then the middle.
+- Default skeleton: **Question → "Well" (intuitive rule) → "But" (twist) → "So" (consequence with a number)**.
+- A small **first payoff by ~6–12 s**. The main answer lands in the **last 15–25%** as one plain on-screen sentence.
+- One "but/therefore" turn every **4–8 s**. At most **one** false payoff per video.
+- **Cut within ~1 s of the payoff/punchline.** No recap, no "follow for more", no end card.
+- Closing question goes in **on-screen text over the final frame plus the caption or pinned comment**, or folds into Jake's last line as the loop. It is never a separate spoken tail.
+- **Modular build:** a 35–45 s core for Reels and Shorts, plus a 15–25 s "bonus But" inserted *before* the payoff for a TikTok 61 s+ cut.
+
+**Words, voice, captions**
+- **5th-grade reading level or lower** (run a readability check). Gloss every finance or body term in kid words *and* with a visual on the same word.
+- **Word budget ≈ 2.5 words/s:** 30 s ≈ 75, 40 s ≈ 100, 45 s ≈ 110, 61 s ≈ 150. Slow the one "aha" line. Never sustain above ~180 wpm.
+- Fill 0.3–0.6 s beats before reveals and numbers with a visual or SFX, not silence.
+- Captions show **2–4 words grouped by phrase** with the spoken word highlighted, plus one accent color only for key numbers.
+- Keep captions and faces inside a **centered ~900×1400 px safe box**, with the right ~140 px clear. Check each app's draft preview.
+- Every key number appears as a **big isolated graphic**. No audio-only puns. The video must read muted like a silent comic.
+
+**Distribution hygiene**
+- Script **one sendable line at or before the midpoint**: a specific "wait, what?" fact, or a "that's so [friend]" moment.
+- No engagement bait ("comment YES", "tag 3 friends", "like if"). CTAs are natural send prompts.
+- Clean, watermark-free native export per platform. Original or cleared audio only (mandatory for >60 s Shorts). At most 3–5 hashtags.
+- Never AI-clone or depict a real, identifiable person.
+- A/B test hooks with **Trial Reels**. Judge by IG View Rate, YT viewed-vs-swiped and engaged views, and TikTok finish rate, against the channel's own rolling median and over weeks, not 48 h. Directional bar: <60% viewed-vs-swiped means fix the hook first.
+
+These rules come from `reports/Viral short video scripting.md`; its notes are in `research_notes/Viral short video scripting/`. Where they conflict with the older rules above, these win:
+- Rule 23: the closing question is shown on screen over the final frame, or folded into the last line, never a separate spoken tail.
+- Rule 15: the 2-second visual cadence is a habit, not a proven number.
+- **Exception for vote-driven series (A Vida do Tavinho):** the vote IS the story. Phrase it as a real story choice ("Você decide: VÍDEO ou VÓ?") with the voting rules in the pinned comment. Never use generic bait ("comenta SIM", "marca 3 amigos").

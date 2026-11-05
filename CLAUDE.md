@@ -20,6 +20,7 @@ You are continuing the **Hoot Explains** project: code-generated 3D explainer Sh
 | Airplane mode (`airplanemode`) | Final v3 delivered (`out/hootexplains_airplanemode_v3.mp4`), with a cover and post kit. |
 | Sleep series Day 1 (`awake1`, scene `awake`) | Re-rendered on 4 Nov with all review fixes. Needs the final 2-pass review, then delivery. Days 2–3 not built yet (the old `sleep*` folders are an earlier version; ignore them). |
 | Money video 1 (`videos/money1`, standalone, 2D) | Built in 2D on the owner's PC: `out/money1_upload.mp4` (38 s), `out/cover_money1.png`, post kit in `videos/money1/POSTKIT.md`. Script rewritten in story order (owner's pick, "Option A"); the old series script is `script_series_v1.json`. money2–6 scripts still assume a series: rewrite them as standalone before building. |
+| A Vida do Tavinho (pt-BR, second page) | EP1 built in 2D with a temporary Kokoro voice; ElevenLabs swap planned. Read `tavinho/ESTADO.md` first. Episode composition `Tavinho` (`src/tavinho/`). |
 | Profile picture | New 2D version: composition `Avatar2D` → `out/profile_hoot_2d.png` (also copied to `public/brand/hoot.png`; the old 3D one is `public/brand/hoot_3d_old.png`). |
 | Automated QA checker (`scripts/qa/`) | Partly built by an agent that was cut off by a usage limit. Read scripts/qa/README.md, test it, and finish it. |
 | Better Jake (rigged glTF character, outlines, contact shadows) | Not started. See docs/GAME_PLAN.md section 3. |

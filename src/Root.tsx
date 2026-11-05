@@ -4,6 +4,9 @@ import React from 'react';
 import { Composition, staticFile } from 'remotion';
 import { Short } from './Short';
 import { Look2D } from './toon2d/Look2D';
+import { CastSheet } from './tavinho/CastSheet';
+import { TavinhoEpisode } from './tavinho/Episode';
+import { TavinhoAvatar, TavinhoCover } from './tavinho/Art';
 import { Avatar2D } from './toon2d/Avatar2D';
 import { Cover2D, type Cover2DProps } from './toon2d/Cover2D';
 import { MascotStill } from './mascot/MascotStill';
@@ -29,6 +32,23 @@ export const RemotionRoot: React.FC = () => (
       return { props: { ...props, timings } };
     }}
   />
+  <Composition
+    id="Tavinho"
+    component={TavinhoEpisode}
+    width={1080}
+    height={1920}
+    fps={FPS}
+    durationInFrames={300}
+    defaultProps={{ videoId: 'tavinho1', timings: null } as ShortProps}
+    calculateMetadata={async ({ props }) => {
+      const res = await fetch(staticFile(`videos/${props.videoId}/timings.json`));
+      const timings = (await res.json()) as Timings;
+      return { durationInFrames: Math.ceil(timings.duration * FPS), props: { ...props, timings } };
+    }}
+  />
+  <Composition id="TavinhoAvatar" component={TavinhoAvatar} width={1080} height={1080} fps={30} durationInFrames={1} />
+  <Composition id="TavinhoCover" component={TavinhoCover} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{ line1: 'MENTIU PRA', line2: 'SOGRA 😳', tag: 'EP 1 · A CEIA DA SOGRA' }} />
+  <Composition id="TavinhoCast" component={CastSheet} width={2160} height={1920} fps={30} durationInFrames={1} />
   <Composition id="Avatar2D" component={Avatar2D} width={1080} height={1080} fps={30} durationInFrames={1} />
   <Composition id="Avatar" component={Avatar} width={1080} height={1080} fps={30} durationInFrames={30} />
   <Composition id="Mascot" component={MascotStill} width={1080} height={1350} fps={30} durationInFrames={60} defaultProps={{ which: 'bolt' }} />

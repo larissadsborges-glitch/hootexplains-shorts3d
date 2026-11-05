@@ -116,3 +116,19 @@ The owner asked to "rebuild the entire video with what you learn, take your time
   - **Music:** the owner finds the slow bed too sleepy. `scripts/make_music_upbeat.py` makes `upbeat_a` (124 BPM bouncy pop) and `upbeat_b` (132 BPM sneaky chase). Waiting for the owner's pick; Tavinho still points at `bed.wav`.
   - **Test copy:** `out/avidadotavinho_ep1_sem_respiracao.mp4` (breath gaps muted; voice in the uncommitted `public/videos/tavinho1nb`).
   - **GitHub push of `2d-style-money1`:** blocked until the owner signs in to Git Credential Manager on the PC.
+- 5 Nov: **The owner approved the new style** (`src/tavinho/NewStyle.tsx`, after their reference stills; same kind of drawing, but our own sets, colours and face shapes) and asked for better glasses. The glasses now have a thin tortoiseshell frame, see-through lenses with glare, a bridge and arms. **Next: redraw the whole cast and every set in the new style for all 3 episodes**, then QA and reviews.
+  - **"O áudio":** review 3 is clean (no P0/P1). P2 polish was done afterwards.
+  - **"A cachorra":** review 4 still has P1s, to fix during the redesign:
+    - the timer chip covers the PET SHOP sign on push-ins
+    - the kerb sitting pose has no shins
+    - the stakes timer shows for only 1.1 s (show 2H00 for ≥ 1.5 s)
+    - captions run over the fridge note's bottom and signature
+  - **P2 for the redesign:**
+    - draw a real gate swinging open
+    - Princesa smaller (tiny) and consistent in size
+    - a running shot for "correu dois quarteirões"
+    - the sausage on a fork (not raised, plain hand), plus full-bodied dogs eyeing it
+    - Celeste's avatar big on the GRUPO phone
+    - no doubled question box and caption at the end
+    - the "NÃO É ELA" tags over each dog
+    - break caption phrases on whole phrases, not on small words

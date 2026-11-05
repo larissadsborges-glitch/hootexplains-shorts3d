@@ -65,6 +65,30 @@ const Room: React.FC = () => (
   </g>
 );
 
+const FRAME = '#6b3f26', FRAME_HI = '#9a6438';
+/** Real-looking round glasses: lenses are see-through (eyes show), the frame is thin, a glare streak sells the glass. */
+const Glasses: React.FC = () => (
+  <g>
+    {/* arms running back to the ears */}
+    <path d="M443 536 L 404 548" fill="none" stroke={OL} strokeWidth={11} strokeLinecap="round" />
+    <path d="M443 536 L 404 548" fill="none" stroke={FRAME} strokeWidth={6} strokeLinecap="round" />
+    <path d="M692 534 L 718 540" fill="none" stroke={OL} strokeWidth={11} strokeLinecap="round" />
+    <path d="M692 534 L 718 540" fill="none" stroke={FRAME} strokeWidth={6} strokeLinecap="round" />
+    {[[505, 62, 62], [634, 58, 58]].map(([x, rx, ry], i) => (
+      <g key={i}>
+        <rect x={x - rx} y={540 - ry} width={rx * 2} height={ry * 2} rx={ry * 0.85} fill="rgba(214,236,250,0.22)" stroke={OL} strokeWidth={12} />
+        <rect x={x - rx} y={540 - ry} width={rx * 2} height={ry * 2} rx={ry * 0.85} fill="none" stroke={FRAME} strokeWidth={7} />
+        <path d={`M${x - rx * 0.62} ${540 - ry * 0.35} L ${x - rx * 0.2} ${540 - ry * 0.72}`} stroke="#ffffff" strokeWidth={9} strokeLinecap="round" opacity={0.75} />
+        <path d={`M${x - rx * 0.5} ${540 - ry * 0.05} L ${x - rx * 0.32} ${540 - ry * 0.22}`} stroke="#ffffff" strokeWidth={6} strokeLinecap="round" opacity={0.6} />
+        <path d={`M${x - rx + 10} ${540 - ry + 8} Q ${x} ${540 - ry - 6} ${x + rx - 10} ${540 - ry + 8}`} fill="none" stroke={FRAME_HI} strokeWidth={3} opacity={0.8} />
+      </g>
+    ))}
+    {/* bridge over the nose */}
+    <path d="M576 534 Q 571 514 567 534" fill="none" stroke={OL} strokeWidth={11} strokeLinecap="round" />
+    <path d="M576 534 Q 571 514 567 534" fill="none" stroke={FRAME} strokeWidth={6} strokeLinecap="round" />
+  </g>
+);
+
 /** Tavinho's head in the new style: taller egg head, big outlined eyes with heavy lids, round glasses, a big nose, wide mouth. */
 const Head: React.FC<{ shock?: boolean }> = ({ shock = false }) => (
   <g>
@@ -78,9 +102,6 @@ const Head: React.FC<{ shock?: boolean }> = ({ shock = false }) => (
     <path d="M590 430 C 560 404 566 360 600 360 C 630 360 634 396 610 404 C 596 408 590 394 600 388" fill="none" stroke="#8a5a3a" strokeWidth={18} strokeLinecap="round" />
     <path d="M590 430 C 560 404 566 360 600 360 C 630 360 634 396 610 404 C 596 408 590 394 600 388" fill="none" stroke={OL} strokeWidth={5} strokeLinecap="round" />
     {/* big eyes, heavy upper lids (looking sideways, sly) or wide open (shock) */}
-    {/* lenses first (light tint, thick frame), the eyes sit inside them */}
-    {[[505, 80], [632, 72]].map(([x, r], i) => <circle key={`l${i}`} cx={x} cy={540} r={r} fill="#dceefa" stroke={OL} strokeWidth={9} />)}
-    <path d="M585 532 Q 568 516 556 534" fill="none" {...o(7)} />
     {[[505, 52], [632, 46]].map(([x, r], i) => (
       <g key={i}>
         <ellipse cx={x} cy={540} rx={r} ry={r + 8} fill="#ffffff" {...o(5)} />
@@ -96,6 +117,8 @@ const Head: React.FC<{ shock?: boolean }> = ({ shock = false }) => (
         )}
       </g>
     ))}
+    {/* glasses on top of the eyes: thin tortoiseshell frame, rounded lenses with a light glare, bridge, arms to the ears */}
+    <Glasses />
     {/* eyebrows */}
     {shock ? [[505, -1], [632, 1]].map(([x, s], i) => <path key={i} d={`M${x - 46} ${440 + s * 2} Q ${x} ${420} ${x + 46} ${440 - s * 2}`} fill="none" stroke={HAIR} strokeWidth={14} strokeLinecap="round" />) : null}
     {/* big rounded nose */}

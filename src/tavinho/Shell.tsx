@@ -64,12 +64,14 @@ const PhraseCaptions: React.FC<{ timings: Timings; t: number; names: Record<stri
   const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1]?.words[0].start ?? x.words[x.words.length - 1].end + 0.8));
   if (!g) return null;
   const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
+  const chars = g.words.reduce((n, w) => n + clean(w.word).length, 0) + g.words.length - 1;
+  const size = chars > 18 ? 58 : chars > 14 ? 66 : 76;
   return (
-    <div style={{ position: 'absolute', left: 60, right: 60, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 30px' }}>
+    <div style={{ position: 'absolute', left: 100, right: 120, top: '73.5%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 30px' }}>
       {g.words.map((w, i) => {
         const on = t >= w.start - 0.03;
         return (
-          <span key={i} data-qa="capword" style={{ fontFamily: FONT, fontWeight: 900, fontSize: 76, letterSpacing: 1, color: names[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
+          <span key={i} data-qa="capword" style={{ fontFamily: FONT, fontWeight: 900, fontSize: size, letterSpacing: 1, color: names[cleanWord(w.word)] ?? (w.hl ? PAL.orange : on ? '#ffffff' : 'rgba(255,255,255,0.55)'), textShadow: '0 0 2px #1b1420, 4px 4px 0 #1b1420, -4px 4px 0 #1b1420, 4px -4px 0 #1b1420, -4px -4px 0 #1b1420, 0 8px 0 rgba(0,0,0,0.35)', transform: `scale(${on && t < w.start + 0.12 ? 1.08 : 1})` }}>
             {clean(w.word).toUpperCase()}
           </span>
         );
@@ -96,7 +98,7 @@ export const twistDip = (ev: string) => (T: MoneyTimeline) => (t: number) => {
 
 /** A red full-screen card ("MENTIRA #1", "ERRO #1") with a white tag under it. */
 export const RedCard: React.FC<{ t: number; t0: number; t1: number; word: string; num: string; tag: string; qa: string }> = ({ t, t0, t1, word, num, tag, qa }) => {
-  if (!(t >= t0 - 0.02 && t < t1)) return null;
+  if (!(t >= t0 - 0.05 && t < t1)) return null;
   return (
     <AbsoluteFill data-qa-label={qa} data-qa-cover="1" style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
@@ -189,7 +191,11 @@ export const EpisodeShell: React.FC<ShortProps & { cfg: EpConfig }> = ({ videoId
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
       <Overlays T={T} t={t} timings={timings} />
       <PhraseCaptions timings={timings} t={t} names={{ ...NAMES, ...cfg.names }} />
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: 'rgba(255,244,224,0.9)', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{timings.handle}</div>
+      {!(T.s('video') > 0 && t >= T.s('video') - 0.04) && (
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 120, display: 'flex', justifyContent: 'center' }}>
+          <div style={{ background: 'rgba(27,20,32,0.55)', borderRadius: 16, padding: '2px 14px', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: 'rgba(255,244,224,0.95)' }}>{timings.handle}</div>
+        </div>
+      )}
       <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
       <Sfx cues={cues} timings={timings} />
       <Music timings={timings} src={timings.music} dip={cfg.musicDip?.(T)} />

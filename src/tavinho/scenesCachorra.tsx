@@ -34,15 +34,21 @@ export const Princesa: React.FC<{ t: number; run?: boolean; s?: number }> = ({ t
       {/* tail pompom */}
       {puff(-128 + 4 * step, -40, 26, 'tail')}
       {/* body in the leopard coat */}
-      <ellipse cx={0} cy={10} rx={112} ry={62} fill="#f2b33d" {...ink(6)} />
-      {[[-60, -10], [-20, 20], [20, -16], [60, 14], [-40, 34], [44, -36], [80, -6]].map(([x, y], i) => <path key={i} d={`M${x - 12} ${y} q 12 -12 24 0 q -12 12 -24 0`} fill="#6b3f22" />)}
-      <path d="M-112 10 C -60 30 60 30 112 10" fill="none" stroke="#c8322a" strokeWidth={6} />
+      <ellipse cx={0} cy={10} rx={112} ry={62} fill="#e3b46c" {...ink(6)} />
+      {[[-66, -14], [-24, 22], [16, -20], [58, 16], [-50, 36], [40, -38], [86, -8], [-90, 10], [0, 40]].map(([x, y], i) => (
+        <g key={i} transform={`translate(${x} ${y}) rotate(${i * 37})`}>
+          <ellipse cx={0} cy={0} rx={10} ry={8} fill="#c98a3c" />
+          {[0, 1, 2].map((k) => <path key={k} d={`M${12 * Math.cos(k * 2.1)} ${10 * Math.sin(k * 2.1)} a 13 11 0 0 1 ${10 * Math.cos(k * 2.1 + 1.2) - 12 * Math.cos(k * 2.1)} ${9 * Math.sin(k * 2.1 + 1.2) - 10 * Math.sin(k * 2.1)}`} fill="none" stroke="#3a2416" strokeWidth={5} strokeLinecap="round" />)}
+        </g>
+      ))}
+      <path d="M-108 34 C -60 62 60 62 108 34" fill="none" stroke="#8a5a2c" strokeWidth={8} />
+      <path d="M74 -40 C 90 -10 92 20 84 46" fill="none" stroke="#c8322a" strokeWidth={14} strokeLinecap="round" />
       {/* head: fluffy puffs, ears, face */}
       <g transform={`translate(96 -60) rotate(${run ? -10 : 4 * Math.sin(t * 1.7)})`}>
         {puff(-46, 10, 34, 'earL')}
         {puff(46, 10, 34, 'earR')}
         {puff(0, -40, 40, 'top')}
-        <ellipse cx={0} cy={6} rx={46} ry={44} fill="#ffffff" {...ink(5)} />
+        <ellipse data-qa="face" cx={0} cy={6} rx={46} ry={44} fill="#ffffff" {...ink(5)} />
         <circle cx={-16} cy={0} r={7} fill={INK} /><circle cx={16} cy={0} r={7} fill={INK} />
         <circle cx={-14} cy={-3} r={2.5} fill="#fff" /><circle cx={18} cy={-3} r={2.5} fill="#fff" />
         <ellipse cx={0} cy={20} rx={10} ry={7} fill={INK} />
@@ -84,16 +90,16 @@ const Dog: React.FC<{ kind: 'pug' | 'salsicha' | 'grande' | 'vira'; t: number }>
     <g><rect x={-90} y={-20} width={180} height={110} rx={40} fill="#8a8f9a" {...ink(5)} /><rect x={50} y={-150} width={90} height={150} rx={40} fill="#8a8f9a" {...ink(5)} /><circle cx={100} cy={-160} r={56} fill="#8a8f9a" {...ink(5)} /><circle cx={116} cy={-170} r={9} fill={INK} /><ellipse cx={150} cy={-140} rx={16} ry={12} fill={INK} />{[-70, -30, 30, 70].map((x) => <rect key={x} x={x - 10} y={80} width={20} height={70} fill="#8a8f9a" {...ink(3)} />)}</g>
   );
   return (
-    <g><circle cx={0} cy={0} r={52} fill="#d9a066" {...ink(5)} /><path d="M-40 -30 l -20 -40 l 40 20 Z M40 -30 l 20 -40 l -40 20 Z" fill="#b5793f" {...ink(4)} /><circle cx={-18} cy={-6} r={8} fill={INK} /><circle cx={18} cy={-6} r={8} fill={INK} /><ellipse cx={0} cy={16} rx={10} ry={8} fill={INK} /><path d="M-6 28 q 6 16 12 0" fill="#ff7aa8" {...ink(2)} /></g>
+    <g><circle cx={0} cy={0} r={52} fill="#d9a066" {...ink(5)} />{[-1, 1].map((s) => <ellipse key={s} cx={s * 50} cy={0} rx={18} ry={40} fill="#b5793f" {...ink(4)} transform={`rotate(${s * 18} ${s * 50} 0)`} />)}<circle cx={-18} cy={-6} r={8} fill={INK} /><circle cx={18} cy={-6} r={8} fill={INK} /><ellipse cx={0} cy={16} rx={10} ry={8} fill={INK} /><path d="M-6 28 q 6 16 12 0" fill="#ff7aa8" {...ink(2)} /></g>
   );
 };
 export { Dog };
 
 /* ------------------------------------------------------------------ the living room: the hand-over, "volto em 2 horas", Princesa's outfit */
 export const Living: React.FC<P> = ({ T, t }) => {
-  const handing = t < T.s('punch');
-  const leaving = t >= T.s('stakes') && t < T.s('back');
-  const posing = t >= T.s('rant2');
+  const handing = t < T.s('punch') - 0.04;
+  const leaving = t >= T.s('stakes') - 0.05 && t < T.s('back');
+  const posing = t >= T.s('rant2') - 0.05;
   const bubbleA = T.s('hook') - 0.1;
   const bubbleB = T.s('stakes') + 0.2;
   const coat = T.s('rant2') - 0.05, bow = W(T, 'rant2', 'oncinha', 1.2) - 0.1;
@@ -113,7 +119,7 @@ export const Living: React.FC<P> = ({ T, t }) => {
           <rect x={90} y={1060} width={900} height={420} rx={70} fill="#c85a8a" {...ink(8)} />
           <rect x={60} y={1380} width={960} height={220} rx={50} fill="#d96f9c" {...ink(8)} />
           <g transform="translate(560 1330)"><Princesa t={t} s={2.1} /></g>
-          {t >= coat && (
+          {t >= coat && t < W(T, 'rant2', 'laço', 2.0) - 0.1 && (
             <g data-qa-label="oncinha" transform={`translate(380 1130) rotate(-3) scale(${pop(t, coat)})`}>
               <rect x={-230} y={-42} width={460} height={84} rx={18} fill={PAL.orange} {...ink(6)} />
               <text x={0} y={14} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={38} fill="#fff">CASACO DE ONCINHA</text>
@@ -128,13 +134,13 @@ export const Living: React.FC<P> = ({ T, t }) => {
         </g>
       )}
       {/* Dona Celeste hands Princesa over, then waits at the door */}
-      {(handing || leaving) && (
+      {handing && (
         <g>
-          <g transform={place(handing ? 760 : 905, 1720, handing ? 0.62 : 0.56)}><Celeste t={t} mood="happy" /></g>
+          <g transform={place(760, 1720, 0.62)}><Celeste t={t} mood="happy" /></g>
           <g transform={place(330, 1720, 0.62)}>
-            <Tavinho t={t} mood={handing ? 'worried' : 'gulp'} sweat={handing ? 0.4 : 1} slip={0.5} outfit={OUTFIT}
-              armL={[[360, 1150], [330, 1330], [480, 1340]]} armR={[[720, 1150], [760, 1330], [640, 1340]]}
-              holdL={<g transform="translate(80 -40)"><Princesa t={t} s={0.95} /></g>} />
+            <Tavinho t={t} mood="worried" sweat={0.4} slip={0.5} outfit={OUTFIT}
+              armL={[[360, 1150], [300, 1250], [470, 1190]]} armR={[[720, 1150], [780, 1250], [630, 1190]]}
+              holdL={<g transform="translate(80 -60)"><Princesa t={t} s={0.95} /></g>} />
           </g>
           {handing && t >= bubbleA && (
             <g data-qa-label="cuida" transform={`translate(700 660) scale(${0.85 * pop(t, bubbleA)})`}>
@@ -143,8 +149,19 @@ export const Living: React.FC<P> = ({ T, t }) => {
               <text x={0} y={48} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#ff2f8f">PRINCESA! 😘</text>
             </g>
           )}
-          {leaving && t >= bubbleB && (
-            <g data-qa-label="volto" transform={`translate(780 760) scale(${pop(t, bubbleB)})`}>
+        </g>
+      )}
+      {leaving && (
+        <g>
+          {/* her framed photo on the wall "talks" */}
+          <rect x={760} y={560} width={220} height={260} rx={10} fill="#ffd166" {...ink(7)} />
+          <Avatar id="celeste-photo" x={870} y={690} r={90} bg="#f7e6ef"><Celeste t={t} mood="happy" /></Avatar>
+          <g transform={place(420, 1720, 0.62)}>
+            <Tavinho t={t} mood="gulp" sweat={1} slip={0.6} outfit={OUTFIT} armR={[[720, 1150], [800, 1300], [740, 1420]]}
+              holdR={<g><path d="M0 0 C 40 160 60 360 120 520" fill="none" stroke="#e2453c" strokeWidth={10} strokeLinecap="round" /><ellipse cx={130} cy={540} rx={50} ry={22} fill="none" stroke="#ff5fb0" strokeWidth={12} /></g>} />
+          </g>
+          {t >= bubbleB && (
+            <g data-qa-label="volto" transform={`translate(660 420) scale(${pop(t, bubbleB)})`}>
               <path d="M-260 -80 L 260 -80 Q 290 -80 290 -50 L 290 50 Q 290 80 260 80 L 160 80 L 140 150 L 100 80 L -260 80 Q -290 80 -290 50 L -290 -50 Q -290 -80 -260 -80 Z" fill="#fff" {...ink(7)} />
               <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#14171a">VOLTO EM</text>
               <text x={0} y={48} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">2 HORAS! 💋</text>
@@ -173,7 +190,7 @@ export const Note: React.FC<P> = ({ T, t }) => {
         {items.map(([w, label], i) => {
           const at = W(T, 'rant', w, 0.6 + i * 0.9) - 0.1;
           if (t < at) return null;
-          return <text key={i} data-qa-label={`item${i}`} x={-290} y={-190 + i * 160} fontFamily={F} fontWeight={900} fontSize={48} fill="#14171a" transform={`translate(${-290 * (1 - pop(t, at))} 0)`}>{label}</text>;
+          return <text key={i} data-qa-label={`item${i}`} x={-290} y={-190 + i * 160} fontFamily={F} fontWeight={900} fontSize={56} fill="#14171a" transform={`translate(${-290 * (1 - pop(t, at))} 0)`}>{label}</text>;
         })}
         <text x={160} y={330} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={40} fill="#c8322a">Celeste 💋</text>
         {[[-260, -440], [260, -440]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={30} fill={i ? '#3ddc97' : '#ff7a2e'} {...ink(5)} />)}
@@ -188,8 +205,9 @@ export const Street: React.FC<P> = ({ T, t }) => {
   const arrive = T.s('lunch'), bag = W(T, 'lunch', 'lanche', 0.8);
   const run0 = T.s('run'), sit0 = T.s('sit');
   const open = flash || t >= arrive;
-  const riderX = t < run0 ? lerp(1300, 760, clamp01((t - arrive) / 0.6)) : lerp(760, -500, clamp01((t - run0) / 2.2));
-  const dogX = t < run0 ? 620 : lerp(620, -300, clamp01((t - run0 - 0.3) / 2.2));
+  const runDur = Math.max(1.5, sit0 - run0);
+  const riderX = t < run0 ? lerp(1300, 760, clamp01((t - arrive) / 0.6)) : lerp(700, 0, clamp01((t - run0) / runDur));
+  const dogX = t < run0 ? 620 : riderX + 280;
   const sitting = t >= sit0;
   return (
     <g>
@@ -215,6 +233,7 @@ export const Street: React.FC<P> = ({ T, t }) => {
       {flash && (
         <g>
           {[0, 1, 2, 3].map((i) => { const k = (t * 0.9 + i * 0.25) % 1; return <circle key={i} cx={760 + 300 * k} cy={1600 - 40 * k} r={30 + 60 * k} fill="#e8dcc8" opacity={0.8 * (1 - k)} {...ink(3)} />; })}
+          <g transform={`translate(${lerp(840, 1000, (t * 0.6) % 1)} 1420)`}><Princesa t={t} run s={0.45} /></g>
           <g data-qa-label="10min" transform={`translate(760 700) rotate(6) scale(${pop(t, T.s('punch') + 0.3)})`}>
             <circle cx={0} cy={0} r={110} fill="#c8322a" {...ink(8)} />
             <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={74} fill="#fff">10</text>
@@ -223,17 +242,21 @@ export const Street: React.FC<P> = ({ T, t }) => {
         </g>
       )}
       {/* the delivery rider */}
-      {!flash && t >= arrive && riderX > -480 && <g transform={`translate(${riderX} 1600)`}><Rider t={t} s={1.0} /></g>}
+
       {/* Princesa sneaking out / chasing the rider */}
-      {!flash && t >= W(T, 'card', 'portão', 0.8) && dogX > -280 && <g transform={`translate(${dogX} 1630)`}><g transform="scale(-1 1)"><Princesa t={t} run={t >= run0} s={0.7} /></g></g>}
+
       {/* Tavinho: at the gate (with the bag), then sitting on the kerb, soaked */}
-      {!sitting && (
+      {/* he is off running after them during the chase */}
+      {!sitting && !(t >= run0 - 0.04) && (
         <g transform={place(flash ? 420 : 470, 1660, 0.5)}>
           <Tavinho t={t} mood={flash ? 'shock' : t >= run0 ? 'shock' : 'happy'} sweat={flash || t >= run0 ? 1 : 0.2} slip={0.4} outfit={OUTFIT}
             armR={t >= bag && !flash ? [[720, 1150], [820, 1300], [760, 1420]] : undefined}
             holdR={t >= bag && !flash ? <g><rect x={-60} y={0} width={120} height={120} rx={10} fill="#c8a06a" {...ink(5)} /><text x={0} y={70} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={24} fill="#5a3a24">LANCHE</text></g> : undefined} />
         </g>
       )}
+      {/* the rider and Princesa are drawn after him (in front) */}
+      {!flash && !sitting && t >= arrive && <g transform={`translate(${riderX} 1600)`}><Rider t={t} s={1.0} /></g>}
+      {!flash && !sitting && t >= W(T, 'card', 'portão', 0.8) && <g transform={`translate(${dogX} 1610)`}><g transform="scale(-1 1)"><Princesa t={t} run={t >= run0} s={0.9} /></g></g>}
       {sitting && (
         <g>
           {/* two blocks away: another street (a blue house, a bakery), no gate */}
@@ -270,6 +293,7 @@ export const PetShop: React.FC<P> = ({ T, t }) => {
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#bfe3cf" />
       <rect x={0} y={1560} width={1080} height={360} fill="#cfcfd4" />
+      <g transform="translate(0 120)">
       <rect x={140} y={260} width={800} height={150} rx={20} fill={PAL.orange} {...ink(8)} />
       <text x={540} y={365} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={84} fill="#fff">PET SHOP 🐾</text>
       <rect x={120} y={480} width={840} height={760} rx={16} fill="#e9f6ff" {...ink(8)} />
@@ -285,6 +309,7 @@ export const PetShop: React.FC<P> = ({ T, t }) => {
           )}
         </g>
       ))}
+      </g>
       <g transform={place(220, 1820, 0.55)}><Tavinho t={t} mood="neutral" sweat={0.8} slip={0.6} outfit={OUTFIT} /></g>
     </g>
   );

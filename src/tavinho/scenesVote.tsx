@@ -54,9 +54,9 @@ export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string;
         {/* the empty right half waits with a "?" until the second option arrives */}
         {focusL && right <= 0 && t > v0 + 0.3 && <text x={810} y={1000} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={300} fill="#3a5ba0" opacity={0.7}>?</text>}
         {/* MISSÃO 1 before the panels arrive */}
-        {t < v0 && <g transform={place(540, 1700, 0.55)} opacity={1 - clamp01((t - v0 + 0.25) / 0.25)}>{o.mission(t)}</g>}
-        {t < v0 + 0.3 && (
-          <g data-qa-label="missao" transform={`translate(540 560) scale(${pop(t, T.s('mission'))})`}>
+        {t < v0 - 0.05 && <g transform={place(540, 1700, 0.55)} opacity={1 - clamp01((t - v0 + 0.25) / 0.2)}>{o.mission(t)}</g>}
+        {t < v0 - 0.05 && (
+          <g data-qa-label="missao" opacity={1 - clamp01((t - v0 + 0.25) / 0.2)} transform={`translate(540 560) scale(${pop(t, T.s('mission'))})`}>
             <rect x={-300} y={-90} width={600} height={180} rx={30} fill={PAL.mint} {...ink(8)} />
             <text x={0} y={30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={96} fill="#14171a">MISSÃO 1</text>
           </g>
@@ -66,11 +66,11 @@ export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string;
           <g>
             <rect x={0} y={330} width={1080} height={1180} fill={PAL.navy} opacity={0.22 * clamp01((t - d0) / 0.2)} />
             <g transform={`translate(540 905) scale(${pop(t, d0)})`}>
-              <circle cx={0} cy={0} r={195} fill="#fff4e0" {...ink(8)} />
-              <g transform={`scale(${0.47 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.47 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
-              {t > d0 + 1.2 && <text x={170} y={-140} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={62} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GLUP!</text>}
+              <circle cx={0} cy={0} r={148} fill="#fff4e0" {...ink(8)} />
+              <g transform={`scale(${0.36 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.36 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
+              {t > d0 + 1.2 && <text x={120} y={-150} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={56} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GLUP!</text>}
             </g>
-            <g data-qa-label="pergunta" transform={`translate(540 1180) scale(${pop(t, W(T, 'decide', o.questionWord, 1.4) - 0.1)})`}>
+            <g data-qa-label="pergunta" transform={`translate(540 1290) scale(${pop(t, W(T, 'decide', o.questionWord, 1.4) - 0.1)})`}>
               <rect x={-360} y={-70} width={720} height={140} rx={30} fill="#fff" {...ink(8)} />
               <text x={0} y={24} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={o.question.length > 16 ? 54 : 66} fill="#14171a">{o.question}</text>
             </g>

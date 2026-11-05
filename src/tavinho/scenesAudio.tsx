@@ -94,7 +94,7 @@ export const AudioChat: React.FC<P> = ({ T, t }) => {
                 </g>
               );
             })}
-            {t >= del && <text data-qa-label="apagando" x={280} y={690} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#fff" stroke={INK} strokeWidth={6} paintOrder="stroke">apagando… ⏳</text>}
+            {t >= del && <text data-qa-label="apagando" x={280} y={318} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#fff" stroke={INK} strokeWidth={6} paintOrder="stroke">apagando… ⏳</text>}
           </g>
         )}
       </Phone>

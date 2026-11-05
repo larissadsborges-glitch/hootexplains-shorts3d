@@ -60,7 +60,19 @@ def hit(d=1.4):
     return norm(boom + punch + crash + stab, 0.9)
 
 
+def gulp(d=0.32):
+    """A cartoon swallow: two quick RISING bloops (300->650 Hz), short and clean."""
+    tt = t_(d)
+    out = np.zeros_like(tt)
+    for t0, f0 in ((0.0, 300), (0.13, 380)):
+        m = tt >= t0
+        u = tt[m] - t0
+        f = f0 + 900 * u
+        out[m] += np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-u * 26) * np.minimum(1, u / 0.004)
+    return norm(out, 0.7)
+
+
 if __name__ == "__main__":
-    for name, fn in [("swish", swish), ("ding", ding), ("notif", notif), ("splat", splat), ("hit", hit)]:
+    for name, fn in [("swish", swish), ("ding", ding), ("notif", notif), ("splat", splat), ("hit", hit), ("gulp", gulp)]:
         sf.write(os.path.join(OUT, f"{name}.wav"), fn(), SR)
         print("wrote", name, round(len(fn()) / SR, 2), "s")

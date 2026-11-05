@@ -199,7 +199,7 @@
     {
       "text": "Chance de achar a Princesa: quatro por cento.",
       "speed": 1.0,
-      "shot": "home",
+      "shot": "petshop",
       "event": "percent",
       "highlight": [
         "quatro"

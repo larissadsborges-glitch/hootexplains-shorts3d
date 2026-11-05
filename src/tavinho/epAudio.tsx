@@ -15,7 +15,7 @@ import { Cliffhanger, FollowPill, FONT, RedCard, twistDip, W, type EpConfig, typ
 const BedA: SceneFC = (p) => (
   // present day: Saturday morning in the kitchen, still in pyjamas
   <HomeSet.Provider value={{ set: 'kitchen', outfit: 'pajama', screen: <g><rect x={-40} y={-20} width={104} height={46} rx={14} fill="#3ddc97" /><text x={12} y={11} textAnchor="middle" fontFamily={FONT} fontWeight={900} fontSize={20} fill="#14171a">🎤 3:12</text></g> }}>
-    <BedMeter.Provider value={{ label: 'EMPREGO', value: '3%', word: 'três', fill: 26, micro: false }}><Bed {...p} /></BedMeter.Provider>
+    <BedMeter.Provider value={{ label: 'EMPREGO', value: '3%', word: 'empregado', fill: 26, micro: false }}><Bed {...p} /></BedMeter.Provider>
   </HomeSet.Provider>
 );
 
@@ -56,7 +56,9 @@ const cuesA = (tm: Timings, T: MoneyTimeline): Cue[] => {
     { at: T.s('truth'), sfx: 'toggle', volume: 0.2 },
     { at: W(T, 'twist', 'risquinhos', 1.6), sfx: 'ping', volume: 0.25 },
     { at: T.s('noreturn'), sfx: 'notif', volume: 0.22 },
-    { at: W(T, 'percent', 'três', 2.4), sfx: 'toggle', volume: 0.2 },
+    { at: W(T, 'percent', 'empregado', 1.4), sfx: 'toggle', volume: 0.2 },
+    { at: T.s('decide') + 1.2, sfx: 'gulp', volume: 0.3 },
+    { at: T.s('noreturn') + 0.15, sfx: 'pop', volume: 0.25 },
     { at: T.s('mission'), sfx: 'riser', volume: 0.18 },
     { at: T.s('video'), sfx: 'swish', volume: 0.18 },
     { at: T.s('vo'), sfx: 'swish', volume: 0.18 },
@@ -67,7 +69,7 @@ const cuesA = (tm: Timings, T: MoneyTimeline): Cue[] => {
 };
 
 const SHOTS: Record<string, ShotRow[]> = {
-  hook: [[540, 700, 2.0, 'push', 'shock'], [480, 940, 1.6, 'drift', 'worried'], [540, 700, 2.2, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
+  hook: [[540, 800, 1.5, 'push', 'shock'], [480, 940, 1.6, 'drift', 'worried'], [540, 700, 2.2, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
   punch: [[580, 560, 1.8, 'shake']],
   you: [[540, 960, 1.0, 'push', 'worried'], [540, 760, 1.5, 'drift', 'shock'], [540, 900, 1.15, 'push', 'neutral']],
   stakes: [[540, 960, 1.0, 'push'], [800, 560, 1.8, 'push'], [480, 1050, 1.8, 'push']],
@@ -78,7 +80,7 @@ const SHOTS: Record<string, ShotRow[]> = {
   contacts: [[600, 640, 1.7, 'push'], [600, 640, 1.7, 'push'], [620, 620, 1.4, 'shake']],
   detail: [[580, 600, 1.8, 'push'], [600, 680, 1.4, 'drift'], [190, 1110, 2.3, 'push', 'gulp']],
   follow: [[190, 1110, 2.3, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
-  truth: [[560, 800, 1.15, 'push', 'neutral'], [540, 820, 1.7, 'push', 'worried']],
+  truth: [[560, 800, 1.15, 'push', 'neutral'], [540, 700, 1.7, 'push', 'worried']],
   twist: [[190, 1110, 2.3, 'roll', 'shock'], [620, 600, 1.6, 'push'], [620, 600, 1.6, 'shake']],
   twist2: [[540, 460, 1.8, 'push', 'shock'], [540, 460, 1.8, 'drift', 'shock'], [190, 1110, 2.3, 'shake', 'gulp']],
   noreturn: [[480, 680, 1.6, 'shake', 'gulp']],
@@ -92,7 +94,7 @@ const SHOTS: Record<string, ShotRow[]> = {
 const OverlaysA: EpConfig['Overlays'] = ({ T, t, timings }) => {
   const beat = timings.beats.reduce((b, x) => (t >= x.start ? x : b), timings.beats[0]);
   const seg = W(T, 'stakes', 'segunda', 1.0) - 0.05;
-  const pct = W(T, 'percent', 'três', 2.4);
+  const pct = W(T, 'percent', 'empregado', 1.4);
   const cardEnd = T.s('card') + Math.min(1.5, T.s('contacts') - T.s('card') - 0.05);
   return (
     <>
@@ -119,6 +121,12 @@ const OverlaysA: EpConfig['Overlays'] = ({ T, t, timings }) => {
         </div>
       )}
       <FollowPill t={t} t0={T.s('follow')} t1={T.s('truth') - 0.05} text="SEGUE O @avidadotavinho" />
+      {/* the reply's length, big (like the 3:12 sticker); it carries over into his reaction */}
+      {t >= T.s('noreturn') + 0.1 && t < T.s('percent') + 0.6 && (
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 560, display: 'flex', justifyContent: 'center' }}>
+          <div data-qa-label="quatro" style={{ background: '#e2453c', border: '6px solid #1b1420', borderRadius: 22, padding: '10px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 48, color: '#fff', transform: `rotate(3deg) scale(${easeOutBack(clamp01((t - T.s('noreturn') - 0.1) / 0.22))})` }}>RESPOSTA: 4:07 😱</div>
+        </div>
+      )}
       <Cliffhanger t={t} t0={T.s('decide') + 0.3} who="👔 Seu Valdir" line="🎤 áudio (4:07)" qa="cliff" />
     </>
   );

@@ -74,7 +74,7 @@ export const Bed: React.FC<P> = ({ T, t }) => {
   const stars = useMemo(() => { const r = rng(3); return Array.from({ length: 24 }, () => [r() * 1080, r() * 600]); }, []);
   const mood = pct ? 'gulp' : you ? 'worried' : 'shock';
   const armL = [[360, 1150], [290, 1330], [440, 1250]];
-  const armR = you ? [[720, 1150], [lerp(790, 780, point), lerp(1330, 1260, point)], [lerp(640, 760, point), lerp(1250, 1300, point)]] : [[720, 1150], [790, 1330], [640, 1250]];
+  const armR = you ? [[720, 1150], [lerp(790, 780, point), lerp(1330, 1260, point)], [lerp(640, 760, point), lerp(1250, 1300, point)]] : [[720, 1150], [790, 1330], [600, 1250]];
   return (
     <g>
       {home.set === 'bed' && (
@@ -150,6 +150,8 @@ export const Bed: React.FC<P> = ({ T, t }) => {
           <rect x={60} y={1440} width={960} height={260} rx={50} fill="#4fa58d" {...ink(8)} />
           {[80, 1000].map((x, i) => <rect key={i} x={x - 80} y={1200} width={160} height={520} rx={60} fill="#3f8f7a" {...ink(8)} />)}
           <rect x={0} y={1700} width={1080} height={220} fill="#d9b98a" />
+          {/* his lap: knees on the cushion */}
+          <g transform={place(540, 1800, 0.95)}>{[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={1640} rx={100} ry={70} fill="#2c3550" {...ink(8)} />)}</g>
         </g>
       )}
       {/* "it's you" ring when he points */}

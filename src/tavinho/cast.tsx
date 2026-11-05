@@ -117,6 +117,8 @@ export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; ho
   const hL = armL[armL.length - 1], hR = armR[armR.length - 1];
   return (
     <g>
+      {/* soft contact shadow so he stands on the floor */}
+      <ellipse cx={540} cy={2016} rx={230} ry={26} fill="#000" opacity={0.22} />
       {/* short legs + brown shoes */}
       <path d="M405 1760 L 530 1760 L 526 1965 L 412 1965 Z" fill="#2c3550" {...ink(8)} />
       <path d="M550 1760 L 675 1760 L 668 1965 L 554 1965 Z" fill="#2c3550" {...ink(8)} />

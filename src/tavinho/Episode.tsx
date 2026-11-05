@@ -170,7 +170,12 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   return (
     <AbsoluteFill style={{ background: PAL.navy }}>
       <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+        <defs><filter id="fgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14" /></filter></defs>
         <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
+        {/* out-of-focus foreground for depth, moving a little faster than the scene (parallax) */}
+        {beat.shot === 'building' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-40 * Math.sin(t * 0.3)} 0)`}><rect x={-40} y={300} width={70} height={1700} fill="#0e1430" /><ellipse cx={-5} cy={300} rx={70} ry={40} fill="#ffd98a" opacity={0.8} /></g>}
+        {beat.shot === 'typing' && <g filter="url(#fgBlur)" opacity={0.9}><ellipse cx={-60} cy={1820} rx={360} ry={260} fill="#7fb2df" /></g>}
+        {beat.shot === 'sunday' && <g filter="url(#fgBlur)" opacity={0.75}><path d="M980 2000 L 1010 1500 L 1090 1500 L 1120 2000 Z" fill="#c9e6f7" /><ellipse cx={1050} cy={1500} rx={50} ry={16} fill="#e9f6ff" /></g>}
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
       {t >= T.s('market') - 0.02 && t < T.s('market') + 0.75 && (

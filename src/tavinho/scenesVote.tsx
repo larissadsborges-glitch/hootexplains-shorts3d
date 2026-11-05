@@ -27,7 +27,7 @@ export type VoteSide = {
  * The vote screen (events "mission", "video" = left side, "vo" = right side, "decide"), same layout as EP1's reviewed vote:
  * MISSÃO 1 card with Tavinho, then two panels sliding in with title, cost and downside, then the question and his gulp.
  */
-export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string; questionWord: string; mission: (t: number) => React.ReactNode }): SceneFC => {
+export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string; questionWord: string; mission: (t: number) => React.ReactNode; missionLabel?: string }): SceneFC => {
   const Vote: SceneFC = ({ T, t }) => {
     const v0 = T.s('video'), o0 = T.s('vo'), d0 = T.s('decide');
     const left = clamp01((t - v0 + 0.1) / 0.3), right = clamp01((t - o0 + 0.1) / 0.3);
@@ -53,12 +53,12 @@ export const makeVote = (o: { left: VoteSide; right: VoteSide; question: string;
         {panel(o.right, 540, 'vo', focusR, focusL, right, 560, 'right')}
         {/* the empty right half waits with a "?" until the second option arrives */}
         {focusL && right <= 0 && t > v0 + 0.3 && <text x={810} y={1000} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={300} fill="#3a5ba0" opacity={0.7}>?</text>}
-        {/* MISSÃO 1 before the panels arrive */}
+        {/* MISSÃO 1 / DIA 1 before the panels arrive */}
         {t < v0 - 0.05 && <g transform={place(540, 1700, 0.55)} opacity={1 - clamp01((t - v0 + 0.25) / 0.2)}>{o.mission(t)}</g>}
         {t < v0 - 0.05 && (
-          <g data-qa-label="missao" opacity={1 - clamp01((t - v0 + 0.25) / 0.2)} transform={`translate(540 560) scale(${pop(t, T.s('mission'))})`}>
+          <g data-qa-label="missao" opacity={1 - clamp01((t - v0 + 0.25) / 0.2)} transform={`translate(540 640) scale(${pop(t, T.s('mission'))})`}>
             <rect x={-300} y={-90} width={600} height={180} rx={30} fill={PAL.mint} {...ink(8)} />
-            <text x={0} y={30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={96} fill="#14171a">MISSÃO 1</text>
+            <text x={0} y={30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={96} fill="#14171a">{o.missionLabel ?? 'MISSÃO 1'}</text>
           </g>
         )}
         {/* the final question + his gulp in the middle */}

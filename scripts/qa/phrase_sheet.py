@@ -17,14 +17,18 @@ cols = int(sys.argv[4]) if len(sys.argv) > 4 else 10
 root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 tm = json.load(open(os.path.join(root, "public", "videos", vid, "timings.json"), encoding="utf-8"))
 
-phrases = []
-for b in tm["beats"]:
+groups = []  # [beat, words], same rule as phraseGroups in src/tavinho/Shell.tsx (a lone word joins the phrase before it)
+for bi, b in enumerate(tm["beats"]):
     cur = []
     for i, w in enumerate(b["words"]):
         cur.append(w)
         if re.search(r"[.,:;?!]$", w["word"]) or len(cur) >= 3 or i == len(b["words"]) - 1:
-            phrases.append(((cur[0]["start"] + cur[-1]["end"]) / 2, " ".join(x["word"] for x in cur)))
+            if len(cur) == 1 and groups and groups[-1][0] == bi and len(groups[-1][1]) <= 3 and not re.search(r"[.?!]$", groups[-1][1][-1]["word"]):
+                groups[-1][1].extend(cur)
+            else:
+                groups.append([bi, cur])
             cur = []
+phrases = [((ws[0]["start"] + ws[-1]["end"]) / 2, " ".join(x["word"] for x in ws)) for _, ws in groups]
 
 tmp = tempfile.mkdtemp()
 for k, (t, text) in enumerate(phrases):

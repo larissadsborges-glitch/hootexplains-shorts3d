@@ -1,18 +1,18 @@
 {
   "id": "tavaudio",
-  "title": "A Vida do Tavinho: O áudio",
+  "title": "A Vida do Tavinho: O áudio (dia 1 de 12)",
   "lang": "pt-br",
-  "voice": "chatterbox-jeffE",
+  "voice": "elevenlabs (pending pick)",
   "leadIn": 0.05,
   "gap": 0.08,
-  "tail": 1.0,
+  "tail": 1,
   "handle": "@avidadotavinho",
   "scene": "tavinho",
   "music": "music/upbeat_a.wav",
   "beats": [
     {
       "text": "O Tavinho mandou um áudio de três minutos falando mal do chefe.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "bed",
       "event": "hook",
       "highlight": [
@@ -25,7 +25,7 @@
     },
     {
       "text": "Pro próprio chefe.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "audiochat",
       "event": "punch",
       "highlight": [
@@ -36,8 +36,8 @@
       "pauseBefore": 0
     },
     {
-      "text": "E quem decide como ele sai dessa é você.",
-      "speed": 1.0,
+      "text": "E quem decide o que ele faz, dia após dia, é você.",
+      "speed": 1,
       "shot": "bed",
       "event": "you",
       "highlight": [
@@ -48,21 +48,22 @@
       "pauseBefore": 0
     },
     {
-      "text": "O problema: segunda tem reunião com o chefe.",
-      "speed": 1.0,
+      "text": "O problema: o chefe volta das férias em doze dias. E marcou uma reunião com ele.",
+      "speed": 1,
       "shot": "office",
       "event": "stakes",
       "highlight": [
         "problema",
-        "segunda"
+        "doze",
+        "reunião"
       ],
       "tone": "tenso",
       "exaggeration": 1.1,
       "pauseBefore": 0
     },
     {
-      "text": "Tudo começou na sexta, às seis da tarde.",
-      "speed": 1.0,
+      "text": "Tudo começou numa sexta, às seis da tarde.",
+      "speed": 1,
       "shot": "friday",
       "event": "back",
       "highlight": [
@@ -74,7 +75,7 @@
     },
     {
       "text": "Ele gravou pra Camila: esse homem tem cara de batata.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "friday",
       "event": "rant",
       "highlight": [
@@ -87,7 +88,7 @@
     },
     {
       "text": "E ainda imitou a voz dele.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "friday",
       "event": "rant2",
       "highlight": [
@@ -99,7 +100,7 @@
     },
     {
       "text": "Mas apertou no contato errado.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "contacts",
       "event": "card",
       "highlight": [
@@ -110,20 +111,8 @@
       "pauseBefore": 0
     },
     {
-      "text": "O chat do chefe estava logo acima.",
-      "speed": 1.0,
-      "shot": "contacts",
-      "event": "contacts",
-      "highlight": [
-        "chefe"
-      ],
-      "tone": "explicando, rápido",
-      "exaggeration": 1.0,
-      "pauseBefore": 0
-    },
-    {
       "text": "Três minutos e doze segundos de sinceridade.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "audiochat",
       "event": "detail",
       "highlight": [
@@ -131,128 +120,94 @@
         "doze"
       ],
       "tone": "deadpan",
-      "exaggeration": 1.0,
+      "exaggeration": 1,
       "pauseBefore": 0
     },
     {
-      "text": "Segue o Tavinho. Ele vai precisar de emprego.",
-      "speed": 1.0,
+      "text": "Segue o Tavinho. São doze dias, e piora.",
+      "speed": 1,
       "shot": "audiochat",
       "event": "follow",
       "highlight": [
-        "tavinho"
+        "tavinho",
+        "piora"
       ],
       "tone": "rápido, simpático",
       "exaggeration": 1.1,
       "pauseBefore": 0
     },
     {
-      "text": "Então ele tenta apagar pra todos.",
-      "speed": 1.0,
-      "shot": "audiochat",
-      "event": "truth",
-      "highlight": [
-        "apagar"
-      ],
-      "tone": "mais baixo, esperançoso",
-      "exaggeration": 1.0,
-      "pauseBefore": 0
-    },
-    {
-      "text": "Mas já apareceram os dois risquinhos azuis.",
-      "speed": 1.0,
+      "text": "Mas o Seu Valdir acabou de ficar online.",
+      "speed": 1,
       "shot": "audiochat",
       "event": "twist",
       "highlight": [
-        "azuis"
+        "valdir",
+        "online"
       ],
       "tone": "choque, virada da história",
       "exaggeration": 1.3,
       "pauseBefore": 0
     },
     {
-      "text": "E o Seu Valdir está gravando um áudio.",
-      "speed": 1.0,
-      "shot": "audiochat",
-      "event": "twist2",
-      "highlight": [
-        "valdir",
-        "gravando"
-      ],
-      "tone": "cada vez pior",
-      "exaggeration": 1.25,
-      "pauseBefore": 0
-    },
-    {
-      "text": "De quatro minutos.",
-      "speed": 1.0,
-      "shot": "audiochat",
-      "event": "noreturn",
-      "highlight": [
-        "quatro"
-      ],
-      "tone": "devagar, sem esperança",
-      "exaggeration": 1.1,
-      "pauseBefore": 0
-    },
-    {
       "text": "Chance de continuar empregado: três por cento.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "bed",
       "event": "percent",
       "highlight": [
         "três"
       ],
       "tone": "deadpan, piada seca",
-      "exaggeration": 1.0,
+      "exaggeration": 1,
       "pauseBefore": 0
     },
     {
-      "text": "Missão um: o que ele faz?",
-      "speed": 1.0,
+      "text": "Dia um: o que ele faz agora?",
+      "speed": 1,
       "shot": "vote",
       "event": "mission",
       "highlight": [
-        "missão"
+        "dia",
+        "um"
       ],
       "tone": "energia de apresentador",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "Dizer que foi hackeado: custa uma mentira. Mas hacker não imita chefe.",
-      "speed": 1.0,
+      "text": "Apagar pra todos: é rápido. Mas o chefe pode já ter visto.",
+      "speed": 1,
       "shot": "vote",
       "event": "video",
       "highlight": [
-        "hackeado",
-        "mentira"
+        "apagar",
+        "visto"
       ],
       "tone": "vendendo a opção, rápido",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "Ou pedir desculpa na reunião: custa a vergonha. Mas o chefe vai querer ouvir o áudio junto.",
-      "speed": 1.0,
+      "text": "Ou mandar: era pra outra pessoa. Custa uma mentira. Mas o chefe vai perguntar pra quem.",
+      "speed": 1,
       "shot": "vote",
       "event": "vo",
       "highlight": [
-        "desculpa",
-        "vergonha"
+        "mentira",
+        "quem"
       ],
-      "tone": "carinhoso, depois alerta no final",
+      "tone": "malandro, depois alerta no final",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "Você decide: hacker ou desculpa?",
-      "speed": 1.0,
+      "text": "Você decide: apaga ou disfarça?",
+      "speed": 1,
       "shot": "vote",
       "event": "decide",
       "highlight": [
-        "hacker",
-        "desculpa"
+        "apaga",
+        "disfarça"
       ],
       "tone": "pergunta direta, empolgado",
       "exaggeration": 1.2,

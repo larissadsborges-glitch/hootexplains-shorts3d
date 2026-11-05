@@ -38,7 +38,7 @@ if not key or not voice:
     sys.exit("missing API key (file or env) or voice id")
 
 SR = 24000
-GAP, REVEAL = 0.30, 0.25
+GAP, REVEAL = 0.24, 0.25
 
 
 CACHE = os.path.join(root, "public", "videos", vid, "_eleven_cache")
@@ -107,7 +107,14 @@ for i, b in enumerate(B):
     if i > 0 and b["event"] in ("card", "twist"):
         chunks.append(np.zeros(int(SR * REVEAL), np.float32)); t += REVEAL
     audio, al = tts(b["text"], B[i - 1]["text"] if i else "", B[i + 1]["text"] if i + 1 < len(B) else "")
-    words = words_from(al, b["text"], t)
+    # trim the silence ElevenLabs leaves around each line (keep 40 ms), so the pauses between lines are ours (GAP)
+    loud = np.flatnonzero(np.abs(audio) > 10 ** (-40 / 20))
+    if len(loud):
+        a0 = max(0, loud[0] - int(0.04 * SR)); a1 = min(len(audio), loud[-1] + int(0.06 * SR))
+        audio = audio[a0:a1]
+    else:
+        a0 = 0
+    words = words_from(al, b["text"], t - a0 / SR)
     beats.append({**{k: v for k, v in b.items() if k != "speed"}, "index": i, "start": words[0]["start"], "end": words[-1]["end"], "words": words})
     chunks.append(audio); t += len(audio) / SR
     if i + 1 < len(B):

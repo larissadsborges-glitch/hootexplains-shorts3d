@@ -49,7 +49,13 @@ export const phraseGroups = (timings: Timings) => {
     let cur: { word: string; start: number; end: number; hl: boolean }[] = [];
     b.words.forEach((w, i) => {
       cur.push({ ...w, hl: (b.highlight ?? []).map((x) => x.toLowerCase()).includes(cleanWord(w.word)) });
-      if (/[.,:;?!]$/.test(w.word) || cur.length >= 3 || i === b.words.length - 1) { groups.push({ start: cur[0].start, beat: bi, words: cur }); cur = []; }
+      if (/[.,:;?!]$/.test(w.word) || cur.length >= 3 || i === b.words.length - 1) {
+        // a lone word ("faz,", "visto.") joins the phrase before it in the same beat, so no caption is one small word
+        const prev = groups[groups.length - 1];
+        if (cur.length === 1 && prev && prev.beat === bi && prev.words.length <= 3 && !/[.?!]$/.test(prev.words[prev.words.length - 1].word)) prev.words.push(...cur);
+        else groups.push({ start: cur[0].start, beat: bi, words: cur });
+        cur = [];
+      }
     });
   });
   return groups;
@@ -102,7 +108,8 @@ export const RedCard: React.FC<{ t: number; t0: number; t1: number; word: string
   if (!(t >= t0 - 0.05 && t < t1)) return null;
   return (
     <AbsoluteFill data-qa-label={qa} data-qa-cover="1" style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
+      {/* the stripes slide, so the card never reads as a frozen frame */}
+      <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)', backgroundSize: '113px 113px', backgroundPosition: `${Math.round((t - t0) * 160)}px 0` }} />
       <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - t0 + 0.02) / 0.2)) * (1 + 0.04 * Math.sin((t - t0) * 14))}) rotate(${-3 + 1.5 * Math.sin((t - t0) * 9)}deg)` }}>{word}<br /><span style={{ fontSize: 220 }}>{num}</span></div>
       <div style={{ marginTop: 30, background: '#fff', color: '#e2453c', borderRadius: 20, padding: '8px 24px', fontFamily: FONT, fontWeight: 900, fontSize: 46 }}>{tag}</div>
     </AbsoluteFill>

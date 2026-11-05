@@ -1,23 +1,23 @@
 {
   "id": "tavcachorra",
-  "title": "A Vida do Tavinho: A cachorra da sogra",
+  "title": "A Vida do Tavinho: A cachorra da sogra (dia 1 de 15)",
   "lang": "pt-br",
-  "voice": "chatterbox-jeffE",
+  "voice": "elevenlabs (pending pick)",
   "leadIn": 0.05,
   "gap": 0.08,
-  "tail": 1.0,
+  "tail": 1,
   "handle": "@avidadotavinho",
   "scene": "tavinho",
   "music": "music/upbeat_b.wav",
   "beats": [
     {
-      "text": "A sogra deixou a cachorra com o Tavinho.",
-      "speed": 1.0,
+      "text": "A sogra foi pra um cruzeiro e deixou a cachorra com o Tavinho.",
+      "speed": 1,
       "shot": "living",
       "event": "hook",
       "highlight": [
         "sogra",
-        "cachorra"
+        "cruzeiro"
       ],
       "tone": "chocado, rápido",
       "exaggeration": 1.35,
@@ -25,20 +25,20 @@
     },
     {
       "text": "Ela fugiu em dez minutos.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "street",
       "event": "punch",
       "highlight": [
         "fugiu",
         "dez"
       ],
-      "tone": "seco, pausa curta antes",
-      "exaggeration": 1.25,
+      "tone": "seco",
+      "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "E quem decide como ele acha a Princesa é você.",
-      "speed": 1.0,
+      "text": "E quem decide o que ele faz, dia após dia, é você.",
+      "speed": 1,
       "shot": "home",
       "event": "you",
       "highlight": [
@@ -49,13 +49,14 @@
       "pauseBefore": 0
     },
     {
-      "text": "O problema: a Dona Celeste volta em duas horas.",
-      "speed": 1.0,
+      "text": "O problema: a sogra volta em quinze dias. E quer foto da Princesa todo dia.",
+      "speed": 1,
       "shot": "living",
       "event": "stakes",
       "highlight": [
         "problema",
-        "duas"
+        "quinze",
+        "foto"
       ],
       "tone": "tenso",
       "exaggeration": 1.1,
@@ -63,7 +64,7 @@
     },
     {
       "text": "Tudo começou com uma lista na geladeira.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "note",
       "event": "back",
       "highlight": [
@@ -75,19 +76,20 @@
     },
     {
       "text": "Ração importada, música clássica e escovar os dentes da Princesa.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "note",
       "event": "rant",
       "highlight": [
-        "princesa"
+        "ração",
+        "dentes"
       ],
-      "tone": "deadpan, listando",
-      "exaggeration": 1.0,
+      "tone": "listando, cada vez mais incrédulo",
+      "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
       "text": "Ela usa casaco de oncinha e um laço gigante.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "living",
       "event": "rant2",
       "highlight": [
@@ -100,19 +102,19 @@
     },
     {
       "text": "Aí chegou o lanche dele.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "street",
       "event": "lunch",
       "highlight": [
         "lanche"
       ],
-      "tone": "animado",
-      "exaggeration": 1.1,
+      "tone": "feliz, inocente",
+      "exaggeration": 1,
       "pauseBefore": 0
     },
     {
       "text": "Mas ele deixou o portão aberto.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "street",
       "event": "card",
       "highlight": [
@@ -124,135 +126,114 @@
     },
     {
       "text": "A Princesa saiu correndo atrás do motoboy.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "street",
       "event": "run",
       "highlight": [
-        "princesa"
+        "princesa",
+        "motoboy"
       ],
-      "tone": "rápido",
-      "exaggeration": 1.25,
+      "tone": "rápido, caos",
+      "exaggeration": 1.3,
       "pauseBefore": 0
     },
     {
       "text": "O Tavinho correu dois quarteirões e teve que sentar.",
-      "speed": 1.0,
+      "speed": 1,
       "shot": "street",
       "event": "sit",
       "highlight": [
         "dois",
         "sentar"
       ],
-      "tone": "construindo até a piada",
-      "exaggeration": 1.2,
+      "tone": "deadpan",
+      "exaggeration": 1,
       "pauseBefore": 0
     },
     {
-      "text": "Segue o Tavinho. Ele precisa de ajuda.",
-      "speed": 1.0,
+      "text": "Segue o Tavinho. São quinze dias, e piora.",
+      "speed": 1,
       "shot": "street",
       "event": "follow",
       "highlight": [
-        "tavinho"
+        "tavinho",
+        "piora"
       ],
       "tone": "rápido, simpático",
       "exaggeration": 1.1,
       "pauseBefore": 0
     },
     {
-      "text": "Então ele decide comprar outra cachorra igual.",
-      "speed": 1.0,
-      "shot": "petshop",
-      "event": "truth",
-      "highlight": [
-        "igual"
-      ],
-      "tone": "mais baixo, esperançoso",
-      "exaggeration": 1.0,
-      "pauseBefore": 0
-    },
-    {
-      "text": "Mas a sogra manda: me manda um vídeo da minha princesa.",
-      "speed": 1.0,
+      "text": "Mas chega a primeira mensagem da sogra: cadê a foto da minha princesa?",
+      "speed": 1,
       "shot": "celestechat",
       "event": "twist",
       "highlight": [
-        "sogra",
-        "princesa"
+        "foto"
       ],
-      "tone": "choque, virada da história",
+      "tone": "choque, virada; imita a sogra no fim",
       "exaggeration": 1.3,
       "pauseBefore": 0
     },
     {
-      "text": "Ele tem cinco minutos.",
-      "speed": 1.0,
-      "shot": "celestechat",
-      "event": "noreturn",
-      "highlight": [
-        "cinco"
-      ],
-      "tone": "devagar, sem esperança",
-      "exaggeration": 1.1,
-      "pauseBefore": 0
-    },
-    {
-      "text": "Chance de achar a Princesa: quatro por cento.",
-      "speed": 1.0,
-      "shot": "petshop",
+      "text": "Chance de ela não perceber: quatro por cento.",
+      "speed": 1,
+      "shot": "home",
       "event": "percent",
       "highlight": [
         "quatro"
       ],
       "tone": "deadpan, piada seca",
-      "exaggeration": 1.0,
+      "exaggeration": 1,
       "pauseBefore": 0
     },
     {
-      "text": "Missão um: como ele procura?",
-      "speed": 1.0,
+      "text": "Dia um: que foto ele manda?",
+      "speed": 1,
       "shot": "vote",
       "event": "mission",
       "highlight": [
-        "missão"
+        "dia",
+        "um"
       ],
       "tone": "energia de apresentador",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "No grupo do bairro: é rápido. Mas a sogra está no grupo.",
-      "speed": 1.0,
+      "text": "Uma foto antiga: é perfeita. Mas a Princesa está com o laço de Natal.",
+      "speed": 1,
       "shot": "vote",
       "event": "video",
       "highlight": [
-        "grupo",
-        "sogra"
+        "antiga",
+        "natal"
       ],
       "tone": "vendendo a opção, rápido",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "Ou com uma salsicha: a Princesa ama salsicha. Mas os cachorros do bairro também.",
-      "speed": 1.0,
+      "text": "Ou uma almofada branca com o laço, de longe: é de hoje. Mas a almofada não tem cara.",
+      "speed": 1,
       "shot": "vote",
       "event": "vo",
       "highlight": [
-        "salsicha"
+        "almofada",
+        "cara"
       ],
-      "tone": "carinhoso, depois alerta no final",
+      "tone": "malandro, depois alerta no final",
       "exaggeration": 1.2,
       "pauseBefore": 0
     },
     {
-      "text": "Você decide: grupo ou salsicha?",
-      "speed": 1.0,
+      "text": "Você decide: foto antiga ou almofada?",
+      "speed": 1,
       "shot": "vote",
       "event": "decide",
       "highlight": [
-        "grupo",
-        "salsicha"
+        "antiga",
+        "almofada"
       ],
       "tone": "pergunta direta, empolgado",
       "exaggeration": 1.2,

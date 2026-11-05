@@ -3,7 +3,7 @@ import { clamp01, easeOutBack, lerp } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
 import { INK, ink } from './style';
 import { place } from '../toon2d/parts';
-import { Camila, PAL, Tavinho, Valdir } from './cast';
+import { Camila, PAL, SeatedTavinho, Tavinho, Valdir } from './cast';
 import { Phone } from './scenes';
 
 /* Episode "O áudio": Tavinho sends a 3-minute rant about his boss... to the boss. */
@@ -53,50 +53,27 @@ const SideTavinho: React.FC<{ t: number; friday: boolean }> = ({ t, friday }) =>
   <g transform={place(190, 1700, 0.5)}><Tavinho t={t} mood="worried" sweat={1} slip={0.7} outfit={friday ? 'work' : 'pajama'} /></g>
 );
 
-/* ------------------------------------------------------------------ the chat with Seu Valdir */
+/* ------------------------------------------------------------------ the chat with Seu Valdir (day 1: sent, not heard yet; then he comes online) */
 export const AudioChat: React.FC<P> = ({ T, t }) => {
   const sent = T.s('punch') - 0.1;
-  const blue = W(T, 'twist', 'risquinhos', 1.6);
-  const rec = T.s('twist2') - 0.05, reply = T.s('noreturn') - 0.05;
-  // windows switch 0.05 s early, with the camera cuts (no flash of the old state in the new shot)
-  const menu0 = T.s('truth') - 0.05, menuOut = T.s('twist') - 0.05;
-  const del = W(T, 'truth', 'apagar', 0.9);
   const detail0 = T.s('detail'), detail1 = T.s('follow');
   const played = t >= detail0 ? clamp01((t - detail0) / Math.max(0.5, detail1 - detail0)) : 0;
-  const recSecs = t >= rec ? Math.min(247, Math.floor((t - rec) / Math.max(0.5, reply - rec) * 247)) : 0;
-  const recording = t >= rec && t < reply;
+  // he comes online on the twist ("ficar online")
+  const on = T.s('twist') + 0.3;
+  const online = t >= on;
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill={PAL.navy} />
       <Phone x={260} y={310} s={1} glow={1}>
         <rect x={0} y={0} width={560} height={1100} fill="#ece5dc" />
-        <Header name="Seu Valdir 👔" color="#3a5ba0" avatar={<Valdir t={t} mood="neutral" />}
-          status={recording
-            ? <g><circle cx={136} cy={110} r={8} fill="#ff4a3d" opacity={0.6 + 0.4 * Math.sin(t * 12)} /><text x={152} y={118} fontFamily={F} fontWeight={800} fontSize={22} fill="#ffd6d2">{`gravando áudio… ${Math.floor(recSecs / 60)}:${String(recSecs % 60).padStart(2, '0')}`}</text></g>
-            : <text x={128} y={118} fontFamily={F} fontWeight={700} fontSize={22} fill="#fff4e0">online</text>} />
+        <Header name="Seu Valdir 👔" color="#3a5ba0" avatar={<Valdir t={t} mood="neutral" beach />}
+          status={online
+            ? <g><circle cx={136} cy={110} r={9} fill="#3ddc97" opacity={0.7 + 0.3 * Math.sin(t * 10)} /><text x={154} y={118} fontFamily={F} fontWeight={900} fontSize={24} fill="#b9ffd9">online</text></g>
+            : <text x={128} y={118} fontFamily={F} fontWeight={700} fontSize={20} fill="#fff4e0">visto por último ontem 🏖️</text>} />
         <text x={280} y={182} textAnchor="middle" fontFamily={F} fontWeight={700} fontSize={18} fill="#7d8590">SEXTA 18:04</text>
-        {t >= sent && <VoiceBubble x={100} y={200} w={440} me dur={t >= del && t < menuOut ? 'apagando… ⏳' : t >= detail0 ? `${Math.floor(played * 3)}:${String(Math.floor((played * 192) % 60)).padStart(2, '0')} / 3:12` : '3:12'} played={played} ticks={t >= blue ? 'blue' : 'grey'} s={pop(t, sent)} qa="audio" />}
-        {/* his reply: a longer voice message */}
-        {t >= reply && <VoiceBubble x={20} y={340} w={440} me={false} dur="4:07" played={0} s={pop(t, reply)} qa="resposta" />}
-        {/* the input bar: his mic recording while "gravando áudio…" */}
+        {t >= sent && <VoiceBubble x={100} y={200} w={440} me dur={t >= detail0 ? `${Math.floor(played * 3)}:${String(Math.floor((played * 192) % 60)).padStart(2, '0')} / 3:12` : '3:12'} played={played} ticks="grey" s={pop(t, sent)} qa="audio" />}
+        {/* the input bar */}
         <rect x={16} y={980} width={528} height={86} rx={43} fill="#ffffff" {...ink(4)} />
-
-        {/* long-press menu: "Apagar para todos" */}
-        {t >= menu0 && t < menuOut && (
-          <g transform={`translate(280 520) scale(${pop(t, menu0)}) translate(-280 -520)`}>
-            <rect x={0} y={140} width={560} height={960} fill="#000" opacity={0.25} />
-            <rect x={70} y={340} width={420} height={300} rx={24} fill="#ffffff" {...ink(5)} />
-            {['Responder', 'Encaminhar', 'Apagar para mim', 'Apagar para todos'].map((l, i) => {
-              const hot = i === 3 && t >= del - 0.1;
-              return (
-                <g key={i}>
-                  {hot && <rect x={80} y={352 + i * 70} width={400} height={64} rx={14} fill="#ffe2df" />}
-                  <text x={104} y={396 + i * 70} fontFamily={F} fontWeight={i === 3 ? 900 : 700} fontSize={i === 3 ? 30 : 28} fill={i >= 2 ? '#c8322a' : '#14171a'}>{l}</text>
-                </g>
-              );
-            })}
-          </g>
-        )}
       </Phone>
       {/* "3:12 de sinceridade" sticker during the detail beat */}
       {t >= detail0 && t < W(T, 'detail', 'sinceridade', 2.0) - 0.05 && (
@@ -105,57 +82,70 @@ export const AudioChat: React.FC<P> = ({ T, t }) => {
           <text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">3:12 DE SINCERIDADE</text>
         </g>
       )}
-      {/* the two blue ticks, huge, on "azuis" */}
-      {t >= blue && t < T.s('noreturn') && (
-        <g data-qa-label="azuis" transform={`translate(720 620) scale(${1.6 * pop(t, blue)})`}>
-          <circle cx={0} cy={0} r={70} fill="#ffffff" {...ink(6)} />
-          <text x={0} y={22} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={64} fill={BLUE_TICK}>✓✓</text>
+      {/* ONLINE, huge, on "online": the ticks are still grey, he hasn't heard it... yet */}
+      {online && t < T.s('percent') - 0.05 && (
+        <g data-qa-label="online" transform={`translate(700 640) rotate(4) scale(${pop(t, on)})`}>
+          <rect x={-200} y={-62} width={400} height={124} rx={62} fill="#3ddc97" {...ink(7)} />
+          <circle cx={-130} cy={0} r={22} fill="#ffffff" opacity={0.6 + 0.4 * Math.sin(t * 10)} {...ink(4)} />
+          <text x={30} y={20} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#14171a">ONLINE</text>
         </g>
       )}
-      <SideTavinho t={t} friday={t >= T.s('card') && t < T.s('percent')} />
+      <SideTavinho t={t} friday />
     </g>
   );
 };
 
-/* ------------------------------------------------------------------ the boss's office: Monday 9 a.m. */
+/* ------------------------------------------------------------------ Seu Valdir on holiday at the beach; the meeting on day 12 */
 export const Office: React.FC<P> = ({ T, t }) => {
-  const seg = W(T, 'stakes', 'segunda', 1.0);
+  const cal = W(T, 'stakes', 'marcou', 2.6) - 0.1;
+  const twelve = W(T, 'stakes', 'volta', 0.8) - 0.1;
   return (
     <g>
-      <rect x={0} y={0} width={1080} height={1920} fill="#d9cdb5" />
-      <rect x={0} y={1250} width={1080} height={670} fill="#8a6a4a" />
-      {/* window with the city */}
-      <rect x={90} y={300} width={360} height={420} rx={10} fill="#9fd0ff" {...ink(8)} />
-      {[[120, 520, 70, 200], [210, 460, 90, 260], [320, 560, 100, 160]].map(([x, y, w, h], i) => <rect key={i} x={x} y={y} width={w} height={h} fill="#6d86b5" {...ink(4)} />)}
-      <path d="M270 300 L 270 720 M 90 510 L 450 510" stroke="#1b1420" strokeWidth={8} />
-      {/* wall clock */}
-      <g transform="translate(560 380)"><circle r={70} fill="#fff" {...ink(7)} /><path d={`M0 0 L ${40 * Math.sin(t * 0.8)} ${-40 * Math.cos(t * 0.8)} M0 0 L 0 -52`} stroke={INK} strokeWidth={8} strokeLinecap="round" /></g>
-      {/* the calendar: MONDAY circled */}
-      <g data-qa-label="calendario" transform={`translate(820 520) rotate(3)`}>
-        <rect x={-150} y={-190} width={300} height={360} rx={14} fill="#ffffff" {...ink(7)} />
-        <rect x={-150} y={-190} width={300} height={80} rx={14} fill="#c8322a" />
-        <text x={0} y={-135} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#fff">SEGUNDA</text>
-        <text x={0} y={10} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill="#14171a">9h</text>
-        <text x={0} y={100} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">REUNIÃO</text>
-        {t >= seg && <ellipse cx={0} cy={-22} rx={110} ry={66} fill="none" stroke="#e2453c" strokeWidth={10} strokeDasharray={`${560 * clamp01((t - seg) / 0.4)} 560`} transform="rotate(-8)" />}
+      {/* sky, sun, sea, sand */}
+      <rect x={0} y={0} width={1080} height={1920} fill="#8fd6ff" />
+      <circle cx={860} cy={300} r={110} fill="#ffe08a" {...ink(5)} />
+      <rect x={0} y={880} width={1080} height={300} fill="#3aa0c8" />
+      {Array.from({ length: 5 }, (_, i) => <path key={i} d={`M${((i * 260 + t * 40) % 1300) - 120} ${940 + (i % 3) * 70} q 40 -24 80 0 q 40 24 80 0`} fill="none" stroke="#e9f6ff" strokeWidth={8} strokeLinecap="round" />)}
+      <path d="M0 1160 C 300 1120 780 1130 1080 1170 L 1080 1920 L 0 1920 Z" fill="#f2d49a" {...ink(6)} />
+      {/* beach umbrella and a towel */}
+      <path d="M160 1700 L 250 900" stroke="#6b4a2c" strokeWidth={16} strokeLinecap="round" />
+      <path d="M40 980 C 120 800 420 780 470 930 Z" fill="#e2453c" {...ink(7)} />
+      <path d="M150 870 C 200 900 250 925 300 935 M 260 820 C 290 870 320 900 370 920" fill="none" stroke="#fff4e0" strokeWidth={16} />
+      <rect x={640} y={1700} width={360} height={120} rx={16} fill="#ffd166" transform="rotate(-6 820 1760)" {...ink(6)} />
+      {/* Seu Valdir in a flowered shirt, a coconut in hand */}
+      <g transform={place(500, 1700, 0.62)}>
+        <Valdir t={t} mood={t >= cal ? 'proud' : 'happy'} beach armR={[[X1(690), 1150], [800, 1300], [760, 1200]]}
+          holdR={<g transform="translate(10 -80)"><circle cx={0} cy={0} r={70} fill="#7a4a2c" {...ink(6)} /><path d="M-30 -60 L 20 -150" stroke="#ff5fb0" strokeWidth={12} strokeLinecap="round" /><path d="M20 -150 l 26 -12" stroke="#ff5fb0" strokeWidth={12} strokeLinecap="round" /></g>} />
       </g>
-      {/* Seu Valdir behind his desk */}
-      <g transform={place(480, 1720, 0.62)}><Valdir t={t} mood={t >= seg ? 'worried' : 'neutral'} /></g>
-      <rect x={60} y={1260} width={960} height={60} rx={12} fill="#6b4a2c" {...ink(8)} />
-      <rect x={100} y={1316} width={880} height={420} fill="#5a3d24" {...ink(7)} />
-      {/* name plate + mug */}
-      <g data-qa-label="placa" transform="translate(480 1236)"><rect x={-170} y={-40} width={340} height={70} rx={10} fill="#d4b26a" {...ink(5)} /><text x={0} y={8} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#3a2a12">SEU VALDIR · CHEFE</text></g>
-      <g transform="translate(830 1200)"><rect x={-50} y={-70} width={100} height={110} rx={14} fill="#ffffff" {...ink(6)} /><path d="M50 -40 q 40 0 40 30 q 0 30 -40 30" fill="none" {...ink(8)} /><text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={22} fill="#c8322a">CHEFE</text></g>
+      {/* "VOLTA EM 12 DIAS" */}
+      {t >= twelve && t < cal && (
+        <g data-qa-label="doze" transform={`translate(800 560) rotate(5) scale(${pop(t, twelve)})`}>
+          <circle cx={0} cy={0} r={130} fill={PAL.orange} {...ink(8)} />
+          <text x={0} y={10} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill="#fff">12</text>
+          <text x={0} y={70} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#fff">DIAS</text>
+        </g>
+      )}
+      {/* his phone calendar: DIA 12 · REUNIÃO: TAVINHO */}
+      {t >= cal && (
+        <g data-qa-label="calendario" transform={`translate(790 560) rotate(4) scale(${pop(t, cal)})`}>
+          <rect x={-200} y={-230} width={400} height={440} rx={22} fill="#ffffff" {...ink(8)} />
+          <rect x={-200} y={-230} width={400} height={96} rx={22} fill="#c8322a" />
+          <text x={0} y={-166} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">DIA 12</text>
+          <text x={0} y={-10} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#14171a">REUNIÃO</text>
+          <text x={0} y={70} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#c8322a">COM TAVINHO</text>
+          <text x={0} y={150} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={34} fill="#7d8590">9h · sem atraso 🙂</text>
+        </g>
+      )}
     </g>
   );
 };
+const X1 = (x: number) => 540 + (x - 540) * 1.08;
 
 /* ------------------------------------------------------------------ Friday 6 p.m. (sepia flashback): the rant */
 export const Friday: React.FC<P> = ({ T, t }) => {
   const cara = W(T, 'rant', 'cara', 1.6);
   const imit = T.s('rant2');
   const stache = t >= imit ? pop(t, W(T, 'rant2', 'imitou', 0.6) - 0.1) : 0;
-  const talk = 0.25 + 0.25 * Math.abs(Math.sin(t * 13));
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#e8d2ab" />
@@ -167,17 +157,14 @@ export const Friday: React.FC<P> = ({ T, t }) => {
       {/* sofa back and seat (behind him) */}
       <rect x={110} y={1030} width={860} height={400} rx={60} fill="#c8643a" {...ink(8)} />
       <rect x={70} y={1380} width={940} height={180} rx={40} fill="#d9774a" {...ink(8)} />
-      {/* Tavinho sitting on the sofa, phone in front of his mouth, recording */}
-      <g transform={place(540, 1550, 0.62)}>
-        <Tavinho t={t} mood={t >= imit ? 'proud' : 'happy'} talk={t >= T.s('rant') && t < T.s('card') ? talk : 0} sweat={0} stache={stache}
-          armR={[[720, 1150], [820, 1200], [660, 1120]]}
-          holdR={<g transform="translate(-30 -40) rotate(-12)"><rect x={-50} y={-90} width={100} height={170} rx={16} fill="#20232c" {...ink(5)} /><rect x={-38} y={-78} width={76} height={140} rx={10} fill="#bfe6ff" /><circle cx={0} cy={-8} r={18} fill="#ff4a3d" opacity={0.6 + 0.4 * Math.sin(t * 10)} /></g>} />
-        {/* knees on the cushion: he is sitting */}
-        {[440, 640].map((x, i) => <ellipse key={i} cx={x} cy={1800} rx={95} ry={72} fill="#2c3550" {...ink(8)} />)}
-      </g>
-      {/* sofa front + arms */}
+      {/* sofa front + arms, then Tavinho sitting on its edge, the phone at his mouth, recording */}
       <rect x={70} y={1500} width={940} height={110} rx={30} fill="#c8643a" {...ink(8)} />
       {[90, 990].map((x, i) => <rect key={i} x={x - 70} y={1150} width={140} height={460} rx={50} fill="#b8552f" {...ink(8)} />)}
+      <g transform={place(540, 1720, 0.62)}>
+        <SeatedTavinho t={t} mood={t >= imit ? 'proud' : 'happy'} sweat={0} stache={stache}
+          armR={[[720, 1150], [830, 1250], [650, 1140]]}
+          holdR={<g transform="translate(-10 -30) rotate(-14)"><rect x={-50} y={-90} width={100} height={170} rx={16} fill="#20232c" {...ink(5)} /><rect x={-38} y={-78} width={76} height={140} rx={10} fill="#bfe6ff" /><circle cx={0} cy={-8} r={18} fill="#ff4a3d" opacity={0.6 + 0.4 * Math.sin(t * 10)} /></g>} />
+      </g>
       {/* "GRAVANDO" mic sticker while he records the rant */}
       {t >= T.s('rant') && t < T.s('card') && (
         <g data-qa-label="gravando" transform={`translate(740 940) rotate(6) scale(${0.8 * pop(t, T.s('rant'))})`}>
@@ -216,7 +203,6 @@ export const Friday: React.FC<P> = ({ T, t }) => {
 /* ------------------------------------------------------------------ the chat list: the boss sits right above Camila */
 export const Contacts: React.FC<P> = ({ T, t }) => {
   const tap = T.s('card') + 0.05;
-  const arrow = T.s('contacts') + 0.2;
   const rows: [string, string, React.ReactNode][] = [
     ['Seu Valdir 👔', 'relatório pra segunda', <Valdir key="v" t={t} mood="neutral" />],
     ['Camila 💛', 'kkkk tô chegando', <Camila key="c" t={t} mood="happy" />],
@@ -243,14 +229,6 @@ export const Contacts: React.FC<P> = ({ T, t }) => {
         {/* the tap ripple on the wrong chat */}
         {t >= tap && t < tap + 0.9 && <circle cx={300} cy={222} r={20 + 160 * clamp01((t - tap) / 0.6)} fill="#e2453c" opacity={0.35 * (1 - clamp01((t - tap) / 0.9))} />}
       </Phone>
-      {/* "LOGO ACIMA" arrow between the boss and Camila */}
-      {t >= arrow && (
-        <g data-qa-label="acima" transform={`translate(${lerp(1100, 730, clamp01((t - arrow) / 0.25))} 620) scale(${0.75 * pop(t, arrow)})`}>
-          <rect x={-130} y={-130} width={260} height={210} rx={22} fill="#ffd21f" {...ink(6)} />
-          <path d="M0 -110 L 44 -56 L 16 -56 L 16 0 L -16 0 L -16 -56 L -44 -56 Z" fill="#c8322a" {...ink(4)} />
-          <text x={0} y={52} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={34} fill="#14171a">LOGO ACIMA</text>
-        </g>
-      )}
       <SideTavinho t={t} friday />
     </g>
   );

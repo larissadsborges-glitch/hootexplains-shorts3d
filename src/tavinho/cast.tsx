@@ -366,10 +366,17 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
 };
 
 /* ------------------------------------------------------------------ Seu Valdir: square blocky head and wide jaw, small eyes, a big bulbous red nose, jowls, big ears; one combed-over strand, huge grey mustache */
-export const Valdir: React.FC<Face> = (f) => {
+export const Valdir: React.FC<Face & { beach?: boolean; holdR?: React.ReactNode; armR?: number[][] }> = (f) => {
   const SK = '#e7b48e', SK_SH = '#c98f68', GREY = '#bdbdc6';
+  // on holiday: a loud flowered shirt, khaki shorts (bare shins), flip-flops, sunglasses pushed up on his head
+  const beach = f.beach ? { top: '#2f9c95', topSh: '#237a74', bottom: 'pants' as const, bottomColor: '#cdb27a', shoe: '#e2453c', legSkin: true,
+    detail: <g>
+      <path d="M470 1100 L 540 1190 L 610 1100" fill="none" {...ink(7)} />
+      {[[430, 1220], [640, 1260], [500, 1400], [690, 1450], [400, 1480], [580, 1530]].map(([x, y], i) => <g key={i} transform={`translate(${x} ${y})`}>{[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx={0} cy={-18} rx={11} ry={18} fill={i % 2 ? '#ffd166' : '#ff8fb1'} transform={`rotate(${a})`} />)}<circle r={9} fill="#fff4e0" /></g>)}
+      <path d="M380 1600 L 700 1600 L 704 1700 L 376 1700 Z" fill="#cdb27a" {...ink(7)} />
+    </g> } : null;
   return (
-    <PersonBody t={f.t} phase={2.4} b={{ skin: SK, top: '#7a5434', topSh: '#5e3f25', bottom: 'pants', bottomColor: '#5e3f25', shoe: '#2a2a32', width: 1.08,
+    <PersonBody t={f.t} phase={2.4} armR={f.armR} holdR={f.holdR} b={beach ? { skin: SK, width: 1.08, ...beach } : { skin: SK, top: '#7a5434', topSh: '#5e3f25', bottom: 'pants', bottomColor: '#5e3f25', shoe: '#2a2a32', width: 1.08,
       detail: <g>
         <path d="M480 1100 L 540 1240 L 600 1100 Z" fill="#ffffff" {...ink(6)} />
         <path d="M528 1120 L 552 1120 L 560 1220 L 540 1246 L 520 1220 Z" fill="#2f6b4f" {...ink(5)} />
@@ -388,8 +395,38 @@ export const Valdir: React.FC<Face> = (f) => {
           {/* jowls */}
           {[[430, -1], [690, 1]].map(([x, s], i) => <path key={i} d={`M${x} 700 q ${s * -10} 50 ${s * 30} 80`} fill="none" stroke={SK_SH} strokeWidth={6} strokeLinecap="round" />)}
         </g>,
-        top: <path d="M562 670 C 514 652 446 660 428 706 C 472 690 520 696 562 702 C 604 696 652 690 696 706 C 678 660 610 652 562 670 Z" fill={GREY} {...ink(6)} />,
+        top: <g>
+          <path d="M562 670 C 514 652 446 660 428 706 C 472 690 520 696 562 702 C 604 696 652 690 696 706 C 678 660 610 652 562 670 Z" fill={GREY} {...ink(6)} />
+          {f.beach && <g transform="rotate(-4 560 380)">{[500, 620].map((x) => <ellipse key={x} cx={x} cy={380} rx={52} ry={34} fill="#1b1420" opacity={0.92} />)}<path d="M548 376 L 572 376 M 448 372 L 400 400 M 672 372 L 720 400" {...ink(7)} /></g>}
+        </g>,
       }} />
     </PersonBody>
+  );
+};
+
+/**
+ * Tavinho sitting on the front edge of a seat, facing us (body coords, like Tavinho: draw it at the same place()).
+ * His standing legs are cut off at the belt; the thighs come towards us as two knees, the shins hang in front of the
+ * seat down to the floor (feet at 2016). Draw the seat (back, cushion, front) BEFORE this, so the legs sit over its edge.
+ */
+export const SeatedTavinho: React.FC<React.ComponentProps<typeof Tavinho>> = (f) => {
+  const id = `seat${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
+  const PANTS = '#2f3b5c';
+  return (
+    <g>
+      <clipPath id={id}><rect x={-400} y={-400} width={1900} height={2030} /></clipPath>
+      <g clipPath={`url(#${id})`}><Tavinho {...f} /></g>
+      {/* shins first (behind the knees), then odd socks and big shoes on the floor */}
+      {[[[448, 1700], [440, 1850], [446, 1930]], [[632, 1700], [640, 1850], [634, 1930]]].map((pts, i) => <Limb key={i} pts={pts} w={62} color={PANTS} />)}
+      <rect x={423} y={1925} width={46} height={42} fill="#e2453c" {...ink(4)} />
+      {[1935, 1952].map((y) => <path key={y} d={`M423 ${y} L 469 ${y}`} stroke="#fff4e0" strokeWidth={6} />)}
+      <rect x={611} y={1925} width={46} height={42} fill="#3e6a8a" {...ink(4)} />
+      {[[623, 1936], [643, 1950], [627, 1958]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={4} fill="#f2c94c" />)}
+      {[[440, -1], [640, 1]].map(([x, s], i) => <path key={i} d={`M${x - 74 + s * 14} 2016 C ${x - 80} 1972 ${x - 44} 1956 ${x} 1956 C ${x + 52} 1956 ${x + 90} 1978 ${x + 84 + s * 14} 2016 Z`} fill="#7a4a2c" {...ink(7)} />)}
+      {/* the thighs coming towards us: a lap and two knees */}
+      <path d="M360 1600 C 420 1630 660 1630 720 1600 L 730 1660 C 660 1690 420 1690 350 1660 Z" fill={PANTS} {...ink(7)} />
+      {[445, 635].map((x) => <ellipse key={x} cx={x} cy={1676} rx={92} ry={62} fill={PANTS} {...ink(8)} />)}
+      {[445, 635].map((x) => <path key={`h${x}`} d={`M${x - 46} 1660 Q ${x} 1640 ${x + 46} 1660`} fill="none" stroke="#45527a" strokeWidth={8} strokeLinecap="round" />)}
+    </g>
   );
 };

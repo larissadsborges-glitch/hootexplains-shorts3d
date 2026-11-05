@@ -3,7 +3,7 @@ import { clamp01, easeOutBack, lerp } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
 import { INK, ink } from './style';
 import { place } from '../toon2d/parts';
-import { Celeste, PAL, Tavinho } from './cast';
+import { Celeste, PAL, SeatedTavinho, Tavinho } from './cast';
 import { Phone } from './scenes';
 import { Avatar } from './scenesAudio';
 
@@ -17,7 +17,7 @@ const OUTFIT = 'tee' as const;
 /* ------------------------------------------------------------------ cast for this episode */
 
 /** Princesa: a tiny white poodle in a leopard-print coat with a giant pink bow. Drawn around (0, 0), about 300 wide. */
-export const Princesa: React.FC<{ t: number; run?: boolean; s?: number }> = ({ t, run = false, s = 1 }) => {
+export const Princesa: React.FC<{ t: number; run?: boolean; s?: number; xmas?: boolean }> = ({ t, run = false, s = 1, xmas = false }) => {
   const step = run ? Math.sin(t * 22) : 0;
   const bob = run ? 8 * Math.abs(Math.sin(t * 22)) : 3 * Math.sin(t * 2.4);
   const puff = (cx: number, cy: number, r: number, k: string) => <circle key={k} cx={cx} cy={cy} r={r} fill="#ffffff" {...ink(5)} />;
@@ -55,8 +55,9 @@ export const Princesa: React.FC<{ t: number; run?: boolean; s?: number }> = ({ t
         <path d="M-4 30 q 4 14 8 0" fill="#ff7aa8" {...ink(2)} />
         {/* the giant pink bow */}
         <g transform="translate(0 -78)">
-          <path d="M0 0 L -86 -44 L -86 44 Z M0 0 L 86 -44 L 86 44 Z" fill="#ff5fb0" {...ink(6)} />
-          <circle cx={0} cy={0} r={18} fill="#ff2f8f" {...ink(5)} />
+          <path d="M0 0 L -86 -44 L -86 44 Z M0 0 L 86 -44 L 86 44 Z" fill={xmas ? '#d62f2f' : '#ff5fb0'} {...ink(6)} />
+          {xmas && [-1, 1].map((k) => <ellipse key={k} cx={k * 26} cy={-26} rx={24} ry={11} fill="#2f8f4a" transform={`rotate(${k * 30} ${k * 26} -26)`} {...ink(3)} />)}
+          <circle cx={0} cy={0} r={18} fill={xmas ? '#ffd21f' : '#ff2f8f'} {...ink(5)} />
         </g>
       </g>
     </g>
@@ -105,6 +106,7 @@ export const Living: React.FC<P> = ({ T, t }) => {
   const posing = t >= T.s('rant2') - 0.05;
   const bubbleA = T.s('hook') - 0.1;
   const bubbleB = T.s('stakes') + 0.2;
+  const photoAt = W(T, 'stakes', 'foto', 2.4) - 0.1;
   const coat = T.s('rant2') - 0.05, bow = W(T, 'rant2', 'oncinha', 1.2) - 0.1;
   return (
     <g>
@@ -140,6 +142,13 @@ export const Living: React.FC<P> = ({ T, t }) => {
       {handing && (
         <g>
           <g transform={place(760, 1720, 0.62)}><Celeste t={t} mood="happy" /></g>
+          {/* her cruise suitcase */}
+          <g transform="translate(960 1560)">
+            <rect x={-70} y={-200} width={140} height={210} rx={18} fill="#ff5fb0" {...ink(6)} />
+            <path d="M-34 -200 L -34 -250 L 34 -250 L 34 -200" fill="none" {...ink(8)} />
+            <circle cx={0} cy={-96} r={40} fill="#ffffff" {...ink(4)} />
+            <text x={0} y={-80} textAnchor="middle" fontSize={44}>🛳️</text>
+          </g>
           <g transform={place(330, 1720, 0.62)}>
             <Tavinho t={t} mood="worried" sweat={0.4} slip={0.5} outfit={OUTFIT}
               armL={[[360, 1150], [300, 1250], [470, 1190]]} armR={[[720, 1150], [780, 1250], [630, 1190]]}
@@ -163,11 +172,16 @@ export const Living: React.FC<P> = ({ T, t }) => {
             <Tavinho t={t} mood="gulp" sweat={1} slip={0.6} outfit={OUTFIT} armR={[[720, 1150], [800, 1300], [740, 1420]]}
               holdR={<g><path d="M0 0 C 40 160 60 360 120 520" fill="none" stroke="#e2453c" strokeWidth={10} strokeLinecap="round" /><ellipse cx={130} cy={540} rx={50} ry={22} fill="none" stroke="#ff5fb0" strokeWidth={12} /></g>} />
           </g>
-          {t >= bubbleB && t < W(T, 'stakes', 'horas', 2.6) - 0.05 && (
+          {t >= bubbleB && (
             <g data-qa-label="volto" transform={`translate(660 420) scale(${pop(t, bubbleB)})`}>
               <path d="M-260 -80 L 260 -80 Q 290 -80 290 -50 L 290 50 Q 290 80 260 80 L 160 80 L 140 150 L 100 80 L -260 80 Q -290 80 -290 50 L -290 -50 Q -290 -80 -260 -80 Z" fill="#fff" {...ink(7)} />
-              <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#14171a">VOLTO EM</text>
-              <text x={0} y={48} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">2 HORAS! 💋</text>
+              {t < photoAt ? <>
+                <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#14171a">VOLTO EM</text>
+                <text x={0} y={48} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">15 DIAS! 🛳️</text>
+              </> : <>
+                <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#14171a">FOTO DELA</text>
+                <text x={0} y={48} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">TODO DIA! 📸</text>
+              </>}
             </g>
           )}
         </g>
@@ -195,7 +209,7 @@ export const Note: React.FC<P> = ({ T, t }) => {
           if (t < at) return null;
           return <text key={i} data-qa-label={`item${i}`} x={-290} y={-190 + i * 160} fontFamily={F} fontWeight={900} fontSize={48} fill="#14171a" transform={`translate(${-290 * (1 - pop(t, at))} 0)`}>{label}</text>;
         })}
-        <text x={160} y={330} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={40} fill="#c8322a">Celeste 💋</text>
+        <text x={170} y={250} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={40} fill="#c8322a">Celeste 💋</text>
         {[[-260, -440], [260, -440]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={30} fill={i ? '#3ddc97' : '#ff7a2e'} {...ink(5)} />)}
       </g>
     </g>
@@ -211,7 +225,7 @@ export const Street: React.FC<P> = ({ T, t }) => {
   const runK = clamp01((t - run0) / Math.max(1.5, sit0 - run0));
   const riderX = t < run0 ? lerp(-400, 760, clamp01((t - arrive) / 0.6)) : lerp(760, 1250, runK);
   const dogX = t < run0 ? 520 : lerp(520, 930, runK);
-  const sitting = t >= sit0 - 0.04;
+  const sitting = t >= W(T, 'sit', 'teve', 2.0) - 0.04;
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#9fdcff" />
@@ -277,6 +291,23 @@ export const Street: React.FC<P> = ({ T, t }) => {
             {[0, 1, 2].map((i) => { const q = (k * 2 + i * 0.33) % 1; return <circle key={`d${i}`} cx={260 - 160 * q} cy={1230 - 20 * q} r={24 + 40 * q} fill="#e8dcc8" opacity={0.85 * (1 - q)} {...ink(3)} />; })}
             <g transform={`translate(${720 + 20 * Math.sin(k * 3)} ${1230 + 4 * Math.sin(k * 30)})`}><Rider t={t} s={1.05} /></g>
             <g transform={`translate(${360 + 30 * Math.sin(k * 2.2)} 1250)`}><Princesa t={t} run s={1.0} /></g>
+            {/* Tavinho running after them, leaning in, arms pumping, way behind */}
+            {t >= sit0 - 0.04 && (() => {
+              const sw = Math.sin(k * 16);
+              return (
+                <g transform={`translate(${lerp(-60, 150, clamp01((t - sit0) / 0.5))} ${-14 * Math.abs(sw)}) ${place(0, 1330, 0.42)} rotate(9 540 1600)`}>
+                  <Tavinho t={t} mood="shock" sweat={1} slip={0.9} outfit={OUTFIT}
+                    armL={[[380, 1150], [300 + 60 * sw, 1300], [330 + 120 * sw, 1420]]} armR={[[700, 1150], [780 - 60 * sw, 1300], [750 - 120 * sw, 1420]]} />
+                </g>
+              );
+            })()}
+            {t >= W(T, 'sit', 'correu', 0.5) - 0.1 && (
+              <g data-qa-label="quarteiroes" transform={`translate(640 760) rotate(-5) scale(${pop(t, W(T, 'sit', 'correu', 0.5) - 0.1)})`}>
+                <rect x={-200} y={-90} width={400} height={180} rx={20} fill="#ffd21f" {...ink(7)} />
+                <text x={0} y={-12} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#14171a">2</text>
+                <text x={0} y={52} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#14171a">QUARTEIRÕES</text>
+              </g>
+            )}
           </g>
         );
       })()}
@@ -288,20 +319,11 @@ export const Street: React.FC<P> = ({ T, t }) => {
           <rect x={240} y={1060} width={600} height={120} rx={14} fill="#c8643a" {...ink(6)} />
           <text x={540} y={1140} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={64} fill="#fff4e0">PADARIA</text>
           <rect x={300} y={1200} width={480} height={320} fill="#8a6a4a" {...ink(6)} />
-          <g transform={place(420, 1820, 0.5)}>
-            <Tavinho t={t} mood="gulp" sweat={1} slip={1} outfit={OUTFIT} armL={[[360, 1150], [300, 1330], [400, 1560]]} armR={[[720, 1150], [780, 1330], [680, 1560]]} />
-          </g>
+          {/* sitting on the kerb, soaked, feet on the road */}
           <rect x={0} y={1690} width={1080} height={140} fill="#9a9aa6" {...ink(5)} />
-          {/* sitting: knees towards us, shoes on the road */}
-          <g transform={place(420, 1820, 0.5)}>
-            {[440, 640].map((x, i) => <ellipse key={i} cx={x} cy={1770} rx={92} ry={70} fill="#2c3550" {...ink(8)} />)}
-            {[430, 650].map((x, i) => <path key={`s${i}`} d={`M${x - 70} 2016 C ${x - 74} 1975 ${x - 44} 1955 ${x} 1955 C ${x + 44} 1955 ${x + 74} 1975 ${x + 70} 2016 Z`} fill="#6b3f22" {...ink(7)} />)}
+          <g transform={place(420, 1900, 0.5)}>
+            <SeatedTavinho t={t} mood="gulp" sweat={1} slip={1} outfit={OUTFIT} armL={[[360, 1150], [300, 1330], [400, 1560]]} armR={[[720, 1150], [780, 1330], [680, 1560]]} />
           </g>
-          {t < T.s('follow') && <g data-qa-label="quarteiroes" transform={`translate(700 880) rotate(-5) scale(${pop(t, W(T, 'sit', 'dois', 0.9) - 0.1)})`}>
-            <rect x={-200} y={-90} width={400} height={180} rx={20} fill="#ffd21f" {...ink(7)} />
-            <text x={0} y={-12} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#14171a">2</text>
-            <text x={0} y={52} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#14171a">QUARTEIRÕES</text>
-          </g>}
         </g>
       )}
     </g>
@@ -340,7 +362,7 @@ export const PetShop: React.FC<P> = ({ T, t }) => {
 
 /* ------------------------------------------------------------------ the chat with Dona Celeste: "me manda um vídeo" */
 export const CelesteChat: React.FC<P> = ({ T, t }) => {
-  const m1 = T.s('twist') + 0.1, m2 = T.s('noreturn');
+  const m1 = W(T, 'twist', 'primeira', 0.6) - 0.1;
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill={PAL.navy} />
@@ -348,24 +370,18 @@ export const CelesteChat: React.FC<P> = ({ T, t }) => {
         <rect x={0} y={0} width={560} height={1100} fill="#fdeef5" />
         <rect x={0} y={0} width={560} height={140} fill="#ff5fb0" />
         <Avatar id="celeste-av" x={70} y={88}><Celeste t={t} mood="happy" /></Avatar>
-        <text x={128} y={84} fontFamily={F} fontWeight={900} fontSize={30} fill="#fff">Dona Celeste 🌹</text>
-        <text x={128} y={118} fontFamily={F} fontWeight={700} fontSize={22} fill="#fff4e0">{t >= m1 - 0.6 && t < m1 ? 'digitando…' : 'online'}</text>
+        <text x={128} y={84} fontFamily={F} fontWeight={900} fontSize={30} fill="#fff">Dona Celeste 🛳️</text>
+        <text x={128} y={118} fontFamily={F} fontWeight={700} fontSize={22} fill="#fff4e0">{t < m1 ? 'digitando…' : 'online'}</text>
+        <text x={280} y={182} textAnchor="middle" fontFamily={F} fontWeight={700} fontSize={18} fill="#7d8590">DIA 1 · 20:00</text>
         {t >= m1 && (
-          <g data-qa-label="video" transform={`translate(20 200) scale(${pop(t, m1)})`}>
+          <g data-qa-label="foto" transform={`translate(20 200) scale(${pop(t, m1)})`}>
             <rect x={0} y={0} width={480} height={170} rx={26} fill="#ffffff" {...ink(4)} />
-            <text x={22} y={56} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">me manda um vídeo</text>
-            <text x={22} y={102} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">da minha princesa</text>
-            <text x={22} y={148} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">😍🐩</text>
-          </g>
-        )}
-        {t >= m2 && (
-          <g data-qa-label="agora" transform={`translate(20 392) scale(${pop(t, m2)})`}>
-            <rect x={0} y={0} width={250} height={80} rx={24} fill="#ffffff" {...ink(4)} />
-            <text x={22} y={54} fontFamily={F} fontWeight={900} fontSize={34} fill="#c8322a">AGORA 😘</text>
+            <text x={22} y={56} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">cadê a foto da</text>
+            <text x={22} y={102} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">minha princesa??</text>
+            <text x={22} y={148} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">😍🐩📸</text>
           </g>
         )}
         <rect x={16} y={980} width={528} height={86} rx={43} fill="#ffffff" {...ink(4)} />
-
       </Phone>
       <g transform={place(190, 1700, 0.5)}><Tavinho t={t} mood="shock" sweat={1} slip={0.8} outfit={OUTFIT} /></g>
     </g>

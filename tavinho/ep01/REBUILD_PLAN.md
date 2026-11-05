@@ -132,3 +132,14 @@ The owner asked to "rebuild the entire video with what you learn, take your time
     - no doubled question box and caption at the end
     - the "NÃO É ELA" tags over each dog
     - break caption phrases on whole phrases, not on small words
+- 5 Nov: **The owner changed the format.** The two stories become day-by-day series: "O áudio" has 12 days and "A cachorra" has 15. Each video is one event, and every action Tavinho takes is a comment vote. The humour is for adults. Narration only, by the ElevenLabs voice "Will" (`CstacWqMhJQlnfLPxRG4`); no character speaks. Scripts and branches are in `tavinho/especiais/ROTEIROS.md`.
+  - **Day 1 of both** is rebuilt in the new style:
+    - "O áudio": the boss on holiday at the beach and a "REUNIÃO EM 12 DIAS" chip. The twist is that he comes ONLINE. Vote: APAGAR vs DISFARÇAR.
+    - "A cachorra": a cruise suitcase and "foto todo dia". The twist is the "cadê a foto" message. Vote: FOTO ANTIGA vs ALMOFADA.
+  - **Shared changes:**
+    - `SeatedTavinho` (cast.tsx) gives real seated legs: on the Friday sofa, the home sofa and the kerb.
+    - A running shot for "correu dois quarteirões".
+    - Caption phrases no longer leave one word alone.
+    - The vote card label is configurable (DIA 1).
+    - `tav_voice_eleven.py` trims ElevenLabs' silence around each line (gap 0.24 s).
+  - **QA:** all checks pass except a 0.4 s edge crop of the voice bubble during a push-in (P3).

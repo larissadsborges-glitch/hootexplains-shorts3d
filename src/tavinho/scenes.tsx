@@ -4,7 +4,7 @@ import type { MoneyTimeline } from '../scenes/money/timeline';
 import { INK, ink } from './style';
 import { place } from '../toon2d/parts';
 import { Hand, Limb } from './style';
-import { Camila, Celeste, PAL, Tavinho, TavinhoHead, VoDita, type Outfit } from './cast';
+import { Camila, Celeste, PAL, SeatedTavinho, Tavinho, TavinhoHead, VoDita, type Outfit } from './cast';
 
 type P = { T: MoneyTimeline; t: number };
 const F = 'Montserrat, Arial Black, sans-serif';
@@ -119,10 +119,21 @@ export const Bed: React.FC<P> = ({ T, t }) => {
           <rect x={160} y={940} width={760} height={70} rx={34} fill="#4fa58d" />
         </g>
       )}
-      {/* Tavinho sitting up in bed, phone in hand, lit by the screen */}
+      {home.set === 'sofa' && (
+        <g>
+          {/* the floor, the sofa seat and its arms (he sits on the front edge, legs over it) */}
+          <rect x={0} y={1700} width={1080} height={220} fill="#d9b98a" />
+          <rect x={60} y={1440} width={960} height={260} rx={50} fill="#4fa58d" {...ink(8)} />
+          {[80, 1000].map((x, i) => <rect key={i} x={x - 80} y={1200} width={160} height={520} rx={60} fill="#3f8f7a" {...ink(8)} />)}
+        </g>
+      )}
+      {/* Tavinho sitting up in bed / at the table / on the sofa, phone in hand, lit by the screen */}
       <g transform={place(540, 1800, 0.95)}>
-        <Tavinho t={t} mood={mood} sweat={1} slip={0.4 + 0.4 * Math.abs(Math.sin(t * 0.7))} armL={armL} armR={armR} outfit={home.outfit}
-          holdL={<g transform="translate(40 -60) rotate(-8)"><rect x={-60} y={-110} width={150} height={240} rx={22} fill="#20232c" {...ink(6)} /><rect x={-46} y={-96} width={122} height={212} rx={14} fill="#bfe6ff" />{home.screen}</g>} />
+        {(() => {
+          const P = { t, mood, sweat: 1, slip: 0.4 + 0.4 * Math.abs(Math.sin(t * 0.7)), armL, armR, outfit: home.outfit,
+            holdL: <g transform="translate(40 -60) rotate(-8)"><rect x={-60} y={-110} width={150} height={240} rx={22} fill="#20232c" {...ink(6)} /><rect x={-46} y={-96} width={122} height={212} rx={14} fill="#bfe6ff" />{home.screen}</g> } as const;
+          return home.set === 'sofa' ? <SeatedTavinho {...P} /> : <Tavinho {...P} />;
+        })()}
       </g>
       {home.set === 'bed' && (
         <g>
@@ -145,19 +156,9 @@ export const Bed: React.FC<P> = ({ T, t }) => {
           </g>
         </g>
       )}
-      {home.set === 'sofa' && (
-        <g>
-          {/* sofa seat and arms in front of his legs */}
-          <rect x={60} y={1440} width={960} height={260} rx={50} fill="#4fa58d" {...ink(8)} />
-          {[80, 1000].map((x, i) => <rect key={i} x={x - 80} y={1200} width={160} height={520} rx={60} fill="#3f8f7a" {...ink(8)} />)}
-          <rect x={0} y={1700} width={1080} height={220} fill="#d9b98a" />
-          {/* his lap: knees on the cushion */}
-          <g transform={place(540, 1800, 0.95)}>{[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={1640} rx={100} ry={70} fill="#2c3550" {...ink(8)} />)}</g>
-        </g>
-      )}
       {/* "it's you" ring when he points */}
       {you && t >= W(T, 'you', 'decide', 0.3) - 0.1 && (
-        <g data-qa-label="voce" transform={`translate(540 450) scale(${pop(t, W(T, 'you', 'decide', 0.3) - 0.1) * (t >= W(T, 'you', 'você', 1.6) - 0.1 ? 0.8 + 0.2 * pop(t, W(T, 'you', 'você', 1.6) - 0.1, 0.2) : 0.45)}) rotate(-5)`}>
+        <g data-qa-label="voce" transform={`translate(540 330) scale(${pop(t, W(T, 'you', 'decide', 0.3) - 0.1) * (t >= W(T, 'you', 'você', 1.6) - 0.1 ? 0.8 + 0.2 * pop(t, W(T, 'you', 'você', 1.6) - 0.1, 0.2) : 0.45)}) rotate(-5)`}>
           <text x={0} y={0} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={170} fill={PAL.orange} stroke="#1b1420" strokeWidth={14} paintOrder="stroke">{t >= W(T, 'you', 'você', 1.6) - 0.1 ? 'VOCÊ' : 'QUEM DECIDE?'}</text>
         </g>
       )}
@@ -165,10 +166,10 @@ export const Bed: React.FC<P> = ({ T, t }) => {
       {pct && (
         <g transform={`translate(540 1150) scale(${pop(t, W(T, 'percent', meter.word, 0.9) - 0.05)})`}>
           <rect data-qa-label="chef" x={-330} y={-110} width={660} height={220} rx={30} fill="#1b1420" {...ink(6)} />
-          <text x={0} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill="#fff4e0">{meter.label}</text>
+          <text x={-282} y={-30} fontFamily={F} fontWeight={900} fontSize={meter.label.length > 9 ? 50 : 60} fill="#fff4e0">{meter.label}</text>
           <rect x={-280} y={10} width={560} height={60} rx={30} fill="#2c3550" stroke="#fff4e0" strokeWidth={5} />
           <rect x={-276} y={14} width={meter.fill} height={52} rx={20} fill={PAL.mint} />
-          <text x={240} y={-30} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={PAL.orange}>{meter.value}</text>
+          <text x={282} y={-30} textAnchor="end" fontFamily={F} fontWeight={900} fontSize={60} fill={PAL.orange}>{meter.value}</text>
           {meter.micro && t >= W(T, 'percent', 'graças', 2.9) - 0.1 && (
             <g data-qa-label="gracas" transform={`translate(200 -215) scale(${1.6 * pop(t, W(T, 'percent', 'graças', 2.9) - 0.1)})`}>
               <rect x={-80} y={-50} width={160} height={100} rx={12} fill="#f4f6fb" {...ink(5)} />

@@ -42,3 +42,14 @@ The owner asked to "rebuild the entire video with what you learn, take your time
 7. **Voice:** if the owner approves Jeff E, voice the full EP1 the same way (per-phrase takes, breaths, +12% tempo, EQ, compression). Timings come from silence detection plus phrase matching (technique 16), so the captions stay word-synced. Done when the caption/word sync is checked on 5 sampled words.
 8. **QA scripts:** `scripts/qa/` checks for freezedetect, blackdetect, "nothing in the caption band covers a face", and "labels on screen ≥ 1.5 s". Done when the scripts run and pass.
 9. **Review:** my contact-sheet pass, then an independent reviewer using the standard brief (P0–P3, read-only, `docs/review_ignore.md` for owner-approved exceptions). Fix everything at P0/P1, then a second review. Only then send.
+
+## Progress log
+- 5 Nov: **Step 1 done.** Verified by grep: the stale voice note is gone and the skill says 2D.
+- 5 Nov: **Step 2 done:** `tavinho/ep01/SHOTS.md`.
+- 5 Nov: **Step 3 done.** `SHOT_PLAN` in `src/tavinho/Episode.tsx` (per-beat rows: x, y, zoom, move); moves never stop until the next cut; the MENTIRA card pulses. Verified: `freezedetect` (n=0.003, d=0.4) finds 0 freezes on the draft.
+  - **Known framing issues for the review round:**
+    - `camilamsg` row 2 shows the empty white phone
+    - `percent` row 3 crops the microwave
+    - `market` row 2 crops the lasagna box at the bottom
+    - `twelve` row 1 shows the chat's empty upper half
+- **Next:** step 4 (look: Tavinho against the brightest area, a blurred foreground layer in 3–4 shots, contact shadows), then step 5 (acting), step 6 (sound), step 7 (voice, once the owner approves Jeff E), steps 8 and 9 (QA and reviews).

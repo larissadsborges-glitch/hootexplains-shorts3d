@@ -47,6 +47,8 @@ Página nova do Instagram, separada do Hoot Explains. Série de humor em cartoon
 - Barriga redonda numa camisa pequena demais: um botão a abrir, uma ponta fora das calças, gravata vermelha curta e torta.
 - Pernas finas de joelhos para dentro, calças curtas, meias trocadas (uma às riscas, outra às bolinhas) e sapatos castanhos grandes.
 - Roupas: camisa e gravata (por defeito), pijama, moletom, t-shirt amarela.
+- **Foto de perfil escolhida (5 nov):** opção A, laranja, preocupado e a suar → `out/avidadotavinho_perfil.png` (composição `TavinhoAvatar`, variant 0).
+- **Elenco no mesmo estilo:** Camila (cabelo encaracolado enorme, argolas), Dona Celeste (cabelo armado, sobrancelhas pintadas altíssimas, óculos gatinho vermelhos com corrente, pérolas), Seu Valdir (careca brilhante com um só fio penteado, bigode enorme, barriga no fato), Vó Dita (carrapito branco, óculos redondos pequenos, avental) e a Princesa. Ficha: `TavinhoSheet` páginas 2 e 3.
 
 ## Personagem: Tavinho (Otávio, 27 anos)
 - Baixinho e redondinho, com óculos enormes que escorregam pelo nariz.

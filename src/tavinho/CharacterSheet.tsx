@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { place } from '../toon2d/parts';
-import { Camila, Celeste, Tavinho, TavinhoHead, Valdir, type Mood, type Outfit } from './cast';
+import { Camila, Celeste, Tavinho, TavinhoHead, Valdir, VoDita, type Mood, type Outfit } from './cast';
 import { Princesa } from './scenesCachorra';
 import { ink } from './style';
 
@@ -27,7 +27,7 @@ export const TavinhoSheet: React.FC<{ page: number }> = ({ page }) => {
         <rect x={0} y={0} width={1080} height={1920} fill="#e9dcc6" />
         {Array.from({ length: 16 }, (_, i) => <path key={i} d={`M0 ${i * 130 + 60} L 1080 ${i * 130 + 60}`} stroke="#ddcfb6" strokeWidth={3} />)}
         <rect x={40} y={50} width={1000} height={110} rx={26} fill="#3b2622" />
-        <text x={540} y={125} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={50} fill="#fff4e0">{page === 0 ? 'TAVINHO · ROUPAS' : page === 1 ? 'TAVINHO · EXPRESSÕES' : 'O ELENCO'}</text>
+        <text x={540} y={125} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={50} fill="#fff4e0">{page === 0 ? 'TAVINHO · ROUPAS' : page === 1 ? 'TAVINHO · EXPRESSÕES' : page === 2 ? 'O ELENCO' : 'TODOS JUNTOS'}</text>
         {page === 0 && outfits.map(([o, label, mood], i) => {
           const x = i % 2 ? 790 : 290, y = i < 2 ? 1000 : 1800;
           return (
@@ -56,6 +56,18 @@ export const TavinhoSheet: React.FC<{ page: number }> = ({ page }) => {
             ))}
             <g transform="translate(790 1640)"><Princesa t={2} s={1.3} /></g>
             <Tag x={790} y={1860} text="PRINCESA" />
+          </g>
+        )}
+        {page === 3 && (
+          <g>
+            <rect x={0} y={1000} width={1080} height={920} fill="#d9c9ad" />
+            <g transform={place(170, 1060, 0.3)}><Celeste t={2} mood="happy" /></g>
+            <g transform={place(390, 1070, 0.3)}><Valdir t={2} mood="neutral" /></g>
+            <g transform={place(640, 1065, 0.3)}><VoDita t={2} mood="happy" /></g>
+            <g transform={place(880, 1060, 0.3)}><Camila t={2} mood="happy" /></g>
+            <g transform={place(560, 1820, 0.42)}><Tavinho t={2} mood="worried" sweat={0.6} slip={0.4} /></g>
+            <g transform="translate(860 1760)"><Princesa t={2} s={0.75} /></g>
+            {(['DONA CELESTE', 'SEU VALDIR', 'VÓ DITA', 'CAMILA'] as const).map((n, i) => <text key={n} x={[170, 390, 640, 880][i]} y={1120} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={26} fill="#3b2622">{n}</text>)}
           </g>
         )}
       </svg>

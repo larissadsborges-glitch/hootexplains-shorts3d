@@ -232,139 +232,146 @@ export const Tavinho: React.FC<Face & { armL?: number[][]; armR?: number[][]; ho
   );
 };
 
-/* ------------------------------------------------------------------ Camila */
+/* ------------------------------------------------------------------ the rest of the cast, in Tavinho's style */
+
+/** The same round "bean" face as Tavinho, in the style-test coordinates (eyes near 505/634, y 540). */
+const FACE_D = 'M402 540 C 400 410 470 340 560 340 C 652 340 720 410 718 540 C 716 610 740 690 690 750 C 650 795 600 806 560 806 C 520 806 470 796 430 750 C 380 690 404 610 402 540 Z';
+
+type HeadLook = {
+  skin: string; skinSh: string; brow: string; eyeR: number; lips?: string; seed: number; period: number;
+  /** drawn behind the face / on top of the face (style coords) */
+  back?: React.ReactNode; front?: React.ReactNode; top?: React.ReactNode; lashes?: boolean; earrings?: string;
+};
+
+/** A cast head in the house style; same mapping onto body coords as Tavinho's (eyes near 840, chin near 1080). */
+const PersonHead: React.FC<Face & { h: HeadLook }> = ({ h, ...f }) => (
+  <g transform={`translate(0 ${3 * Math.sin(f.t * 2.2 + h.seed)})`}>
+    <g transform="translate(540 1050) scale(1.12) translate(-540 -1050) translate(-28 300)">
+      {h.back}
+      {[[398, -1], [722, 1]].map(([x, s], i) => <g key={i}><ellipse cx={x} cy={560} rx={30} ry={42} fill={h.skin} {...ink(8)} /><path d={`M${x + s * -4} 542 q ${s * 12} 16 ${s * -2} 32`} fill="none" stroke={h.skinSh} strokeWidth={6} strokeLinecap="round" />{h.earrings && <circle cx={x} cy={616} r={22} fill="none" stroke={h.earrings} strokeWidth={9} />}</g>)}
+      <path data-qa="face" d={FACE_D} fill={h.skin} {...ink(9)} />
+      <path d="M420 690 C 460 770 520 790 560 790 C 610 790 668 768 702 700 C 650 740 560 752 420 690 Z" fill={h.skinSh} opacity={0.7} />
+      {[440, 684].map((x, i) => <ellipse key={i} cx={x} cy={650} rx={40} ry={22} fill="#ff8f86" opacity={0.42} />)}
+      {h.front}
+      <Features {...f} ex={[505, 634]} ey={540} mouthY={700} seed={h.seed} period={h.period} eyeR={h.eyeR} skin={h.skinSh} brow={h.brow} lips={h.lips} />
+      {h.lashes && [[505, -1], [634, 1]].map(([x, s], i) => <path key={i} d={`M${x + s * h.eyeR * 0.9} ${540 - h.eyeR * 0.6} l ${s * 16} -14 M${x + s * h.eyeR * 0.6} ${540 - h.eyeR * 0.95} l ${s * 10} -16`} {...ink(5)} />)}
+      <ellipse cx={568} cy={636} rx={28} ry={22} fill={h.skinSh} {...ink(7)} />
+      <ellipse cx={559} cy={629} rx={8} ry={5} fill="#ffffff" opacity={0.5} />
+      {h.top}
+    </g>
+  </g>
+);
+
+type BodyLook = {
+  skin: string; top: string; topSh: string; bottom: 'pants' | 'skirt'; bottomColor: string; shoe: string; width?: number;
+  /** collar, necklace, jacket details over the torso (body coords) */
+  detail?: React.ReactNode; legSkin?: boolean;
+};
+
+/** A standing cast body in the house style (same proportions as Tavinho: torso to the belt at 1600, legs, big shoes). */
+const PersonBody: React.FC<{ t: number; b: BodyLook; phase: number; armL?: number[][]; armR?: number[][]; holdR?: React.ReactNode; children?: React.ReactNode }> = ({ t, b, phase, armL, armR, holdR, children }) => {
+  const w = b.width ?? 1;
+  const X = (x: number) => 540 + (x - 540) * w;
+  const aL = armL ?? [[X(390), 1150], [X(300), 1340], [X(330), 1500]];
+  const aR = armR ?? [[X(690), 1150], [X(780), 1340], [X(750), 1500]];
+  const hR = aR[aR.length - 1];
+  return (
+    <g transform={breathe(t, phase)}>
+      <ellipse cx={540} cy={2016} rx={210 * w} ry={24} fill="#000" opacity={0.2} />
+      {/* legs: trousers, or a skirt with bare legs */}
+      {[[[480, 1590], [490, 1780], [474, 1930]], [[600, 1590], [590, 1780], [606, 1930]]].map((pts, i) => <Limb key={i} pts={pts} w={58} color={b.bottom === 'skirt' || b.legSkin ? b.skin : b.bottomColor} />)}
+      {b.bottom === 'skirt' && <path d={`M${X(360)} 1590 L ${X(720)} 1590 L ${X(760)} 1780 L ${X(320)} 1780 Z`} fill={b.bottomColor} {...ink(8)} />}
+      {[[470, -1], [610, 1]].map(([x, s], i) => <path key={i} d={`M${x - 66 + s * 10} 2016 C ${x - 70} 1974 ${x - 40} 1958 ${x} 1958 C ${x + 44} 1958 ${x + 78} 1978 ${x + 72 + s * 10} 2016 Z`} fill={b.shoe} {...ink(7)} />)}
+      {/* torso */}
+      <path d={`M${X(360)} 1610 C ${X(270)} 1500 ${X(290)} 1210 ${X(420)} 1100 L ${X(660)} 1100 C ${X(790)} 1210 ${X(810)} 1500 ${X(720)} 1610 Z`} fill={b.top} {...ink(8)} />
+      <path d={`M${X(680)} 1130 C ${X(780)} 1220 ${X(796)} 1480 ${X(712)} 1600 L ${X(670)} 1600 C ${X(732)} 1480 ${X(732)} 1260 ${X(680)} 1130 Z`} fill={b.topSh} />
+      <path d="M500 1030 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1030 Z" fill={b.skin} {...ink(6)} />
+      {b.detail}
+      <Limb pts={aL} w={72} color={b.top} />
+      <Limb pts={aR} w={72} color={b.top} />
+      {holdR && <g transform={`translate(${hR[0]} ${hR[1]})`}>{holdR}</g>}
+      <Hand x={aL[2][0]} y={aL[2][1]} angle={(Math.atan2(aL[2][0] - aL[1][0], aL[2][1] - aL[1][1]) * -180) / Math.PI} color={b.skin} flipThumb r={38} />
+      <Hand x={hR[0]} y={hR[1]} angle={(Math.atan2(hR[0] - aR[1][0], hR[1] - aR[1][1]) * -180) / Math.PI} color={b.skin} r={38} />
+      {children}
+    </g>
+  );
+};
+
+/* ------------------------------------------------------------------ Camila: huge curly hair, big hoop earrings, mustard top, jeans */
 export const Camila: React.FC<Face> = (f) => {
-  const SK = '#c98b5e', SK_SH = '#a86f45';
+  const SK = '#c98b5e', SK_SH = '#a86f45', HAIR = '#2a1a12';
+  const curls = (n: number, r: number, cx: number, cy: number, rad: number, from = 0, to = Math.PI * 2) => Array.from({ length: n }, (_, i) => { const a = from + ((to - from) * i) / (n - 1); return <circle key={i} cx={cx + rad * Math.cos(a)} cy={cy + rad * 0.92 * Math.sin(a)} r={r} fill={HAIR} {...ink(6)} />; });
   return (
-    <g transform={breathe(f.t, 0.7)}>
-      {/* big curly hair behind */}
-      {Array.from({ length: 14 }, (_, i) => {
-        const a = (i / 14) * Math.PI * 2;
-        return <circle key={i} cx={540 + 210 * Math.cos(a)} cy={850 + 200 * Math.sin(a) - 20} r={88} fill="#2a1a12" {...ink(6)} />;
-      })}
-      <circle cx={540} cy={830} r={230} fill="#2a1a12" />
-      {/* body: mustard top */}
-      <path d="M330 1660 C 320 1400 350 1140 430 1100 L 650 1100 C 730 1140 760 1400 750 1660 Z" fill="#f2b33d" {...ink(8)} />
-      <path d="M470 1100 Q 540 1170 610 1100" fill="none" {...ink(6)} />
-      <Limb pts={[[380, 1160], [330, 1350], [400, 1500]]} w={74} color="#f2b33d" />
-      <Limb pts={[[700, 1160], [750, 1350], [680, 1500]]} w={74} color="#f2b33d" />
-      <Hand x={400} y={1500} angle={-30} color={SK} flipThumb />
-      <Hand x={680} y={1500} angle={30} color={SK} />
-      <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
-      {[372, 708].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} />)}
-      <path data-qa="face" d="M380 830 C 380 700 450 650 540 650 C 630 650 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
-      {/* fringe curls */}
-      {[430, 490, 560, 630].map((x, i) => <circle key={i} cx={x} cy={680 + (i % 2) * 14} r={52} fill="#2a1a12" />)}
-      {[708, 372].map((x, i) => <circle key={i} cx={x} cy={900} r={10} fill="#f2b33d" {...ink(4)} />)}
-      {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.5} />)}
-      <Features {...f} ex={[480, 600]} ey={840} mouthY={958} seed={1.7} period={3.7} lips="#b8354a" eyeR={38} skin={SK_SH} brow="#2a1a12" />
-      {/* lashes */}
-      {[480, 600].map((x, i) => <path key={i} d={`M${x + (i ? 30 : -30)} 812 l ${i ? 14 : -14} -12`} {...ink(5)} />)}
-      <ellipse cx={540} cy={900} rx={22} ry={17} fill={SK_SH} {...ink(5)} /><ellipse cx={533} cy={895} rx={7} ry={4} fill="#ffffff" opacity={0.45} />
-    </g>
+    <PersonBody t={f.t} phase={0.7} b={{ skin: SK, top: '#e0a63a', topSh: '#c48a24', bottom: 'pants', bottomColor: '#3e5f8a', shoe: '#f2ead8', width: 0.92, detail: <path d="M470 1100 Q 540 1160 610 1100" fill="none" {...ink(7)} /> }}>
+      <PersonHead {...f} h={{
+        skin: SK, skinSh: SK_SH, brow: HAIR, eyeR: 46, lips: '#b8354a', seed: 1.7, period: 3.7, lashes: true, earrings: '#e2b545',
+        back: <g>{curls(16, 92, 560, 520, 250)}<ellipse cx={560} cy={520} rx={250} ry={230} fill={HAIR} /></g>,
+        front: <g>{curls(6, 50, 560, 470, 130, Math.PI * 1.05, Math.PI * 1.95)}</g>,
+      }} />
+    </PersonBody>
   );
 };
 
-/* ------------------------------------------------------------------ Dona Celeste (the mother-in-law) */
+/* ------------------------------------------------------------------ Dona Celeste: helmet of blond hair, painted-on high brows, red cat-eye glasses on a chain, pearls */
 export const Celeste: React.FC<Face> = (f) => {
-  const SK = '#f0c3a0', SK_SH = '#d79f7a';
+  const SK = '#f0c3a0', SK_SH = '#d79f7a', HAIR = '#e8d3a0', HAIR_SH = '#c9b27a';
   return (
-    <g transform={breathe(f.t, 1.9)}>
-      {/* violet blouse with a pearl necklace */}
-      <path d="M320 1660 C 310 1400 340 1140 430 1100 L 650 1100 C 740 1140 770 1400 760 1660 Z" fill="#7b4bb8" {...ink(8)} />
-      <Limb pts={[[380, 1160], [325, 1350], [390, 1500]]} w={78} color="#7b4bb8" />
-      <Limb pts={[[700, 1160], [755, 1350], [690, 1500]]} w={78} color="#7b4bb8" />
-      <Hand x={390} y={1500} angle={-30} color={SK} flipThumb />
-      <Hand x={690} y={1500} angle={30} color={SK} />
-      <path d="M455 1105 Q 540 1190 625 1105" fill="none" stroke="#f7f3ea" strokeWidth={12} strokeDasharray="2 18" strokeLinecap="round" />
-      <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
-      {/* big voluminous blond-grey hair */}
-      {Array.from({ length: 11 }, (_, i) => { const a = Math.PI + (i / 10) * Math.PI; return <circle key={i} cx={540 + 200 * Math.cos(a)} cy={790 + 190 * Math.sin(a)} r={70} fill="#e8d3a0" {...ink(6)} />; })}
-      <ellipse cx={540} cy={720} rx={205} ry={150} fill="#e8d3a0" />
-      {[372, 708].map((x, i) => <g key={i}><ellipse cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} /><circle cx={x} cy={900} r={12} fill="#f7f3ea" {...ink(4)} /></g>)}
-      <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
-      <path d="M392 790 C 430 690 650 690 690 790 C 640 730 440 730 392 790 Z" fill="#e8d3a0" {...ink(6)} />
-      {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.45} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={2.9} period={4.3} lips="#c0303e" eyeR={30} skin={SK_SH} brow="#a8864a" />
-      {/* cat-eye glasses on a chain */}
-      {[480, 600].map((x, i) => <path key={i} d={`M${x - 52} 830 Q ${x} 800 ${x + 52} 826 Q ${x + 50} 880 ${x} 884 Q ${x - 50} 880 ${x - 52} 830 Z`} fill="rgba(255,255,255,0.12)" stroke="#d81f3a" strokeWidth={8} />)}
-      <path d="M428 840 C 380 930 400 1060 470 1110 M652 840 C 700 930 680 1060 610 1110" fill="none" stroke="#c99a1e" strokeWidth={4} strokeDasharray="6 6" />
-      <ellipse cx={540} cy={904} rx={22} ry={17} fill={SK_SH} {...ink(5)} /><ellipse cx={533} cy={899} rx={7} ry={4} fill="#ffffff" opacity={0.45} />
-    </g>
+    <PersonBody t={f.t} phase={1.9} b={{ skin: SK, top: '#7b4bb8', topSh: '#5e3794', bottom: 'skirt', bottomColor: '#3a3550', shoe: '#c0303e', width: 0.95,
+      detail: <path d="M455 1112 Q 540 1196 625 1112" fill="none" stroke="#f7f3ea" strokeWidth={14} strokeDasharray="2 20" strokeLinecap="round" /> }}>
+      <PersonHead {...f} h={{
+        skin: SK, skinSh: SK_SH, brow: '#6a4a2a', eyeR: 40, lips: '#c0303e', seed: 2.9, period: 4.3, earrings: '#f7f3ea',
+        back: <g>{Array.from({ length: 12 }, (_, i) => { const a = Math.PI * (0.9 + (i / 11) * 1.2); return <circle key={i} cx={560 + 230 * Math.cos(a)} cy={500 + 210 * Math.sin(a)} r={84} fill={HAIR} {...ink(6)} />; })}<ellipse cx={560} cy={470} rx={240} ry={190} fill={HAIR} /></g>,
+        front: <g><path d="M410 520 C 420 380 700 380 712 520 C 660 450 460 450 410 520 Z" fill={HAIR} {...ink(7)} /><path d="M460 430 C 520 400 600 400 660 430" fill="none" stroke={HAIR_SH} strokeWidth={8} strokeLinecap="round" /></g>,
+        top: <g>
+          {/* red cat-eye glasses on a gold chain */}
+          {[[505, -1], [634, 1]].map(([x, s], i) => <path key={i} d={`M${x - 64} ${530} Q ${x} ${490} ${x + 64} ${526} Q ${x + 66} ${598} ${x} ${602} Q ${x - 64} ${598} ${x - 64} ${530} Z M${x + s * 64} ${528} l ${s * 22} -20`} fill="rgba(255,255,255,0.14)" stroke="#c0303e" strokeWidth={9} strokeLinejoin="round" />)}
+          <path d="M571 528 Q 570 512 568 528" fill="none" stroke="#c0303e" strokeWidth={8} />
+          <path d="M440 560 C 400 660 420 760 480 800 M698 560 C 730 660 708 760 650 800" fill="none" stroke="#c99a1e" strokeWidth={4} strokeDasharray="7 6" />
+        </g>,
+      }} />
+    </PersonBody>
   );
 };
 
-/* ------------------------------------------------------------------ Vó Dita (grandma) */
+/* ------------------------------------------------------------------ Vó Dita: white bun, small round glasses, green dress with an apron */
 export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
-  const SK = '#e8b48d', SK_SH = '#c99069', HAIR = '#cfcfd4', HAIR_SH = '#a9a9b2';
+  const SK = '#e8b48d', SK_SH = '#c99069', HAIR = '#e6e6ea', HAIR_SH = '#b9b9c2';
   return (
-    <g transform={breathe(f.t, 3.1)}>
-      {/* legs + shoes, so she stands in the panel instead of floating */}
-      {[470, 610].map((x, i) => <path key={i} d={`M${x - 45} 1640 L ${x + 45} 1640 L ${x + 40} 1965 L ${x - 40} 1965 Z`} fill={SK} {...ink(7)} />)}
-      {[470, 610].map((x, i) => <path key={`s${i}`} d={`M${x - 62} 2016 C ${x - 64} 1978 ${x - 36} 1958 ${x} 1958 C ${x + 36} 1958 ${x + 64} 1978 ${x + 62} 2016 Z`} fill="#4a3a5a" {...ink(7)} />)}
-      <ellipse cx={540} cy={2016} rx={200} ry={24} fill="#000" opacity={0.22} />
-      {/* flowered dress + apron */}
-      <path d="M310 1660 C 300 1400 340 1140 430 1100 L 650 1100 C 740 1140 780 1400 770 1660 Z" fill="#3a8f7a" {...ink(8)} />
-      {[[400, 1250], [690, 1300], [380, 1500], [700, 1540]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={14} fill="#ffd21f" {...ink(3)} />)}
-      <path d="M420 1180 L 660 1180 L 690 1660 L 390 1660 Z" fill="#fff4e0" {...ink(7)} />
-      <path d="M470 1300 L 610 1300 L 600 1400 L 480 1400 Z" fill="none" {...ink(5)} />
-      <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
-      {[372, 708].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} />)}
-      <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
-      {/* grey hair with a bun and a few strands */}
-      <circle cx={540} cy={600} r={70} fill={HAIR} {...ink(7)} />
-      <path d="M500 590 q 40 -30 80 0" fill="none" stroke={HAIR_SH} strokeWidth={6} strokeLinecap="round" />
-      <path d="M380 800 C 380 690 450 650 540 650 C 630 650 700 690 700 800 C 660 730 600 720 540 728 C 480 720 420 730 380 800 Z" fill={HAIR} {...ink(7)} />
-      {[[430, 700, 500, 690], [560, 688, 640, 704]].map(([x1, y1, x2, y2], i) => <path key={i} d={`M${x1} ${y1} Q ${(x1 + x2) / 2} ${y1 - 14} ${x2} ${y2}`} fill="none" stroke={HAIR_SH} strokeWidth={6} strokeLinecap="round" />)}
-      {/* age lines: forehead and under the eyes */}
-      {[0, 1].map((i) => <path key={`f${i}`} d={`M${470 + i * 10} ${752 + i * 16} q 70 ${-10} ${140 - i * 20} 0`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
-      {[480, 600].map((x, i) => <path key={`e${i}`} d={`M${x - 24} 896 q 24 10 48 0`} fill="none" stroke={SK_SH} strokeWidth={4} strokeLinecap="round" />)}
-      {/* smile wrinkles */}
-      {[410, 670].map((x, i) => <path key={i} d={`M${x} 820 q ${i ? 16 : -16} 10 0 24`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
-      {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.55} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={4.1} period={3.4} eyeR={26} skin={SK_SH} brow="#a9a9b2" />
-      {/* small round glasses */}
-      {[480, 600].map((x, i) => <circle key={i} cx={x} cy={846} r={44} fill="none" stroke="#8a6440" strokeWidth={7} />)}
-      <path d="M524 846 L 556 846" stroke="#8a6440" strokeWidth={6} />
-      <ellipse cx={540} cy={904} rx={16} ry={13} fill={SK_SH} />
-      {/* wooden spoon raised in her right hand */}
-      <g transform={`rotate(${12 + 8 * Math.sin((f.spoon ?? 0) * 8)} 760 1240)`}>
-        <Limb pts={[[720, 1150], [800, 1300], [800, 1140]]} w={78} color="#3a8f7a" />
-        <rect x={792} y={880} width={22} height={260} rx={10} fill="#b98250" {...ink(5)} />
-        <ellipse cx={803} cy={860} rx={40} ry={56} fill="#b98250" {...ink(6)} />
-        <Hand x={800} y={1140} angle={180} color={SK} />
-      </g>
-    </g>
+    <PersonBody t={f.t} phase={3.1} b={{ skin: SK, top: '#3a8f7a', topSh: '#2a6b5a', bottom: 'skirt', bottomColor: '#3a8f7a', shoe: '#4a3a5a', width: 1.0,
+      detail: <path d="M430 1180 L 650 1180 L 680 1600 L 400 1600 Z" fill="#fff4e0" {...ink(7)} /> }}
+      armR={[[690, 1150], [790, 1290], [780, 1140]]}
+      holdR={<g transform={`rotate(${8 * Math.sin((f.spoon ?? 0) * 8)})`}><rect x={-11} y={-280} width={22} height={260} rx={10} fill="#b98250" {...ink(5)} /><ellipse cx={0} cy={-300} rx={40} ry={56} fill="#b98250" {...ink(6)} /></g>}>
+      <PersonHead {...f} h={{
+        skin: SK, skinSh: SK_SH, brow: HAIR_SH, eyeR: 34, seed: 4.1, period: 3.4,
+        back: <circle cx={560} cy={320} r={74} fill={HAIR} {...ink(7)} />,
+        front: <g><path d="M406 520 C 400 400 470 352 560 352 C 652 352 718 400 712 520 C 680 450 620 436 560 444 C 500 436 440 450 406 520 Z" fill={HAIR} {...ink(8)} /><path d="M480 400 Q 560 380 640 400" fill="none" stroke={HAIR_SH} strokeWidth={6} /></g>,
+        top: <g>{[505, 634].map((x, i) => <circle key={i} cx={x} cy={540} r={50} fill="none" stroke="#8a6440" strokeWidth={8} />)}<path d="M555 540 L 584 540" stroke="#8a6440" strokeWidth={7} />{[[430, -1], [700, 1]].map(([x, s], i) => <path key={i} d={`M${x} 470 q ${s * -16} 10 0 24`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}</g>,
+      }} />
+    </PersonBody>
   );
 };
 
-/* ------------------------------------------------------------------ Seu Valdir (Tavinho's boss) */
+/* ------------------------------------------------------------------ Seu Valdir: shiny bald head with ONE combed-over strand, huge grey mustache, belly in a brown suit */
 export const Valdir: React.FC<Face> = (f) => {
-  const SK = '#e7b48e', SK_SH = '#c98f68', SUIT = '#7a5434', SUIT_SH = '#5e3f25';
+  const SK = '#e7b48e', SK_SH = '#c98f68', GREY = '#bdbdc6';
   return (
-    <g transform={breathe(f.t, 2.4)}>
-      {/* brown suit, white shirt, dark green tie */}
-      <path d="M300 1660 C 290 1380 330 1140 430 1100 L 650 1100 C 750 1140 790 1380 780 1660 Z" fill={SUIT} {...ink(8)} />
-      <path d="M690 1140 C 760 1200 780 1420 770 1660 L 720 1660 C 730 1420 720 1240 690 1140 Z" fill={SUIT_SH} />
-      <path d="M470 1100 L 540 1260 L 610 1100 Z" fill="#ffffff" {...ink(6)} />
-      <path d="M526 1120 L 554 1120 L 566 1250 L 540 1290 L 514 1250 Z" fill="#2f6b4f" {...ink(5)} />
-      <path d="M430 1100 L 500 1300 L 470 1110 Z M650 1100 L 580 1300 L 610 1110 Z" fill={SUIT_SH} {...ink(5)} />
-      <Limb pts={[[370, 1170], [320, 1360], [420, 1480]]} w={84} color={SUIT} />
-      <Limb pts={[[710, 1170], [760, 1360], [660, 1480]]} w={84} color={SUIT} />
-      <Hand x={420} y={1480} angle={-60} color={SK} flipThumb />
-      <Hand x={660} y={1480} angle={60} color={SK} />
-      <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
-      {[366, 714].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={28} ry={38} fill={SK} {...ink(7)} />)}
-      {/* big bald head, a little shine, grey tufts over the ears */}
-      <path data-qa="face" d="M372 830 C 372 680 450 630 540 630 C 630 630 708 680 708 830 C 708 950 650 1030 540 1030 C 430 1030 372 950 372 830 Z" fill={SK} {...ink(8)} />
-      <ellipse cx={600} cy={690} rx={50} ry={22} fill="#ffffff" opacity={0.35} transform="rotate(-18 600 690)" />
-      {[[380, -1], [700, 1]].map(([x, s], i) => <path key={i} d={`M${x} 760 q ${s * 30} 20 ${s * 4} 60 q ${s * 30} 10 ${s * 8} 50`} fill="#c9c9cf" stroke="#c9c9cf" strokeWidth={26} strokeLinecap="round" />)}
-      {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={930} rx={34} ry={18} fill={BLUSH} opacity={0.35} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={985} seed={0.9} period={3.9} eyeR={30} skin={SK_SH} brow="#bdbdc6" />
-      {/* bushy grey brows (on top of the thin ones) and a thick grey mustache */}
-      {[[480, -1], [600, 1]].map(([x, s], i) => <path key={`b${i}`} d={`M${x - 42} ${f.mood === 'shock' ? 776 : 790} Q ${x} ${f.mood === 'shock' ? 750 : 770 + s * 0} ${x + 42} ${f.mood === 'shock' ? 776 : 792 - s * 8}`} fill="none" stroke="#bdbdc6" strokeWidth={22} strokeLinecap="round" />)}
-      <ellipse cx={540} cy={910} rx={22} ry={18} fill={SK_SH} {...ink(5)} />
-      <path d="M540 936 C 500 920 450 930 436 966 C 470 952 510 958 540 964 C 570 958 610 952 644 966 C 630 930 580 920 540 936 Z" fill="#bdbdc6" {...ink(6)} />
-    </g>
+    <PersonBody t={f.t} phase={2.4} b={{ skin: SK, top: '#7a5434', topSh: '#5e3f25', bottom: 'pants', bottomColor: '#5e3f25', shoe: '#2a2a32', width: 1.08,
+      detail: <g>
+        <path d="M480 1100 L 540 1240 L 600 1100 Z" fill="#ffffff" {...ink(6)} />
+        <path d="M528 1120 L 552 1120 L 560 1220 L 540 1246 L 520 1220 Z" fill="#2f6b4f" {...ink(5)} />
+        <path d="M430 1100 L 500 1290 L 470 1110 Z M650 1100 L 580 1290 L 610 1110 Z" fill="#5e3f25" {...ink(5)} />
+        {[1330, 1450].map((y) => <circle key={y} cx={540} cy={y} r={11} fill="#d4b26a" {...ink(4)} />)}
+      </g> }}>
+      <PersonHead {...f} h={{
+        skin: SK, skinSh: SK_SH, brow: GREY, eyeR: 36, seed: 0.9, period: 3.9,
+        front: <g>
+          <ellipse cx={610} cy={400} rx={50} ry={20} fill="#ffffff" opacity={0.4} transform="rotate(-18 610 400)" />
+          {/* grey side tufts + the single combed-over strand */}
+          {[[404, -1], [716, 1]].map(([x, s], i) => <path key={i} d={`M${x} 470 q ${s * 30} 20 ${s * 4} 60 q ${s * 30} 10 ${s * 8} 50`} fill={GREY} stroke={GREY} strokeWidth={24} strokeLinecap="round" />)}
+          <path d="M430 450 C 480 360 600 340 690 400" fill="none" stroke="#6a6a74" strokeWidth={7} strokeLinecap="round" />
+        </g>,
+        top: <path d="M568 664 C 520 646 450 654 432 700 C 476 684 524 690 568 696 C 612 690 660 684 704 700 C 686 654 616 646 568 664 Z" fill={GREY} {...ink(6)} />,
+      }} />
+    </PersonBody>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { place } from '../toon2d/parts';
-import { Tavinho, TavinhoHead, type Mood, type Outfit } from './cast';
+import { Camila, Celeste, Tavinho, TavinhoHead, Valdir, type Mood, type Outfit } from './cast';
+import { Princesa } from './scenesCachorra';
 import { ink } from './style';
 
 /**
@@ -26,7 +27,7 @@ export const TavinhoSheet: React.FC<{ page: number }> = ({ page }) => {
         <rect x={0} y={0} width={1080} height={1920} fill="#e9dcc6" />
         {Array.from({ length: 16 }, (_, i) => <path key={i} d={`M0 ${i * 130 + 60} L 1080 ${i * 130 + 60}`} stroke="#ddcfb6" strokeWidth={3} />)}
         <rect x={40} y={50} width={1000} height={110} rx={26} fill="#3b2622" />
-        <text x={540} y={125} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={50} fill="#fff4e0">{page === 0 ? 'TAVINHO · ROUPAS' : 'TAVINHO · EXPRESSÕES'}</text>
+        <text x={540} y={125} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={50} fill="#fff4e0">{page === 0 ? 'TAVINHO · ROUPAS' : page === 1 ? 'TAVINHO · EXPRESSÕES' : 'O ELENCO'}</text>
         {page === 0 && outfits.map(([o, label, mood], i) => {
           const x = i % 2 ? 790 : 290, y = i < 2 ? 1000 : 1800;
           return (
@@ -48,6 +49,15 @@ export const TavinhoSheet: React.FC<{ page: number }> = ({ page }) => {
             </g>
           );
         })}
+        {page === 2 && (
+          <g>
+            {([[Camila, 'CAMILA', 290, 1000, 'happy'], [Celeste, 'DONA CELESTE', 790, 1000, 'happy'], [Valdir, 'SEU VALDIR', 290, 1800, 'neutral']] as const).map(([C, label, x, y, mood]) => (
+              <g key={label}><g transform={place(x, y, 0.42)}><C t={2} mood={mood} /></g><Tag x={x} y={y + 60} text={label} /></g>
+            ))}
+            <g transform="translate(790 1640)"><Princesa t={2} s={1.3} /></g>
+            <Tag x={790} y={1860} text="PRINCESA" />
+          </g>
+        )}
       </svg>
     </AbsoluteFill>
   );

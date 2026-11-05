@@ -6,14 +6,20 @@ import { PAL, Tavinho, TavinhoHead } from './cast';
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
 const outline = (px: number) => Array.from({ length: 16 }, (_, a) => { const r = (a / 16) * Math.PI * 2; return `${(Math.cos(r) * px).toFixed(1)}px ${(Math.sin(r) * px).toFixed(1)}px 0 #1b1420`; }).join(',');
 
-/** Profile picture: Tavinho's sweating face filling the circle, on pumpkin orange. */
-export const TavinhoAvatar: React.FC = () => (
-  <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 45%, #ffa14d 0%, ${PAL.orange} 60%, #e25f14 100%)` }}>
-    <svg viewBox="0 0 1080 1080" width="100%" height="100%">
-      <g transform="translate(540 620) scale(2.05) translate(-540 -840)"><TavinhoHead t={0.3} mood="worried" sweat={1} slip={0.75} /></g>
-    </svg>
-  </AbsoluteFill>
-);
+/** Profile picture (new house style): Tavinho's face filling the Instagram circle. variant 0/1/2 = worried / happy / shock. */
+export const TavinhoAvatar: React.FC<{ variant?: number }> = ({ variant = 0 }) => {
+  const bg = [['#f3a86c', '#e07e46'], ['#9cc0ae', '#6f9a86'], ['#8fa8cc', '#5c739c']][variant] ?? ['#f3a86c', '#e07e46'];
+  const mood = (['worried', 'happy', 'shock'] as const)[variant] ?? 'worried';
+  return (
+    <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 42%, ${bg[0]} 0%, ${bg[1]} 100%)` }}>
+      <svg viewBox="0 0 1080 1080" width="100%" height="100%">
+        {/* a soft halo behind the head so it pops at thumbnail size */}
+        <circle cx={540} cy={560} r={420} fill="#ffffff" opacity={0.12} />
+        <g transform="translate(540 585) scale(1.3) translate(-540 -790)"><TavinhoHead t={0.3} mood={mood} sweat={variant === 1 ? 0 : 1} slip={variant === 2 ? 0.9 : 0.4} /></g>
+      </svg>
+    </AbsoluteFill>
+  );
+};
 
 /** EP cover: Tavinho in bed lit by the phone, title in the series template. */
 export const TavinhoCover: React.FC<{ line1: string; line2: string; tag: string }> = ({ line1, line2, tag }) => (

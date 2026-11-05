@@ -257,10 +257,10 @@ export const Camila: React.FC<Face> = (f) => {
       {[430, 490, 560, 630].map((x, i) => <circle key={i} cx={x} cy={680 + (i % 2) * 14} r={52} fill="#2a1a12" />)}
       {[708, 372].map((x, i) => <circle key={i} cx={x} cy={900} r={10} fill="#f2b33d" {...ink(4)} />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.5} />)}
-      <Features {...f} ex={[480, 600]} ey={840} mouthY={958} seed={1.7} period={3.7} lips="#c2364a" />
+      <Features {...f} ex={[480, 600]} ey={840} mouthY={958} seed={1.7} period={3.7} lips="#b8354a" eyeR={38} skin={SK_SH} brow="#2a1a12" />
       {/* lashes */}
       {[480, 600].map((x, i) => <path key={i} d={`M${x + (i ? 30 : -30)} 812 l ${i ? 14 : -14} -12`} {...ink(5)} />)}
-      <ellipse cx={540} cy={902} rx={14} ry={11} fill={SK_SH} />
+      <ellipse cx={540} cy={900} rx={22} ry={17} fill={SK_SH} {...ink(5)} /><ellipse cx={533} cy={895} rx={7} ry={4} fill="#ffffff" opacity={0.45} />
     </g>
   );
 };
@@ -285,11 +285,11 @@ export const Celeste: React.FC<Face> = (f) => {
       <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
       <path d="M392 790 C 430 690 650 690 690 790 C 640 730 440 730 392 790 Z" fill="#e8d3a0" {...ink(6)} />
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.45} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={2.9} period={4.3} lips="#d81f3a" eyeR={26} />
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={2.9} period={4.3} lips="#c0303e" eyeR={30} skin={SK_SH} brow="#a8864a" />
       {/* cat-eye glasses on a chain */}
       {[480, 600].map((x, i) => <path key={i} d={`M${x - 52} 830 Q ${x} 800 ${x + 52} 826 Q ${x + 50} 880 ${x} 884 Q ${x - 50} 880 ${x - 52} 830 Z`} fill="rgba(255,255,255,0.12)" stroke="#d81f3a" strokeWidth={8} />)}
       <path d="M428 840 C 380 930 400 1060 470 1110 M652 840 C 700 930 680 1060 610 1110" fill="none" stroke="#c99a1e" strokeWidth={4} strokeDasharray="6 6" />
-      <ellipse cx={540} cy={904} rx={14} ry={11} fill={SK_SH} />
+      <ellipse cx={540} cy={904} rx={22} ry={17} fill={SK_SH} {...ink(5)} /><ellipse cx={533} cy={899} rx={7} ry={4} fill="#ffffff" opacity={0.45} />
     </g>
   );
 };
@@ -322,7 +322,7 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
       {/* smile wrinkles */}
       {[410, 670].map((x, i) => <path key={i} d={`M${x} 820 q ${i ? 16 : -16} 10 0 24`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.55} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={4.1} period={3.4} eyeR={22} />
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={962} seed={4.1} period={3.4} eyeR={26} skin={SK_SH} brow="#a9a9b2" />
       {/* small round glasses */}
       {[480, 600].map((x, i) => <circle key={i} cx={x} cy={846} r={44} fill="none" stroke="#8a6440" strokeWidth={7} />)}
       <path d="M524 846 L 556 846" stroke="#8a6440" strokeWidth={6} />
@@ -360,7 +360,7 @@ export const Valdir: React.FC<Face> = (f) => {
       <ellipse cx={600} cy={690} rx={50} ry={22} fill="#ffffff" opacity={0.35} transform="rotate(-18 600 690)" />
       {[[380, -1], [700, 1]].map(([x, s], i) => <path key={i} d={`M${x} 760 q ${s * 30} 20 ${s * 4} 60 q ${s * 30} 10 ${s * 8} 50`} fill="#c9c9cf" stroke="#c9c9cf" strokeWidth={26} strokeLinecap="round" />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={930} rx={34} ry={18} fill={BLUSH} opacity={0.35} />)}
-      <Features {...f} ex={[480, 600]} ey={846} mouthY={985} seed={0.9} period={3.9} eyeR={24} />
+      <Features {...f} ex={[480, 600]} ey={846} mouthY={985} seed={0.9} period={3.9} eyeR={30} skin={SK_SH} brow="#bdbdc6" />
       {/* bushy grey brows (on top of the thin ones) and a thick grey mustache */}
       {[[480, -1], [600, 1]].map(([x, s], i) => <path key={`b${i}`} d={`M${x - 42} ${f.mood === 'shock' ? 776 : 790} Q ${x} ${f.mood === 'shock' ? 750 : 770 + s * 0} ${x + 42} ${f.mood === 'shock' ? 776 : 792 - s * 8}`} fill="none" stroke="#bdbdc6" strokeWidth={22} strokeLinecap="round" />)}
       <ellipse cx={540} cy={910} rx={22} ry={18} fill={SK_SH} {...ink(5)} />

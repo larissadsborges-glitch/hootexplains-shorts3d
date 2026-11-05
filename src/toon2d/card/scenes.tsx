@@ -230,7 +230,16 @@ export const Treadmill2D: React.FC<MillProps> = ({ t, talk, year, run, jake }) =
           <path d={`M${x} 1505 L ${x + (i ? -20 : 20)} 1110`} fill="none" stroke="#9aa6b8" strokeWidth={20} strokeLinecap="round" />
         </g>
       ))}
-      <Hoot2D t={t} talk={talk} x={130} y={1118} s={0.6} />
+      {/* gym locker so Hoot stands on something (owner: he looked like he was floating) */}
+      <ellipse cx={120} cy={1562} rx={100} ry={12} fill="rgba(0,0,0,0.2)" />
+      <rect x={35} y={1124} width={170} height={436} rx={8} fill="#5f8fb8" {...ink(7)} />
+      <rect x={35} y={1124} width={170} height={22} rx={6} fill="#4b7699" {...ink(5)} />
+      <rect x={50} y={1160} width={140} height={384} rx={6} fill="#6c9cc4" {...ink(5)} />
+      {[0, 1, 2, 3].map((i) => <rect key={i} x={80} y={1180 + i * 22} width={80} height={9} rx={4} fill="#3f6687" />)}
+      <rect x={168} y={1330} width={12} height={46} rx={5} fill="#d9dee6" {...ink(4)} />
+      <path d="M60 1146 L 112 1146 L 108 1250 Q 86 1262 64 1250 Z" fill="#ffffff" {...ink(5)} />
+      <path d="M64 1222 L 108 1222" stroke="#e2453c" strokeWidth={8} />
+      <Hoot2D t={t} talk={talk} x={130} y={1124} s={0.6} />
       <g transform={`translate(0 ${bob})`}>
         <g transform={place(540, 1530, 0.66)}>
           <JakeStanding t={t} {...jake} armL={[[410, 1110], [318, 1270 + 30 * s], [372, 1150 - 70 * s]]} armR={[[670, 1110], [762, 1270 - 30 * s], [708, 1150 + 70 * s]]} />

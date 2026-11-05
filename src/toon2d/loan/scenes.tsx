@@ -143,7 +143,12 @@ export const Report2D: React.FC<ReportProps> = ({ t, talk, face, hl }) => (
       {['"Whenever a bank makes', 'a loan, it simultaneously', 'creates a matching', 'deposit…"'].map((l, i) => <text key={i} x={230} y={856 + i * 44} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">{l}</text>)}
       {[1040, 1070, 1100, 1130].map((y) => <rect key={y} x={220} y={y} width={500 - (y % 7) * 20} height={12} rx={6} fill="#e3e5ea" />)}
     </g>
-    <Hoot2D t={t} talk={talk} x={880} y={640} s={0.5} />
+    {/* Hoot on the LEFT, opposite Jake (owner), standing on a stack of books on the floor */}
+    <ellipse cx={165} cy={1302} rx={120} ry={12} fill="rgba(0,0,0,0.22)" />
+    {[['#2f6fb0', 0, 200], ['#e2453c', -10, 180], ['#f0b23a', 6, 160]].map(([c, dx, w], i) => (
+      <rect key={i} x={165 - (w as number) / 2 + (dx as number)} y={1258 - i * 40} width={w as number} height={40} rx={6} fill={c as string} {...ink(6)} />
+    ))}
+    <Hoot2D t={t} talk={talk} x={165} y={1178} s={0.55} />
     <g transform={place(800, 1640, 0.52)}>
       <JakeStanding t={t} {...face} jacket={GREEN_JACKET} armL={[[410, 1110], [345, 1300], [355, 1450]]} armR={[[670, 1110], [735, 1300], [725, 1450]]} />
     </g>

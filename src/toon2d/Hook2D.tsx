@@ -225,8 +225,13 @@ export const Hoot2D: React.FC<{ t: number; talk: number; x: number; y: number; s
   const pencil = 8 * Math.sin(t * 2) * raise;
   return (
     <g transform={`translate(${x} ${y + bob}) scale(${s})`}>
-      {/* feet */}
-      {[-30, 30].map((dx, i) => <path key={i} d={`M${dx - 18} 0 q 6 -14 18 -14 q 12 0 18 14 Z`} fill="#f0a020" {...ink(5)} />)}
+      {/* feet (owner: make them visible): two orange three-toed feet in front of the body, toes gripping the perch edge */}
+      {[-36, 36].map((dx, i) => (
+        <g key={`f${i}`}>
+          {[-15, 0, 15].map((k) => <ellipse key={k} cx={dx + k} cy={2 - (k === 0 ? 2 : 0)} rx={10} ry={15} fill="#f0a020" {...ink(5)} />)}
+          <path d={`M${dx - 20} -6 Q ${dx} -16 ${dx + 20} -6`} fill="none" stroke="#c77d10" strokeWidth={4} strokeLinecap="round" />
+        </g>
+      ))}
       {/* body */}
       <path d="M0 -300 C 95 -300 120 -210 118 -130 C 116 -40 70 0 0 0 C -70 0 -116 -40 -118 -130 C -120 -210 -95 -300 0 -300 Z" fill="#8a5a3a" {...ink(8)} />
       <path d="M60 -270 C 110 -230 120 -150 110 -90 C 100 -40 70 -10 30 -2 C 80 -40 98 -120 60 -270 Z" fill="#6f4529" />

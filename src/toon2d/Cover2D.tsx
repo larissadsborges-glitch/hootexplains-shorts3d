@@ -5,6 +5,7 @@ import type { Timings } from '../types';
 import { Hook2D, HootGesture } from './Hook2D';
 import { Desk2D } from './card/scenes';
 import { Lobby2D } from './savings/scenes';
+import { Lot2D } from './loan/scenes';
 
 const FONT = "'Montserrat', 'Arial Black', sans-serif";
 const outline = (px: number) =>
@@ -29,7 +30,14 @@ export const Cover2D: React.FC<Cover2DProps> = ({ timings, at, small, line1, lin
           </g>
         </svg>
       )}
-      {timings.id === 'money4' ? null : timings.id === 'money5'
+      {timings.id === 'money2' && (
+        <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+          <g transform="translate(540 1100) scale(1.3) translate(-540 -860)">
+            <Lot2D t={at} talk={0} face={{ brows: 1, smile: 0, wide: 1, gasp: 1 }} made={1} />
+          </g>
+        </svg>
+      )}
+      {timings.id === 'money4' || timings.id === 'money2' ? null : timings.id === 'money5'
         ? (
           <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
             <g transform="translate(540 1060) scale(1.3) translate(-540 -960)">

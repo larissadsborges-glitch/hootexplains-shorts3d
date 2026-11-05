@@ -1,29 +1,31 @@
-# EP 2/6 post kit: "Banks create money out of thin air"
+# Post kit: "Jake's bank created $20,000 out of thin air" (standalone, 2D)
+
+Files: `out/hootexplains_money_banks.mp4` (31.3 s, −14 LUFS) and `out/hootexplains_money_banks_cover.png`.
 
 ## Cover
-- **Tag:** `• HOOT EXPLAINS · MONEY, EXPLAINED · EP 2/6`
-- **Title:** BANKS CREATE MONEY / OUT OF / **THIN AIR**. Accent: **THIN AIR**.
-- **Image:** Hoot (wink, wing thumbs-up) plus Jake's laptop showing "$20,000" with sparkles, on a dark background.
+- **Tag:** HOOT EXPLAINS · MONEY
+- **Title:** HIS BANK MADE / **$20,000 FROM NOTHING** (yellow bar)
+- **Image:** Jake gasping at his new car while $20,000 appears out of thin air, Hoot on the car roof
 
-## Caption
-Jake's bank just created $20,000 out of thin air. 🤯
-When a bank approves a loan, it doesn't hand you someone else's savings. It types a brand-new deposit into your account. Pay it back and that money disappears. That's not a conspiracy theory: the Bank of England published it in 2014.
+## Caption (Instagram / TikTok)
+Jake borrowed $20,000 for a car. His bank didn't lend him anyone's savings. It created the money. 🏦✨
 
-Send this to the friend who thinks banks lend out other people's savings 🏦
+The Bank of England explained it in 2014: a loan creates a brand-new deposit, and paying it back makes that money disappear.
 
-Money, Explained · Episode 2 of 6. Next: why your money is worth less every year.
-Not financial advice. Sources in the comments.
+Send this to the friend who thinks banks lend out other people's savings.
+
+Sources in the comments.
 
 ## Hashtags
-#money #banking #howmoneyworks #moneyexplained #economics #personalfinance #didyouknow #explained #financetok #hootexplains
+- **Instagram (5 max):** #money #banking #howmoneyworks #explained #hootexplains
+- **TikTok:** #money #banking #howmoneyworks #didyouknow #learnontiktok #hootexplains
 
-## YouTube
-- **Title:** Banks Create Money Out of Thin Air. Here's How (Money, Explained Ep 2)
+## YouTube Shorts
+- **Title:** Jake's Bank Created $20,000 Out of Thin Air
 - **Description:**
-  When a bank makes a loan, it creates a matching deposit: new money. When you repay, that money is destroyed. Hoot explains how most money is really made, why banks can't make infinite money, and what that means for prices.
+  When a bank approves a loan, it doesn't hand over someone else's savings: it types a new deposit into the borrower's account. The Bank of England explained this in its 2014 Quarterly Bulletin. When the loan is repaid, that money disappears. The limits: banks need borrowers who repay, and the central bank steers the cost of borrowing.
 
-  Episode 2 of 6. Previous: why a $20 bill is worth $20. Next: why your money is worth less every year.
-  Not financial advice. Animated explainer; Jake is a fictional character.
+  Animated explainer; Jake is a fictional character and the $20,000 loan is an example.
 
   Sources:
   - Bank of England, "Money creation in the modern economy" (2014): https://www.bankofengland.co.uk/quarterly-bulletin/2014/q1/money-creation-in-the-modern-economy
@@ -31,18 +33,4 @@ Not financial advice. Sources in the comments.
   - FRED, effective federal funds rate: https://fred.stlouisfed.org/series/FEDFUNDS
 
 ## Pinned comment
-Source: Bank of England, "Money creation in the modern economy" (2014): "Whenever a bank makes a loan, it simultaneously creates a matching deposit." And: "the repayment of bank loans destroys money." Episode 3 (why your $100 buys half as much) is next 👇 Did you know this? YES / NO
-
-## Story poll
-"Where do you think most money comes from?" → The government prints it / Banks create it when they lend
-
-## Sources (checked 3 Nov 2026)
-See the BRIEF.md table.
-
-## Ready replies
-- **"So banks are scamming us?"** No. The loan is also an asset the bank must get back, so a bank that lends to people who can't repay loses money. That's catch number two.
-- **"The Fed prints the money!"** The Fed issues cash and sets interest rates. But most money people use is bank deposits, and those are created by bank lending (Bank of England 2014; St. Louis Fed 2021).
-
-## Alternative hooks (trial reels)
-1. "Your bank didn't lend you anyone's savings. It created brand-new money." (myth hook)
-2. "Pay off your loan and the money vanishes. Literally." (weird observation; first frame = the POOF shot)
+Sources: Bank of England Quarterly Bulletin 2014 Q1, "Money creation in the modern economy" · St. Louis Fed (2021) · FRED FEDFUNDS 3.88% (Oct 2026). The $20,000 loan is an example.

@@ -1,7 +1,6 @@
 {
   "id": "money2",
-  "title": "Banks create money out of thin air. Here's how.",
-  "ep": 2,
+  "title": "Jake's bank created $20,000 out of thin air",
   "lang": "en-us",
   "voice": {
     "am_adam": 0.7,
@@ -11,105 +10,69 @@
   "gap": 0.06,
   "tail": 1.8,
   "handle": "@hootexplains",
-  "scene": "money",
+  "scene": "loan",
   "music": "music/bed.wav",
   "hook": {
-    "line1": "BANKS CREATE MONEY",
-    "line2": "OUT OF THIN AIR",
+    "line1": "HIS BANK CREATED",
+    "line2": "$20,000 FROM NOTHING",
     "top": "14%"
   },
   "outro": {
-    "line1": "DID YOU KNOW",
-    "line2": "BANKS DO THIS?",
-    "top": "11%"
+    "line1": "MOST MONEY ISN'T PRINTED.",
+    "line2": "IT'S TYPED.",
+    "top": "13%"
   },
   "beats": [
     {
-      "text": "Jake's bank just created 20,000 dollars out of thin air.",
+      "text": "Jake just borrowed 20,000 dollars for a car. His bank didn't lend him anyone's savings. It created the money.",
       "speed": 1.25,
-      "shot": "loanHook",
+      "shot": "lot",
       "event": "hook",
-      "highlight": [
-        "created",
-        "thin"
-      ]
+      "highlight": ["20,000", "savings", "created"]
     },
     {
-      "text": "You'd think it lent him someone's savings. Nope.",
+      "text": "Here's how a bank makes money from nothing, and why it can't do it forever.",
+      "speed": 1.25,
+      "shot": "lot",
+      "event": "bridge",
+      "highlight": ["nothing", "forever"]
+    },
+    {
+      "text": "When the loan is approved, the bank just types 20,000 into his account. Brand new money.",
+      "speed": 1.25,
+      "shot": "screen",
+      "event": "type",
+      "highlight": ["types", "new"],
+      "hold": 0.3
+    },
+    {
+      "text": "Not a conspiracy theory. The Bank of England explained it in 2014.",
       "speed": 1.2,
-      "shot": "vaultMyth",
-      "event": "myth",
-      "highlight": [
-        "savings",
-        "Nope"
-      ]
+      "shot": "report",
+      "event": "proof",
+      "highlight": ["conspiracy", "England"]
     },
     {
-      "text": "When it approves his car loan, the bank just types 20,000 into his account. Brand new money.",
+      "text": "But there's a catch. When Jake pays the loan back, that money disappears.",
       "speed": 1.25,
-      "shot": "laptop",
-      "event": "types",
-      "highlight": [
-        "types",
-        "new"
-      ],
-      "hold": 0.4
-    },
-    {
-      "text": "Not a conspiracy theory. The Bank of England published it.",
-      "speed": 1.25,
-      "shot": "laptop",
-      "event": "source",
-      "highlight": [
-        "England"
-      ]
-    },
-    {
-      "text": "Episode 2 of 6. Follow along.",
-      "speed": 1.25,
-      "shot": "car",
-      "event": "cta",
-      "highlight": [
-        "Follow"
-      ]
-    },
-    {
-      "text": "So why can't banks make infinite money? Two catches.",
-      "speed": 1.2,
-      "shot": "car",
-      "event": "rehook",
-      "highlight": [
-        "infinite"
-      ]
-    },
-    {
-      "text": "One: when Jake pays the loan back, that money disappears.",
-      "speed": 1.25,
-      "shot": "repay",
+      "shot": "screen",
       "event": "repay",
-      "highlight": [
-        "disappears"
-      ]
+      "highlight": ["catch", "disappears"],
+      "hold": 0.3
     },
     {
-      "text": "Two: they need borrowers who'll repay, and the Fed steers what borrowing costs.",
+      "text": "And banks need borrowers who'll repay, while the Fed steers what borrowing costs.",
       "speed": 1.25,
-      "shot": "fed",
+      "shot": "dial",
       "event": "limits",
-      "highlight": [
-        "repay",
-        "Fed"
-      ]
+      "highlight": ["repay", "Fed"]
     },
     {
-      "text": "But when money grows faster than the stuff to buy, prices tend to rise. Did you know banks did this?",
+      "text": "So most money isn't printed. It's typed. Did you know your bank could do that?",
       "speed": 1.25,
-      "shot": "loanHook",
+      "shot": "lot",
       "event": "final",
-      "highlight": [
-        "prices",
-        "banks"
-      ]
+      "highlight": ["printed", "typed"]
     }
   ]
 }

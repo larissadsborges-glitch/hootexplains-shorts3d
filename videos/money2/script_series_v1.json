@@ -1,0 +1,115 @@
+{
+  "id": "money2",
+  "title": "Banks create money out of thin air. Here's how.",
+  "ep": 2,
+  "lang": "en-us",
+  "voice": {
+    "am_adam": 0.7,
+    "am_michael": 0.3
+  },
+  "leadIn": 0.05,
+  "gap": 0.06,
+  "tail": 1.8,
+  "handle": "@hootexplains",
+  "scene": "money",
+  "music": "music/bed.wav",
+  "hook": {
+    "line1": "BANKS CREATE MONEY",
+    "line2": "OUT OF THIN AIR",
+    "top": "14%"
+  },
+  "outro": {
+    "line1": "DID YOU KNOW",
+    "line2": "BANKS DO THIS?",
+    "top": "11%"
+  },
+  "beats": [
+    {
+      "text": "Jake's bank just created 20,000 dollars out of thin air.",
+      "speed": 1.25,
+      "shot": "loanHook",
+      "event": "hook",
+      "highlight": [
+        "created",
+        "thin"
+      ]
+    },
+    {
+      "text": "You'd think it lent him someone's savings. Nope.",
+      "speed": 1.2,
+      "shot": "vaultMyth",
+      "event": "myth",
+      "highlight": [
+        "savings",
+        "Nope"
+      ]
+    },
+    {
+      "text": "When it approves his car loan, the bank just types 20,000 into his account. Brand new money.",
+      "speed": 1.25,
+      "shot": "laptop",
+      "event": "types",
+      "highlight": [
+        "types",
+        "new"
+      ],
+      "hold": 0.4
+    },
+    {
+      "text": "Not a conspiracy theory. The Bank of England published it.",
+      "speed": 1.25,
+      "shot": "laptop",
+      "event": "source",
+      "highlight": [
+        "England"
+      ]
+    },
+    {
+      "text": "Episode 2 of 6. Follow along.",
+      "speed": 1.25,
+      "shot": "car",
+      "event": "cta",
+      "highlight": [
+        "Follow"
+      ]
+    },
+    {
+      "text": "So why can't banks make infinite money? Two catches.",
+      "speed": 1.2,
+      "shot": "car",
+      "event": "rehook",
+      "highlight": [
+        "infinite"
+      ]
+    },
+    {
+      "text": "One: when Jake pays the loan back, that money disappears.",
+      "speed": 1.25,
+      "shot": "repay",
+      "event": "repay",
+      "highlight": [
+        "disappears"
+      ]
+    },
+    {
+      "text": "Two: they need borrowers who'll repay, and the Fed steers what borrowing costs.",
+      "speed": 1.25,
+      "shot": "fed",
+      "event": "limits",
+      "highlight": [
+        "repay",
+        "Fed"
+      ]
+    },
+    {
+      "text": "But when money grows faster than the stuff to buy, prices tend to rise. Did you know banks did this?",
+      "speed": 1.25,
+      "shot": "loanHook",
+      "event": "final",
+      "highlight": [
+        "prices",
+        "banks"
+      ]
+    }
+  ]
+}

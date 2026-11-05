@@ -1,3 +1,35 @@
+# money2 (standalone, 2D): "Jake's bank created $20,000 out of thin air"
+
+Rewritten 5 Nov 2026 as a **standalone** video (no "EP n/6", no inflation teaser, no advice tag). The old series script is `script_series_v1.json`; the sources are in the table below. Topic picked by the owner on 5 Nov.
+
+## Titles
+- **A (built):** Jake's bank created $20,000 out of thin air
+- B: Your bank doesn't lend out savings. It types new money.
+- C: Most money isn't printed. It's typed.
+- **Cover text:** HIS BANK MADE / $20,000 FROM NOTHING
+
+## Script (98 words, 31.3 s with the 1.8 s tail)
+1. Jake just borrowed 20,000 dollars for a car. His bank didn't lend him anyone's savings. It created the money.
+2. Here's how a bank makes money from nothing, and why it can't do it forever. *(bridge at 6.1 s)*
+3. When the loan is approved, the bank just types 20,000 into his account. Brand new money.
+4. Not a conspiracy theory. The Bank of England explained it in 2014. *(sendable line)*
+5. But there's a catch. When Jake pays the loan back, that money disappears.
+6. And banks need borrowers who'll repay, while the Fed steers what borrowing costs.
+7. So most money isn't printed. It's typed. Did you know your bank could do that? *(closing question, on screen)*
+
+## Sources (table below)
+- Bank of England, "Money creation in the modern economy", Quarterly Bulletin 2014 Q1: a loan creates a matching deposit; repayment destroys money; most money is created by commercial banks making loans; limits = profitable lending and the central bank's policy. https://www.bankofengland.co.uk/quarterly-bulletin/2014/q1/money-creation-in-the-modern-economy
+- St. Louis Fed (2021): the textbook money multiplier is obsolete (for comment replies). https://fedinprint.org/item/fedlpo/93181
+- FRED FEDFUNDS 3.88% (Oct 2026) for the on-screen "FED RATE ≈ 3.9%". https://fred.stlouisfed.org/series/FEDFUNDS
+- The $20,000 car loan is an illustrative amount.
+
+## Look (owner: vary sets and outfits)
+Sets: car lot, giant bank app screen, the Bank of England bulletin on a corkboard, a "borrowing cost" dial in front of THE FED. Jake wears a green jacket. Code: `src/toon2d/loan/`.
+
+---
+
+# (Old series brief, kept for reference)
+
 # EP 2/6: "Banks create money out of thin air"
 
 Series: MONEY, EXPLAINED. The series plan, order and branding are in `videos/money1/BRIEF.md`.

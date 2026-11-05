@@ -37,8 +37,8 @@ const VoteB = makeVote({
       <g>
       {([['vira', 200, 1080], ['pug', 880, 1140], ['vira', 220, 1420]] as const).map(([k, x, y], i) => <g key={i} transform={`translate(${x} ${y + 10 * Math.sin(t * 8 + i)})`}><Dog kind={k} t={t + i} /></g>)}
       <Tavinho t={t} mood={focus ? 'proud' : 'worried'} sweat={0.6} outfit="tee"
-        armL={[[360, 1150], [300, 1300], [460, 1270]]} armR={[[720, 1150], [780, 1300], [620, 1270]]}
-        holdL={<g transform="translate(80 -30)"><ellipse cx={0} cy={20} rx={170} ry={46} fill="#ffffff" {...{ stroke: '#1b1420', strokeWidth: 6 }} />{[-70, 0, 70].map((x) => <rect key={x} x={x - 32} y={-30} width={64} height={52} rx={26} fill="#c8643a" {...{ stroke: '#1b1420', strokeWidth: 5 }} />)}</g>} />
+        armL={[[360, 1150], [300, 1250], [460, 1150]]} armR={[[720, 1150], [780, 1250], [620, 1150]]}
+        holdL={<g transform="translate(80 -40)"><ellipse cx={0} cy={20} rx={180} ry={46} fill="#ffffff" {...{ stroke: '#1b1420', strokeWidth: 6 }} />{[-34, 0, 34].map((y, i) => <path key={i} d={`M-130 ${y * 0.5 - 6} C -60 ${y * 0.5 - 36} 60 ${y * 0.5 - 36} 130 ${y * 0.5 - 6}`} fill="none" stroke="#1b1420" strokeWidth={38} strokeLinecap="round" />)}{[-34, 0, 34].map((y, i) => <path key={`f${i}`} d={`M-130 ${y * 0.5 - 6} C -60 ${y * 0.5 - 36} 60 ${y * 0.5 - 36} 130 ${y * 0.5 - 6}`} fill="none" stroke="#c8643a" strokeWidth={28} strokeLinecap="round" />)}</g>} />
       </g>
     ),
 
@@ -90,7 +90,7 @@ const SHOTS: Record<string, ShotRow[]> = {
   rant2: [[540, 960, 1.0, 'push'], [540, 1150, 1.28, 'push'], [700, 1120, 1.55, 'shake']],
   lunch: [[600, 1000, 1.0, 'push', 'happy'], [560, 1300, 1.6, 'push', 'happy']],
   card: [[540, 960, 1.0, 'shake'], [600, 1320, 1.6, 'push', 'neutral']],
-  run: [[560, 1440, 2.0, 'push', 'shock'], [700, 1440, 2.0, 'push', 'shock'], [780, 1355, 1.7, 'shake', 'shock']],
+  run: [[540, 1000, 1.05, 'push', 'shock'], [520, 1060, 1.25, 'drift', 'shock'], [560, 1040, 1.15, 'shake', 'shock']],
   sit: [[420, 1240, 1.9, 'push', 'gulp'], [560, 1100, 1.5, 'push', 'worried'], [540, 980, 1.05, 'push', 'gulp']],
   follow: [[540, 1050, 1.0, 'push', 'gulp'], [420, 1190, 1.9, 'push', 'worried'], [420, 1190, 1.9, 'push', 'worried']],
   truth: [[540, 960, 1.0, 'push', 'neutral'], [560, 1080, 1.2, 'push', 'neutral'], [540, 1040, 1.1, 'shake', 'happy']],
@@ -107,6 +107,7 @@ const SHOTS: Record<string, ShotRow[]> = {
 const Timer: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }) => {
   const t0 = W(T, 'stakes', 'duas', 1.8) - 0.05, tw = T.s('noreturn');
   if (t < t0 || t >= T.s('video') + 0.3) return null;
+  if (t >= T.s('back') - 0.05 && t < T.s('truth') - 0.05) return null;
   const red = t >= tw;
   const secs = red ? Math.max(0, 300 - Math.floor((t - tw) * 6)) : Math.max(0, 7200 - Math.floor((t - t0) * 60));
   const label = red ? `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}` : `${Math.floor(secs / 3600)}H${String(Math.floor((secs % 3600) / 60)).padStart(2, '0')}`;
@@ -157,7 +158,6 @@ export const EP_CACHORRA: EpConfig = {
   names: { princesa: '#ff7ac8' },
   foreground: (shot, t) => (
     <>
-      {shot === 'street' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-30 * Math.sin(t * 0.4)} 0)`}><rect x={-60} y={1100} width={150} height={900} rx={30} fill="#7a8a6a" /><ellipse cx={20} cy={1080} rx={170} ry={120} fill="#5f8f4a" /></g>}
     </>
   ),
   Overlays: OverlaysB,

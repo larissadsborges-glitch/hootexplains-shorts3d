@@ -72,6 +72,9 @@ const Rider: React.FC<{ t: number; s?: number }> = ({ t, s = 1 }) => (
     <text x={-115} y={-75} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#fff">LANCHE</text>
     <path d="M110 0 L 160 -120" stroke="#1b1420" strokeWidth={12} strokeLinecap="round" />
     <path d="M-30 0 C -40 -90 40 -120 70 -40 L 60 0 Z" fill="#c8322a" {...ink(6)} />
+    <path d="M40 -80 C 90 -90 130 -110 150 -116" fill="none" stroke="#1b1420" strokeWidth={34} strokeLinecap="round" />
+    <path d="M40 -80 C 90 -90 130 -110 150 -116" fill="none" stroke="#c8322a" strokeWidth={22} strokeLinecap="round" />
+    <circle cx={156} cy={-118} r={18} fill="#2a2a36" {...ink(4)} />
     <circle cx={20} cy={-150} r={52} fill="#c8322a" {...ink(6)} />
     <path d="M30 -170 Q 80 -160 72 -126 L 26 -126 Z" fill="#1b1420" />
   </g>
@@ -160,7 +163,7 @@ export const Living: React.FC<P> = ({ T, t }) => {
             <Tavinho t={t} mood="gulp" sweat={1} slip={0.6} outfit={OUTFIT} armR={[[720, 1150], [800, 1300], [740, 1420]]}
               holdR={<g><path d="M0 0 C 40 160 60 360 120 520" fill="none" stroke="#e2453c" strokeWidth={10} strokeLinecap="round" /><ellipse cx={130} cy={540} rx={50} ry={22} fill="none" stroke="#ff5fb0" strokeWidth={12} /></g>} />
           </g>
-          {t >= bubbleB && (
+          {t >= bubbleB && t < W(T, 'stakes', 'horas', 2.6) - 0.05 && (
             <g data-qa-label="volto" transform={`translate(660 420) scale(${pop(t, bubbleB)})`}>
               <path d="M-260 -80 L 260 -80 Q 290 -80 290 -50 L 290 50 Q 290 80 260 80 L 160 80 L 140 150 L 100 80 L -260 80 Q -290 80 -290 50 L -290 -50 Q -290 -80 -260 -80 Z" fill="#fff" {...ink(7)} />
               <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#14171a">VOLTO EM</text>
@@ -232,8 +235,8 @@ export const Street: React.FC<P> = ({ T, t }) => {
       {/* flash-forward: an empty gate, a dust trail, "10 MIN" */}
       {flash && (
         <g>
-          {[0, 1, 2, 3].map((i) => { const k = (t * 0.9 + i * 0.25) % 1; return <circle key={i} cx={620 + 260 * k} cy={1420 - 30 * k} r={30 + 50 * k} fill="#e8dcc8" opacity={0.8 * (1 - k)} {...ink(3)} />; })}
-          <g transform={`translate(${lerp(700, 860, clamp01((t - T.s('punch')) / 1.4))} 1370)`}><Princesa t={t} run s={0.65} /></g>
+          {[0, 1, 2, 3].map((i) => { const k = (t * 0.9 + i * 0.25) % 1; return <circle key={i} cx={620 + 260 * k} cy={1300 - 30 * k} r={30 + 50 * k} fill="#e8dcc8" opacity={0.8 * (1 - k)} {...ink(3)} />; })}
+          <g transform={`translate(${lerp(700, 860, clamp01((t - T.s('punch')) / 1.4))} 1250)`}><Princesa t={t} run s={0.75} /></g>
           <g data-qa-label="10min" transform={`translate(760 1010) rotate(6) scale(${pop(t, T.s('punch') + 0.3)})`}>
             <circle cx={0} cy={0} r={110} fill="#c8322a" {...ink(8)} />
             <text x={0} y={-6} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={74} fill="#fff">10</text>
@@ -255,8 +258,28 @@ export const Street: React.FC<P> = ({ T, t }) => {
         </g>
       )}
       {/* the rider and Princesa are drawn after him (in front) */}
-      {!flash && !sitting && t >= arrive && <g transform={`translate(${riderX} 1600)`}><Rider t={t} s={1.0} /></g>}
-      {!flash && !sitting && t >= W(T, 'card', 'portão', 0.8) && <g transform={`translate(${dogX} ${t >= run0 ? 1610 : 1585})`}><Princesa t={t} run={t >= run0} s={0.9} /></g>}
+      {!flash && !sitting && t >= arrive && t < run0 - 0.04 && <g transform={`translate(${riderX} 1600)`}><Rider t={t} s={1.0} /></g>}
+      {!flash && !sitting && t >= W(T, 'card', 'portão', 0.8) && t < run0 - 0.04 && <g transform={`translate(${dogX} 1585)`}><Princesa t={t} s={0.9} /></g>}
+      {!sitting && t >= run0 - 0.04 && (() => {
+        const k = t - run0;
+        const scroll = (k * 900) % 360;
+        return (
+          <g>
+            <rect x={0} y={0} width={1080} height={1920} fill="#9fdcff" />
+            {/* houses and trees scrolling left (we follow the chase) */}
+            {Array.from({ length: 6 }, (_, i) => { const x = i * 360 - scroll - 100; return <g key={i}><rect x={x} y={560} width={300} height={640} fill={['#f2c9a0', '#bcd6f0', '#f0d9e6'][i % 3]} {...ink(6)} /><rect x={x + 40} y={640} width={90} height={110} fill="#9fdcff" {...ink(5)} /><rect x={x + 170} y={640} width={90} height={110} fill="#9fdcff" {...ink(5)} /><rect x={x + 100} y={1000} width={100} height={200} fill="#8a6a4a" {...ink(5)} /></g>; })}
+            <rect x={0} y={1200} width={1080} height={120} fill="#cfcfd4" {...ink(5)} />
+            <rect x={0} y={1320} width={1080} height={600} fill="#4a4f5a" />
+            {Array.from({ length: 5 }, (_, i) => <rect key={i} x={((i * 260 - scroll * 1.5) % 1300) - 100} y={1380} width={140} height={16} fill="#fff4e0" />)}
+            {/* speed lines */}
+            {Array.from({ length: 6 }, (_, i) => <path key={`s${i}`} d={`M${((i * 190 - k * 1400) % 1200 + 1200) % 1200 - 60} ${880 + i * 50} l 140 0`} stroke="#ffffff" strokeWidth={8} strokeLinecap="round" opacity={0.7} />)}
+            {/* dust puffs behind the dog */}
+            {[0, 1, 2].map((i) => { const q = (k * 2 + i * 0.33) % 1; return <circle key={`d${i}`} cx={260 - 160 * q} cy={1230 - 20 * q} r={24 + 40 * q} fill="#e8dcc8" opacity={0.85 * (1 - q)} {...ink(3)} />; })}
+            <g transform={`translate(${720 + 20 * Math.sin(k * 3)} ${1230 + 4 * Math.sin(k * 30)})`}><Rider t={t} s={1.05} /></g>
+            <g transform={`translate(${360 + 30 * Math.sin(k * 2.2)} 1250)`}><Princesa t={t} run s={1.0} /></g>
+          </g>
+        );
+      })()}
       {sitting && (
         <g>
           {/* two blocks away: another street (a blue house, a bakery), no gate */}

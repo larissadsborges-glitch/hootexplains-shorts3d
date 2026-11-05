@@ -37,8 +37,8 @@ const Bill: React.FC<{ t: number; hl: number; peel: number; stamp12: number; sta
         <text x={158} y={-18} textAnchor="end" fontFamily={F} fontWeight={900} fontSize={32} fill="#14171a">$3,000</text>
         {/* row 2: minimum due, highlighted on "minimum" */}
         <rect x={-205} y={-8} width={410} height={44} rx={8} fill="#ffd21f" opacity={0.85 * hl} />
-        <text x={-158} y={24} fontFamily={F} fontWeight={800} fontSize={26} fill="#14171a">MINIMUM DUE</text>
-        <text x={158} y={26} textAnchor="end" fontFamily={F} fontWeight={900} fontSize={32} fill="#d6281c">$85</text>
+        <text x={-158} y={23} fontFamily={F} fontWeight={800} fontSize={22} fill="#14171a">MINIMUM DUE</text>
+        <text x={158} y={26} textAnchor="end" fontFamily={F} fontWeight={900} fontSize={30} fill="#d6281c">$85/MO</text>
         {/* row 3: the 3-year box, hidden under a sticky "?" until the payoff */}
         <rect x={-235} y={44} width={470} height={46} rx={8} fill="#e6f6e6" stroke="#2fa84f" strokeWidth={4} strokeDasharray="10 6" />
         <text x={-158} y={77} fontFamily={F} fontWeight={800} fontSize={22} fill="#1f6b3a">3-YEAR PLAN</text>
@@ -209,7 +209,7 @@ export const Treadmill2D: React.FC<MillProps> = ({ t, talk, year, run, jake }) =
         <text x={0} y={70} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={120} fill="#14171a">{year}</text>
       </g>
       {/* wall clock spinning fast */}
-      <g transform="translate(840 500)">
+      <g transform="translate(840 650)">
         <circle cx={0} cy={0} r={92} fill="#ffffff" {...ink(8)} />
         {Array.from({ length: 12 }, (_, i) => <path key={i} d={`M0 -78 L 0 -66`} transform={`rotate(${i * 30})`} {...ink(5)} />)}
         <path d="M0 0 L 0 -52" transform={`rotate(${t * 140 * run})`} {...ink(9)} />

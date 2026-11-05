@@ -265,8 +265,8 @@ export const Jars2D: React.FC<JarsProps> = ({ t, talk, face, fill }) => {
       <rect x={cx - 125} y={780} width={250} height={370} rx={36} fill="rgba(200,235,255,0.35)" {...ink(8)} />
       <rect x={cx - 105} y={745} width={210} height={50} rx={10} fill={color} {...ink(7)} />
       <text x={cx} y={780} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#ffffff">{rate}</text>
-      <rect x={cx - 95} y={830} width={190} height={56} rx={10} fill="#ffffff" {...ink(5)} />
-      <text x={cx} y={868} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={22} fill="#14171a">{label}</text>
+      <rect x={cx - 108} y={830} width={216} height={56} rx={10} fill="#ffffff" {...ink(5)} />
+      <text x={cx} y={866} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={label.length > 10 ? 18 : 22} fill="#14171a">{label}</text>
       <text x={cx} y={970} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={color} stroke="#ffffff" strokeWidth={8} paintOrder="stroke">{amount}</text>
     </g>
   );

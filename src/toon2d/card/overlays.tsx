@@ -31,7 +31,6 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
   const w = (ev: string, word: string, d = 1) => T.wordTime(ev, word, T.s(ev) + d);
   const t85 = w('split', '85', 1.5), t55 = w('split', '55', 2.6);
   const split = clamp01((t - t55 + 0.05) / 0.35);
-  const tShr = w('shrink', 'shrinks', 1);
   const minDue = MIN_BY_YEAR[yearAt(T, t) - 1];
   const t7 = w('total', '7000', 1.5);
   const paid = 7039 * easeOutCubic(clamp01((t - T.s('total') - 0.1) / Math.max(0.5, t7 - T.s('total') - 0.1)));
@@ -46,7 +45,7 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
 
       {/* the $85 payment, split into interest and debt on "55" */}
       <Card t={t} t0={t85 - 0.15} t1={T.s('shrink') - 0.05} top="70.5%">
-        <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 36, color: '#fff', textAlign: 'center', marginBottom: 10 }}>HIS $85 PAYMENT</div>
+        <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 36, color: '#fff', textAlign: 'center', marginBottom: 10 }}>HIS FIRST MONTHLY PAYMENT: $85</div>
         <div style={{ display: 'flex', height: 74, borderRadius: 16, overflow: 'hidden', border: '4px solid #fff' }}>
           <div style={{ width: `${lerp(100, (55 / 85) * 100, split)}%`, background: split > 0 ? '#e2453c' : '#8a93a3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 34, color: '#fff' }}>{split > 0.5 ? 'INTEREST $55' : '$85'}</div>
           <div style={{ flex: 1, background: '#2fa84f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 30, color: '#fff' }}>{split > 0.5 ? 'DEBT $30' : ''}</div>
@@ -55,18 +54,26 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
       <Pill t={t} t0={w('rate', '22', 1) - 0.1} t1={T.s('shrink') - 0.05} text="AVG CARD RATE · FEDERAL RESERVE" top="14.5%" dot="#ffffff" />
 
       {/* the minimum shrinks with the debt */}
-      <Card t={t} t0={T.s('shrink') + 0.1} t1={T.s('total') - 0.05} top="14.5%" width={640}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
-          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 36, color: '#fff' }}>MINIMUM DUE</div>
-          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 64, color: '#ffd21f' }}>${Math.round(minDue)}</div>
-          <div style={{ width: 0, height: 0, borderLeft: '20px solid transparent', borderRight: '20px solid transparent', borderTop: '30px solid #ff4a3d', opacity: t > tShr && minDue < 85 ? 1 : 0 }} />
+      {/* the monthly minimum, year by year: the bars shrink as the years pass */}
+      <Card t={t} t0={T.s('shrink') + 0.1} t1={T.s('total') - 0.05} top="14.5%" width={720}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 30, color: '#fff' }}>MONTHLY MINIMUM</div>
+          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 52, color: '#ffd21f' }}>${Math.round(minDue)}<span style={{ fontSize: 28 }}>/MO</span></div>
         </div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 96, marginTop: 6 }}>
+          {MIN_BY_YEAR.map((v, i) => {
+            const shown = i < yearAt(T, t);
+            return <div key={i} style={{ flex: 1, height: `${(v / 85) * 100}%`, background: shown ? (i === yearAt(T, t) - 1 ? '#ffd21f' : '#8a93a3') : 'rgba(255,255,255,0.12)', borderRadius: 5 }} />;
+          })}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: FONT, fontWeight: 800, fontSize: 20, color: '#aab1bd', marginTop: 4 }}><span>YEAR 1</span><span>SMALLER PAYMENT = SLOWER PAYOFF</span><span>YEAR 12</span></div>
       </Card>
 
       {/* the total paid counts up */}
       <Card t={t} t0={T.s('total') + 0.05} t1={T.s('exit') - 0.05} top="15%" width={560}>
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 30, color: '#fff' }}>TOTAL PAID</div>
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 84, color: '#ff4a3d', lineHeight: 1.05 }}>{money(paid)}</div>
+        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 24, color: '#e6e9ef' }}>OVER 146 MONTHLY PAYMENTS</div>
       </Card>
       <Card t={t} t0={T.s('total') + 0.3} t1={T.s('exit') - 0.05} top="71%" width={860}>
         <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#e6e9ef', lineHeight: 1.3 }}>MATH: 22% A YEAR · MINIMUM = 1% + INTEREST<br />($35 FLOOR) · NO NEW CHARGES · ~12.2 YEARS</div>
@@ -74,13 +81,13 @@ export const CardOverlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }
 
       {/* the way out */}
       <Pill t={t} t0={w('exit', 'printed', 1.5) - 0.1} t1={T.s('final') - 0.05} text="SOURCE: CFPB · ON EVERY STATEMENT" top="14.5%" dot="#7fd36a" />
-      <Pill t={t} t0={w('exit', '115', 3) - 0.1} t1={T.s('final') - 0.05} text="$115 A MONTH → DONE IN 3 YEARS" top="21.5%" dot="#2fa84f" />
+      <Pill t={t} t0={w('exit', '115', 3) - 0.1} t1={T.s('final') - 0.05} text="SAME $115 EVERY MONTH → 3 YEARS" top="21.5%" dot="#2fa84f" />
 
       {/* same debt, two plans */}
       <Card t={t} t0={T.s('final') + 0.1} t1={tDo - 0.05} top="23.5%" width={860}>
-        {([['MINIMUM ONLY', '12+ YEARS', '#ff4a3d', 1], ['$115 A MONTH', '3 YEARS', '#7fd36a', 0.25]] as const).map(([who, yrs, c, len], i) => (
+        {([['MINIMUM', '$85 → $35 /MO', '12+ YEARS', '#ff4a3d', 1], ['$115', 'EVERY MONTH', '3 YEARS', '#7fd36a', 0.25]] as const).map(([who, sub, yrs, c, len], i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '6px 0' }}>
-            <div style={{ width: 250, fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#fff' }}>{who}</div>
+            <div style={{ width: 250, fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#fff', lineHeight: 1.1 }}>{who}<div style={{ fontSize: 20, color: '#aab1bd' }}>{sub}</div></div>
             <div style={{ flex: 1, height: 40, position: 'relative' }}>
               <div style={{ width: `${len * 100}%`, height: '100%', background: c, borderRadius: 10 }} />
             </div>

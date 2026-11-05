@@ -9,6 +9,7 @@
 - **Script:** name who and what in the first 3–5 words; bridge by ~5 s; story in order; answer the hook; no engagement bait; standalone videos.
 - **Variety (owner, 5 Nov):** keep Hoot and Jake recognisable (faces, colours, Hoot's glasses and bow tie) but change places and outfits from video to video; new sets every time, and sometimes introduce him ("This is Jake.").
 - **Money5 lessons:** tie every on-screen number to the same simulation as the script (a straight-line slide gave wrong yearly minimums); frame Hoot fully on the closing cheer and hold the wink to the last frame; a held prop wider than the hands keeps its text clear.
+- **Money clarity (owner, 5 Nov):** label every amount with its period ("/MO", "A YEAR") and show a number that changes over time as a chart, not a single ticking value; the owner misread the money5 $85 as fixed. Size text boxes to the longest label (a jar label overflowed).
 - **Review:** show fresh evidence before saying "done"; my contact-sheet pass, then an independent review; fix P0/P1 before sending.
 - **Windows:** short paths (`C:/Users/borge/hoot`); `PYTHONUTF8=1` for the voice scripts; FFmpeg and Python in `C:/Users/borge/.hoottools`.
 

@@ -125,7 +125,7 @@ const SHOT_PLAN: Record<string, ShotRow[]> = {
   camilamsg: [[200, 1250, 2.3, 'roll', 'shock'], [540, 960, 1.05, 'push', 'shock'], [200, 1250, 2.3, 'drift', 'worried'], [540, 1300, 1.8, 'push', 'gulp'], [200, 1250, 2.3, 'shake', 'shock']],
   group: [[600, 620, 1.6, 'push'], [600, 620, 1.6, 'push'], [560, 600, 1.45, 'shake'], [540, 960, 1.05, 'push']],
   noreturn: [[540, 1300, 1.8, 'drift', 'worried'], [200, 1250, 2.3, 'push', 'gulp']],
-  percent: [[540, 700, 2.0, 'push', 'gulp'], [540, 1150, 1.45, 'push', 'worried'], [540, 1150, 1.45, 'push', 'worried'], [540, 1050, 1.3, 'drift', 'happy']],
+  percent: [[540, 620, 2.0, 'push', 'gulp'], [540, 1000, 1.45, 'push', 'worried'], [540, 1000, 1.45, 'push', 'worried'], [540, 1050, 1.3, 'drift', 'happy']],
   mission: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.3, 'push', 'shock'], [540, 1000, 1.15, 'drift', 'worried']],
   video: [[540, 960, 1.0, 'push', 'neutral'], [337, 900, 1.6, 'push', 'happy'], [540, 960, 1.0, 'push', 'worried'], [337, 900, 1.6, 'shake', 'gulp']],
   vo: [[540, 960, 1.0, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 800, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
@@ -208,7 +208,6 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
         {/* out-of-focus foreground for depth, moving a little faster than the scene (parallax) */}
         {beat.shot === 'building' && <g filter="url(#fgBlur)" opacity={0.85} transform={`translate(${-40 * Math.sin(t * 0.3)} 0)`}><rect x={-40} y={300} width={70} height={1700} fill="#0e1430" /><ellipse cx={-5} cy={300} rx={70} ry={40} fill="#ffd98a" opacity={0.8} /></g>}
         {beat.shot === 'typing' && <g filter="url(#fgBlur)" opacity={0.9}><ellipse cx={-60} cy={1820} rx={360} ry={260} fill="#7fb2df" /></g>}
-        {beat.shot === 'sunday' && <g filter="url(#fgBlur)" opacity={0.75}><path d="M980 2000 L 1010 1500 L 1090 1500 L 1120 2000 Z" fill="#c9e6f7" /><ellipse cx={1050} cy={1500} rx={50} ry={16} fill="#e9f6ff" /></g>}
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
       {t >= T.s('market') - 0.02 && t < mentiraEnd && (

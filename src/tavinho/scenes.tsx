@@ -170,7 +170,13 @@ export const Table12: React.FC<P> = ({ T, t }) => {
       {t >= frita && eggFall <= 0 && <ellipse cx={790} cy={900 + 8 * Math.sin(t * 18)} rx={34} ry={44} fill="#fff8ec" {...ink(6)} transform={`rotate(${10 * Math.sin(t * 11)} 790 900)`} />}
       {eggFall > 0 && (eggFall < 1
         ? <ellipse cx={790} cy={lerp(900, 1300, eggFall * eggFall)} rx={34} ry={44} fill="#fff8ec" {...ink(6)} />
-        : <g transform="translate(790 1310)"><path d="M-90 0 C -80 -40 -30 -30 -10 -50 C 20 -70 60 -30 90 -10 C 110 20 40 40 0 30 C -50 40 -100 30 -90 0 Z" fill="#ffffff" {...ink(6)} /><circle cx={0} cy={-6} r={30} fill="#ffc21f" {...ink(5)} /></g>)}
+        : <g transform="translate(790 1310)">
+            <path d="M-110 6 C -120 -20 -70 -18 -50 -30 C -20 -48 10 -10 40 -26 C 80 -44 120 -6 104 14 C 90 34 30 22 0 30 C -40 40 -100 30 -110 6 Z" fill="#fff8ec" opacity={0.9} {...ink(5)} />
+            <ellipse cx={-6} cy={-2} rx={30} ry={22} fill="#ffc21f" {...ink(5)} />
+            {/* cracked shell halves */}
+            <path d="M-150 -10 L -96 -10 L -104 -30 L -118 -18 L -130 -34 L -142 -20 Z" fill="#fff8ec" {...ink(5)} transform="rotate(-20 -123 -20)" />
+            <path d="M96 -40 L 150 -40 L 144 -60 L 130 -48 L 118 -64 L 104 -50 Z" fill="#fff8ec" {...ink(5)} transform="rotate(25 123 -50)" />
+          </g>)}
     </g>
   );
 };
@@ -468,7 +474,7 @@ export const Vote: React.FC<P> = ({ T, t }) => {
       {/* the final question + his gulp in the middle */}
       {both && (
         <g>
-          <rect x={0} y={330} width={1080} height={1180} fill={PAL.navy} opacity={0.55 * clamp01((t - d0) / 0.2)} />
+          <rect x={0} y={330} width={1080} height={1180} fill={PAL.navy} opacity={0.22 * clamp01((t - d0) / 0.2)} />
           <g transform={`translate(540 905) scale(${pop(t, d0)})`}>
             <circle cx={0} cy={0} r={195} fill="#fff4e0" {...ink(8)} />
             <g transform={`scale(${0.47 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.47 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>

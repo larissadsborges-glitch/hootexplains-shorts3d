@@ -95,3 +95,17 @@ The owner asked to "rebuild the entire video with what you learn, take your time
     - narration speed (~174–179 wpm; the voice swap is the fix)
     - "VOCÊ" on screen for 0.6 s
     - Camila is never seen in the present-day shots
+- 5 Nov: **Review 2** (fresh independent agent, `C:\Users\borge\hoot\review2_tmp`): **no P0, no P1.**
+  - Afterwards I fixed 4 of its P2s and checked each in frames and QA:
+    - the FALTAM chip no longer sits on his brows at 42 s
+    - the egg breaks raw with a cracked shell (it read as a fried egg)
+    - the final vote frame is dimmed only lightly (the text and skin tones were going dark)
+    - the sunday blurred strip is removed (it read as a smear)
+  - **Final:** `out/avidadotavinho_ep1_FINAL.mp4`, 57.5 s, −14.0 LUFS, true peak −1.9 dBFS, all 9 QA checks PASS.
+  - **Open P2/P3** (owner's call / next time):
+    - the narration runs ~179 wpm (the hook is fastest)
+    - "VOCÊ" is on screen for 0.7 s and the MENTIRA card for 1.2 s
+    - the chairs sit behind his head at 9.5 s
+    - the handle and chip overlap the phone header and the VÍDEO title
+    - Camila is never seen in the present day
+    - Vó's upside is not on her card

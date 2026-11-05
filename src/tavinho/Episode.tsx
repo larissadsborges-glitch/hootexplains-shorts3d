@@ -87,6 +87,31 @@ const clampCam = ([x, y, z]: Framing): Framing => {
   const hw = 540 / z, hh = 960 / z;
   return [Math.min(1080 - hw, Math.max(hw, x)), Math.min(1920 - hh, Math.max(hh, y)), z];
 };
+
+type Move = 'push' | 'drift' | 'roll' | 'shake';
+type ShotRow = [number, number, number, Move];
+/** Shot plan from tavinho/ep01/SHOTS.md: per beat event, one row per caption phrase (extra phrases reuse the last row). */
+const SHOT_PLAN: Record<string, ShotRow[]> = {
+  hook: [[540, 700, 2.0, 'push'], [470, 1150, 2.2, 'drift'], [540, 960, 1.0, 'push']],
+  twelve: [[540, 600, 1.6, 'push'], [540, 820, 1.5, 'push'], [540, 980, 1.4, 'shake']],
+  stakes: [[540, 800, 1.2, 'push'], [540, 370, 1.8, 'roll'], [190, 1200, 2.4, 'push'], [790, 1250, 2.2, 'shake']],
+  you: [[540, 960, 1.0, 'push'], [540, 700, 2.0, 'drift'], [540, 900, 1.15, 'push']],
+  lasagna: [[540, 960, 1.0, 'push'], [540, 1250, 2.0, 'push']],
+  lie: [[230, 1060, 2.3, 'push'], [800, 1000, 2.0, 'drift'], [640, 900, 1.4, 'push']],
+  market: [[540, 960, 1.0, 'shake'], [540, 1150, 1.9, 'push'], [560, 600, 1.9, 'shake']],
+  fridge: [[540, 960, 1.0, 'push'], [500, 900, 2.0, 'drift'], [450, 1260, 2.0, 'push'], [450, 1260, 2.0, 'push']],
+  building: [[540, 960, 1.0, 'push'], [640, 720, 1.9, 'drift'], [540, 1000, 1.25, 'push'], [320, 1470, 1.9, 'shake']],
+  follow: [[540, 1210, 2.4, 'push'], [540, 960, 1.0, 'push']],
+  truth: [[540, 1080, 1.35, 'push'], [540, 1300, 1.8, 'drift']],
+  camilamsg: [[200, 1250, 2.3, 'roll'], [540, 700, 1.5, 'push'], [200, 1250, 2.3, 'shake']],
+  group: [[540, 620, 1.6, 'push'], [700, 520, 1.9, 'shake']],
+  noreturn: [[540, 1300, 1.8, 'drift']],
+  percent: [[540, 700, 2.0, 'push'], [540, 1150, 1.8, 'push'], [330, 950, 2.0, 'drift']],
+  mission: [[540, 960, 1.0, 'push']],
+  video: [[540, 960, 1.0, 'push']],
+  vo: [[540, 960, 1.0, 'push']],
+  decide: [[540, 960, 1.0, 'push'], [540, 860, 1.25, 'shake']],
+};
 /** Phrase groups (2–4 words), shared by the captions and the camera cuts. */
 const phraseGroups = (timings: Timings) => {
   const groups: { start: number; beat: number; words: { word: string; start: number; end: number; hl: boolean }[] }[] = [];
@@ -120,10 +145,21 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   // index of this phrase within the current run of the same shot
   let k = 0;
   for (let i = gi; i > 0 && timings.beats[groups[i - 1].beat].shot === beat.shot && groups[i - 1].start >= (a === 0 ? -1 : timings.beats[a].start - 0.05); i--) k++;
-  const frames = FRAMES[beat.shot] ?? [[540, 960, 1]];
-  const [cx, cy, cz] = clampCam(frames[k % frames.length] as Framing);
-  const sinceCut = t - Math.max(groups[gi]?.start ?? 0, timings.beats[a].start);
-  const z = cz * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25)))) * (1 + 0.02 * clamp01(sinceCut / 1.5));
+  // the shot for this phrase: from the per-beat plan (index of the phrase inside its beat), else the shot's framing cycle
+  const curGroup = groups[gi];
+  const inBeat = curGroup ? groups.filter((g, i) => i <= gi && g.beat === curGroup.beat).length - 1 : 0;
+  const rows = SHOT_PLAN[beat.event ?? ''];
+  const row: ShotRow = rows ? rows[Math.min(inBeat, rows.length - 1)] : [...((FRAMES[beat.shot] ?? [[540, 960, 1]])[k % (FRAMES[beat.shot] ?? [[540, 960, 1]]).length] as Framing), 'push'];
+  const [cx0, cy0, cz] = clampCam([row[0], row[1], row[2]]);
+  const sinceCut = t - Math.max(curGroup?.start ?? 0, timings.beats[a].start);
+  const move = row[3];
+  // every move keeps moving until the next cut (never a static frame, even in gaps between sentences)
+  const zMove = move === 'push' ? 1 + 0.065 * Math.min(sinceCut, 3) : 1 + 0.03 * Math.min(sinceCut, 3);
+  const z = cz * zMove * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25))));
+  const shake = move === 'shake' && sinceCut < 7 / 30 ? 14 * Math.sin(sinceCut * 90) : 0;
+  const cx = cx0 + (move === 'drift' ? 30 * Math.sin(sinceCut * 1.4) : 0) + shake;
+  const cy = cy0 + (move === 'shake' ? shake * 0.6 : 0);
+  const roll = move === 'roll' ? -3.5 * easeOutCubic(clamp01(sinceCut / 0.3)) : 0;
   const Scene = SCENES[beat.shot] ?? Bed;
   const days = W(T, 'stakes', 'dias', 1.1);
   const pct = W(T, 'percent', 'dois', 0.9);
@@ -134,13 +170,13 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   return (
     <AbsoluteFill style={{ background: PAL.navy }}>
       <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-        <g transform={`translate(540 960) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
+        <g transform={`translate(540 960) rotate(${roll}) scale(${z}) translate(${-cx} ${-cy})`}><Scene T={T} t={t} /></g>
       </svg>
       {sepia && <AbsoluteFill style={{ background: 'rgba(170,110,40,0.38)', mixBlendMode: 'multiply' }} />}
       {t >= T.s('market') - 0.02 && t < T.s('market') + 0.75 && (
         <AbsoluteFill style={{ background: '#e2453c', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 40px, transparent 40px 80px)' }} />
-          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - T.s('market') + 0.02) / 0.2))}) rotate(-3deg)` }}>MENTIRA<br /><span style={{ fontSize: 220 }}>#1</span></div>
+          <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 120, color: '#fff', textAlign: 'center', lineHeight: 1, transform: `scale(${easeOutBack(clamp01((t - T.s('market') + 0.02) / 0.2)) * (1 + 0.04 * Math.sin((t - T.s('market')) * 14))}) rotate(${-3 + 1.5 * Math.sin((t - T.s('market')) * 9)}deg)` }}>MENTIRA<br /><span style={{ fontSize: 220 }}>#1</span></div>
           <div style={{ marginTop: 30, background: '#fff', color: '#e2453c', borderRadius: 20, padding: '8px 24px', fontFamily: FONT, fontWeight: 900, fontSize: 46 }}>"FUI EU QUE FIZ"</div>
         </AbsoluteFill>
       )}

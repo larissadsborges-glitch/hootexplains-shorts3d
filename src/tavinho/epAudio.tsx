@@ -80,7 +80,7 @@ const SHOTS: Record<string, ShotRow[]> = {
   contacts: [[600, 640, 1.7, 'push'], [600, 640, 1.7, 'push'], [620, 620, 1.4, 'shake']],
   detail: [[580, 600, 1.8, 'push'], [600, 680, 1.4, 'drift'], [190, 1110, 2.3, 'push', 'gulp']],
   follow: [[190, 1110, 2.3, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
-  truth: [[560, 800, 1.15, 'push', 'neutral'], [540, 700, 1.7, 'push', 'worried']],
+  truth: [[560, 800, 1.15, 'push', 'neutral'], [540, 705, 1.6, 'push', 'worried']],
   twist: [[190, 1110, 2.3, 'roll', 'shock'], [620, 600, 1.6, 'push'], [620, 600, 1.6, 'shake']],
   twist2: [[540, 460, 1.8, 'push', 'shock'], [540, 460, 1.8, 'drift', 'shock'], [190, 1110, 2.3, 'shake', 'gulp']],
   noreturn: [[480, 680, 1.6, 'shake', 'gulp']],

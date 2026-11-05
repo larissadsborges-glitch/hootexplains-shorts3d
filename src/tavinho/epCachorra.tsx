@@ -37,8 +37,8 @@ const VoteB = makeVote({
       <g>
       {([['vira', 200, 1080], ['pug', 880, 1140], ['vira', 220, 1420]] as const).map(([k, x, y], i) => <g key={i} transform={`translate(${x} ${y + 10 * Math.sin(t * 8 + i)})`}><Dog kind={k} t={t + i} /></g>)}
       <Tavinho t={t} mood={focus ? 'proud' : 'worried'} sweat={0.6} outfit="tee"
-        armR={[[720, 1150], [840, 1200], [800, 1000]]}
-        holdR={<g transform="rotate(-10)"><rect x={-8} y={-200} width={16} height={210} fill="#9aa6b8" {...{ stroke: '#1b1420', strokeWidth: 4 }} /><rect x={-40} y={-300} width={80} height={130} rx={40} fill="#c8643a" {...{ stroke: '#1b1420', strokeWidth: 6 }} /></g>} />
+        armL={[[360, 1150], [300, 1300], [460, 1270]]} armR={[[720, 1150], [780, 1300], [620, 1270]]}
+        holdL={<g transform="translate(80 -30)"><ellipse cx={0} cy={20} rx={170} ry={46} fill="#ffffff" {...{ stroke: '#1b1420', strokeWidth: 6 }} />{[-70, 0, 70].map((x) => <rect key={x} x={x - 32} y={-30} width={64} height={52} rx={26} fill="#c8643a" {...{ stroke: '#1b1420', strokeWidth: 5 }} />)}</g>} />
       </g>
     ),
 
@@ -82,21 +82,21 @@ const cuesB = (tm: Timings, T: MoneyTimeline): Cue[] => {
 
 const SHOTS: Record<string, ShotRow[]> = {
   hook: [[600, 980, 1.25, 'push', 'shock'], [540, 960, 1.0, 'push', 'worried'], [600, 960, 1.4, 'push', 'gulp']],
-  punch: [[540, 1000, 1.0, 'shake', 'shock'], [760, 760, 1.6, 'push', 'shock']],
+  punch: [[540, 1000, 1.0, 'shake', 'shock'], [700, 1200, 1.4, 'push', 'shock']],
   you: [[540, 960, 1.0, 'push', 'worried'], [540, 760, 1.5, 'drift', 'shock'], [540, 760, 1.5, 'drift', 'shock'], [540, 900, 1.15, 'push', 'neutral']],
-  stakes: [[540, 960, 1.0, 'push', 'worried'], [760, 640, 1.5, 'push', 'gulp'], [760, 640, 1.5, 'push', 'gulp'], [420, 1000, 1.9, 'shake', 'gulp']],
+  stakes: [[540, 960, 1.0, 'push', 'worried'], [600, 720, 1.35, 'push', 'gulp'], [600, 720, 1.35, 'push', 'gulp'], [420, 900, 1.9, 'shake', 'gulp']],
   back: [[540, 960, 1.0, 'push'], [560, 780, 1.35, 'push'], [560, 780, 1.35, 'push']],
   rant: [[560, 680, 1.5, 'push'], [560, 800, 1.5, 'push'], [560, 860, 1.5, 'push'], [560, 860, 1.5, 'shake']],
-  rant2: [[540, 960, 1.0, 'push'], [540, 1150, 1.28, 'push'], [760, 1120, 1.6, 'shake']],
+  rant2: [[540, 960, 1.0, 'push'], [540, 1150, 1.28, 'push'], [700, 1120, 1.55, 'shake']],
   lunch: [[600, 1000, 1.0, 'push', 'happy'], [560, 1300, 1.6, 'push', 'happy']],
-  card: [[540, 960, 1.0, 'shake'], [600, 1440, 2.0, 'push', 'neutral']],
-  run: [[560, 1440, 2.0, 'push', 'shock'], [380, 1440, 2.0, 'push', 'shock'], [300, 1355, 1.7, 'shake', 'shock']],
-  sit: [[540, 1100, 1.15, 'push', 'worried'], [420, 1240, 1.9, 'push', 'gulp'], [560, 960, 1.0, 'push', 'gulp']],
+  card: [[540, 960, 1.0, 'shake'], [600, 1320, 1.6, 'push', 'neutral']],
+  run: [[560, 1440, 2.0, 'push', 'shock'], [700, 1440, 2.0, 'push', 'shock'], [780, 1355, 1.7, 'shake', 'shock']],
+  sit: [[420, 1240, 1.9, 'push', 'gulp'], [560, 1100, 1.5, 'push', 'worried'], [540, 980, 1.05, 'push', 'gulp']],
   follow: [[540, 1050, 1.0, 'push', 'gulp'], [420, 1190, 1.9, 'push', 'worried'], [420, 1190, 1.9, 'push', 'worried']],
-  truth: [[540, 960, 1.0, 'push', 'neutral'], [560, 1000, 1.2, 'push', 'neutral'], [540, 1000, 1.1, 'shake', 'happy']],
+  truth: [[540, 960, 1.0, 'push', 'neutral'], [560, 1080, 1.2, 'push', 'neutral'], [540, 1040, 1.1, 'shake', 'happy']],
   twist: [[190, 1110, 2.3, 'roll', 'shock'], [540, 640, 1.6, 'push', 'shock'], [540, 640, 1.6, 'push', 'shock'], [560, 640, 1.8, 'push', 'shock'], [190, 1110, 2.3, 'shake', 'gulp']],
   noreturn: [[540, 900, 1.05, 'push', 'gulp'], [560, 760, 1.5, 'shake', 'worried']],
-  percent: [[540, 960, 1.0, 'push', 'gulp'], [220, 1200, 2.0, 'push', 'worried'], [540, 960, 1.05, 'shake', 'worried']],
+  percent: [[540, 1000, 1.05, 'push', 'gulp'], [540, 1080, 1.2, 'drift', 'worried'], [540, 1000, 1.1, 'shake', 'worried']],
   mission: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.3, 'push', 'shock']],
   video: [[540, 960, 1.0, 'push', 'neutral'], [337, 900, 1.6, 'push', 'happy'], [337, 900, 1.6, 'push', 'happy'], [540, 960, 1.0, 'push', 'worried'], [337, 900, 1.6, 'shake', 'gulp']],
   vo: [[540, 960, 1.0, 'push', 'worried'], [743, 880, 1.7, 'push', 'proud'], [743, 880, 1.7, 'push', 'proud'], [540, 980, 1.1, 'push', 'worried'], [743, 860, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
@@ -129,7 +129,7 @@ const OverlaysB: EpConfig['Overlays'] = ({ T, t }) => {
       <TitleCard line1="A CACHORRA" line2="FUGIU" t={t} tIn={-0.7} tOut={T.s('you') - 0.05} top="12%" />
       <Timer T={T} t={t} />
       {t >= pct && t < T.s('mission') && (
-        <div data-qa-label="chef" style={{ position: 'absolute', left: 170, right: 170, top: 440, background: '#1b1420', border: '6px solid #fff4e0', borderRadius: 30, padding: '18px 30px', transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
+        <div data-qa-label="chef" style={{ position: 'absolute', left: 170, right: 170, top: 760, background: '#1b1420', border: '6px solid #fff4e0', borderRadius: 30, padding: '18px 30px', transform: `scale(${easeOutBack(clamp01((t - pct) / 0.25))})` }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: FONT, fontWeight: 900, fontSize: 52, color: '#fff4e0' }}><span>PRINCESA</span><span style={{ color: PAL.orange }}>4%</span></div>
           <div style={{ marginTop: 12, height: 46, borderRadius: 23, background: '#2c3550', border: '4px solid #fff4e0', overflow: 'hidden' }}><div style={{ width: '6%', height: '100%', background: PAL.mint }} /></div>
         </div>

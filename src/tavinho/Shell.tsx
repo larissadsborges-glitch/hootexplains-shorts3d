@@ -61,7 +61,8 @@ export const phraseGroups = (timings: Timings) => {
  */
 const PhraseCaptions: React.FC<{ timings: Timings; t: number; names: Record<string, string> }> = ({ timings, t, names }) => {
   const groups = phraseGroups(timings);
-  const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1]?.words[0].start ?? x.words[x.words.length - 1].end + 0.8));
+  // a caption page ends where the next one starts (both 0.05 s ahead of their words, with the camera cut)
+  const g = groups.find((x, i) => t >= x.words[0].start - 0.05 && t < (groups[i + 1] ? groups[i + 1].words[0].start - 0.05 : x.words[x.words.length - 1].end + 0.8));
   if (!g) return null;
   const clean = (w: string) => w.replace(/[^\p{L}\p{N}%'’-]/gu, '');
   const chars = g.words.reduce((n, w) => n + clean(w.word).length, 0) + g.words.length - 1;

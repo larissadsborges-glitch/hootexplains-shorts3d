@@ -57,8 +57,9 @@ const SideTavinho: React.FC<{ t: number; friday: boolean }> = ({ t, friday }) =>
 export const AudioChat: React.FC<P> = ({ T, t }) => {
   const sent = T.s('punch') - 0.1;
   const blue = W(T, 'twist', 'risquinhos', 1.6);
-  const rec = T.s('twist2'), reply = T.s('noreturn');
-  const menu0 = T.s('truth'), menuOut = T.s('twist');
+  const rec = T.s('twist2') - 0.05, reply = T.s('noreturn') - 0.05;
+  // windows switch 0.05 s early, with the camera cuts (no flash of the old state in the new shot)
+  const menu0 = T.s('truth') - 0.05, menuOut = T.s('twist') - 0.05;
   const del = W(T, 'truth', 'apagar', 0.9);
   const detail0 = T.s('detail'), detail1 = T.s('follow');
   const played = t >= detail0 ? clamp01((t - detail0) / Math.max(0.5, detail1 - detail0)) : 0;
@@ -73,13 +74,13 @@ export const AudioChat: React.FC<P> = ({ T, t }) => {
           status={recording
             ? <g><circle cx={136} cy={110} r={8} fill="#ff4a3d" opacity={0.6 + 0.4 * Math.sin(t * 12)} /><text x={152} y={118} fontFamily={F} fontWeight={800} fontSize={22} fill="#ffd6d2">{`gravando áudio… ${Math.floor(recSecs / 60)}:${String(recSecs % 60).padStart(2, '0')}`}</text></g>
             : <text x={128} y={118} fontFamily={F} fontWeight={700} fontSize={22} fill="#fff4e0">online</text>} />
-        <text x={280} y={182} textAnchor="middle" fontFamily={F} fontWeight={700} fontSize={18} fill="#7d8590">SEXTA 18:02</text>
-        {t >= sent && <VoiceBubble x={100} y={200} w={440} me dur={t >= detail0 ? `${Math.floor(played * 3)}:${String(Math.floor((played * 192) % 60)).padStart(2, '0')} / 3:12` : '3:12'} played={played} ticks={t >= blue ? 'blue' : 'grey'} s={pop(t, sent)} qa="audio" />}
+        <text x={280} y={182} textAnchor="middle" fontFamily={F} fontWeight={700} fontSize={18} fill="#7d8590">SEXTA 18:04</text>
+        {t >= sent && <VoiceBubble x={100} y={200} w={440} me dur={t >= del && t < menuOut ? 'apagando… ⏳' : t >= detail0 ? `${Math.floor(played * 3)}:${String(Math.floor((played * 192) % 60)).padStart(2, '0')} / 3:12` : '3:12'} played={played} ticks={t >= blue ? 'blue' : 'grey'} s={pop(t, sent)} qa="audio" />}
         {/* his reply: a longer voice message */}
         {t >= reply && <VoiceBubble x={20} y={340} w={440} me={false} dur="4:07" played={0} s={pop(t, reply)} qa="resposta" />}
         {/* the input bar: his mic recording while "gravando áudio…" */}
         <rect x={16} y={980} width={528} height={86} rx={43} fill="#ffffff" {...ink(4)} />
-        <text x={44} y={1036} fontFamily={F} fontWeight={700} fontSize={28} fill="#7d8590">Mensagem</text>
+
         {/* long-press menu: "Apagar para todos" */}
         {t >= menu0 && t < menuOut && (
           <g transform={`translate(280 520) scale(${pop(t, menu0)}) translate(-280 -520)`}>
@@ -94,12 +95,11 @@ export const AudioChat: React.FC<P> = ({ T, t }) => {
                 </g>
               );
             })}
-            {t >= del && <text data-qa-label="apagando" x={280} y={318} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#fff" stroke={INK} strokeWidth={6} paintOrder="stroke">apagando… ⏳</text>}
           </g>
         )}
       </Phone>
       {/* "3:12 de sinceridade" sticker during the detail beat */}
-      {t >= detail0 && t < T.s('follow') - 0.05 && (
+      {t >= detail0 && t < W(T, 'detail', 'sinceridade', 2.0) - 0.05 && (
         <g data-qa-label="sinceridade" transform={`translate(560 720) rotate(-4) scale(${pop(t, detail0)})`}>
           <rect x={-250} y={-46} width={500} height={92} rx={20} fill={PAL.orange} {...ink(6)} />
           <text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">3:12 DE SINCERIDADE</text>
@@ -137,7 +137,7 @@ export const Office: React.FC<P> = ({ T, t }) => {
         <text x={0} y={-135} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={40} fill="#fff">SEGUNDA</text>
         <text x={0} y={10} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill="#14171a">9h</text>
         <text x={0} y={100} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#c8322a">REUNIÃO</text>
-        {t >= seg && <ellipse cx={0} cy={-10} rx={120} ry={90} fill="none" stroke="#e2453c" strokeWidth={10} strokeDasharray={`${640 * clamp01((t - seg) / 0.4)} 640`} transform="rotate(-8)" />}
+        {t >= seg && <ellipse cx={0} cy={-22} rx={110} ry={66} fill="none" stroke="#e2453c" strokeWidth={10} strokeDasharray={`${560 * clamp01((t - seg) / 0.4)} 560`} transform="rotate(-8)" />}
       </g>
       {/* Seu Valdir behind his desk */}
       <g transform={place(480, 1720, 0.62)}><Valdir t={t} mood={t >= seg ? 'worried' : 'neutral'} /></g>

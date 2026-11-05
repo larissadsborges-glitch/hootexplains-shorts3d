@@ -23,7 +23,7 @@ export type LotProps = { t: number; talk: number; face: Face; made: number };
 
 /** Jake at a car lot with the keys to his new car; the $20,000 appears out of thin air on "created". */
 export const Lot2D: React.FC<LotProps> = ({ t, talk, face, made }) => {
-  const m = easeOutBack(clamp01(made));
+  const m = easeOutBack(clamp01(made * 1.5));
   return (
     <g>
       <rect x={-600} y={-400} width={2280} height={1850} fill="#9bd7ff" />
@@ -68,15 +68,18 @@ export const Lot2D: React.FC<LotProps> = ({ t, talk, face, made }) => {
           )}
         />
       </g>
-      {/* $20,000 appears out of thin air */}
-      {made > 0 && (
-        <g transform={`translate(520 760) scale(${m})`}>
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <path key={i} d="M0 -150 L 0 -120" transform={`rotate(${i * 45})`} stroke="#ffd21f" strokeWidth={12} strokeLinecap="round" />)}
-          {[10, 0].map((d, i) => <rect key={i} x={-120 + d} y={-60 - d} width={240} height={120} rx={8} fill={i ? '#a8d8a8' : '#8fc79a'} {...ink(6)} />)}
-          <text x={0} y={18} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={52} fill="#1f5236">$20,000</text>
-        </g>
-      )}
-      <Puff x={520} y={760} p={clamp01(made * 1.6)} s={1.3} />
+      {/* Jake's bank app: the balance is typed in, not printed ($0 until "created") */}
+      <g transform={`translate(520 760) scale(${1 + 0.15 * Math.sin(Math.PI * clamp01(made))})`}>
+        {made > 0 && [0, 1, 2, 3, 4, 5, 6, 7].map((i) => <path key={i} d="M0 -150 L 0 -122" transform={`rotate(${i * 45}) scale(${m})`} stroke="#ffd21f" strokeWidth={12} strokeLinecap="round" />)}
+        <rect x={-160} y={-95} width={320} height={190} rx={26} fill="#ffffff" {...ink(7)} />
+        <rect x={-160} y={-95} width={320} height={52} rx={22} fill="#2f4a78" />
+        <rect x={-160} y={-62} width={320} height={20} fill="#2f4a78" />
+        <text x={0} y={-58} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={24} fill="#ffffff" letterSpacing={2}>BIG BANK APP</text>
+        <text x={0} y={-12} textAnchor="middle" fontFamily={F} fontWeight={800} fontSize={20} fill="#5b6270">JAKE'S BALANCE</text>
+        <text x={made > 0 ? -8 : -6} y={58} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={made > 0 ? '#1f8a45' : '#14171a'}>{made > 0 ? '$20,000' : '$0'}</text>
+        {Math.floor(t * 2.5) % 2 === 0 && <rect x={made > 0 ? 122 : 40} y={10} width={8} height={56} fill="#2f4a78" />}
+      </g>
+      <Puff x={520} y={760} p={clamp01(made * 1.6)} s={1.1} />
     </g>
   );
 };
@@ -109,7 +112,7 @@ export const Screen2D: React.FC<ScreenProps> = ({ t, talk, face, balance, approv
       </g>
     )}
     {approved > 0 && loanLeft === null && (
-      <g transform={`translate(640 850) rotate(-6) scale(${lerp(1.8, 1, easeOutBack(clamp01(approved)))})`} opacity={clamp01(approved * 3)}>
+      <g transform={`translate(640 850) rotate(-6) scale(${0.85 * lerp(1.8, 1, easeOutBack(clamp01(approved)))})`} opacity={clamp01(approved * 3)}>
         <rect x={-200} y={-46} width={400} height={92} rx={12} fill="rgba(255,255,255,0.6)" stroke="#1f8a45" strokeWidth={10} />
         <text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={46} fill="#1f8a45">LOAN APPROVED</text>
       </g>
@@ -119,7 +122,7 @@ export const Screen2D: React.FC<ScreenProps> = ({ t, talk, face, balance, approv
     <rect x={360} y={1120} width={560} height={70} rx={14} fill="#c9ccd3" {...ink(6)} />
     {Array.from({ length: 10 }, (_, i) => <rect key={i} x={378 + i * 54} y={1134 + (Math.floor(t * 12 + i * 3) % 5 === 0 && glow > 0 ? 6 : 0)} width={44} height={36} rx={6} fill="#f7f5f0" {...ink(3)} />)}
     <Hoot2D t={t} talk={talk} x={850} y={503} s={0.5} />
-    <g transform={place(170, 1520, 0.5)}>
+    <g transform={place(230, 1520, 0.5)}>
       <JakeStanding t={t} {...face} jacket={GREEN_JACKET} armL={[[410, 1110], [345, 1300], [355, 1450]]} armR={[[670, 1110], [735, 1300], [725, 1450]]} />
     </g>
   </g>
@@ -134,7 +137,7 @@ export const Report2D: React.FC<ReportProps> = ({ t, talk, face, hl }) => (
     <rect x={-600} y={-400} width={2280} height={2000} fill="#c99c6e" />
     {Array.from({ length: 40 }, (_, i) => <circle key={i} cx={-560 + (i % 10) * 240 + (Math.floor(i / 10) % 2) * 120} cy={-300 + Math.floor(i / 10) * 260} r={8} fill="#b88a5e" />)}
     <rect x={-600} y={1300} width={2280} height={1200} fill="#7a5238" />
-    <g transform="translate(0 -170) rotate(-2 490 790)">
+    <g transform="translate(0 -200) rotate(-2 490 790)">
       <rect x={180} y={420} width={620} height={760} rx={8} fill="#ffffff" {...ink(8)} />
       <circle cx={490} cy={440} r={16} fill="#e2453c" {...ink(4)} />
       <text x={490} y={520} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={42} fill="#7a1f3a">BANK OF ENGLAND</text>
@@ -147,8 +150,8 @@ export const Report2D: React.FC<ReportProps> = ({ t, talk, face, hl }) => (
       {['"Whenever a bank makes', 'a loan, it simultaneously', 'creates a matching', 'deposit…"'].map((l, i) => <text key={i} x={230} y={856 + i * 44} fontFamily={F} fontWeight={800} fontSize={32} fill="#14171a">{l}</text>)}
       {[1040, 1070, 1100, 1130].map((y) => <rect key={y} x={220} y={y} width={500 - (y % 7) * 20} height={12} rx={6} fill="#e3e5ea" />)}
     </g>
-    <Hoot2D t={t} talk={talk} x={170} y={1300} s={0.6} />
-    <g transform={place(880, 1640, 0.52)}>
+    <Hoot2D t={t} talk={talk} x={880} y={640} s={0.5} />
+    <g transform={place(800, 1640, 0.52)}>
       <JakeStanding t={t} {...face} jacket={GREEN_JACKET} armL={[[410, 1110], [345, 1300], [355, 1450]]} armR={[[670, 1110], [735, 1300], [725, 1450]]} />
     </g>
   </g>

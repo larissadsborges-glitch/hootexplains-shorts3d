@@ -20,24 +20,25 @@ const framings = (T: MoneyTimeline): Record<string, Key[]> => {
       [0, 540, 960, 1.0],
       [w('hook', '20000', 1) - 0.15, 430, 880, 1.3],
       [w('hook', 'savings', 4.2) - 0.25, 560, 900, 1.15],
-      [w('hook', 'created', 4.9) - 0.2, 600, 860, 1.35],
+      [w('hook', 'created', 4.9) - 0.2, 560, 860, 1.3],
       [T.s('bridge') - 0.05, 540, 960, 1.05],
       [w('bridge', 'forever', 2.8) - 0.2, 500, 900, 1.2],
       [T.s('final') - 0.05, 540, 960, 1.05],
       [w('final', 'did', 1.8) - 0.15, 560, 940, 1.1],
+      [w('final', 'did', 1.8) + 1.0, 700, 860, 1.35],
     ],
     screen: [
       [T.s('type'), 540, 900, 1.0],
       [w('type', 'types', 2.1) - 0.2, 640, 780, 1.35],
       [w('type', 'brand', 3.6) - 0.15, 560, 860, 1.1],
       [T.s('repay'), 540, 900, 1.0],
-      [w('repay', 'pays', 1.4) - 0.2, 640, 780, 1.3],
+      [w('repay', 'pays', 1.4) - 0.2, 600, 800, 1.2],
       [w('repay', 'disappears', 2.8) - 0.15, 600, 820, 1.15],
     ],
     report: [
       [T.s('proof'), 540, 900, 1.0],
-      [w('proof', 'england', 2.3) - 0.3, 480, 520, 1.25],
-      [w('proof', 'explained', 2.8) - 0.1, 490, 680, 1.25],
+      [w('proof', 'england', 2.3) - 0.3, 490, 640, 1.1],
+      [w('proof', 'explained', 2.8) - 0.1, 490, 700, 1.3],
     ],
     dial: [
       [T.s('limits'), 540, 900, 1.0],
@@ -93,12 +94,12 @@ const Overlays: React.FC<{ T: MoneyTimeline; t: number }> = ({ T, t }) => {
       <Pill t={t} t0={w('proof', 'not', 0) - 0.05} t1={T.s('repay') - 0.05} text="NOT A CONSPIRACY THEORY" top="14.5%" dot="#ffd21f" />
       <Pill t={t} t0={w('repay', 'pays', 1.4) - 0.1} t1={T.s('limits') - 0.05} text="PAID BACK → MONEY GONE" top="14.5%" dot="#ff4a3d" />
       <Pill t={t} t0={w('limits', 'borrowers', 0.7) - 0.1} t1={T.s('final') - 0.05} text="LIMIT 1: BORROWERS MUST REPAY" top="14.5%" dot="#7fd36a" />
-      <Pill t={t} t0={w('limits', 'fed', 2.2) - 0.1} t1={T.s('final') - 0.05} text="LIMIT 2: FED RATE ≈ 3.9% (FRED)" top="21.5%" dot="#ffd21f" />
+      <Pill t={t} t0={w('limits', 'while', 1.8) - 0.1} t1={T.s('final') - 0.05} text="LIMIT 2: FED RATE ≈ 3.9% (FRED)" top="21.5%" dot="#ffd21f" />
       <Card t={t} t0={T.s('final') + 0.1} t1={T.end + 1} top="71%" width={760}>
-        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#e6e9ef' }}>SOURCE: BANK OF ENGLAND, 2014</div>
+        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 800, fontSize: 28, color: '#e6e9ef' }}>SOURCE: BANK OF ENGLAND, 2014<br />ALSO: ST. LOUIS FED, 2021</div>
       </Card>
-      <Card t={t} t0={tDid} t1={T.end + 1} top="24%" width={800}>
-        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#fff', lineHeight: 1.15 }}>DID YOU KNOW YOUR<br /><span style={{ color: '#ffd21f' }}>BANK COULD DO THAT?</span></div>
+      <Card t={t} t0={tDid} t1={T.end + 1} top="25.5%" width={760}>
+        <div style={{ textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 42, color: '#fff', lineHeight: 1.15 }}>DID YOU KNOW YOUR<br /><span style={{ color: '#ffd21f' }}>BANK COULD DO THAT?</span></div>
       </Card>
     </>
   );
@@ -145,14 +146,14 @@ export const LoanVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
       <Lot2D
         t={t} talk={talk}
         face={inFinal ? { smile: 0.9, brows: 0.3, wide: 0.4 * pulse(w('final', 'typed', 1.4), 0.6) } : { brows: Math.max(shock, 0.2), smile: 0.8 - 0.6 * shock, wide: shock, gasp: shock }}
-        made={inFinal ? 0 : on(tc - 0.1, 0.4) * (1 - on(T.s('type') - 0.4, 0.3))}
+        made={inFinal ? 1 : on(tc - 0.1, 0.4)}
       />
     );
   } else if (shot === 'screen') {
     const inRepay = beat.event === 'repay';
     const tt = w('type', 'types', 2.1);
     const full = '$20,000';
-    const typed = Math.floor(clamp01((t - tt - 0.05) / 0.6) * 6);
+    const typed = Math.floor(clamp01((t - tt + 0.3) / 0.6) * 6);
     const balance = inRepay ? `$${Math.round(20000 * (1 - easeOutCubic(on(w('repay', 'pays', 1.4) - 0.1, 1.2)))).toLocaleString('en-US')}` : typed <= 0 ? '$0' : full.slice(0, [0, 2, 3, 5, 6, 7][typed]);
     scene = (
       <Screen2D
@@ -180,7 +181,7 @@ export const LoanVideo: React.FC<ShortProps> = ({ videoId, timings }) => {
         <Overlays T={T} t={t} />
         {timings.hook && <TitleCard {...timings.hook} t={t} tIn={-0.7} tOut={T.s('bridge') - 0.1} />}
         <Captions timings={timings} t={t} />
-        {timings.outro && <TitleCard {...timings.outro} t={t} tIn={T.s('final') + 0.02} tOut={timings.duration + 1} top="13%" />}
+        {timings.outro && <TitleCard {...timings.outro} t={t} tIn={T.s('final') + 0.02} tOut={timings.duration + 1} top="14%" />}
         <Handle handle={timings.handle} />
         <Audio src={staticFile(`videos/${videoId}/voice.wav`)} />
         <Sfx cues={cues} timings={timings} />

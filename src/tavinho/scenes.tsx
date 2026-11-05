@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { clamp01, easeInOutSine, easeOutBack, easeOutCubic, lerp, rng } from '../lib/anim';
 import type { MoneyTimeline } from '../scenes/money/timeline';
 import { INK, ink } from '../toon2d/Hook2D';
-import { place } from '../toon2d/parts';
+import { Hand, Limb, place } from '../toon2d/parts';
 import { Camila, Celeste, PAL, Tavinho, TavinhoHead, VoDita } from './cast';
 
 type P = { T: MoneyTimeline; t: number };
@@ -108,7 +108,6 @@ export const Bed: React.FC<P> = ({ T, t }) => {
               <rect x={-68} y={-38} width={92} height={76} rx={6} fill="#ffe9a8" {...ink(3)} />
               <rect x={34} y={-34} width={34} height={18} rx={3} fill="#14171a" />
               <circle cx={51} cy={14} r={12} fill="#c9ced6" {...ink(3)} />
-              <text x={0} y={-62} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill={PAL.orange} stroke="#1b1420" strokeWidth={6} paintOrder="stroke">GRAÇAS A ELE</text>
             </g>
           )}
         </g>
@@ -179,7 +178,7 @@ export const Table12: React.FC<P> = ({ T, t }) => {
 /* ------------------------------------------------------------------ flashback: the lasagna lie (sepia) */
 export const Sunday: React.FC<P> = ({ T, t }) => {
   const lie = W(T, 'lie', 'fui', 0.9);
-  const puff = easeOutBack(clamp01((t - lie + 0.1) / 0.3));
+  const puff = easeOutBack(clamp01((t - lie) / 0.3));
   return (
     <g>
       <rect x={0} y={0} width={1080} height={1920} fill="#f3e2c0" />
@@ -225,7 +224,7 @@ export const Trash: React.FC<P> = ({ T, t }) => {
         <rect x={-190} y={-110} width={280} height={220} rx={12} fill={t > ding ? '#ffe9a8' : '#2c3550'} {...ink(5)} />
         <rect x={110} y={-100} width={90} height={50} rx={8} fill="#14171a" />
         <text x={155} y={-64} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={30} fill="#3ddc97">{t > ding ? '0:00' : '4:00'}</text>
-        {t > ding && t < ding + 1.2 && <text x={0} y={-170} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={PAL.orange} stroke={INK} strokeWidth={10} paintOrder="stroke" transform={`scale(${pop(t, ding)})`}>PIM!</text>}
+        {t > ding && t < ding + 1.5 && <text x={0} y={-170} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={110} fill={PAL.orange} stroke={INK} strokeWidth={10} paintOrder="stroke" transform={`scale(${pop(t, ding)})`}>PIM!</text>}
       </g>
       <rect x={300} y={700} width={520} height={30} rx={8} fill="#8a9099" {...ink(5)} />
       {/* bin with the box sticking out */}
@@ -248,7 +247,7 @@ export const Trash: React.FC<P> = ({ T, t }) => {
 export const Fridge: React.FC<P> = ({ T, t }) => {
   const items = [
     { w: 'mostarda', lead: 0, label: 'MOSTARDA VENCIDA', x: 500, y: 900, el: <g><rect x={-40} y={-90} width={80} height={170} rx={20} fill="#ffc21f" {...ink(6)} /><rect x={-20} y={-130} width={40} height={50} rx={8} fill="#c8322a" {...ink(5)} /></g> },
-    { w: 'ovo', lead: 0.45, label: '1 OVO', x: 672, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
+    { w: 'ovo', lead: 0.05, label: '1 OVO', x: 672, y: 1290, el: <ellipse cx={0} cy={0} rx={44} ry={58} fill="#fff8ec" {...ink(6)} /> },
     { w: 'limão', lead: 0.6, label: 'LIMÃO TRISTE', x: 360, y: 1290, el: <g><ellipse cx={0} cy={0} rx={70} ry={54} fill="#d8e85a" {...ink(6)} /><path d="M-30 -6 q 10 8 20 0 M10 -6 q 10 8 20 0" fill="none" {...ink(5)} /><path d="M-34 -24 l 18 -8 M34 -24 l -18 -8" {...ink(4)} /><path d="M-16 26 Q 0 14 16 26" fill="none" {...ink(5)} /><path d="M-22 6 q 4 10 0 16 q -4 -6 0 -16" fill="#8fd0ff" {...ink(2)} /></g> },
   ];
   return (
@@ -360,14 +359,16 @@ export const Typing: React.FC<P> = ({ T, t }) => {
         <Chat name="Dona Celeste 🌹" avatar={<Celeste t={t} mood="happy" />} t={t}
           msgs={[{ text: 'então a ceia de Natal\né SUA 🎄', at: 0 }, { text: 'somos 12 😘', at: 0 }]} typing={full.slice(0, n)} />
       </Phone>
-      {/* a big finger tapping the keyboard while he types / deletes */}
-      {((t >= tStart && t < tEnd) || (t >= del0 && t < del1)) && (
-        <g transform={`translate(${470 + 60 * Math.sin(t * 13)} ${1330 - 30 * Math.abs(Math.sin(t * 16))})`}>
-          <rect x={-46} y={0} width={92} height={420} rx={46} fill="#f1bf94" stroke="#1b1420" strokeWidth={8} />
-          <ellipse cx={0} cy={36} rx={30} ry={26} fill="#ffe2cf" stroke="#1b1420" strokeWidth={4} />
-          <rect x={-48} y={300} width={96} height={130} fill="#a9d2f5" stroke="#1b1420" strokeWidth={8} />
-        </g>
-      )}
+      {/* his plain hand tapping the keyboard while he types / deletes (no finger gesture: owner rule) */}
+      {((t >= tStart && t < tEnd) || (t >= del0 && t < del1)) && (() => {
+        const hx = 470 + 60 * Math.sin(t * 13), hy = 1350 - 30 * Math.abs(Math.sin(t * 16));
+        return (
+          <g>
+            <Limb pts={[[hx + 160, 2200], [hx + 90, 1700], [hx, hy + 30]]} w={96} color="#a9d2f5" />
+            <Hand x={hx} y={hy} angle={180} r={52} color="#f1bf94" />
+          </g>
+        );
+      })()}
       {/* his sweating face at the bottom corner, reacting */}
       <g transform="translate(150 1250) scale(0.36) translate(-540 -840)"><TavinhoHead t={t} mood={t >= del0 ? 'gulp' : t >= banner ? 'shock' : 'worried'} sweat={1} slip={0.7} /></g>
     </g>
@@ -429,8 +430,8 @@ export const Vote: React.FC<P> = ({ T, t }) => {
           holdL={<g transform="translate(70 -40)"><rect x={-120} y={-70} width={240} height={150} rx={12} fill="#20232c" {...ink(6)} /><rect x={-104} y={-56} width={208} height={118} rx={8} fill="#e2453c" /><path d="M-20 -20 L 30 2 L -20 24 Z" fill="#fff" /></g>} /></g>
         {focusL && (
           <g>
-            {[0, 1, 2].map((i) => { const k = ((t * 0.8 + i * 0.33) % 1); return <circle key={i} cx={300 + 30 * Math.sin(k * 6 + i)} cy={1000 - 260 * k} r={30 + 50 * k} fill="#8a8f9a" opacity={0.7 * (1 - k)} {...ink(3)} />; })}
-            <g transform={`translate(150 900) scale(${1 + 0.08 * Math.sin(t * 10)})`}><rect x={-60} y={-34} width={120} height={68} rx={14} fill="#1b1420" /><text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">2x ▶▶</text></g>
+            {[0, 1, 2].map((i) => { const k = ((t * 0.8 + i * 0.33) % 1); return <circle key={i} cx={95 + 20 * Math.sin(k * 6 + i)} cy={1300 - 300 * k} r={24 + 36 * k} fill="#8a8f9a" opacity={0.7 * (1 - k)} {...ink(3)} />; })}
+            <g transform={`translate(440 800) scale(${1 + 0.08 * Math.sin(t * 10)})`}><rect x={-60} y={-34} width={120} height={68} rx={14} fill="#1b1420" /><text x={0} y={16} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill="#fff">2x ▶▶</text></g>
           </g>
         )}
         <rect x={60} y={380} width={420} height={110} rx={24} fill="#fff" {...ink(6)} />
@@ -468,12 +469,12 @@ export const Vote: React.FC<P> = ({ T, t }) => {
       {both && (
         <g>
           <rect x={0} y={330} width={1080} height={1180} fill={PAL.navy} opacity={0.55 * clamp01((t - d0) / 0.2)} />
-          <g transform={`translate(540 760) scale(${pop(t, d0)})`}>
-            <circle cx={0} cy={0} r={260} fill="#fff4e0" {...ink(8)} />
-            <g transform={`scale(${0.62 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.62 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
-            {t > d0 + 1.2 && <text x={190} y={-170} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={70} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GULP!</text>}
+          <g transform={`translate(540 905) scale(${pop(t, d0)})`}>
+            <circle cx={0} cy={0} r={195} fill="#fff4e0" {...ink(8)} />
+            <g transform={`scale(${0.47 * (1 + 0.06 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))} ${0.47 * (1 - 0.08 * Math.sin(Math.max(0, t - d0 - 1.2) * 18) * Math.exp(-Math.max(0, t - d0 - 1.2) * 3))}) translate(-540 -840)`}><TavinhoHead t={t} mood="gulp" sweat={1} slip={1} /></g>
+            {t > d0 + 1.2 && <text x={170} y={-140} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={62} fill="#fff" stroke="#1b1420" strokeWidth={10} paintOrder="stroke" transform={`rotate(14) scale(${pop(t, d0 + 1.2)})`}>GULP!</text>}
           </g>
-          <g data-qa-label="pergunta" transform={`translate(540 1110) scale(${pop(t, W(T, 'decide', 'vídeo', 1.6) - 0.1)})`}>
+          <g data-qa-label="pergunta" transform={`translate(540 1180) scale(${pop(t, W(T, 'decide', 'vídeo', 1.6) - 0.1)})`}>
             <rect x={-330} y={-70} width={660} height={140} rx={30} fill="#fff" {...ink(8)} />
             <text x={0} y={26} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={70} fill="#14171a">VÍDEO ou VÓ?</text>
           </g>

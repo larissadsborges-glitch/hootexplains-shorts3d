@@ -235,9 +235,13 @@ export const Celeste: React.FC<Face> = (f) => {
 
 /* ------------------------------------------------------------------ Vó Dita (grandma) */
 export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
-  const SK = '#e8b48d', SK_SH = '#c99069';
+  const SK = '#e8b48d', SK_SH = '#c99069', HAIR = '#cfcfd4', HAIR_SH = '#a9a9b2';
   return (
     <g transform={breathe(f.t, 3.1)}>
+      {/* legs + shoes, so she stands in the panel instead of floating */}
+      {[470, 610].map((x, i) => <path key={i} d={`M${x - 45} 1640 L ${x + 45} 1640 L ${x + 40} 1965 L ${x - 40} 1965 Z`} fill={SK} {...ink(7)} />)}
+      {[470, 610].map((x, i) => <path key={`s${i}`} d={`M${x - 62} 2016 C ${x - 64} 1978 ${x - 36} 1958 ${x} 1958 C ${x + 36} 1958 ${x + 64} 1978 ${x + 62} 2016 Z`} fill="#4a3a5a" {...ink(7)} />)}
+      <ellipse cx={540} cy={2016} rx={200} ry={24} fill="#000" opacity={0.22} />
       {/* flowered dress + apron */}
       <path d="M310 1660 C 300 1400 340 1140 430 1100 L 650 1100 C 740 1140 780 1400 770 1660 Z" fill="#3a8f7a" {...ink(8)} />
       {[[400, 1250], [690, 1300], [380, 1500], [700, 1540]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={14} fill="#ffd21f" {...ink(3)} />)}
@@ -246,9 +250,14 @@ export const VoDita: React.FC<Face & { spoon?: number }> = (f) => {
       <path d="M500 1020 L 500 1100 C 520 1112 560 1112 580 1100 L 580 1020 Z" fill={SK_SH} {...ink(6)} />
       {[372, 708].map((x, i) => <ellipse key={i} cx={x} cy={858} rx={26} ry={36} fill={SK} {...ink(7)} />)}
       <path data-qa="face" d="M380 830 C 380 700 450 660 540 660 C 630 660 700 700 700 830 C 700 940 640 1020 540 1020 C 440 1020 380 940 380 830 Z" fill={SK} {...ink(8)} />
-      {/* white hair with a bun */}
-      <circle cx={540} cy={600} r={70} fill="#f2f2f2" {...ink(7)} />
-      <path d="M380 800 C 380 690 450 650 540 650 C 630 650 700 690 700 800 C 660 730 600 720 540 728 C 480 720 420 730 380 800 Z" fill="#f2f2f2" {...ink(7)} />
+      {/* grey hair with a bun and a few strands */}
+      <circle cx={540} cy={600} r={70} fill={HAIR} {...ink(7)} />
+      <path d="M500 590 q 40 -30 80 0" fill="none" stroke={HAIR_SH} strokeWidth={6} strokeLinecap="round" />
+      <path d="M380 800 C 380 690 450 650 540 650 C 630 650 700 690 700 800 C 660 730 600 720 540 728 C 480 720 420 730 380 800 Z" fill={HAIR} {...ink(7)} />
+      {[[430, 700, 500, 690], [560, 688, 640, 704]].map(([x1, y1, x2, y2], i) => <path key={i} d={`M${x1} ${y1} Q ${(x1 + x2) / 2} ${y1 - 14} ${x2} ${y2}`} fill="none" stroke={HAIR_SH} strokeWidth={6} strokeLinecap="round" />)}
+      {/* age lines: forehead and under the eyes */}
+      {[0, 1].map((i) => <path key={`f${i}`} d={`M${470 + i * 10} ${752 + i * 16} q 70 ${-10} ${140 - i * 20} 0`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
+      {[480, 600].map((x, i) => <path key={`e${i}`} d={`M${x - 24} 896 q 24 10 48 0`} fill="none" stroke={SK_SH} strokeWidth={4} strokeLinecap="round" />)}
       {/* smile wrinkles */}
       {[410, 670].map((x, i) => <path key={i} d={`M${x} 820 q ${i ? 16 : -16} 10 0 24`} fill="none" stroke={SK_SH} strokeWidth={5} strokeLinecap="round" />)}
       {[430, 650].map((x, i) => <ellipse key={i} cx={x} cy={925} rx={36} ry={20} fill={BLUSH} opacity={0.55} />)}

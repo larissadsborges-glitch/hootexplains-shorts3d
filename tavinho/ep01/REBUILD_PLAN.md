@@ -79,3 +79,19 @@ The owner asked to "rebuild the entire video with what you learn, take your time
   - the chip and CHEF bar fade out for the vote
   - the vote text matches the voice
 - 5 Nov: **Step 8 done:** `scripts/qa/tavinho.mjs` (freeze, black, sfx-overlap, caption-face, caption-label, label-face, label-short; it measures real DOM boxes through `src/tavinho/QaProbe.tsx` in a Remotion render, ~10 s) and `scripts/qa/phrase_sheet.py` (one frame per phrase). Evidence: all 7 PASS on `out/tav_ep1_rc1.mp4`.
+- 5 Nov: **Review 1** (independent agent, `C:\Users\borge\hoot\review_tmp`) found 1 P0, 1 P1 and 7 P2. All three blocking findings are fixed:
+  - **P0** (fixed): the lone tapping finger in the typing shots could read as a gesture. It is now a plain closed hand on an arm coming from below the frame.
+  - **P1** (fixed): grey smoke and the 2x badge sat on his face in the VÍDEO shot. Both now sit beside him.
+  - **P2** (fixed):
+    - the final frame keeps both costs and both downsides readable (smaller gulp circle, question card lower, notification above the panel titles)
+    - edge and bottom-zone crops are reframed (stakes wide, fridge, building, group badge, final push)
+    - the hook phone shot is reframed
+    - PIM! holds 1.5 s
+    - "GRAÇAS A ELE" is dropped (the caption says it)
+    - Vó Dita has grey hair, age lines, legs and shoes
+  - **P3** (fixed): the camera is clamped after drift and shake (no background edge shows).
+  - **QA** gained `label-edge` and `label-bottom` checks; on `out/tav_ep1_rc2.mp4` all 9 checks PASS at −14.0 LUFS, peak −1.9 dBFS.
+  - **Still open** (P2/P3):
+    - narration speed (~174–179 wpm; the voice swap is the fix)
+    - "VOCÊ" on screen for 0.6 s
+    - Camila is never seen in the present-day shots

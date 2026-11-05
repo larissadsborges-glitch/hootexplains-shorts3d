@@ -111,25 +111,25 @@ type ShotRow = [number, number, number, Move, Mood?];
  * Two phrases in a row with the same framing are one shot (no cut), so a one-word phrase never restarts the move.
  */
 const SHOT_PLAN: Record<string, ShotRow[]> = {
-  hook: [[540, 700, 2.0, 'push', 'shock'], [470, 1150, 2.2, 'drift', 'worried'], [540, 960, 1.0, 'push', 'gulp']],
+  hook: [[540, 700, 2.0, 'push', 'shock'], [480, 940, 1.6, 'drift', 'worried'], [540, 960, 1.0, 'push', 'gulp']],
   twelve: [[540, 640, 2.0, 'push'], [540, 760, 1.8, 'push'], [540, 760, 1.8, 'push'], [540, 840, 1.6, 'shake'], [540, 900, 1.25, 'push'], [540, 900, 1.25, 'push']],
   you: [[540, 960, 1.0, 'push', 'worried'], [540, 760, 1.5, 'drift', 'shock'], [540, 900, 1.15, 'push', 'neutral']],
-  stakes: [[540, 800, 1.2, 'push', 'worried'], [190, 1200, 2.4, 'push', 'gulp'], [790, 1150, 2.0, 'shake', 'shock']],
+  stakes: [[540, 900, 1.12, 'push', 'worried'], [190, 1200, 2.4, 'push', 'gulp'], [790, 1150, 2.0, 'shake', 'shock']],
   lasagna: [[540, 960, 1.0, 'push', 'neutral'], [540, 1250, 2.0, 'push', 'happy']],
   lie: [[230, 1060, 2.3, 'push', 'happy'], [800, 1000, 2.0, 'drift', 'neutral'], [640, 900, 1.4, 'push', 'proud']],
   market: [[540, 960, 1.0, 'shake'], [540, 1150, 1.9, 'push'], [560, 720, 1.2, 'push'], [560, 460, 2.2, 'shake']],
-  fridge: [[540, 960, 1.0, 'push'], [500, 900, 2.0, 'drift'], [510, 1240, 1.5, 'push'], [400, 1250, 1.9, 'push']],
-  building: [[540, 960, 1.0, 'push', 'worried'], [640, 720, 1.9, 'drift', 'gulp'], [640, 640, 1.5, 'push', 'shock'], [540, 960, 1.05, 'push', 'gulp'], [320, 1470, 1.9, 'shake', 'worried']],
+  fridge: [[540, 960, 1.0, 'push'], [500, 900, 1.8, 'drift'], [510, 1240, 1.5, 'push'], [470, 1230, 1.55, 'push']],
+  building: [[540, 960, 1.0, 'push', 'worried'], [640, 600, 1.9, 'drift', 'gulp'], [540, 1250, 2.2, 'push', 'shock'], [540, 960, 1.05, 'push', 'gulp'], [320, 1470, 1.9, 'shake', 'worried']],
   follow: [[540, 1210, 2.4, 'push', 'gulp'], [540, 960, 1.0, 'push', 'worried']],
   truth: [[540, 1000, 1.25, 'push', 'neutral'], [540, 1300, 1.8, 'drift', 'worried']],
   camilamsg: [[200, 1250, 2.3, 'roll', 'shock'], [540, 960, 1.05, 'push', 'shock'], [200, 1250, 2.3, 'drift', 'worried'], [540, 1300, 1.8, 'push', 'gulp'], [200, 1250, 2.3, 'shake', 'shock']],
-  group: [[540, 620, 1.6, 'push'], [540, 620, 1.6, 'push'], [560, 600, 1.45, 'shake'], [540, 960, 1.05, 'push']],
+  group: [[600, 620, 1.6, 'push'], [600, 620, 1.6, 'push'], [560, 600, 1.45, 'shake'], [540, 960, 1.05, 'push']],
   noreturn: [[540, 1300, 1.8, 'drift', 'worried'], [200, 1250, 2.3, 'push', 'gulp']],
   percent: [[540, 700, 2.0, 'push', 'gulp'], [540, 1150, 1.45, 'push', 'worried'], [540, 1150, 1.45, 'push', 'worried'], [540, 1050, 1.3, 'drift', 'happy']],
   mission: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.3, 'push', 'shock'], [540, 1000, 1.15, 'drift', 'worried']],
   video: [[540, 960, 1.0, 'push', 'neutral'], [337, 900, 1.6, 'push', 'happy'], [540, 960, 1.0, 'push', 'worried'], [337, 900, 1.6, 'shake', 'gulp']],
-  vo: [[540, 960, 1.0, 'push', 'worried'], [743, 900, 1.6, 'push', 'worried'], [743, 900, 1.6, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 800, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
-  decide: [[540, 960, 1.0, 'push', 'worried'], [540, 860, 1.25, 'shake', 'gulp']],
+  vo: [[540, 960, 1.0, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [743, 820, 1.7, 'push', 'worried'], [540, 980, 1.1, 'push', 'worried'], [743, 800, 1.5, 'push', 'shock'], [540, 960, 1.0, 'shake', 'gulp']],
+  decide: [[540, 960, 1.0, 'push', 'worried'], [540, 900, 1.12, 'shake', 'gulp']],
 };
 /** Phrase groups (2–4 words), shared by the captions and the camera cuts. */
 const phraseGroups = (timings: Timings) => {
@@ -184,8 +184,7 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
   const zMove = move === 'push' || move === 'roll' ? 1 + 0.065 * Math.min(sinceCut, 3) : 1 + 0.03 * Math.min(sinceCut, 3);
   const z = cz * zMove * (1 + 0.05 * (1 - easeOutCubic(clamp01(sinceCut / 0.25))));
   const shake = move === 'shake' && sinceCut < 7 / 30 ? 14 * Math.sin(sinceCut * 90) : 0;
-  const cx = cx0 + (move === 'drift' ? 30 * Math.sin(sinceCut * 1.4) : 0) + shake;
-  const cy = cy0 + (move === 'shake' ? shake * 0.6 : 0);
+  const [cx, cy] = clampCam([cx0 + (move === 'drift' ? 30 * Math.sin(sinceCut * 1.4) : 0) + shake, cy0 + (move === 'shake' ? shake * 0.6 : 0), z]);
   const roll = move === 'roll' ? -3.5 * easeOutCubic(clamp01(sinceCut / 0.3)) : 0;
   const Scene = SCENES[beat.shot] ?? Bed;
   // head bob on the beat's stressed (highlighted) words: a quick nod over 0.3 s
@@ -254,7 +253,7 @@ export const TavinhoEpisode: React.FC<ShortProps> = ({ videoId, timings }) => {
       )}
       {/* cliffhanger: a message nobody opens yet */}
       {t >= notifT && (
-        <div data-qa-label="celeste" style={{ position: 'absolute', left: 50, right: 50, top: Math.round(260 - 220 * (1 - easeOutCubic(clamp01((t - notifT) / 0.3)))), background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '22px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#1b1420', boxShadow: '0 14px 26px rgba(0,0,0,0.45)', transform: `rotate(${1.5 * Math.sin(t * 20) * (1 - clamp01((t - notifT - 0.4) / 0.3))}deg)` }}>
+        <div data-qa-label="celeste" style={{ position: 'absolute', left: 50, right: 50, top: Math.round(150 - 220 * (1 - easeOutCubic(clamp01((t - notifT) / 0.3)))), background: '#ffffff', border: '6px solid #1b1420', borderRadius: 34, padding: '22px 30px', fontFamily: FONT, fontWeight: 900, fontSize: 46, color: '#1b1420', boxShadow: '0 14px 26px rgba(0,0,0,0.45)', transform: `rotate(${1.5 * Math.sin(t * 20) * (1 - clamp01((t - notifT - 0.4) / 0.3))}deg)` }}>
           🌹 Dona Celeste<div style={{ fontWeight: 700, fontSize: 38, color: '#e2453c' }}>1 nova mensagem</div>
         </div>
       )}

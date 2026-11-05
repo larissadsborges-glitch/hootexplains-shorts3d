@@ -7,6 +7,8 @@
 //   caption-face   a caption covers > 15% of a visible face
 //   caption-label  a caption covers > 10% of a visible label
 //   label-face     a label covers > 15% of a visible face
+//   label-edge     a visible label is cut by the frame edge (< 97% of it on screen)
+//   label-bottom   a visible label reaches into the bottom 15% (platform UI)
 //   sfx-overlap    more than 2 sound effects at once (from the episode's cue list)
 //   label-short    a label is on screen < 1.5 s in total (labels share an id when one continues another)
 // Faces, captions and labels are measured in the real render: src/tavinho/QaProbe.tsx logs their boxes per frame.
@@ -100,6 +102,9 @@ for (const f of frames) {
     const v = clip(b);
     if (!v || area(v) < 0.5 * area(b)) continue; // less than half on screen: not readable
     seen.add(id);
+    const fullScreen = b[2] >= 0.95 * W && b[3] >= 0.95 * H; // a full-screen card is meant to fill the frame
+    if (!fullScreen && area(v) < 0.97 * area(b)) add('label-edge', f / FPS, `label "${id}" cut by the frame edge (${(100 * area(v) / area(b)).toFixed(0)}% visible)`);
+    if (!fullScreen && v[1] + v[3] > 0.85 * H) add('label-bottom', f / FPS, `label "${id}" reaches ${(100 * (v[1] + v[3]) / H).toFixed(0)}% height (platform UI zone)`);
     const cov = caps.reduce((n, c) => n + inter(v, c), 0) / area(v);
     if (cov > 0.1) add('caption-label', f / FPS, `caption covers ${(100 * cov).toFixed(0)}% of label "${id}"`);
     for (const fb of s.faces) {
@@ -126,10 +131,12 @@ for (const [id, r] of runs) {
 const merged = [];
 for (const p of problems.sort((a, b) => a.check.localeCompare(b.check) || a.at - b.at)) {
   const m = merged[merged.length - 1];
-  if (m && m.check === p.check && m.msg.replace(/\d+%/, '') === p.msg.replace(/\d+%/, '') && p.at - m.to <= (opt.step + 1) / FPS) m.to = p.at;
+  if (m && m.check === p.check && m.msg.replace(/\d+%/g, '') === p.msg.replace(/\d+%/g, '') && p.at - m.to <= (opt.step + 1) / FPS) m.to = p.at;
   else merged.push({ ...p, to: p.at });
 }
-const checks = ['freeze', 'black', 'sfx-overlap', 'caption-face', 'caption-label', 'label-face', 'label-short'];
+// edge/bottom hits shorter than 0.2 s are labels sliding or popping in at a cut, not a framing problem
+for (let i = merged.length - 1; i >= 0; i--) if ((merged[i].check === 'label-edge' || merged[i].check === 'label-bottom') && merged[i].to - merged[i].at < 0.2) merged.splice(i, 1);
+const checks = ['freeze', 'black', 'sfx-overlap', 'caption-face', 'caption-label', 'label-face', 'label-edge', 'label-bottom', 'label-short'];
 const L = [`QA ${videoId}: ${frames.length} frames measured (every ${opt.step})${opt.video ? `, video ${opt.video}` : ', no video given (freeze/black skipped)'}`];
 for (const c of checks) {
   const list = merged.filter((m) => m.check === c);

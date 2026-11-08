@@ -62,7 +62,7 @@ cd ..
 3. Generate Hoot's beak sync: `python3 scripts/mouth.py <id>`.
 4. **Scene:** `src/scenes/<id>/` holds `timeline.ts`, `Scene.tsx`, `overlays.tsx` and `sfx.ts`. Register it in `src/Short.tsx` (`SCENES`).
 5. **Stills:** `npx remotion bundle src/index.ts --out-dir=build_x`, then `BUNDLE=build_x VID=<id> STYLE=real scripts/sheet.sh out/sheet.jpg 0 60 120 …`.
-6. **Render:** `scripts/render.sh <id>` produces `out/<id>_upload.mp4` at -14 LUFS with metadata stripped.
+6. **Render:** `scripts/render.sh <id>` produces `out/<id>_upload.mp4` at -14 LUFS with metadata stripped. Faster: render in the cloud on AWS Lambda with the **Render on Lambda** GitHub Actions workflow (several videos at once). See `docs/LAMBDA.md`.
 7. **Cover:** `npx remotion still build_x Cover out/cover_<id>.png --props='{"videoId":"<id>","at":5,"small":"HOOT EXPLAINS · …","line1":"…","line2":"…"}'`.
 8. **Review twice, fix, then deliver** the video, cover and post kit (`out/<id>_postkit.md`).
 

@@ -1,0 +1,59 @@
+<!doctype html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@600;700;800;900&display=block" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:#0f4a33;--g2:#0a3524;--gold:#f7b733}
+.t{position:relative;width:1000px;height:400px;display:flex;overflow:hidden;font-family:Montserrat,sans-serif;color:#fff;
+   background:radial-gradient(ellipse at 30% 30%,#17643f,var(--g) 55%,var(--g2))}
+.main{position:relative;flex:1;height:100%;padding:52px 56px 0 64px}
+.stub{position:relative;width:250px;height:100%;background:var(--gold);color:var(--g2);display:flex;flex-direction:column;
+   align-items:center;justify-content:center;text-align:center;padding-right:14px}
+.perf{position:absolute;right:250px;top:0;bottom:0;border-left:3px dashed rgba(10,53,36,.9)}
+.anton{font-family:Anton;font-weight:400;text-transform:uppercase;line-height:.95}
+.k{display:inline-block;background:var(--gold);color:var(--g2);padding:6px 16px;font-weight:900;font-size:15px;letter-spacing:.3em}
+h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
+.row{display:flex;gap:30px;white-space:nowrap}
+.row .big{font-family:Anton;font-size:36px;text-transform:uppercase;line-height:1}
+.row .sm{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;color:var(--gold)}
+.crest{position:absolute;right:52px;top:52px;width:128px;height:128px;background:#fff;border-radius:50%;padding:14px;overflow:hidden}
+.crest img{width:100%;height:100%;object-fit:contain}
+.lbl{font-weight:800;letter-spacing:.25em;text-transform:uppercase;font-size:14px}
+.stub .lbl{font-size:13px;letter-spacing:.14em}
+.stub .no{font-family:Anton;font-size:64px;line-height:1;margin-top:6px}
+.stub .no small{font-size:30px;margin-right:4px}
+.stub .org{font-weight:700;font-size:11px;letter-spacing:.14em;margin-top:12px;line-height:1.4;text-transform:uppercase}
+.mno{position:absolute;right:56px;bottom:46px;font-weight:800;font-size:15px;letter-spacing:.15em;color:rgba(255,255,255,.75)}
+
+/* v2: two logos + vertical ENTRADA */
+.v2 .crest,.v6 .crest{width:100px;height:100px;top:48px;padding:12px}
+.v2 .crest.b,.v6 .crest.b{top:160px}
+.v2 .stub{flex-direction:row;gap:14px}
+.v2 .vert{writing-mode:vertical-rl;transform:rotate(180deg);font-family:Anton;font-size:46px;letter-spacing:.06em;line-height:1}
+.v2 .stub .no{font-size:58px;margin:0}
+
+/* v3: headliner pill */
+.v3 h1{font-size:84px;margin:12px 0 12px}
+.v3 .head{display:inline-flex;align-items:center;gap:12px;background:rgba(0,0,0,.28);border:2px solid var(--gold);border-radius:40px;
+   padding:6px 18px;margin-bottom:16px}
+.v3 .head .lbl{color:var(--gold);font-size:12px}.v3 .head .anton{font-size:30px}
+.v3 .row .big{font-size:32px}
+
+/* v4: line-up strip */
+.v4 h1{font-size:74px;margin:10px 0 8px}
+.v4 .main{padding-top:46px}
+.v4 .row .big{font-size:30px}
+.v4 .lineup{position:absolute;left:0;right:0;bottom:0;height:92px;background:rgba(0,0,0,.3);
+   padding:10px 40px 26px 64px;font-family:Anton;font-size:17px;letter-spacing:.04em;color:#e8f3ec;line-height:1.45}
+.v4 .lineup b{color:var(--gold);font-weight:400}
+.v4 .mno{bottom:104px}
+
+/* v5: gold frame, beams, dark stub */
+.v5 .main::before{content:"";position:absolute;inset:36px 20px 36px 44px;border:3px solid var(--gold);border-radius:6px;pointer-events:none}
+.v5 .beam{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.07) 45%,transparent 55%),
+   linear-gradient(65deg,transparent 45%,rgba(247,183,51,.09) 55%,transparent 65%)}
+.v5 .main{padding:60px 56px 0 72px}
+.v5 h1{font-size:86px}
+.v5 .stub{background:var(--g2);color:#fff}
+.v5 .stub .lbl{color:var(--gold)}.v5 .stub .no{color:var(--gold)}
+.v5 .perf{border-color:rgba(247,183,51,.8)}
+body{background:#d9d9d9;padding:30px;display:flex;flex-direction:column;gap:26px;width:1060px}
+.wrap{position:relative}.wrap .cap{font:800 16px Montserrat;color:#333;margin-bottom:8px;letter-spacing:.1em}
+.trim{position:absolute;inset:21px;outline:2px dashed rgba(255,0,0,.6);pointer-events:none}</style></head><body><div class="wrap" id="v6"><div class="cap">VERSÃO FINAL</div><div style="position:relative"><div class="t v6"><div class="main"><div class="crest"><img src="../../img/gdf.jpg"></div><div class="crest b"><img src="../../img/boccia.jpg"></div><div class="k">EVENTO SOLIDÁRIO</div><h1 class="anton">Unidos pela<br><span>Inclusão</span></h1><div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div><div><div class="big">10H – 01H</div><div class="sm">Horário</div></div><div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div><div class="mno">Nº 0001</div></div><div class="perf"></div><div class="stub"><div class="lbl">Bilhete de entrada</div><div class="no"><small>Nº</small>0001</div><div class="org">Grupo Desportivo Fabril<br>Evento Solidário</div></div></div><div class="trim"></div></div></div></body></html>

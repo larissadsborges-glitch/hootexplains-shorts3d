@@ -12,10 +12,10 @@ const out = path.join(__dirname, '..', 'out', 'bilhetes_print');
   const b = await chromium.launch();
   if (mode === 'preview') {
     const p = await b.newPage({ viewport: { width: 1060, height: 800 }, deviceScaleFactor: 1 });
-    await p.goto('file://' + path.join(dir, 'preview.html'));
+    await p.goto('file://' + path.join(dir, process.env.PREVIEW || 'preview.html'));
     await p.evaluate(() => document.fonts.ready);
     await p.waitForTimeout(600);
-    await p.screenshot({ path: path.join(out, 'versoes_preview.png'), fullPage: true });
+    await p.screenshot({ path: path.join(out, process.env.PREVIEW_OUT || 'versoes_preview.png'), fullPage: true });
   } else {
     for (const v of vs) {
       const p = await b.newPage();

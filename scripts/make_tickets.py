@@ -40,8 +40,8 @@ h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
 .mno{position:absolute;right:56px;bottom:46px;font-weight:800;font-size:15px;letter-spacing:.15em;color:rgba(255,255,255,.75)}
 
 /* v2: two logos + vertical ENTRADA */
-.v2 .crest{width:100px;height:100px;top:48px;padding:12px}
-.v2 .crest.b{top:160px}
+.v2 .crest,.v6 .crest{width:100px;height:100px;top:48px;padding:12px}
+.v2 .crest.b,.v6 .crest.b{top:160px}
 .v2 .stub{flex-direction:row;gap:14px}
 .v2 .vert{writing-mode:vertical-rl;transform:rotate(180deg);font-family:Anton;font-size:46px;letter-spacing:.06em;line-height:1}
 .v2 .stub .no{font-size:58px;margin:0}
@@ -91,7 +91,7 @@ def stub(n, v):
 def ticket(n, v):
     crest = f'<div class="crest"><img src="{IMG}gdf.jpg"></div>'
     extra = ''
-    if v == 2:
+    if v in (2, 6):
         crest += f'<div class="crest b"><img src="{IMG}boccia.jpg"></div>'
     mid = TITLE + ROW
     if v == 3:
@@ -144,7 +144,7 @@ def sheet_html(v, total=TOTAL):
             marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 - BL - G - L}mm"></div>')
             marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 + COLS * TW + BL + G}mm"></div>')
         first, last = p * PER + 1, min(p * PER + PER, total)
-        info = f'<div class="info">Unidos pela Inclusão · versão {v} · bilhetes {first:04d}–{last:04d} · folha {p + 1}</div>'
+        info = f'<div class="info">Unidos pela Inclusão · versão {'final' if v == 6 else v} · bilhetes {first:04d}–{last:04d} · folha {p + 1}</div>'
         pages.append(f'<div class="page">{"".join(cells)}{"".join(marks)}{info}</div>')
     css = CSS + f"""
 @page{{size:{PW}mm {PH}mm;margin:0}}
@@ -160,17 +160,18 @@ html,body{{margin:0;background:#fff}}
     return f'{HEAD}<style>{css}</style></head><body>{"".join(pages)}</body></html>'
 
 
-def preview_html():
+def preview_html(vs=(1, 2, 3, 4, 5), cap='VERSÃO'):
     css = CSS + """body{background:#d9d9d9;padding:30px;display:flex;flex-direction:column;gap:26px;width:1060px}
 .wrap{position:relative}.wrap .cap{font:800 16px Montserrat;color:#333;margin-bottom:8px;letter-spacing:.1em}
 .trim{position:absolute;inset:21px;outline:2px dashed rgba(255,0,0,.6);pointer-events:none}"""
-    items = ''.join(f'<div class="wrap" id="v{v}"><div class="cap">VERSÃO {v}</div><div style="position:relative">{ticket(1, v)}'
-                    f'<div class="trim"></div></div></div>' for v in range(1, 6))
+    items = ''.join(f'<div class="wrap" id="v{v}"><div class="cap">{cap if len(vs) == 1 else cap + " " + str(v)}</div><div style="position:relative">{ticket(1, v)}'
+                    f'<div class="trim"></div></div></div>' for v in vs)
     return f'{HEAD}<style>{css}</style></head><body>{items}</body></html>'
 
 
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, 'preview.html'), 'w').write(preview_html())
-for v in range(1, 6):
+for v in range(1, 7):
     open(os.path.join(OUT, f'sheets_v{v}.html'), 'w').write(sheet_html(v))
+open(os.path.join(OUT, 'final.html'), 'w').write(preview_html([6], 'VERSÃO FINAL'))
 print('ok', OUT)

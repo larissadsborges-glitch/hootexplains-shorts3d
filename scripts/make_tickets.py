@@ -73,12 +73,14 @@ h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
 .v5 .perf{border-color:rgba(247,183,51,.8)}
 /* v7: the ORIGINAL ticket 1 (first examples) + Boccia logo, no price */
 .v7 .main{padding:50px 50px 0 60px}
-.v7 h1{font-size:88px;margin:18px 0 26px}
+.v7 h1{font-size:98px;margin:16px 0 22px}
 .v7 .row{gap:34px}.v7 .row .big{font-size:40px}.v7 .row .sm{font-size:13px}
-.v7 .crest{width:106px;height:106px;top:48px;right:50px;padding:11px}
-.v7 .crest.b{right:168px}
+.v7 .crest{width:108px;height:108px;top:44px;right:52px;padding:11px}
+.v7 .crest.b{top:164px}
 .v7 .stub{width:230px;padding-right:12px}
-.v7 .perf{right:230px;border-color:var(--g2)}
+.v7 .perf{right:230px;border-left:4px dashed rgba(255,255,255,.85)}
+.v7 .notch{position:absolute;right:212px;width:36px;height:36px;border-radius:50%;background:#fff;z-index:2}
+.v7 .notch.a{top:3px}.v7 .notch.b{bottom:3px}
 .v7 .stub .lbl{font-size:15px;letter-spacing:.25em}
 .v7 .stub .no{font-size:58px;margin-top:4px}
 .v7 .stub .no small{font-size:28px}
@@ -114,8 +116,9 @@ def ticket(n, v):
         names = ' <b>•</b> '.join(n.replace(' ', '&nbsp;') for n in LINEUP)
         extra = f'<div class="lineup"><b>SÉRGIO ROSSI</b> <b>•</b> {names}</div>'
     beam = '<div class="beam"></div>' if v == 5 else ''
+    notches = '<div class="notch a"></div><div class="notch b"></div>' if v == 7 else ''
     return (f'<div class="t v{v}">{beam}<div class="main">{crest}<div class="k">EVENTO SOLIDÁRIO</div>{mid}{extra}'
-            f'<div class="mno">Nº {n:04d}</div></div><div class="perf"></div>{stub(n, v)}</div>')
+            f'<div class="mno">Nº {n:04d}</div></div><div class="perf"></div>{notches}{stub(n, v)}</div>')
 
 
 HEAD = ('<!doctype html><html><head><meta charset="utf-8">'
@@ -142,7 +145,8 @@ def sheet_html(v, total=TOTAL):
             c, r = i % COLS, i // COLS
             x, y = X0 + c * TW, Y0 + r * TH
             # inner edges are clipped at the trim (tickets butt together); outer edges keep their bleed
-            cl = [BL if r > 0 else 0, BL if c < COLS - 1 else 0, BL if r < ROWS - 1 else 0, BL if c > 0 else 0]
+            IN = BL - 0.3  # inner edges overlap 0.3 mm so no hairline gap shows between tickets
+            cl = [IN if r > 0 else 0, IN if c < COLS - 1 else 0, IN if r < ROWS - 1 else 0, IN if c > 0 else 0]
             clip = f'inset({cl[0]}mm {cl[1]}mm {cl[2]}mm {cl[3]}mm)'
             cells.append(f'<div class="cell" style="left:{x - BL}mm;top:{y - BL}mm;clip-path:{clip}">'
                          f'<div class="sc">{ticket(n, v)}</div></div>')

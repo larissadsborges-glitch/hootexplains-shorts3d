@@ -71,6 +71,18 @@ h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
 .v5 .stub{background:var(--g2);color:#fff}
 .v5 .stub .lbl{color:var(--gold)}.v5 .stub .no{color:var(--gold)}
 .v5 .perf{border-color:rgba(247,183,51,.8)}
+/* v7: the ORIGINAL ticket 1 (first examples) + Boccia logo, no price */
+.v7 .main{padding:50px 50px 0 60px}
+.v7 h1{font-size:88px;margin:18px 0 26px}
+.v7 .row{gap:34px}.v7 .row .big{font-size:40px}.v7 .row .sm{font-size:13px}
+.v7 .crest{width:106px;height:106px;top:48px;right:50px;padding:11px}
+.v7 .crest.b{right:168px}
+.v7 .stub{width:230px;padding-right:12px}
+.v7 .perf{right:230px;border-color:var(--g2)}
+.v7 .stub .lbl{font-size:15px;letter-spacing:.25em}
+.v7 .stub .no{font-size:58px;margin-top:4px}
+.v7 .stub .no small{font-size:28px}
+.v7 .mno{right:50px;bottom:52px;font-size:13px;color:rgba(255,255,255,.6)}
 """
 
 ROW = ('<div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div>'
@@ -82,6 +94,8 @@ LINEUP = ['Companhia Limitada', 'Safari', 'Taiga', 'Deejay Antuan', 'DJ Celine',
 
 def stub(n, v):
     no = f'<div class="no"><small>Nº</small>{n:04d}</div>'
+    if v == 7:
+        return f'<div class="stub"><div class="lbl">Entrada</div>{no}</div>'
     if v == 2:
         return f'<div class="stub"><div class="vert">ENTRADA</div><div>{no}<div class="org">Evento<br>Solidário</div></div></div>'
     return (f'<div class="stub"><div class="lbl">Bilhete de entrada</div>{no}'
@@ -91,7 +105,7 @@ def stub(n, v):
 def ticket(n, v):
     crest = f'<div class="crest"><img src="{IMG}gdf.jpg"></div>'
     extra = ''
-    if v in (2, 6):
+    if v in (2, 6, 7):
         crest += f'<div class="crest b"><img src="{IMG}boccia.jpg"></div>'
     mid = TITLE + ROW
     if v == 3:
@@ -144,7 +158,7 @@ def sheet_html(v, total=TOTAL):
             marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 - BL - G - L}mm"></div>')
             marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 + COLS * TW + BL + G}mm"></div>')
         first, last = p * PER + 1, min(p * PER + PER, total)
-        info = f'<div class="info">Unidos pela Inclusão · versão {'final' if v == 6 else v} · bilhetes {first:04d}–{last:04d} · folha {p + 1}</div>'
+        info = f'<div class="info">Unidos pela Inclusão · versão {'final' if v == 7 else v} · bilhetes {first:04d}–{last:04d} · folha {p + 1}</div>'
         pages.append(f'<div class="page">{"".join(cells)}{"".join(marks)}{info}</div>')
     css = CSS + f"""
 @page{{size:{PW}mm {PH}mm;margin:0}}
@@ -171,7 +185,7 @@ def preview_html(vs=(1, 2, 3, 4, 5), cap='VERSÃO'):
 
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, 'preview.html'), 'w').write(preview_html())
-for v in range(1, 7):
+for v in range(1, 8):
     open(os.path.join(OUT, f'sheets_v{v}.html'), 'w').write(sheet_html(v))
-open(os.path.join(OUT, 'final.html'), 'w').write(preview_html([6], 'VERSÃO FINAL'))
+open(os.path.join(OUT, 'final.html'), 'w').write(preview_html([7], 'VERSÃO FINAL'))
 print('ok', OUT)

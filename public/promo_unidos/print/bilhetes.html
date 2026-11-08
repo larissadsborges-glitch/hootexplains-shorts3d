@@ -1,0 +1,134 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:#0f4a33;--g2:#0a3524;--gold:#f7b733}
+body{background:#fff;padding:30px;font-family:Montserrat,sans-serif;display:flex;flex-direction:column;gap:30px;width:1060px}
+.t{position:relative;width:1000px;height:400px;display:flex;overflow:hidden;border-radius:22px}
+.main{position:relative;flex:1;height:100%;overflow:hidden}
+.stub{position:relative;width:230px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.perf{position:absolute;right:230px;top:0;bottom:0;border-left:4px dashed rgba(255,255,255,.55)}
+.notch{position:absolute;right:212px;width:36px;height:36px;border-radius:50%;background:#fff}
+.notch.a{top:-18px}.notch.b{bottom:-18px}
+.anton{font-family:Anton;font-weight:400;text-transform:uppercase;line-height:.95}
+.lbl{font-weight:800;letter-spacing:.25em;text-transform:uppercase;font-size:15px}
+.row{display:flex;gap:34px;white-space:nowrap}
+.row .big{font-family:Anton;font-size:40px;text-transform:uppercase;line-height:1}
+.row .sm{font-weight:800;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
+.num{font-family:Montserrat;font-weight:800;letter-spacing:.12em}
+
+/* 1 classic */
+#t1{background:radial-gradient(ellipse at 30% 30%,#17643f,var(--g) 55%,var(--g2));color:#fff}
+#t1 .main{padding:40px 44px}
+#t1 .crest{position:absolute;right:40px;top:36px;width:150px;height:150px;background:#fff;border-radius:50%;padding:16px;overflow:hidden}
+#t1 .crest img{width:100%;height:100%;object-fit:contain}
+#t1 .k{display:inline-block;background:var(--gold);color:var(--g2);padding:6px 16px;font-weight:900;font-size:15px;letter-spacing:.3em}
+#t1 h1{font-size:98px;margin:16px 0 22px}#t1 h1 span{color:var(--gold)}
+#t1 .row .big{color:#fff}#t1 .row .sm{color:var(--gold)}
+#t1 .stub{background:var(--gold);color:var(--g2)}
+#t1 .stub .anton{font-size:58px}
+#t1 .perf{border-color:var(--g2)}
+
+/* 2 concert */
+#t2{background:#0b0b0b;color:#fff}
+#t2 .ph{position:absolute;left:0;top:0;bottom:0;width:440px;background:url(../img/a1.jpg) 30% 20%/cover;filter:grayscale(.15)}
+#t2 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,11,.1) 30%,#0b0b0b 98%)}
+#t2 .txt{position:absolute;left:300px;right:24px;top:30px}
+#t2 .lbl{color:var(--gold)}
+#t2 h1{font-size:60px;margin:10px 0 14px}
+#t2 .art{font-family:Anton;font-size:50px;line-height:1;color:var(--gold);text-transform:uppercase}
+#t2 .art small{display:block;font-family:Montserrat;font-weight:700;font-size:13px;letter-spacing:.2em;color:#cfcfcf;margin-bottom:2px}
+#t2 .row{margin-top:16px;gap:24px}#t2 .row .big{font-size:32px}#t2 .row .sm{color:#bbb}
+#t2 .stub{background:#151515;border-left:0}
+#t2 .stub .anton{font-size:54px;color:var(--gold)}
+#t2 .perf{border-color:rgba(247,183,51,.6)}
+
+/* 3 printer friendly */
+#t3{background:#fff;color:var(--g2);border:5px solid var(--g)}
+#t3 .main{padding:38px 42px}
+#t3 .logos{position:absolute;right:34px;top:78px;display:flex;gap:10px}
+#t3 .logos img{height:100px}
+#t3 .lbl{color:var(--g)}
+#t3 h1{font-size:98px;margin:14px 0 22px;color:var(--g2)}#t3 h1 span{color:#c98a00}
+#t3 .row .sm{color:#c98a00}
+#t3 .stub{border-left:0;background:#fff}
+#t3 .stub .anton{font-size:56px;color:var(--g)}
+#t3 .perf{border-color:var(--g)}
+#t3 .notch{background:#fff;border:5px solid var(--g)}
+
+/* 4 boccia */
+#t4{background:#124d36;color:#fff}
+#t4 .ball{position:absolute;width:440px;height:440px;right:-90px;top:-20px;border-radius:50%;border:14px solid rgba(255,255,255,.10);box-shadow:inset 0 0 0 60px rgba(255,255,255,.04)}#t4 .ball::after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;left:-150px;top:250px;background:rgba(255,255,255,.07)}
+#t4 .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 2px,transparent 2.5px);background-size:22px 22px}
+#t4 .main{padding:36px 40px}
+#t4 .pill{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--g2);border-radius:40px;padding:6px 18px 6px 6px;font-weight:900;font-size:14px;letter-spacing:.2em}
+#t4 .pill img{width:40px;height:40px;border-radius:50%}
+#t4 h1{font-size:90px;margin:18px 0 18px}
+#t4 h1 span{display:inline-block;background:#fff;color:var(--g2);padding:0 14px;border-radius:12px;margin-top:6px}
+#t4 .row .sm{color:#bfe6d2}
+#t4 .stub{background:#fff;color:var(--g2)}
+#t4 .stub .ballico{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff6b5a,#c0281b);margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+#t4 .stub .anton{font-size:52px}
+#t4 .perf{border-color:#124d36}
+
+/* 5 retro */
+#t5{background:#f4ead2;color:#5a1c14;border-radius:6px}
+#t5::before{content:"";position:absolute;top:12px;bottom:12px;left:12px;right:244px;border:3px double #5a1c14;border-radius:4px;pointer-events:none}
+#t5 .main{padding:50px 30px;text-align:center}
+#t5 .lbl{color:#0f4a33}
+#t5 .pf{font-family:'Playfair Display';font-weight:900}
+#t5 h2{font-family:'Playfair Display';font-style:italic;font-weight:700;font-size:30px;color:#0f4a33;margin-top:6px}
+#t5 h1{font-family:'Playfair Display';font-weight:900;font-size:52px;white-space:nowrap;line-height:1;text-transform:uppercase;margin:4px 0 10px;letter-spacing:.01em}
+#t5 .rule{display:flex;align-items:center;gap:14px;justify-content:center;font-weight:800;letter-spacing:.3em;font-size:13px;color:#0f4a33}
+#t5 .rule::before,#t5 .rule::after{content:"";height:2px;width:120px;background:#5a1c14}
+#t5 .row{justify-content:center;margin-top:22px;gap:30px}
+#t5 .row .big{font-family:'Playfair Display';font-weight:900;font-size:24px}
+#t5 .row .sm{color:#0f4a33}
+#t5 .thx{font-family:'Playfair Display';font-style:italic;font-weight:700;font-size:22px;color:#0f4a33;margin-top:24px}
+#t5 .stub{background:#5a1c14;color:#f4ead2}
+#t5 .stub .pf{font-size:50px;line-height:1}
+#t5 .perf{border-color:#5a1c14;right:230px}
+#t5 .notch{background:#fff}
+</style></head><body>
+
+<div class="t" id="t1"><div class="main">
+ <div class="crest"><img src="../img/gdf.jpg"></div>
+ <div class="k">EVENTO SOLIDÁRIO</div>
+ <h1 class="anton">Unidos pela<br><span>Inclusão</span></h1>
+ <div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div><div><div class="big">10H – 01H</div><div class="sm">Horário</div></div><div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div>
+</div><div class="perf"></div><div class="notch a"></div><div class="notch b"></div>
+<div class="stub"><div class="lbl">Entrada</div><div class="anton">5 Bolas</div><div class="num" style="margin-top:14px;font-size:20px">Nº 0001</div></div></div>
+
+<div class="t" id="t2"><div class="main"><div class="ph"></div>
+ <div class="txt"><div class="lbl">Evento Solidário</div>
+ <h1 class="anton">Unidos pela<br>Inclusão</h1>
+ <div class="art"><small>CABEÇA DE CARTAZ</small>Sérgio Rossi</div>
+ <div class="row"><div><div class="big">28 Nov</div><div class="sm">Sábado</div></div><div><div class="big">10H – 01H</div><div class="sm">Horário</div></div><div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div></div>
+</div><div class="perf"></div><div class="notch a"></div><div class="notch b"></div>
+<div class="stub"><div class="lbl" style="color:#bbb">Entrada</div><div class="anton">5 Bolas</div><div class="num" style="margin-top:14px;font-size:20px;color:#fff">Nº 0001</div></div></div>
+
+<div class="t" id="t3"><div class="main">
+ <div class="logos"><img src="../img/gdf.jpg"><img src="../img/boccia.jpg"></div>
+ <div class="lbl">Grupo Desportivo Fabril · Evento Solidário</div>
+ <h1 class="anton">Unidos pela<br><span>Inclusão</span></h1>
+ <div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div><div><div class="big">10H – 01H</div><div class="sm">Horário</div></div><div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div>
+</div><div class="perf"></div><div class="notch a"></div><div class="notch b"></div>
+<div class="stub"><div class="lbl" style="color:#c98a00">Entrada</div><div class="anton">5 Bolas</div><div class="num" style="margin-top:14px;font-size:20px">Nº 0001</div></div></div>
+
+<div class="t" id="t4"><div class="dots"></div><div class="main"><div class="ball"></div>
+ <div class="pill"><img src="../img/boccia.jpg">EVENTO SOLIDÁRIO</div>
+ <h1 class="anton">Unidos pela<br><span>Inclusão</span></h1>
+ <div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div><div><div class="big">10H – 01H</div><div class="sm">Horário</div></div><div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div>
+</div><div class="perf"></div><div class="notch a"></div><div class="notch b"></div>
+<div class="stub"><div class="ballico"></div><div class="lbl">Entrada</div><div class="anton">5 Bolas</div><div class="num" style="margin-top:12px;font-size:20px">Nº 0001</div></div></div>
+
+<div class="t" id="t5"><div class="main">
+ <div class="lbl">Grupo Desportivo Fabril apresenta</div>
+ <h2>Evento Solidário</h2>
+ <h1>Unidos pela Inclusão</h1>
+ <div class="rule">BILHETE DE ENTRADA</div>
+ <div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div><div><div class="big">10h – 01h</div><div class="sm">Horário</div></div><div><div class="big">Pav. Vítor Domingos</div><div class="sm">Local</div></div></div>
+ <div class="thx">Obrigado por apoiar a inclusão!</div>
+</div><div class="perf"></div><div class="notch a"></div><div class="notch b"></div>
+<div class="stub"><div class="lbl" style="color:#f7d58b">Entrada</div><div class="pf">5 Bolas</div><div class="num" style="margin-top:14px;font-size:20px">Nº 0001</div></div></div>
+</body></html>

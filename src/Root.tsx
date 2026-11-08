@@ -6,6 +6,8 @@ import { Short } from './Short';
 import { MascotStill } from './mascot/MascotStill';
 import { Avatar } from './mascot/Avatar';
 import { Cover, type CoverProps } from './overlays/Cover';
+import { PromoUnidos } from './promo/PromoUnidos';
+import { T as PROMO_T } from './promo/config';
 import type { ShortProps, Timings } from './types';
 
 const FPS = 30;
@@ -26,6 +28,7 @@ export const RemotionRoot: React.FC = () => (
       return { props: { ...props, timings } };
     }}
   />
+  <Composition id="PromoUnidos" component={PromoUnidos} width={1080} height={1920} fps={30} durationInFrames={PROMO_T.end} />
   <Composition id="Avatar" component={Avatar} width={1080} height={1080} fps={30} durationInFrames={30} />
   <Composition id="Mascot" component={MascotStill} width={1080} height={1350} fps={30} durationInFrames={60} defaultProps={{ which: 'bolt' }} />
   <Composition

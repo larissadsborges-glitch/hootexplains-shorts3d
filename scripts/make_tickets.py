@@ -13,12 +13,12 @@ OUT = os.path.join(ROOT, "public", "promo_unidos", "print", "tickets")
 TOTAL = 2000
 IMG = "../../img/"
 
-# Design is drawn at 1000 x 400 px = trim plus 3 mm bleed (scaled to fit).
+# Design is drawn at 1000 x 426 px = trim 135x54 mm + 3 mm bleed (141x60 mm), same aspect ratio.
 # Content keeps >= 45 px from the edges so the 3 mm bleed (~21 px) never cuts anything.
 CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--g:#0f4a33;--g2:#0a3524;--gold:#f7b733}
-.t{position:relative;width:1000px;height:400px;display:flex;overflow:hidden;font-family:Montserrat,sans-serif;color:#fff;
+.t{position:relative;width:1000px;height:426px;display:flex;overflow:hidden;font-family:Montserrat,sans-serif;color:#fff;
    background:radial-gradient(ellipse at 30% 30%,#17643f,var(--g) 55%,var(--g2))}
 .main{position:relative;flex:1;height:100%;padding:52px 56px 0 64px}
 .stub{position:relative;width:250px;height:100%;background:var(--gold);color:var(--g2);display:flex;flex-direction:column;
@@ -116,7 +116,7 @@ def ticket(n, v):
         names = ' <b>•</b> '.join(n.replace(' ', '&nbsp;') for n in LINEUP)
         extra = f'<div class="lineup"><b>SÉRGIO ROSSI</b> <b>•</b> {names}</div>'
     beam = '<div class="beam"></div>' if v == 5 else ''
-    notches = '<div class="notch a"></div><div class="notch b"></div>' if v == 7 else ''
+    notches = ''  # owner: dashed tear line only, no circles
     return (f'<div class="t v{v}">{beam}<div class="main">{crest}<div class="k">EVENTO SOLIDÁRIO</div>{mid}{extra}'
             f'<div class="mno">Nº {n:04d}</div></div><div class="perf"></div>{notches}{stub(n, v)}</div>')
 
@@ -169,7 +169,7 @@ def sheet_html(v, total=TOTAL):
 html,body{{margin:0;background:#fff}}
 .page{{position:relative;width:{PW}mm;height:{PH}mm;overflow:hidden;page-break-after:always;break-after:page}}
 .cell{{position:absolute;width:{TW + 2 * BL}mm;height:{TH + 2 * BL}mm;overflow:hidden}}
-.sc{{width:1000px;height:400px;zoom:{SCALE * 3.7795275591}}}
+.sc{{width:1000px;height:426px;zoom:{SCALE * 3.7795275591}}}
 .mk{{position:absolute;background:#000}}
 .mk.v{{width:0.25mm;height:5mm;margin-left:-0.125mm}}
 .mk.h{{height:0.25mm;width:5mm;margin-top:-0.125mm}}

@@ -5,3 +5,4 @@ build*/
 __pycache__/
 *.pyc
 .DS_Store
+public/promo_unidos/print/tickets/sheets_v*.html

@@ -1,0 +1,176 @@
+"""Numbered, print-ready tickets for "Unidos pela Inclusão" (5 design versions of the classic green/gold ticket).
+
+Ticket: 135 x 54 mm trim, 3 mm bleed. Sheet: A4 landscape, 2 x 3 = 6 tickets, crop marks.
+2000 tickets -> 334 pages per version. No price on the ticket (owner's request).
+
+Usage: python3 scripts/make_tickets.py            -> writes HTML into public/promo_unidos/print/tickets/
+       node scripts/tickets_pdf.js                -> renders preview PNGs + PDFs into out/bilhetes_print/
+"""
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "public", "promo_unidos", "print", "tickets")
+TOTAL = 2000
+IMG = "../../img/"
+
+# Design is drawn at 1000 x 400 px = trim plus 3 mm bleed (scaled to fit).
+# Content keeps >= 45 px from the edges so the 3 mm bleed (~21 px) never cuts anything.
+CSS = """
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:#0f4a33;--g2:#0a3524;--gold:#f7b733}
+.t{position:relative;width:1000px;height:400px;display:flex;overflow:hidden;font-family:Montserrat,sans-serif;color:#fff;
+   background:radial-gradient(ellipse at 30% 30%,#17643f,var(--g) 55%,var(--g2))}
+.main{position:relative;flex:1;height:100%;padding:52px 56px 0 64px}
+.stub{position:relative;width:250px;height:100%;background:var(--gold);color:var(--g2);display:flex;flex-direction:column;
+   align-items:center;justify-content:center;text-align:center;padding-right:14px}
+.perf{position:absolute;right:250px;top:0;bottom:0;border-left:3px dashed rgba(10,53,36,.9)}
+.anton{font-family:Anton;font-weight:400;text-transform:uppercase;line-height:.95}
+.k{display:inline-block;background:var(--gold);color:var(--g2);padding:6px 16px;font-weight:900;font-size:15px;letter-spacing:.3em}
+h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
+.row{display:flex;gap:30px;white-space:nowrap}
+.row .big{font-family:Anton;font-size:36px;text-transform:uppercase;line-height:1}
+.row .sm{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;color:var(--gold)}
+.crest{position:absolute;right:52px;top:52px;width:128px;height:128px;background:#fff;border-radius:50%;padding:14px;overflow:hidden}
+.crest img{width:100%;height:100%;object-fit:contain}
+.lbl{font-weight:800;letter-spacing:.25em;text-transform:uppercase;font-size:14px}
+.stub .lbl{font-size:13px;letter-spacing:.14em}
+.stub .no{font-family:Anton;font-size:64px;line-height:1;margin-top:6px}
+.stub .no small{font-size:30px;margin-right:4px}
+.stub .org{font-weight:700;font-size:11px;letter-spacing:.14em;margin-top:12px;line-height:1.4;text-transform:uppercase}
+.mno{position:absolute;right:56px;bottom:46px;font-weight:800;font-size:15px;letter-spacing:.15em;color:rgba(255,255,255,.75)}
+
+/* v2: two logos + vertical ENTRADA */
+.v2 .crest{width:100px;height:100px;top:48px;padding:12px}
+.v2 .crest.b{top:160px}
+.v2 .stub{flex-direction:row;gap:14px}
+.v2 .vert{writing-mode:vertical-rl;transform:rotate(180deg);font-family:Anton;font-size:46px;letter-spacing:.06em;line-height:1}
+.v2 .stub .no{font-size:58px;margin:0}
+
+/* v3: headliner pill */
+.v3 h1{font-size:84px;margin:12px 0 12px}
+.v3 .head{display:inline-flex;align-items:center;gap:12px;background:rgba(0,0,0,.28);border:2px solid var(--gold);border-radius:40px;
+   padding:6px 18px;margin-bottom:16px}
+.v3 .head .lbl{color:var(--gold);font-size:12px}.v3 .head .anton{font-size:30px}
+.v3 .row .big{font-size:32px}
+
+/* v4: line-up strip */
+.v4 h1{font-size:74px;margin:10px 0 8px}
+.v4 .main{padding-top:46px}
+.v4 .row .big{font-size:30px}
+.v4 .lineup{position:absolute;left:0;right:0;bottom:0;height:92px;background:rgba(0,0,0,.3);
+   padding:10px 40px 26px 64px;font-family:Anton;font-size:17px;letter-spacing:.04em;color:#e8f3ec;line-height:1.45}
+.v4 .lineup b{color:var(--gold);font-weight:400}
+.v4 .mno{bottom:104px}
+
+/* v5: gold frame, beams, dark stub */
+.v5 .main::before{content:"";position:absolute;inset:36px 20px 36px 44px;border:3px solid var(--gold);border-radius:6px;pointer-events:none}
+.v5 .beam{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.07) 45%,transparent 55%),
+   linear-gradient(65deg,transparent 45%,rgba(247,183,51,.09) 55%,transparent 65%)}
+.v5 .main{padding:60px 56px 0 72px}
+.v5 h1{font-size:86px}
+.v5 .stub{background:var(--g2);color:#fff}
+.v5 .stub .lbl{color:var(--gold)}.v5 .stub .no{color:var(--gold)}
+.v5 .perf{border-color:rgba(247,183,51,.8)}
+"""
+
+ROW = ('<div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div>'
+       '<div><div class="big">10H – 01H</div><div class="sm">Horário</div></div>'
+       '<div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div>')
+TITLE = '<h1 class="anton">Unidos pela<br><span>Inclusão</span></h1>'
+LINEUP = ['Companhia Limitada', 'Safari', 'Taiga', 'Deejay Antuan', 'DJ Celine', 'Nelson Anjos', 'Tributo A. Variações', 'Rancho do Lavradio']
+
+
+def stub(n, v):
+    no = f'<div class="no"><small>Nº</small>{n:04d}</div>'
+    if v == 2:
+        return f'<div class="stub"><div class="vert">ENTRADA</div><div>{no}<div class="org">Evento<br>Solidário</div></div></div>'
+    return (f'<div class="stub"><div class="lbl">Bilhete de entrada</div>{no}'
+            f'<div class="org">Grupo Desportivo Fabril<br>Evento Solidário</div></div>')
+
+
+def ticket(n, v):
+    crest = f'<div class="crest"><img src="{IMG}gdf.jpg"></div>'
+    extra = ''
+    if v == 2:
+        crest += f'<div class="crest b"><img src="{IMG}boccia.jpg"></div>'
+    mid = TITLE + ROW
+    if v == 3:
+        mid = TITLE + '<div class="head"><span class="lbl">Cabeça de cartaz</span><span class="anton">Sérgio Rossi</span></div>' + ROW
+    if v == 4:
+        names = ' <b>•</b> '.join(n.replace(' ', '&nbsp;') for n in LINEUP)
+        extra = f'<div class="lineup"><b>SÉRGIO ROSSI</b> <b>•</b> {names}</div>'
+    beam = '<div class="beam"></div>' if v == 5 else ''
+    return (f'<div class="t v{v}">{beam}<div class="main">{crest}<div class="k">EVENTO SOLIDÁRIO</div>{mid}{extra}'
+            f'<div class="mno">Nº {n:04d}</div></div><div class="perf"></div>{stub(n, v)}</div>')
+
+
+HEAD = ('<!doctype html><html><head><meta charset="utf-8">'
+        '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@600;700;800;900&display=block" rel="stylesheet">')
+
+# --- print sheet geometry (mm) ---
+PW, PH = 297, 210
+TW, TH, BL = 135, 54, 3
+COLS, ROWS = 2, 3
+PER = COLS * ROWS
+X0 = (PW - COLS * TW) / 2
+Y0 = (PH - ROWS * TH) / 2
+SCALE = (TW + 2 * BL) / 1000  # mm per design px (design spans trim + bleed)
+
+
+def sheet_html(v, total=TOTAL):
+    pages = []
+    for p in range((total + PER - 1) // PER):
+        cells = []
+        for i in range(PER):
+            n = p * PER + i + 1
+            if n > total:
+                break
+            c, r = i % COLS, i // COLS
+            x, y = X0 + c * TW, Y0 + r * TH
+            # inner edges are clipped at the trim (tickets butt together); outer edges keep their bleed
+            cl = [BL if r > 0 else 0, BL if c < COLS - 1 else 0, BL if r < ROWS - 1 else 0, BL if c > 0 else 0]
+            clip = f'inset({cl[0]}mm {cl[1]}mm {cl[2]}mm {cl[3]}mm)'
+            cells.append(f'<div class="cell" style="left:{x - BL}mm;top:{y - BL}mm;clip-path:{clip}">'
+                         f'<div class="sc">{ticket(n, v)}</div></div>')
+        # crop marks at every cut line, outside the bleed
+        marks = []
+        L, G = 4, 1.5  # mark length, gap beyond bleed
+        for c in range(COLS + 1):
+            x = X0 + c * TW
+            marks.append(f'<div class="mk v" style="left:{x}mm;top:{Y0 - BL - G - L}mm"></div>')
+            marks.append(f'<div class="mk v" style="left:{x}mm;top:{Y0 + ROWS * TH + BL + G}mm"></div>')
+        for r in range(ROWS + 1):
+            y = Y0 + r * TH
+            marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 - BL - G - L}mm"></div>')
+            marks.append(f'<div class="mk h" style="top:{y}mm;left:{X0 + COLS * TW + BL + G}mm"></div>')
+        first, last = p * PER + 1, min(p * PER + PER, total)
+        info = f'<div class="info">Unidos pela Inclusão · versão {v} · bilhetes {first:04d}–{last:04d} · folha {p + 1}</div>'
+        pages.append(f'<div class="page">{"".join(cells)}{"".join(marks)}{info}</div>')
+    css = CSS + f"""
+@page{{size:{PW}mm {PH}mm;margin:0}}
+html,body{{margin:0;background:#fff}}
+.page{{position:relative;width:{PW}mm;height:{PH}mm;overflow:hidden;page-break-after:always;break-after:page}}
+.cell{{position:absolute;width:{TW + 2 * BL}mm;height:{TH + 2 * BL}mm;overflow:hidden}}
+.sc{{width:1000px;height:400px;zoom:{SCALE * 3.7795275591}}}
+.mk{{position:absolute;background:#000}}
+.mk.v{{width:0.25mm;height:5mm;margin-left:-0.125mm}}
+.mk.h{{height:0.25mm;width:5mm;margin-top:-0.125mm}}
+.info{{position:absolute;left:{X0}mm;bottom:3mm;font:7pt Montserrat,sans-serif;color:#666}}
+"""
+    return f'{HEAD}<style>{css}</style></head><body>{"".join(pages)}</body></html>'
+
+
+def preview_html():
+    css = CSS + """body{background:#d9d9d9;padding:30px;display:flex;flex-direction:column;gap:26px;width:1060px}
+.wrap{position:relative}.wrap .cap{font:800 16px Montserrat;color:#333;margin-bottom:8px;letter-spacing:.1em}
+.trim{position:absolute;inset:21px;outline:2px dashed rgba(255,0,0,.6);pointer-events:none}"""
+    items = ''.join(f'<div class="wrap" id="v{v}"><div class="cap">VERSÃO {v}</div><div style="position:relative">{ticket(1, v)}'
+                    f'<div class="trim"></div></div></div>' for v in range(1, 6))
+    return f'{HEAD}<style>{css}</style></head><body>{items}</body></html>'
+
+
+os.makedirs(OUT, exist_ok=True)
+open(os.path.join(OUT, 'preview.html'), 'w').write(preview_html())
+for v in range(1, 6):
+    open(os.path.join(OUT, f'sheets_v{v}.html'), 'w').write(sheet_html(v))
+print('ok', OUT)

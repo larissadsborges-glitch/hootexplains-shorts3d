@@ -1,0 +1,93 @@
+# Render Hoot Explains videos on AWS Lambda (Remotion Lambda), several at once.
+# Start it from the Actions tab ("Render on Lambda" → Run workflow), or: gh workflow run lambda-render.yml -f videos="awake1,airplanemode"
+# Needs repo secrets REMOTION_AWS_ACCESS_KEY_ID and REMOTION_AWS_SECRET_ACCESS_KEY (see docs/LAMBDA.md).
+name: Render on Lambda
+
+on:
+  workflow_dispatch:
+    inputs:
+      videos:
+        description: 'Video ids, comma-separated (e.g. awake1,airplanemode)'
+        required: true
+      style:
+        description: 'Style override (blank = from script.json; blocky | soft | real)'
+        required: false
+        default: ''
+      concurrency:
+        description: 'Max Lambdas per video. Keep 8 until AWS raises the account limit above 10, then try 100.'
+        required: false
+        default: '8'
+
+env:
+  REMOTION_AWS_ACCESS_KEY_ID: ${{ secrets.REMOTION_AWS_ACCESS_KEY_ID }}
+  REMOTION_AWS_SECRET_ACCESS_KEY: ${{ secrets.REMOTION_AWS_SECRET_ACCESS_KEY }}
+  REMOTION_AWS_REGION: eu-west-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      function_name: ${{ steps.deploy.outputs.function_name }}
+      serve_url: ${{ steps.deploy.outputs.serve_url }}
+      videos: ${{ steps.list.outputs.videos }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - id: list
+        name: Parse video list
+        env:
+          VIDEOS: ${{ inputs.videos }}
+        run: |
+          json=$(python3 -c "import json,os; v=[x.strip() for x in os.environ['VIDEOS'].split(',') if x.strip()]; print(json.dumps(v))")
+          for v in $(python3 -c "import json,sys; print(' '.join(json.loads(sys.argv[1])))" "$json"); do
+            test -f "public/videos/$v/timings.json" || { echo "::error::No public/videos/$v/timings.json in the repo. Generate the voice and push it first."; exit 1; }
+          done
+          echo "videos=$json" >> "$GITHUB_OUTPUT"
+      - id: deploy
+        name: Deploy function + site
+        run: node scripts/lambda/deploy.mjs
+
+  render:
+    needs: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        video: ${{ fromJSON(needs.deploy.outputs.videos) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Render on Lambda
+        env:
+          VID: ${{ matrix.video }}
+          STYLE: ${{ inputs.style }}
+          CONC: ${{ inputs.concurrency }}
+        run: |
+          ID="${VID}${STYLE:+_$STYLE}"
+          PROPS="{\"videoId\":\"${VID}\"${STYLE:+,\"style\":\"$STYLE\"}}"
+          mkdir -p out
+          START=$(date +%s)
+          npx remotion lambda render "${{ needs.deploy.outputs.serve_url }}" Short "out/${ID}_raw.mp4" \
+            --function-name="${{ needs.deploy.outputs.function_name }}" \
+            --region="$REMOTION_AWS_REGION" --props="$PROPS" --crf=18 \
+            --concurrency="$CONC" --max-retries=2 --overwrite
+          echo "Render took $(( $(date +%s) - START ))s" | tee -a "$GITHUB_STEP_SUMMARY"
+          scripts/finish.sh "$ID"
+          echo "ID=$ID" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ID }}
+          path: |
+            out/${{ env.ID }}.mp4
+            out/${{ env.ID }}_upload.mp4
+          retention-days: 14

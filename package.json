@@ -13,6 +13,7 @@
     "@fontsource/montserrat": "^5.3.0",
     "@react-three/fiber": "^8.18.0",
     "@remotion/cli": "^4.0.539",
+    "@remotion/lambda": "^4.0.539",
     "@remotion/rough-notation": "^4.0.539",
     "@remotion/three": "^4.0.539",
     "@types/react": "^18.3.31",

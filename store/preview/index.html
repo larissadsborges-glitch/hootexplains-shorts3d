@@ -1,0 +1,338 @@
+<title>Hoot Explains Shop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a storefront first (live personaliser + product grid), then a quiet plan section underneath. */
+:root {
+  --bg: #fbf8f4;
+  --surface: #ffffff;
+  --sunk: #f3ede5;
+  --fg: #1f2a44;
+  --muted: #5d6578;
+  --line: #e6ddd1;
+  --orange: #ff8a3d;
+  --orange-ink: #c4560c;
+  --yellow: #ffd21f;
+  --teal: #21b3a0;
+  --teal-ink: #0f7d6f;
+  --navy: #1f2a44;
+  --stage: #efe7dc;
+  --display: "Montserrat", "Arial Black", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141824; --surface: #1c2232; --sunk: #232a3d; --fg: #eef1f7; --muted: #a3abbe; --line: #2f3850;
+    --orange-ink: #ffa76a; --teal-ink: #4fd6c3; --stage: #262e44; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141824; --surface: #1c2232; --sunk: #232a3d; --fg: #eef1f7; --muted: #a3abbe; --line: #2f3850;
+  --orange-ink: #ffa76a; --teal-ink: #4fd6c3; --stage: #262e44; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 20px 64px; display: grid; gap: 28px; }
+.wrap > *, .plan > *, .hero > * { min-width: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+h2 { font-size: 26px; font-weight: 900; }
+h3 { font-size: 17px; font-weight: 800; }
+p { margin: 0; }
+.eyebrow { font-family: var(--display); font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--orange-ink); }
+
+/* top bar */
+.bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.bar img { width: 52px; height: 52px; }
+.brand { display: grid; line-height: 1.1; }
+.brand b { font-family: var(--display); font-weight: 900; font-size: 20px; }
+.brand span { color: var(--muted); font-size: 13px; }
+.cart { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; }
+.cart i { font-style: normal; background: var(--orange); color: #fff; border-radius: 999px; min-width: 22px; text-align: center; padding: 0 6px; font-variant-numeric: tabular-nums; }
+.demo { font-size: 13px; color: var(--muted); background: var(--sunk); border-radius: 10px; padding: 8px 12px; }
+.demo b { color: var(--fg); }
+
+/* hero / personaliser */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; }
+.hero h1 { font-size: clamp(30px, 5vw, 50px); font-weight: 900; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; background: linear-gradient(transparent 62%, var(--yellow) 62%); color: var(--navy); padding: 0 .08em; }
+:root[data-theme="dark"] .hero h1 em { color: var(--navy); }
+.hero .lead { color: var(--muted); font-size: 16px; max-width: 46ch; margin-top: 12px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 16px; }
+.field { display: grid; gap: 6px; }
+label, .lbl { font-family: var(--display); font-weight: 800; font-size: 13px; }
+input[type=text] { font: 600 20px var(--body); color: var(--fg); background: var(--bg); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; width: 100%; }
+input[type=text]:focus-visible { outline: none; border-color: var(--orange); }
+.hint { font-size: 12.5px; color: var(--muted); }
+.swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+.sw { display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 6px 12px 6px 6px; font: 600 13px var(--body); cursor: pointer; }
+.sw span { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); }
+.sw[aria-pressed="true"] { border-color: var(--orange); }
+.sw:focus-visible, .btn:focus-visible, .cart:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+
+/* products */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.stage { background: var(--stage); aspect-ratio: 1 / 1; max-width: 100%; display: grid; place-items: center; }
+.stage svg { width: 92%; height: 92%; }
+.info { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; }
+.info p { color: var(--muted); font-size: 13.5px; }
+.buy { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; }
+.price { font-family: var(--display); font-weight: 900; font-size: 20px; font-variant-numeric: tabular-nums; }
+.btn { font: 800 13px var(--display); border: 0; border-radius: 999px; padding: 9px 14px; background: var(--navy); color: #fff; cursor: pointer; }
+:root[data-theme="dark"] .btn { background: var(--orange); color: #1f2a44; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { background: var(--orange); color: #1f2a44; } }
+.tag { justify-self: start; font: 700 11px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 14%, transparent); border-radius: 999px; padding: 3px 8px; }
+
+/* plan */
+.plan { border-top: 1px solid var(--line); padding-top: 28px; display: grid; gap: 22px; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.cols > div { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.cols p, .cols li { color: var(--muted); font-size: 14px; }
+.cols ul, .cols ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.cols li b, .cols p b { color: var(--fg); }
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font: 800 12px var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+tr:last-child td { border-bottom: 0; }
+td.profit { color: var(--teal-ink); font-weight: 700; }
+.note { font-size: 12.5px; color: var(--muted); }
+.decide { background: var(--sunk); border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; }
+.decide ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--navy); color: #fff; font: 600 14px var(--body);
+  padding: 10px 16px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.25); max-width: calc(100% - 32px); }
+
+@media (max-width: 960px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cols { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+@media (max-width: 460px) { .grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) { .stage svg { transition: transform .25s ease; } .card:hover .stage svg { transform: scale(1.03); } }
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <img src="hoot_badge.png" alt="Hoot winking">
+    <div class="brand"><b>Hoot Explains Shop</b><span>Merch for curious people</span></div>
+    <button class="cart" id="cart" type="button" aria-live="polite">Cart <i id="count">0</i></button>
+  </header>
+  <p class="demo"><b>Preview for approval.</b> This is a demo of how the store could look. Nothing is for sale yet and nothing is charged. Product mock-ups use the real Hoot render from the video pipeline.</p>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Personalised by Hoot</div>
+      <h1>Put <em id="heroName">Lily</em> on it. Hoot explains the rest.</h1>
+      <p class="lead">Type a name and every product below updates. Each item is printed on demand in the US and shipped in about a week, so there's no stock to buy upfront.</p>
+    </div>
+    <form class="panel" id="form">
+      <div class="field">
+        <label for="name">Name to print</label>
+        <input type="text" id="name" maxlength="12" value="Lily" autocomplete="off" spellcheck="false">
+        <span class="hint">Up to 12 letters. Great for kids, teachers and the "explainer" in every family.</span>
+      </div>
+      <div class="field">
+        <span class="lbl" id="colLbl">T-shirt colour</span>
+        <div class="swatches" role="group" aria-labelledby="colLbl" id="swatches"></div>
+      </div>
+    </form>
+  </section>
+
+  <section class="grid" id="grid" aria-label="Products"></section>
+
+  <section class="plan">
+    <div>
+      <div class="eyebrow">The plan behind the preview</div>
+      <h2>How the store would run</h2>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>Platform</h3>
+        <p><b>Shopify</b> for the shop, checkout and payments, plus <b>Printful</b> (or Printify) to print and ship each order. When someone buys, Printful prints the item with their name and ships it from a US facility. You never hold stock.</p>
+      </div>
+      <div>
+        <h3>Monthly costs</h3>
+        <ul>
+          <li><b>Shopify Basic:</b> about $29–39 a month (≈ €27–36), plus card fees per sale.</li>
+          <li><b>Printful:</b> free plan. You pay only the base cost when an order comes in.</li>
+          <li><b>Domain</b> (e.g. shop.hootexplains.com): about $15 a year.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Launch steps</h3>
+        <ol>
+          <li>You approve the products and prices on this page.</li>
+          <li>I render print-ready files (4500 × 5400 px) for each design.</li>
+          <li>You open Shopify and Printful accounts and connect them.</li>
+          <li>Products, copy and photos go in; a test order checks print quality.</li>
+          <li>The link goes in the bio and a "Hoot merch" Short announces it.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:10px">Prices and estimated profit per item</h3>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Product</th><th class="n">Price</th><th class="n">Print cost (est.)</th><th class="n">Card fee (est.)</th><th class="n">Profit per sale</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:8px">Print costs are estimates from 2026 guides, not Printful's own price list, so they need checking in the Printful dashboard before launch. Shipping is charged to the customer on top. Card fee assumes about 2.9% + $0.30. Taxes (EU VAT for you as a Portugal-based seller, US sales tax) need an accountant's check before the first sale.</p>
+    </div>
+
+    <div class="decide">
+      <h3>What I need from you</h3>
+      <ol>
+        <li>Which products to launch with (all four, or start with the tee and mug).</li>
+        <li>Whether the "[Name] Explains" idea works, or you'd rather sell plain Hoot designs.</li>
+        <li>Prices: keep these or adjust.</li>
+        <li>Store name and web address.</li>
+      </ol>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+  const SHIRTS = [
+    { id: 'navy', label: 'Navy', fill: '#24324f', ink: '#ffffff', sub: '#ffd21f' },
+    { id: 'white', label: 'White', fill: '#fbfbf8', ink: '#1f2a44', sub: '#e0701f' },
+    { id: 'teal', label: 'Teal', fill: '#1fa593', ink: '#ffffff', sub: '#ffe680' },
+    { id: 'sun', label: 'Sun yellow', fill: '#ffd34d', ink: '#1f2a44', sub: '#1f2a44' },
+  ];
+  const PRODUCTS = [
+    { id: 'tee', name: 'Explains Tee', tag: 'Best seller', desc: 'Soft cotton tee with Hoot and the name. Unisex sizes S–3XL.', price: 29, cost: 12.95 },
+    { id: 'mug', name: 'Ask Me Mug', tag: 'Gift', desc: '11 oz (325 ml) ceramic mug. Dishwasher and microwave safe.', price: 19, cost: 7.95 },
+    { id: 'sticker', name: 'Professor Sticker', tag: 'Add-on', desc: '4 × 4 in (10 × 10 cm) vinyl sticker with Hoot winking.', price: 6, cost: 2.5 },
+    { id: 'poster', name: 'Lab Poster', tag: 'Kids room', desc: '12 × 16 in (30 × 40 cm) matte poster for a desk or bedroom.', price: 25, cost: 12 },
+  ];
+  const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const state = { name: 'Lily', shirt: 'navy' };
+  try { const s = JSON.parse(localStorage.getItem('hoot-shop') || '{}'); if (s.name) state.name = s.name; if (s.shirt) state.shirt = s.shirt; } catch (e) {}
+  const save = () => { try { localStorage.setItem('hoot-shop', JSON.stringify(state)); } catch (e) {} };
+
+  const clean = (v) => v.replace(/[^\p{L}\p{N} '\-.]/gu, '').slice(0, 12);
+  const disp = () => (state.name.trim() || 'Your name');
+  const UP = () => disp().toUpperCase();
+  // shrink the font as names get longer so they always fit the print area
+  const fit = (base, len, max) => Math.min(base, Math.floor(max / Math.max(len, 1) / 0.68));
+
+  const svg = {
+    tee() {
+      const c = SHIRTS.find((s) => s.id === state.shirt);
+      const n = UP();
+      return `<svg viewBox="0 0 400 420" role="img" aria-label="T-shirt reading ${esc(n)} EXPLAINS">
+        <path d="M128 34 L166 20 Q200 52 234 20 L272 34 L372 86 L338 158 L298 138 L298 404 Q200 414 102 404 L102 138 L62 158 L28 86 Z" fill="${c.fill}" stroke="rgba(0,0,0,.18)" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M166 20 Q200 52 234 20" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="6"/>
+        <path d="M102 138 L102 200 M298 138 L298 200" stroke="rgba(0,0,0,.08)" stroke-width="3"/>
+        <image href="hoot.png" x="140" y="92" width="120" height="108"/>
+        <text x="200" y="${238}" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="${fit(40, n.length, 180)}" fill="${c.ink}">${esc(n)}</text>
+        <text x="200" y="272" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="26" letter-spacing="2" fill="${c.sub}">EXPLAINS</text>
+        <text x="200" y="296" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="11" letter-spacing="2.5" fill="${c.ink}" opacity=".75">HOW THINGS WORK</text>
+      </svg>`;
+    },
+    mug() {
+      const n = disp();
+      return `<svg viewBox="0 0 400 400" role="img" aria-label="Mug reading Ask ${esc(n)}, they know how it works">
+        <ellipse cx="185" cy="336" rx="130" ry="16" fill="rgba(0,0,0,.12)"/>
+        <path d="M300 130 q70 0 70 70 q0 70 -70 70" fill="none" stroke="#f3f1ec" stroke-width="26"/>
+        <path d="M300 130 q70 0 70 70 q0 70 -70 70" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="26" stroke-dasharray="2 400"/>
+        <path d="M60 90 L310 90 L310 312 Q310 336 286 336 L84 336 Q60 336 60 312 Z" fill="#fbfaf6" stroke="rgba(0,0,0,.15)" stroke-width="2"/>
+        <ellipse cx="185" cy="90" rx="125" ry="14" fill="#e9e4da" stroke="rgba(0,0,0,.15)" stroke-width="2"/>
+        <rect x="60" y="118" width="250" height="8" fill="#ff8a3d"/>
+        <image href="hoot.png" x="78" y="150" width="112" height="100"/>
+        <text x="250" y="186" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="800" font-size="20" fill="#1f2a44">ASK</text>
+        <text x="250" y="220" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="${fit(30, n.length, 104)}" fill="#e0701f">${esc(n.toUpperCase())}</text>
+        <text x="250" y="244" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="10.5" fill="#1f2a44">THEY KNOW</text>
+        <text x="250" y="258" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="10.5" fill="#1f2a44">HOW IT WORKS</text>
+        <rect x="60" y="292" width="250" height="8" fill="#21b3a0"/>
+      </svg>`;
+    },
+    sticker() {
+      const n = 'PROF. ' + UP();
+      return `<svg viewBox="0 0 400 400" role="img" aria-label="Round sticker of Hoot winking with the label ${esc(n)}">
+        <g transform="rotate(-6 200 190)">
+          <circle cx="200" cy="180" r="138" fill="#ffffff" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
+          <image href="hoot_badge.png" x="74" y="54" width="252" height="252"/>
+          <rect x="${200 - Math.min(150, 26 + n.length * 9.5)}" y="282" width="${Math.min(300, 52 + n.length * 19)}" height="50" rx="25" fill="#ffffff" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
+          <rect x="${206 - Math.min(150, 26 + n.length * 9.5)}" y="288" width="${Math.min(300, 52 + n.length * 19) - 12}" height="38" rx="19" fill="#1f2a44"/>
+          <text x="200" y="314" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="${fit(20, n.length, 250)}" fill="#ffd21f">${esc(n)}</text>
+        </g>
+      </svg>`;
+    },
+    poster() {
+      const n = UP() + "'S";
+      return `<svg viewBox="0 0 400 400" role="img" aria-label="Poster titled ${esc(n)} LAB">
+        <rect x="78" y="18" width="244" height="326" fill="#2b2b2b"/>
+        <rect x="88" y="28" width="224" height="306" fill="#fff7e8"/>
+        <circle cx="200" cy="170" r="82" fill="#ffe7cf"/>
+        <g stroke="#21b3a0" stroke-width="3" fill="none" opacity=".8">
+          <circle cx="122" cy="76" r="14"/><path d="M122 56v-6M122 102v-6M102 76h-6M148 76h-6"/>
+          <path d="M276 66 q12 -16 24 0 q0 12 -12 20 v8 M288 104 v4"/>
+          <path d="M98 196 l10 -10 l10 10 l10 -10"/>
+          <path d="M286 196 h20 M296 186 v20"/>
+        </g>
+        <image href="hoot.png" x="138" y="104" width="124" height="111"/>
+        <text x="200" y="250" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="${fit(30, n.length, 190)}" fill="#1f2a44">${esc(n)}</text>
+        <text x="200" y="284" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="30" fill="#ff8a3d">LAB</text>
+        <text x="200" y="308" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="9.5" letter-spacing="1.5" fill="#5d6578">WHERE THINGS GET EXPLAINED</text>
+        <ellipse cx="200" cy="364" rx="130" ry="10" fill="rgba(0,0,0,.1)"/>
+      </svg>`;
+    },
+  };
+
+  const money = (v) => '$' + v.toFixed(2).replace(/\.00$/, '');
+  const grid = document.getElementById('grid');
+  grid.innerHTML = PRODUCTS.map((p) => `
+    <article class="card">
+      <div class="stage" id="st-${p.id}"></div>
+      <div class="info">
+        <span class="tag">${p.tag}</span>
+        <h3 id="nm-${p.id}"></h3>
+        <p>${p.desc}</p>
+        <div class="buy"><span class="price">${money(p.price)}</span><button class="btn" type="button" data-add="${p.id}">Add to cart</button></div>
+      </div>
+    </article>`).join('');
+
+  document.getElementById('rows').innerHTML = PRODUCTS.map((p) => {
+    const fee = p.price * 0.029 + 0.3;
+    return `<tr><td>${p.name}</td><td class="n">${money(p.price)}</td><td class="n">${money(p.cost)}</td><td class="n">${money(fee)}</td><td class="n profit">${money(p.price - p.cost - fee)}</td></tr>`;
+  }).join('');
+
+  const sw = document.getElementById('swatches');
+  sw.innerHTML = SHIRTS.map((s) => `<button type="button" class="sw" data-shirt="${s.id}" aria-pressed="false"><span style="background:${s.fill}"></span>${s.label}</button>`).join('');
+
+  const titles = { tee: (n) => `${n} Explains Tee`, mug: (n) => `Ask ${n} Mug`, sticker: (n) => `Professor ${n} Sticker`, poster: (n) => `${n}'s Lab Poster` };
+  function render() {
+    for (const p of PRODUCTS) {
+      document.getElementById('st-' + p.id).innerHTML = svg[p.id]();
+      document.getElementById('nm-' + p.id).textContent = titles[p.id](disp());
+    }
+    document.getElementById('heroName').textContent = disp();
+    sw.querySelectorAll('.sw').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.shirt === state.shirt)));
+  }
+
+  const input = document.getElementById('name');
+  input.value = state.name;
+  input.addEventListener('input', () => { const v = clean(input.value); if (v !== input.value) input.value = v; state.name = v; save(); render(); });
+  document.getElementById('form').addEventListener('submit', (e) => e.preventDefault());
+  sw.addEventListener('click', (e) => { const b = e.target.closest('.sw'); if (!b) return; state.shirt = b.dataset.shirt; save(); render(); });
+
+  let count = 0, timer;
+  const toast = document.getElementById('toast');
+  const say = (msg) => { toast.textContent = msg; toast.hidden = false; clearTimeout(timer); timer = setTimeout(() => (toast.hidden = true), 2600); };
+  grid.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-add]'); if (!b) return;
+    count++; document.getElementById('count').textContent = count;
+    say(`Added "${titles[b.dataset.add](disp())}". Demo only: nothing is charged.`);
+  });
+  document.getElementById('cart').addEventListener('click', () => say(count ? `${count} item${count > 1 ? 's' : ''} in the cart. Checkout goes live once the store is approved.` : 'Your cart is empty. Add a product to try it.'));
+  render();
+})();
+</script>

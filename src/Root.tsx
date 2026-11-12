@@ -5,6 +5,7 @@ import { Composition, staticFile } from 'remotion';
 import { Short } from './Short';
 import { MascotStill } from './mascot/MascotStill';
 import { Avatar } from './mascot/Avatar';
+import { Merch, type MerchProps } from './mascot/Merch';
 import { Cover, type CoverProps } from './overlays/Cover';
 import type { ShortProps, Timings } from './types';
 
@@ -27,6 +28,7 @@ export const RemotionRoot: React.FC = () => (
     }}
   />
   <Composition id="Avatar" component={Avatar} width={1080} height={1080} fps={30} durationInFrames={30} />
+  <Composition id="Merch" component={Merch} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={{ pose: 'full' } as MerchProps} />
   <Composition id="Mascot" component={MascotStill} width={1080} height={1350} fps={30} durationInFrames={60} defaultProps={{ which: 'bolt' }} />
   <Composition
     id="Short"

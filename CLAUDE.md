@@ -20,6 +20,7 @@ You are continuing the **Hoot Explains** project: code-generated 3D explainer Sh
 | Money series EP1–6 (`videos/money1..6`) | Scripts, briefs (with sources), shot lists and post kits written and checked. **Next to build: EP1.** Send the owner a 10 s preview first, since money may get a new look. |
 | Profile picture | Hoot close-up, winking (`src/mascot/Avatar.tsx`, `bust`). The owner wasn't fully happy; revisit. |
 | Automated QA checker (`scripts/qa/`) | Partly built by an agent that was cut off by a usage limit. Read scripts/qa/README.md, test it, and finish it. |
+| Online store (Hoot merch) | Plan + live demo preview sent 12 Nov (`docs/STORE_PLAN.md`, `store/preview/`). Waiting for the owner to pick products, prices and the name. |
 | Better Jake (rigged glTF character, outlines, contact shadows) | Not started. See docs/GAME_PLAN.md section 3. |
 
 ## 3. Docs to read (in this order)
@@ -68,6 +69,7 @@ cd ..
 
 ## 7. Code map
 - `src/Short.tsx`: the main composition and scene registry. `src/Root.tsx`: compositions (Short, Cover, Avatar).
+- `src/mascot/Merch.tsx`: Hoot on a transparent background for store artwork (composition `Merch`).
 - `src/mascot/Mascots.tsx` (Hoot, with `talk`, `tired`, `asleep`, `wink`), `src/mascot/Jake.tsx`, `src/mascot/Avatar.tsx` (profile picture).
 - `src/overlays/`: captions, the title card (auto-fit), the Hoot badge, the cover.
 - `src/scenes/awake/`: the bedroom series (Jake + Hoot). `src/scenes/airplanemode/` and `src/scenes/planewindow/`: cabin, cockpit, exterior airliner. `src/scenes/learjet/assets.tsx`: sky, clouds, lights, Person.

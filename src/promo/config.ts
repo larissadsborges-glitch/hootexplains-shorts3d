@@ -16,6 +16,9 @@ export type Artist = {
   logoBg?: string; // background colour behind a logo card
   clip?: string | null;
   clipFrom?: number;
+  video?: string; // public/promo_unidos/video/... shown in the card instead of the photo
+  videoFrom?: number; // seconds into the video
+  videoAudio?: boolean; // play the video's own sound in this slot (bed ducks), unless `clip` is set
 };
 
 export const ARTISTS: Artist[] = [
@@ -26,7 +29,7 @@ export const ARTISTS: Artist[] = [
   { id: 'variacoes', lines: ['TRIBUTO AO', 'ANTÓNIO VARIAÇÕES'], img: 'a5.jpg', mode: 'full', pos: '40% 25%', clip: null },
   { id: 'taiga', lines: ['TAIGA', 'ROCK MUSIC'], img: 'taiga.jpg', mode: 'logo', logoBg: '#000000', clip: null },
   { id: 'antuan', lines: ['DEEJAY', 'ANTUAN'], img: 'a3.jpg', mode: 'full', pos: '55% 30%', clip: null },
-  { id: 'companhia', lines: ['COMPANHIA', 'LIMITADA'], img: 'companhia2.jpg', mode: 'card', clip: null },
+  { id: 'companhia', lines: ['COMPANHIA', 'LIMITADA'], img: 'companhia2.jpg', mode: 'card', video: 'companhia.mp4', videoFrom: 0, videoAudio: true, clip: null },
   // Nelson Anjos & Bailarinas removed from the line-up (Nov 2026)
 ];
 

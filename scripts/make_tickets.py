@@ -88,7 +88,7 @@ h1{font-size:92px;margin:14px 0 18px}h1 span{color:var(--gold)}
 """
 
 ROW = ('<div class="row"><div><div class="big">28 Novembro</div><div class="sm">Sábado</div></div>'
-       '<div><div class="big">10H – 01H</div><div class="sm">Horário</div></div>'
+       '<div><div class="big">15H – 01H</div><div class="sm">Horário</div></div>'
        '<div><div class="big">Pavilhão</div><div class="sm">Vítor Domingos</div></div></div>')
 TITLE = '<h1 class="anton">Unidos pela<br><span>Inclusão</span></h1>'
 LINEUP = ['Companhia Limitada', 'Safari', 'Taiga', 'Deejay Antuan', 'DJ Celine', 'Nelson Anjos', 'Tributo A. Variações', 'Rancho do Lavradio']

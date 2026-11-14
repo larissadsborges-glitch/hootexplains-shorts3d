@@ -7,6 +7,7 @@ import {
   AbsoluteFill,
   Audio,
   Img,
+  OffthreadVideo,
   Sequence,
   interpolate,
   spring,
@@ -241,7 +242,7 @@ const ArtistScene: React.FC<{ a: Artist; n: number; total: number; headliner?: b
         <AbsoluteFill style={{ alignItems: 'center', paddingTop: headliner ? 300 : 300 }}>
           <div
             style={{
-              width: headliner ? 1000 : 920, height: headliner ? 620 : a.mode === 'logo' ? 740 : 640, borderRadius: 26, overflow: 'hidden',
+              width: headliner ? 1000 : 920, height: headliner ? 620 : a.mode === 'logo' ? 740 : a.video ? 702 : 640, borderRadius: 26, overflow: 'hidden',
               border: `6px solid ${GOLD}`, background: a.logoBg ?? '#000', boxShadow: '0 30px 80px rgba(0,0,0,.6)',
               transform: `scale(${(0.6 + 0.4 * cardIn) * push}) rotate(${(1 - cardIn) * -6 + (headliner ? 0 : n % 2 ? 1.5 : -1.5)}deg)`,
               opacity: cardIn,
@@ -250,7 +251,11 @@ const ArtistScene: React.FC<{ a: Artist; n: number; total: number; headliner?: b
             {a.mode === 'logo' ? (
               <Img src={img(a.img)} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 30 }} />
             ) : (
-              photo({ objectPosition: headliner ? '62% 30%' : '50% 40%' })
+              a.video ? (
+                <OffthreadVideo muted src={staticFile(`promo_unidos/video/${a.video}`)} startFrom={Math.round((a.videoFrom ?? 0) * 30)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                photo({ objectPosition: headliner ? '62% 30%' : '50% 40%' })
+              )
             )}
           </div>
         </AbsoluteFill>
@@ -342,7 +347,7 @@ const Outro: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, width: 960, marginTop: 44 }}>
           {[
             ['28 NOVEMBRO', 'SÁBADO'],
-            ['10H – 01H', 'HORÁRIO'],
+            ['15H – 01H', 'HORÁRIO'],
             ['5 BOLAS', 'ENTRADA'],
             ['PAVILHÃO', 'VÍTOR DOMINGOS'],
           ].map(([a, b], i) => (
@@ -375,7 +380,7 @@ const Outro: React.FC = () => {
 const clipWindows = [
   ...ARTISTS.map((a, i) => ({ a, from: T.artists + i * T.artistLen, len: T.artistLen })),
   { a: HEADLINER, from: T.headliner, len: 3 * BAR },
-].filter((w) => w.a.clip);
+].filter((w) => w.a.clip || (w.a.video && w.a.videoAudio));
 
 const bedVolume = (f: number) => {
   const inClip = clipWindows.some((w) => f >= w.from + 4 && f < w.from + w.len - 4);
@@ -389,8 +394,8 @@ export const PromoUnidos: React.FC = () => {
       {clipWindows.map((w) => (
         <Sequence key={w.a.id} from={w.from} durationInFrames={w.len}>
           <Audio
-            src={staticFile(`promo_unidos/audio/${w.a.clip}`)}
-            startFrom={Math.round((w.a.clipFrom ?? 0) * 30)}
+            src={staticFile(w.a.clip ? `promo_unidos/audio/${w.a.clip}` : `promo_unidos/video/${w.a.video}`)}
+            startFrom={Math.round(((w.a.clip ? w.a.clipFrom : w.a.videoFrom) ?? 0) * 30)}
             volume={(f) => interpolate(f, [0, 6, w.len - 8, w.len], [0, 1, 1, 0], clamp)}
           />
         </Sequence>

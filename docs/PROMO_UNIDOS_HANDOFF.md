@@ -5,7 +5,7 @@ with materials for a charity event. Everything below is done unless marked TODO.
 
 ## The event
 - **Festival / Evento Solidário "Unidos pela Inclusão"**, organised by **Grupo Desportivo Fabril (GDF)**, Boccia section.
-- **Sábado, 28 Novembro 2026, 10H – 01H, Pavilhão Vítor Domingos.**
+- **Sábado, 28 Novembro 2026, 15H – 01H, Pavilhão Vítor Domingos.** (Changed from 10H on 14 Nov.)
 - Entry: **"5 BOLAS"**. Never write "5€": it's a charity event, so the owner asked for "bolas" only.
 - Headliner (cabeça de cartaz): **Sérgio Rossi**.
 - Line-up: Companhia Limitada · Safari · Taiga Rock Music · Deejay Antuan · DJ Celine ·

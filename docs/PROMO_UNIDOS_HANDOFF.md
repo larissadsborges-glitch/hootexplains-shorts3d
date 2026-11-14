@@ -29,7 +29,7 @@ To export the posters and tickets to PNG, open the HTML in Chrome, or screenshot
 deviceScaleFactor 2 (posters) or 3 (tickets). They load Anton and Montserrat from Google Fonts, so you need internet.
 
 ## Promo video
-- 1080x1920, 30 fps, **64.4 s**, festival line-up style: intro → 8 artists (4.8 s each, "CONFIRMADO 01/09") →
+- 1080x1920, 30 fps, **59.6 s**, festival line-up style: intro → 8 artists (4.8 s each, "CONFIRMADO 01/09") →
   "E o cabeça de cartaz é…" → Sérgio Rossi (gold, confetti) → info + sponsors + "NÃO FALTES!".
 - Music: 100 BPM, so 1 beat = 18 frames and 1 bar = 72 frames. Cuts land on the bar.
 - Status: the code is finished and the stills were checked. The **full render was stopped in the cloud** (too slow

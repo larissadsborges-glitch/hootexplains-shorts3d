@@ -1,15 +1,15 @@
 # Promo "Unidos pela Inclusão" (festival line-up video)
 
-Composition: `PromoUnidos` (1080x1920, 30 fps, 64.4 s). Code: `src/promo/`.
+Composition: `PromoUnidos` (1080x1920, 30 fps, 59.6 s). Code: `src/promo/`.
 
 ## Timeline (100 BPM, 1 bar = 2.4 s)
 | Time | Scene |
 |---|---|
 | 0.0–7.2 s | Intro: GDF presents → FESTIVAL SOLIDÁRIO → UNIDOS PELA INCLUSÃO |
-| 7.2–45.6 s | 8 artists, 4.8 s each (01/09 … 08/09) |
+| 7.2–45.6 s | 7 artists, 4.8 s each (01/08 … 07/08) |
 | 45.6–48.0 s | "E o cabeça de cartaz é…" |
 | 48.0–55.2 s | Sérgio Rossi (headliner) |
-| 55.2–64.4 s | Info + sponsors + NÃO FALTES! |
+| 55.2–59.6 s | Info + sponsors + NÃO FALTES! |
 
 Artist slots: Rancho 7.2 · Safari 12.0 · DJ Celine 16.8 · Tributo Variações 21.6 · Taiga 26.4 ·
 Deejay Antuan 31.2 · Companhia Limitada 36.0 · Nelson Anjos 40.8 · Sérgio Rossi 48.0

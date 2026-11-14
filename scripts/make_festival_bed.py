@@ -1,8 +1,8 @@
 """Festival-style music bed for the 'Unidos pela Inclusão' promo (copyright-free, made in code).
 
 100 BPM -> 1 beat = 0.6 s = 18 frames at 30 fps, 1 bar = 72 frames.
-Structure (bars): intro build 0-3, drop 3-19 (8 artists x 2 bars), tease 19-20, headliner 20-23,
-outro 23-26, tail. Impacts land on every artist reveal.
+Structure (bars): intro build 0-3, drop (N_ART artists x 2 bars), tease 1 bar, headliner 3 bars,
+outro 3 bars, tail. Impacts land on every artist reveal.
 Writes public/promo_unidos/audio/bed.wav
 """
 import os
@@ -13,7 +13,9 @@ from scipy.signal import butter, sosfilt
 SR = 44100
 BEAT = 0.6
 BAR = 4 * BEAT
-BARS = 26
+N_ART = int(os.environ.get('N_ART', 7))  # artists before the headliner, 2 bars each
+DROP_END = 3 + 2 * N_ART
+BARS = DROP_END + 7
 LENGTH = BARS * BAR + 2.0
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "promo_unidos", "audio", os.environ.get("BED_NAME", "bed.wav"))
 rs = np.random.default_rng(7)
@@ -101,7 +103,7 @@ K, C = kick(), clap()
 for bar in range(BARS):
     t0 = bar * BAR
     ch = PROG[bar % 4]; root = ROOTS[bar % 4]
-    intro = bar < 3; tease = bar == 19; outro_end = bar >= 25
+    intro = bar < 3; tease = bar == DROP_END; outro_end = bar >= BARS - 1
     if intro:
         cut = 600 + 2500 * (bar / 3)
         add(supersaw([n + 12 for n in ch], BAR, cut) * np.linspace(0.7, 1, int(BAR * SR)), t0, gain=1.4)
@@ -137,11 +139,11 @@ for bar in range(BARS):
         add(lp(bass, 400), t0 + b * BEAT, gain=0.45)
 
 # impacts on reveals: drop (bar 3), each artist (bars 3,5,...,17), headliner (bar 20), outro (bar 23)
-for bar in list(range(3, 19, 2)) + [20, 23]:
-    add(impact(), bar * BAR, gain=0.7 if bar not in (3, 20) else 1.0)
+for bar in list(range(3, DROP_END, 2)) + [DROP_END + 1, DROP_END + 4]:
+    add(impact(), bar * BAR, gain=0.7 if bar not in (3, DROP_END + 1) else 1.0)
 add(riser(2 * BAR), 1 * BAR, gain=0.9)
 add(snare_roll(BAR), 2 * BAR, gain=0.7)
-add(riser(BAR), 22 * BAR, gain=0.6)
+add(riser(BAR), (DROP_END + 3) * BAR, gain=0.6)
 
 mix = np.stack([L, R], 1)
 mix = np.tanh(mix * 1.1) / np.tanh(1.1)

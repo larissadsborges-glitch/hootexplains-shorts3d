@@ -9,7 +9,7 @@ with materials for a charity event. Everything below is done unless marked TODO.
 - Entry: **"5 BOLAS"**. Never write "5€": it's a charity event, so the owner asked for "bolas" only.
 - Headliner (cabeça de cartaz): **Sérgio Rossi**.
 - Line-up: Companhia Limitada · Safari · Taiga Rock Music · Deejay Antuan · DJ Celine ·
-  Nelson Anjos & Bailarinas · Tributo ao António Variações · Rancho Folclórico Regional do Lavradio.
+  Tributo ao António Variações · Rancho Folclórico Regional do Lavradio. (Nelson Anjos & Bailarinas was removed.)
 - Sponsors (apoios): Dom Fidalgo · Mente Sanus · Prisquel Perfumaria & Cosméticos · Amouri Beauty Studio ·
   Pastelaria Iris (no logo, shown as a text badge) · Juntas (Alto do Seixalinho / Santo André / Verderena) ·
   Câmara Municipal do Barreiro.
@@ -29,7 +29,7 @@ To export the posters and tickets to PNG, open the HTML in Chrome, or screenshot
 deviceScaleFactor 2 (posters) or 3 (tickets). They load Anton and Montserrat from Google Fonts, so you need internet.
 
 ## Promo video
-- 1080x1920, 30 fps, **59.6 s**, festival line-up style: intro → 8 artists (4.8 s each, "CONFIRMADO 01/09") →
+- 1080x1920, 30 fps, **59.6 s**, festival line-up style: intro → 7 artists (4.8 s each, "CONFIRMADO 01/08") →
   "E o cabeça de cartaz é…" → Sérgio Rossi (gold, confetti) → info + sponsors + "NÃO FALTES!".
 - Music: 100 BPM, so 1 beat = 18 frames and 1 bar = 72 frames. Cuts land on the bar.
 - Status: the code is finished and the stills were checked. The **full render was stopped in the cloud** (too slow
@@ -37,7 +37,10 @@ deviceScaleFactor 2 (posters) or 3 (tickets). They load Anton and Montserrat fro
 - TODO: the owner wants a ~5 s snippet of each artist's music. Add each file to `public/promo_unidos/audio/` and set
   `clip` / `clipFrom` in `src/promo/config.ts` (the bed ducks automatically). Don't rip copyrighted songs from YouTube:
   ask the artists for their audio or use what the owner provides.
-- Optional TODO: a ≤60 s Stories cut (Instagram Stories splits anything over 60 s).
+- Now 59.6 s, so it fits a single Instagram Story.
+- Nov 14 changes: Nelson Anjos & Bailarinas REMOVED from the line-up (video + posters). Companhia Limitada uses a new photo
+  (`img/companhia2.jpg`, cropped from a phone screenshot, low-res: ask for the original). DJ Celine plays amapiano:
+  Antuan will send her track; set `clip` on the celine entry in config.ts.
 - Post caption and hashtags: not written yet.
 
 ## Render on the PC (i7-7700K + GTX 1050, Windows)

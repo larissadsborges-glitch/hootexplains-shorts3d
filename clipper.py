@@ -71,7 +71,7 @@ OUT = os.environ.get("CLIPPER_OUT") or (r"E:\clipper" if os.path.isdir("E:\\") e
 QUEUE = os.path.join(OUT, "queue")
 BELOW_NORMAL = 0x00004000  # Windows process priority class for the editor
 sys.path.insert(0, HERE)
-import ia, layout, react  # (owner 16 Nov: "more reaction messages") the reaction words/emotes, EN + PT-BR + ES, see react.py
+import ia, layout, react, cartao  # (owner 16 Nov: "more reaction messages") the reaction words/emotes, EN + PT-BR + ES, see react.py
 
 # ---------------------------------------------------------------- chat (Twitch, anonymous read-only IRC)
 class TwitchChat(threading.Thread):
@@ -370,12 +370,29 @@ def page_handle(lang):
 
 FONTS_DIR = os.path.join(os.path.expanduser("~"), ".hoottools", "fonts")  # Poppins (OFL, Google Fonts): the font of the owner's example clip
 FONTS_DIR_FF = FONTS_DIR.replace("\\", "/").replace(":", "\\:")
+INSET_CARD = os.environ.get("CLIPPER_INSET", "0") == "1"  # (3rd example) the game clip inset on a white post page - owner picks
+CARD_FOR_FACE = True  # (owner 17 Nov) chat / big-webcam clips use the post-card look (cartao.py)
 ONE_WORD = True  # (owner 17 Nov, the LOUD Coringa example) one word on screen at a time, no chat lines, no stamp
 CAP_STYLE = ("Style: Cap,Poppins ExtraBold,130,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,1.5,5,5,60,60,0,1\n"
              if ONE_WORD else
              "Style: Cap,Arial Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n")
 
-def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None):
+def card_text(hook, channel):
+    """the post card's line: normal case, the streamer as people know him (KAICENAT MISSES -> Kai Cenat misses)"""
+    t = cartao.sentence((hook or "").strip("“”"))
+    if channel: t = re.sub(re.escape(channel.rstrip("_")) + "_?", display(channel).title().replace("Ishowspeed", "IShowSpeed"), t, flags=re.I)
+    return t
+
+def _outside(dur, wins):
+    """the stretches of [0, dur] outside the full-screen cuts (names are hidden while the face/game fills the screen)"""
+    out, t = [], 0.0
+    for a, b in sorted(wins or []):
+        if a > t: out.append((t, a))
+        t = max(t, b)
+    if t < dur: out.append((t, dur))
+    return out
+
+def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None, full_wins=()):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
     white with a black outline at `seam` (between webcam and game in the split layout); the hook at the top for the first
     3.5 s; the credit; real chat messages popping in at the moment (no usernames), like watching it live"""
@@ -393,7 +410,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     wm = page_handle(lang)
     if wm:  # the page's @ the whole clip: bottom-right of the webcam (split), top-right (face), bottom (game)
         pos = {"split": f"{{\\an3\\pos(1052,{(game_top or 700) - 22})}}", "face": "{\\an9\\pos(1052,40)}"}.get(mode, "{\\an2\\pos(540,1700)}")
-        ev.append(f"Dialogue: 4,{ass_time(0)},{ass_time(dur)},Wm,,0,0,0,,{pos}{wm}")
+        for a, b in _outside(dur, full_wins): ev.append(f"Dialogue: 4,{ass_time(a)},{ass_time(b)},Wm,,0,0,0,,{pos}{wm}")
     if hook:  # never over the face: the hook goes where the head is not (see hook_spot)
         ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{hook_spot(mode, seam, head_box, game_top)})}}{hook.upper()}")
     if label:  # (owner 16 Nov: context, like The Till stamps) a small yellow stamp top-left: GTA 6 · LAUNCH DAY
@@ -402,7 +419,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     if credit:
         pos = {"split": f"{{\\an1\\pos(28,{(game_top or 700) - 22})}}", "face": "{\\an8\\pos(540,1440)}"}.get(mode, "")
         if ONE_WORD and mode == "split": pos = f"{{\\an8\\pos(540,{(game_top or 600) + 14})}}"  # (the example: the name on top of the game)
-        ev.append(f"Dialogue: 0,{ass_time(0)},{ass_time(dur)},Credit,,0,0,0,,{pos}{credit}")
+        for a, b in _outside(dur, full_wins): ev.append(f"Dialogue: 0,{ass_time(a)},{ass_time(b)},Credit,,0,0,0,,{pos}{credit}")
     hot = re.compile(r"^(" + "|".join(react.WORDS[c] for c in ("shock", "hype")) + r")[.,!?]*$", re.I)
     # (owner 16 Nov: "captions well made, and in silences they must not stay on screen") chunks of up to 3 words /
     # 20 letters that never run over a pause (>= 0.45 s) or a sentence end; a chunk leaves 0.35 s after its last word
@@ -803,24 +820,42 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         if lines and t - trim - lines[-1][0] < 0.6: continue
         seen.add(msg.lower()); lines.append((t - trim, msg))
     lines = [l for l in lines if l[0] >= 0][:10]
-    vertical = lay.get("H", 0) > lay.get("W", 1)
+    vertical = lay.get("H", 0) > lay.get("W", 1); full_wins = []
     if layout.REF_STYLE and lay["mode"] == "split" and not vertical:
         fw_, gw_ = cut_windows(ws, loudness(src) or [0.0], dur, layout.face_full_ok(lay))
-        base, seam = layout.filters_ref(lay, fw_, gw_)
+        base, seam = layout.filters_ref(lay, fw_, gw_); full_wins = fw_ + gw_
     else:
         base, seam = (("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[st]", 1265) if vertical else layout.filters(lay))
     if ONE_WORD: lines = []  # (the example has no chat lines)
     mode = "face" if vertical else lay["mode"]
-    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, "" if ONE_WORD else context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"))
+    ass = os.path.splitext(dst)[0] + ".ass"; card_png = ""
+    if CARD_FOR_FACE and mode == "face" and not vertical:
+        # (owner 17 Nov, 2nd example: "this is good too") chat / big-webcam clips: the post card - header with our logo,
+        # name, @ and the context line; the WHOLE stream rounded under it; colourful 2-3 word captions
+        card_png = os.path.splitext(dst)[0] + "_card.png"
+        cartao.header_png(card_png, card_text(hook, channel), (lang or found or "en")[:2])
+        base, seam = cartao.filters(lay, card_png)
+        cred = (f"Dialogue: 0,{ass_time(0)},{ass_time(dur)},Credit,,0,0,0,,{{\\an8\\pos(540,{cartao.VID_Y + cartao.VID_H + 18})}}{credit}"
+                if credit else "")
+        make_ass([], "", "", dur, ass, mode, seam, [], "", None, None, "", None)  # the style block only
+        body = open(ass, encoding="utf-8").read().replace("Style: Wm,", cartao.CARD_STYLE + "Style: Wm,")
+        body = "\n".join(l for l in body.split("\n") if ",Wm," not in l or l.startswith("Style:"))  # (the @ is in the header)
+        with open(ass, "w", encoding="utf-8") as f: f.write(body + "\n".join(cartao.ass_words(ws, dur, seam) + ([cred] if cred else [])) + "\n")
+    else:
+        make_ass(ws, hook, credit, dur, ass, mode, seam, lines, "" if ONE_WORD else context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"), full_wins)
     assf = ass.replace("\\", "/").replace(":", "\\:")
     # (the example) a thin progress bar at the bottom, in the brand colour, filling up to the end
     bar = f",drawbox=x=0:y=1832:w='max(2,iw*t/{max(dur - trim, 1):.2f})':h=9:color={BRAND_HEX}@0.95:t=fill"
     bar = ""  # (owner 17 Nov: "take out that red line") no progress bar
     vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'{bar}[v]"
+    if INSET_CARD and mode == "split" and not card_png:
+        card_png = os.path.splitext(dst)[0] + "_card.png"
+        cartao.header_png(card_png, card_text(hook, channel), (lang or found or "en")[:2], inset=True)
+        vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'[in];" + cartao.wrap(card_png)
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
                          "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
                          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], 20, 4)  # GPU, CPU if refused
-    for tmp in (ass, cut_src):
+    for tmp in (ass, cut_src, card_png):
         try: os.remove(tmp)
         except OSError: pass
     if replay and peak is not None and 3.0 <= peak <= dur - 1.0: add_replay(dst, peak)

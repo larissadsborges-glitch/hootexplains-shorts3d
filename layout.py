@@ -267,7 +267,8 @@ def detect(path, channel=None):
     bottom = _snap(row, cy + gh * 0.55, y + 1.4 * fh, cy + 3.2 * fh, H)
     left, top = max(0, int(left)), max(0, int(top)); right, bottom = min(W, int(right)), min(H, int(bottom))
     sb = _still_box(frames, x, y, fw, fh, W, H)
-    if sb and sb[2] * sb[3] > 1.3 * (right - left) * (bottom - top) and sb[2] * sb[3] < 0.2 * W * H:
+    odd = (right - left) < (bottom - top)  # (17 Nov, Alanzoka: 270x365 found for a 420x268 webcam)
+    if sb and sb[2] * sb[3] < 0.2 * W * H and (sb[2] * sb[3] > 1.3 * (right - left) * (bottom - top) or (odd and sb[2] > sb[3])):
         # the still area is clearly the bigger, real CORNER webcam; still overlays next to it (a viewer counter) are
         # trimmed: each side moves in to the straight border line nearest to the edge (within 15 % of the box)
         L, T, R, B = sb[0], sb[1], sb[0] + sb[2], sb[1] + sb[3]
@@ -311,12 +312,13 @@ def _cam_crop(lay, top, W, H):
     bx, by, bw, bh = x + 0.03 * w, y + 0.03 * h, 0.94 * w, 0.94 * h
     head_top = lay["face"][1] - 0.65 * fh
     chin = lay["face"][1] + 1.2 * fh  # (owner 17 Nov: "the head is cut at the bottom, at the chin") chin + a bit of neck
+    head_top = max(head_top, by); chin = min(chin, by + bh)  # (what the streamer's own webcam shows is all there is)
     span = chin - head_top
     nw = max(5.5 * fw, 1080 / 4.5, span / 0.74 * want); nh = nw / want  # the whole head with ~13 % air above and below
     if bw >= nw and bh >= nh: ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
-    elif bw >= 1080 / 4.5 and bh >= top / 4.5:
+    elif bw >= 1080 / 4.5 and bh >= top / 4.5:  # a real webcam: the biggest crop that fits in it (never the game next to it)
         k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k; ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
-    else:
+    else:  # (17 Nov, Alanzoka: a too-narrow box squeezed the crop and cut his chin) the head wins: the frame is the limit
         nw = min(nw, W); nh = min(nw / want, H); nw = nh * want; ax0, ay0, ax1, ay1 = 0, 0, W, H
     nw, nh = int(nw) // 2 * 2, int(nh) // 2 * 2
     nx = int(min(max(fx - nw / 2, ax0), ax1 - nw))

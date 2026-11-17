@@ -310,14 +310,17 @@ def _cam_crop(lay, top, W, H):
     fw = lay["face"][2]; fh = lay["face"][3]; fx = lay["face"][0] + fw / 2; fy = lay["face"][1] + fh / 2
     bx, by, bw, bh = x + 0.03 * w, y + 0.03 * h, 0.94 * w, 0.94 * h
     head_top = lay["face"][1] - 0.65 * fh
-    nw = max(5.5 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want
+    chin = lay["face"][1] + 1.2 * fh  # (owner 17 Nov: "the head is cut at the bottom, at the chin") chin + a bit of neck
+    span = chin - head_top
+    nw = max(5.5 * fw, 1080 / 4.5, span / 0.74 * want); nh = nw / want  # the whole head with ~13 % air above and below
     if bw >= nw and bh >= nh: ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
     elif bw >= 1080 / 4.5 and bh >= top / 4.5:
         k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k; ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
     else:
         nw = min(nw, W); nh = min(nw / want, H); nw = nh * want; ax0, ay0, ax1, ay1 = 0, 0, W, H
     nw, nh = int(nw) // 2 * 2, int(nh) // 2 * 2
-    nx = int(min(max(fx - nw / 2, ax0), ax1 - nw)); ny = int(min(max(min(fy - 0.45 * nh, head_top - 0.12 * nh), ay0), ay1 - nh))
+    nx = int(min(max(fx - nw / 2, ax0), ax1 - nw))
+    ny = int(min(max(head_top - 0.45 * (nh - span), ay0), ay1 - nh))  # the head in the middle, a little more air on top
     return nx, ny, nw, nh
 
 

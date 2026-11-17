@@ -372,8 +372,13 @@ FONTS_DIR = os.path.join(os.path.expanduser("~"), ".hoottools", "fonts")  # Popp
 FONTS_DIR_FF = FONTS_DIR.replace("\\", "/").replace(":", "\\:")
 INSET_CARD = os.environ.get("CLIPPER_INSET", "0") == "1"  # (3rd example) the game clip inset on a white post page - owner picks
 CARD_FOR_FACE = True  # (owner 17 Nov) chat / big-webcam clips use the post-card look (cartao.py)
+KEYWORDS = set()  # the clip's key words (from the AI judge), shown in yellow
+KEY_STOP = set("""the and you that this what with have just like your they them there here about was were are bro yeah okay chat
+dude man guys gonna wanna got get its it's not but all one now yes nah
+que não isso aí cara mano velho então tipo aqui ali pra para com uma um ele ela eles mas mais muito tá tô vai foi ser
+qué eso esto pero con una uno muy está tío chaval vale bueno""".split())
 ONE_WORD = True  # (owner 17 Nov, the LOUD Coringa example) one word on screen at a time, no chat lines, no stamp
-CAP_STYLE = ("Style: Cap,Poppins ExtraBold,130,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,1.5,5,5,60,60,0,1\n"
+CAP_STYLE = ("Style: Cap,Poppins ExtraBold,150,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,1.5,5,5,60,60,0,1\n"
              if ONE_WORD else
              "Style: Cap,Arial Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n")
 
@@ -435,7 +440,10 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         for j, (s, e, _) in enumerate(chunk):
             e2 = chunk[j + 1][0] if j + 1 < len(chunk) else end_chunk
             def look(k, w):
-                if ONE_WORD: return w.upper()  # (the example: one white word, no colours)
+                if ONE_WORD:  # (owner 17 Nov: "the important words in another colour - yellow or orange")
+                    key = re.sub(r"[^\w']", "", w.lower())
+                    if key and (key in KEYWORDS or hot.match(w) or re.search(r"\d", w)): return "{\\c&H00D4FF&}" + w.upper() + "{\\c&HFFFFFF&}"
+                    return w.upper()
                 if k == j: return "{\\c&H00F2FF&\\fscx112\\fscy112}" + w.upper() + "{\\c&HFFFFFF&\\fscx100\\fscy100}"
                 if hot.match(w): return "{\\c&H3C3CFF&}" + w.upper() + "{\\c&HFFFFFF&}"
                 return w.upper()
@@ -780,6 +788,11 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
                            events=reactions(lo, chat, statistics.median(lo)) + [(trigger, "<- the moment was DETECTED here (chat/loudness); "
                                                                                  "the thing it reacts to may be up to 60 s earlier")])
     force = None
+    global KEYWORDS
+    KEYWORDS = set()
+    for k in (verdict or {}).get("keywords", []):
+        KEYWORDS |= {re.sub(r"[^\w']", "", x) for x in k.split() if len(x) >= 3}
+    KEYWORDS -= KEY_STOP  # (filler the AI sometimes returns: "aí", "isso", "não", "cara"...)
     if verdict:
         no_sense = not verdict["makes_sense"]
         a, b = sn[verdict["start"]][0], sn[verdict["end"]][1]

@@ -55,7 +55,9 @@ never cut the payoff, let the scene roll):
 - category: one of death, crash, police, steal_car, mission, heist, fail, win, scare, funny, rage, cutscene, map, other.
 - first_said: true ONLY if the streamer himself says this is his first time / his first one ("my first death", "first
   time I...").
-Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "why": ""}}"""
+- keywords: 4-8 of the MOST IMPORTANT words actually spoken in the clip (exactly as written in the sentences): what
+  happens, the key object/person/place, numbers, the punchline word. They will be shown in yellow in the captions.
+Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "keywords": [], "why": ""}}"""
 
 CHECK = """Here is a clip cut from a livestream (numbered sentences with times, ">>" lines are measured reactions).
 Sentences {s} to {e} are IN the clip; the ones before and after are NOT.
@@ -204,4 +206,5 @@ def judge(sents, mid, lang="en", timeout=150, name="", title="", events=()):
             "hook": str(d.get("hook", "")).strip().strip('"').upper()[:60], "why": (moved + " " + str(d.get("why", ""))).strip()[:240],
             "event": str(d.get("event", ""))[:80], "category": str(d.get("category", "other")).lower()[:20],
             "first_said": bool(d.get("first_said", False)),
+            "keywords": [str(k).strip().lower() for k in (d.get("keywords") or []) if str(k).strip()][:10],
             "engine": last_engine, "scene_continues": bool(d.get("scene_continues", False)) and e >= len(sents) - 2}

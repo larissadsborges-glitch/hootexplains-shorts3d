@@ -33,9 +33,10 @@ FP = r"C:\Users\borge\.hoottools\ffmpeg\ffprobe.exe"
 # encodes run on the GPU and leave the CPU to the recorders and whisper; libx264 is the fallback if NVENC fails
 FFG = r"C:\Users\borge\.hoottools\ffmpeg_nvenc\ffmpeg.exe"
 _nvenc = None
-def venc(crf=20, threads=4):
+def venc(crf=20, threads=4, cpu=False):
     """video encoder args: h264_nvenc (constant quality) when the GPU encoder works, else libx264 veryfast"""
     global _nvenc
+    if cpu: return FF, ["-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-maxrate", "10M", "-bufsize", "20M", "-threads", str(threads)]
     if _nvenc is None:
         _nvenc = os.path.exists(FFG) and subprocess.run([FFG, "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", "color=black:s=256x256:d=0.2",
                                                          "-c:v", "h264_nvenc", "-f", "null", "-"], capture_output=True).returncode == 0
@@ -46,6 +47,19 @@ def venc(crf=20, threads=4):
     if _nvenc: return FFG, ["-c:v", "h264_nvenc", "-preset", "p6", "-tune", "hq", "-rc", "vbr", "-cq", str(max(crf - 1, 16)),
                             "-b:v", "8M", "-maxrate", "14M", "-bufsize", "28M", "-spatial-aq", "1", "-aq-strength", "8", "-bf", "3"]
     return FF, ["-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-maxrate", "10M", "-bufsize", "20M", "-threads", str(threads)]
+def run_v(build, crf=20, threads=4):
+    """(16 Nov night: one clip failed - the GTX 1050 Ti refused an NVENC session while recorders and editors all
+    encoded at once) run build(ff, venc_args); if the GPU encoder fails, the SAME job is encoded on the CPU"""
+    ff, v = venc(crf, threads)
+    r = subprocess.run(build(ff, v), capture_output=True, text=True)
+    if r.returncode != 0 and "h264_nvenc" in v:
+        print(f"[enc] GPU encoder refused ({(r.stderr or '').strip()[-120:]}) -> CPU", flush=True)
+        ff, v = venc(crf, threads, cpu=True)
+        r = subprocess.run(build(ff, v), capture_output=True, text=True)
+    if r.returncode != 0:
+        raise subprocess.CalledProcessError(r.returncode, build(ff, v)[:3], r.stdout, r.stderr)
+    return r
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 # (owner 16 Nov) recordings and clips on the E: SSD (56 GB free, not the Windows disk), so C: stays free and quick;
 # CLIPPER_OUT overrides it; falls back to tools/clipper/out if E: is missing
@@ -264,9 +278,8 @@ def cut_segments(segs, a, b, dst):
     with open(lst, "w", encoding="utf-8") as f:
         for p, _, _ in use: f.write("file '" + p.replace("\\", "/") + "'\n")
     off = max(0.0, a - use[0][1])
-    ff, v = venc(18, 2)
-    subprocess.run([ff, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-ss", f"{off:.2f}", "-t", f"{b - max(a, use[0][1]):.2f}",
-                    *v, "-c:a", "aac", "-b:a", "192k", dst], check=True)
+    run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-ss", f"{off:.2f}",
+                         "-t", f"{b - max(a, use[0][1]):.2f}", *v, "-c:a", "aac", "-b:a", "192k", dst], 18, 2)
     os.remove(lst); return True
 
 _model = None
@@ -470,7 +483,11 @@ discovers discover shows show reveals reveal prepares prepare explains explain a
 checks check tests test tries try starts start plans plan decides decide responds respond calls call answers answer laughs
 laugh freaks freak goes go takes take gives give makes make plays play watches watch sees see hears hear learns learn
 finds find shares share talks talk opens open shows off up about over off after before new first again finally almost
-nearly really totally still gets get wants want needs need meets meet invites invite every all whole""".split())
+nearly really totally still gets get wants want needs need meets meet invites invite every all whole
+descobre mostra reage tenta explica fala faz joga encontra vê pede chama recebe leva dá fica quer vai começa decide planeja
+testa conta revela finalmente quase de novo todo toda todos tudo seu sua dele dela durante depois antes primeira vez
+descubre muestra reacciona intenta explica habla hace juega encuentra ve pide llama recibe lleva da queda quiere va
+empieza decide planea prueba cuenta revela finalmente casi otra vez todo toda todos durante después antes""".split())
 
 NUM_W = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
          "ten": 10, "eleven": 11, "twelve": 12, "fifteen": 15, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50,
@@ -517,7 +534,11 @@ def grounded(hook, said, channel=""):
 CLAIMS = set("""dies died dead death kills killed murder murdered banned ban arrested jail prison quits quit quitting fired
 breaks broke broken crashes crashed wins won winning loses lost losing cheats cheated cheating steals stole stolen robbed
 scammed scam pregnant divorce breakup proposes proposed engaged married sues sued hacked leaked leak million billion
-record first last never ever""".split())
+record first last never ever
+morre morreu mata matou banido preso perde perdeu ganha ganhou quebra quebrou rouba roubou bateu recorde primeiro último
+nunca milhão milhões
+muere murió mata mató baneado arrestado pierde perdió gana ganó rompe rompió roba robó chocó récord primero último nunca
+millón millones""".split())
 
 def reactions(loud, chat, base):
     """(research 17 Nov) what the AI should SEE besides the words: loud runs in the room (2+ s at 8+ LU over the
@@ -638,9 +659,8 @@ def apply_cut(src, keep, out):
                      f"afade=t=in:d=0.03,afade=t=out:st={max(0.0, b - a - 0.03):.3f}:d=0.03[a{i}]")
         cat.append(f"[v{i}][a{i}]")
     fc = ";".join(parts) + ";" + "".join(cat) + f"concat=n={len(keep)}:v=1:a=1[v][a]"
-    ff, v = venc(16, 4)
-    subprocess.run([ff, "-y", "-loglevel", "error", "-i", src, "-filter_complex", fc, "-map", "[v]", "-map", "[a]", *v,
-                    "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", out], check=True)
+    run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", "-i", src, "-filter_complex", fc, "-map", "[v]", "-map", "[a]", *v,
+                         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", out], 16, 4)
     return out
 
 SPANS = threading.Lock()
@@ -722,10 +742,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"))
     assf = ass.replace("\\", "/").replace(":", "\\:")
     vf = base + f";[st]ass='{assf}'[v]"
-    ff, v = venc(20, 4)  # (the GPU via FFmpeg 8.1's NVENC; x264 if it fails)
-    subprocess.run([ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
-                    "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
-                    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], check=True)
+    run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
+                         "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
+                         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], 20, 4)  # GPU, CPU if refused
     for tmp in (ass, cut_src):
         try: os.remove(tmp)
         except OSError: pass

@@ -438,10 +438,10 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         pos = {"split": f"{{\\an3\\pos(1052,{(game_top or 700) - 22})}}", "face": "{\\an9\\pos(1052,40)}"}.get(mode, "{\\an2\\pos(540,1700)}")
         for a, b in _outside(dur, full_wins): ev.append(f"Dialogue: 4,{ass_time(a)},{ass_time(b)},Wm,,0,0,0,,{pos}{wm}")
     if hook:  # never over the face: the hook goes where the head is not (see hook_spot)
-        # (owner 17 Nov: "A, but the lines closer together") each line its own event, 74 px apart (no big line gap)
+        # (owner 17 Nov: "A, but the lines closer together") each line its own event, 60 px apart (no big line gap)
         y0 = hook_spot(mode, seam, head_box, game_top)
         for i, ln in enumerate(hook_lines(hook)):
-            ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{y0 + i * 74})}}{hook_words(ln)}")
+            ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{y0 + i * 60})}}{hook_words(ln)}")
     if label:  # (owner 16 Nov: context, like The Till stamps) a small yellow stamp top-left: GTA 6 · LAUNCH DAY
         y = {"split": (game_top or 700) + (70 if seam <= (game_top or 700) + 10 else 16)}.get(mode, 28)  # (top-left of the game)
         ev.append(f"Dialogue: 3,{ass_time(0)},{ass_time(dur)},Label,,0,0,0,,{{\\an7\\pos(28,{y})}}{label.upper()}")

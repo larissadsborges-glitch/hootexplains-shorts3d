@@ -337,7 +337,7 @@ def page_handle(lang):
     try: return json.load(open(os.path.join(HERE, "marca", "marca.json"), encoding="utf-8")).get((lang or "en")[:2], "")
     except (OSError, ValueError): return ""
 
-def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en"):
+def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
     white with a black outline at `seam` (between webcam and game in the split layout); the hook at the top for the first
     3.5 s; the credit; real chat messages popping in at the moment (no usernames), like watching it live"""
@@ -387,6 +387,8 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     # chat: up to 4 lines stacked; each stays 3.2 s or until a 5th arrives
     at_seam = mode == "split" and game_top and seam <= game_top + 10
     y0 = {"split": seam + (150 if at_seam else 70), "face": 980}.get(mode, 330)
+    if mode == "split" and game_bottom and game_bottom < 1700:  # (owner 17 Nov: "use the empty space at the bottom")
+        y0 = game_bottom + 24  # the chat moves under the game: the game is not covered and the space is used
     chat = list(chat)
     for k, (t, msg) in enumerate(chat):
         end = min(t + 3.2, chat[k + 4][0]) if k + 4 < len(chat) else t + 3.2
@@ -764,7 +766,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     vertical = lay.get("H", 0) > lay.get("W", 1)
     base, seam = (("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[st]", 1265) if vertical else layout.filters(lay))
     mode = "face" if vertical else lay["mode"]
-    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2])
+    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"))
     assf = ass.replace("\\", "/").replace(":", "\\:")
     vf = base + f";[st]ass='{assf}'[v]"
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,

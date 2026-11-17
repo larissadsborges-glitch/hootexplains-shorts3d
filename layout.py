@@ -113,6 +113,29 @@ def _steady_face(per_frame, W, frames=None, channel=None, lay_known=None):
     a = np.array([b[:4] for b in best]); return tuple(np.median(a, axis=0))  # x, y, w, h
 
 
+def _still_box(frames, x, y, fw, fh, W, H):
+    """(17 Nov: Kai Cenat's room has straight lines - window, shelves - that fooled the edge search: the box found was his
+    body only) the webcam box = the STILL area around the face: the game changes from frame to frame, a webcam room
+    hardly does. The pixels that barely change, joined to the face -> their bounding box, or None if it does not look
+    like a webcam (too small/big, odd shape, or the game was still too: a menu, a cutscene pause)"""
+    if len(frames) < 6: return None
+    g = np.stack([cv2.cvtColor(cv2.resize(f, (W // 4, H // 4)), cv2.COLOR_BGR2GRAY) for f in frames]).astype(np.float32)
+    sd = g.std(axis=0)
+    if np.median(sd) < 10: return None  # the whole picture is still: cannot tell the webcam from the game
+    still = (sd < 9).astype(np.uint8)
+    cx, cy = int((x + fw / 2) / 4), int((y + fh / 2) / 4)
+    face = np.zeros_like(still); face[max(0, int(y / 4)):int((y + fh) / 4) + 1, max(0, int(x / 4)):int((x + fw) / 4) + 1] = 1
+    still = cv2.morphologyEx(still | face, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+    still = cv2.morphologyEx(still | face, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
+    n, lab, st, _ = cv2.connectedComponentsWithStats(still, 8)
+    k = lab[min(cy, lab.shape[0] - 1), min(cx, lab.shape[1] - 1)]
+    if k == 0: return None
+    bx, by, bw, bh = [int(v) * 4 for v in st[k][:4]]
+    if bw < 2.5 * fw or bh < 2.5 * fh or bw * bh > 0.35 * W * H or not 0.8 <= bw / max(bh, 1) <= 2.6: return None
+    if st[k][4] < 0.6 * st[k][2] * st[k][3]: return None  # not a filled rectangle: it leaked into still parts of the game
+    return bx, by, bw, bh
+
+
 def _snap(score, guess, near, far, size):
     """the overlay border on one side of the face, searching from `near` (next to the face) out to `far`: the first strong
     straight line (>= 0.75 of its length); else the strongest weaker one; else the frame edge if in reach; else the guess"""
@@ -243,6 +266,19 @@ def detect(path, channel=None):
     top = _snap(row, cy - gh * 0.45, y - 0.3 * fh, cy - 3.0 * fh, H)
     bottom = _snap(row, cy + gh * 0.55, y + 1.4 * fh, cy + 3.2 * fh, H)
     left, top = max(0, int(left)), max(0, int(top)); right, bottom = min(W, int(right)), min(H, int(bottom))
+    sb = _still_box(frames, x, y, fw, fh, W, H)
+    if sb and sb[2] * sb[3] > 1.3 * (right - left) * (bottom - top) and sb[2] * sb[3] < 0.2 * W * H:
+        # the still area is clearly the bigger, real CORNER webcam; still overlays next to it (a viewer counter) are
+        # trimmed: each side moves in to the straight border line nearest to the edge (within 15 % of the box)
+        L, T, R, B = sb[0], sb[1], sb[0] + sb[2], sb[1] + sb[3]
+        rows = gy[:, L:R].mean(axis=1); cols = gx[T:B].mean(axis=0)
+        def edge(prof, a, b):
+            rng = range(int(a), int(b), 1 if b > a else -1)
+            hit = [i for i in rng if 0 <= i < len(prof) and prof[i] >= 0.6]
+            return hit[0] if hit else a
+        B = edge(rows, B, B - 0.15 * (B - T)); T = edge(rows, T, T + 0.15 * (B - T))
+        R = edge(cols, R, R - 0.15 * (R - L)); L = edge(cols, L, L + 0.15 * (R - L))
+        if R - L >= 2.5 * fw and B - T >= 2.5 * fh: left, top, right, bottom = int(L), int(T), int(R), int(B)
     if right - left < 1.5 * fw or bottom - top < 1.5 * fh: return {"mode": "game", "W": W, "H": H}
     if (right - left) * (bottom - top) > 0.4 * W * H or bottom - top > 0.85 * H:
         # (test 16 Nov, Lacy / JasonTheWeen just chatting: the 'webcam' is the whole room camera, so webcam-on-top + full
@@ -288,11 +324,24 @@ def filters(lay, cam_h=None, keep=None):
         # blurred copy filling the rest, where the captions and chat sit
         top = cam_h or 700
         want = 1080 / top
-        fw = lay["face"][2]; fx = lay["face"][0] + fw / 2; fy = lay["face"][1] + lay["face"][3] / 2
+        fw = lay["face"][2]; fh = lay["face"][3]; fx = lay["face"][0] + fw / 2; fy = lay["face"][1] + fh / 2
         bx, by, bw, bh = x + 0.03 * w, y + 0.03 * h, 0.94 * w, 0.94 * h
-        nw, nh = 4.4 * fw, 4.4 * fw / want
-        s = min(1.0, bw / nw, bh / nh); nw, nh = int(nw * s) // 2 * 2, int(nh * s) // 2 * 2
-        nx = int(min(max(fx - nw / 2, bx), bx + bw - nw)); ny = int(min(max(fy - 0.45 * nh, by), by + bh - nh))
+        # (owner 17 Nov: "make sure you NEVER cut anyone's head" - Kai Cenat's hair was cut and his face blurry: the box
+        # found was only his body, 140x90 px blown up 7.7x) 1. never more than ~3.2x enlarged; 2. the whole head + air
+        # above it is in; 3. the box limits the crop only when it is big enough to hold it (else the box is wrong/tiny)
+        head_top = lay["face"][1] - 0.65 * fh  # hair above the face box
+        nw = max(4.4 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want  # (<= 4.5x: face big, still sharp)
+        if bw >= nw and bh >= nh:
+            ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
+        elif bw >= 1080 / 4.5 and bh >= 700 / 4.5:  # a real webcam a bit small: the biggest crop that fits inside it
+            k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k
+            ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
+        else:  # the box cannot hold a good crop: the frame is the limit
+            nw = min(nw, W); nh = min(nw / want, H); nw = nh * want
+            ax0, ay0, ax1, ay1 = 0, 0, W, H
+        nw, nh = int(nw) // 2 * 2, int(nh) // 2 * 2
+        nx = int(min(max(fx - nw / 2, ax0), ax1 - nw))
+        ny = int(min(max(min(fy - 0.45 * nh, head_top - 0.12 * nh), ay0), ay1 - nh))
         # (owner 16 Nov: "like all the other clips, but the game must not look cut, and not tiny either - find the resize
         # that looks good") the game keeps GAME_KEEP of the width (72 %: ~14 % off each side, the action stays) so it is
         # ~40 % bigger than the whole 16:9; the window avoids the webcam; captions at the seam like forsen no. 6
@@ -311,7 +360,7 @@ def filters(lay, cam_h=None, keep=None):
         f = (f"[0:v]split=3[c][g][b];[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:flags=lanczos,unsharp=5:5:0.6[cam];"
              f"[g]{hide}crop={gwid}:{H}:{gx}:0,scale=1080:{band}:flags=lanczos,unsharp=3:3:0.3[game];"
              f"[b]scale=-2:{rest},crop=1080:{rest},gblur=sigma=26,eq=brightness=-0.22[bg];[bg][game]overlay=0:0[low];"
-             f"[cam][low]vstack,drawbox=x=0:y={top - 3}:w=1080:h=6:color=black:t=fill[st]")
+             f"[cam][low]vstack[st]")
         lay["caps_at_seam"] = keep < 0.99
         return f, (top if keep < 0.99 else top + band + 70)  # captions on the seam (or under a whole 16:9 game)
     return ("[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=28:2,eq=brightness=-0.12[bg];"

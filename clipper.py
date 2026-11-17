@@ -800,7 +800,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         if not 12 <= force[1] - force[0] <= 130: force = None  # outside the length rules: the rules decide
         scene_cut = verdict.get("scene_continues", False)
         h = verdict["hook"]
-        if h and len(h.split()) <= 9 and not SLURS.search(h) and grounded(h, " ".join(w for _, _, w in ws), channel): ai_hook = mask(h)
+        wrong_lang = (lang or found or "en")[:2] in ("pt", "es") and re.search(
+            r"(the|his|her|their|reacts?|gets?|after|with|about|when|finds|tries|loses|wins|says)", h, re.I)  # (17 Nov: an English title on a PT clip)
+        if h and not wrong_lang and len(h.split()) <= 9 and not SLURS.search(h) and grounded(h, " ".join(w for _, _, w in ws), channel): ai_hook = mask(h)
         elif h: verdict["why"] = f"(gancho da IA recusado, não foi dito: {h}) " + verdict["why"]
     keep, mp = smart_cut(src, ws, peak, dur, force)
     if not ideia and at is not None and peak0 is not None and is_repeat(src, channel, at - peak0 + keep[0][0], at - peak0 + keep[-1][1]):

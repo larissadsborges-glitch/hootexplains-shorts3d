@@ -46,7 +46,7 @@ never cut the payoff, let the scene roll):
 - scene_continues: true if the scene is clearly still going at the LAST sentence listed.
 - makes_sense: false if, even with the best start and end, a stranger could not follow what happened (it reacts to
   something only visible on screen with no words explaining it, or it is just random talk).
-- hook: the line on top of the video, {lang_name}, max 8 words. It gives the SITUATION (the tension), never the punchline.
+- hook: the line on top of the video, WRITTEN {lang_name} (only the "event" field is in English), max 8 words. It gives the SITUATION (the tension), never the punchline.
   Write it like a viral clip caption: SPECIFIC and intriguing, with the streamer's name and the concrete thing that
   happens (good: "{name_up} CAN'T BELIEVE HIS CHAT SPENT $120K", "{name_up} FINDS OUT HIS CAR IS BROKEN"). Never generic
   ("STREAMER DISCUSSES..."). Use ONLY facts said in the sentences, never invent, never mix two things up - accuracy beats

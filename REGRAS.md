@@ -87,3 +87,6 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
   EM ECRÃ INTEIRO nos bocados calados (3+ s sem falar); legendas de UMA palavra, branca, grande, no centro; barra de
   progresso fina na cor da marca em baixo; @streamer no topo do jogo; sem chat no ecrã. Câmaras grandes (lives de
   conversa, > 20 % do ecrã) ocupam o ecrã inteiro uma só vez (nunca a mesma pessoa duas vezes).
+- **Desde a hora zero (dona, 17 nov):** a partir de 18 nov às 10:30 o vigia procura no YouTube as lives de GTA 6 com
+  mais gente a ver (3000+) e grava as 2 maiores que não estão na lista, além dos 9. Horas da vaga (PT): 11:00 Nova
+  Zelândia; 23:00 Espanha; 00:00 Reino Unido; 02:00 IShowSpeed (marcado); 03:00 Brasil; 05:00 EUA (costa leste).

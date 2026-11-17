@@ -1,1 +1,13 @@
-{"en": "@streamwentwild", "pt": "@livedescontrolada", "es": "@directodescontrolado", "logo": ""}
+{
+ "en": "@streamwentwild",
+ "pt": "@livedescontrolada",
+ "es": "@directodescontrolado",
+ "logo": "C:\\Users\\borge\\hoot\\tools\\clipper\\marca\\LOGO.png",
+ "cores": {
+  "amarelo": "#FFD232",
+  "laranja": "#FFA01E",
+  "rosa": "#FF2A8C",
+  "azul": "#00E5FF",
+  "fundo": "#0E0C1E"
+ }
+}

@@ -41,7 +41,8 @@ List the GAME EVENTS that clearly happened in this window. Categories:
 death (died / wasted / got killed), police (wanted level, chase, arrested, busted), steal_car (takes/steals a car),
 crash (crashes a vehicle hard), heist (robbery / heist), mission (a mission completed or failed), map (opens / looks at
 the map for the first time).
-Only events clearly shown by his words OR by many chat lines (e.g. lots of "WASTED", "he died", "L"). Do not guess.
+Only events that ACTUALLY HAPPENED, clearly shown by his words OR by many chat lines (e.g. lots of "WASTED", "he died",
+"L"). Not a fear or a near miss: "I'm going to die", "I almost died", "we're gonna crash" are NOT events. Do not guess.
 For each: t = the time it happened (seconds, from the speech times; if only chat shows it, ~15 s before the chat lines),
 category, what (max 8 words, English), evidence (a short quote).
 Answer JSON only: {{"events": [{{"t": 0, "category": "death", "what": "", "evidence": ""}}]}}"""

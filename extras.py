@@ -80,7 +80,7 @@ def resumo(channel, date=None, n=6, before=7.0, after=4.0, hours=24):
     for i, d in enumerate(ds):
         a = max(0.0, d["payoff_t"] - before); b = min(d["dur"], d["payoff_t"] + after)
         ins += ["-ss", f"{a:.2f}", "-t", f"{b - a:.2f}", "-i", d["_clip"]]
-        parts.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1[v{i}];[{i}:a]asetpts=PTS-STARTPTS,aresample=48000,"
+        parts.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=60,scale=1080:1920,setsar=1[v{i}];[{i}:a]asetpts=PTS-STARTPTS,aresample=48000,"
                      f"afade=t=in:d=0.05,afade=t=out:st={max(0.0, b - a - 0.08):.2f}:d=0.08[a{i}]")
     cat = "".join(f"[v{i}][a{i}]" for i in range(len(ds))) + f"concat=n={len(ds)}:v=1:a=1[cv][ca]"
     # the header sits LOW (y 1450+), where the hook goes in face mode: never over a face
@@ -145,7 +145,7 @@ def render_grid(picks, pre, post, line):
     ins, parts = [], []
     for i, (d, t) in enumerate(picks):
         ins += ["-ss", f"{t - pre:.2f}", "-t", f"{pre + post:.2f}", "-i", d["_clip"]]
-        parts.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=30,scale=540:960,setsar=1,"
+        parts.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=60,scale=540:960,setsar=1,"
                      f"drawbox=x=0:y=0:w=iw:h=64:color=black@0.7:t=fill,"
                      f"drawtext=fontfile='{FONT}':text='{esc(names[i])}':fontsize=40:fontcolor=0xFFD400:x=(w-tw)/2:y=12[p{i}]")
     if n == 2:  # side by side in the middle, the title above
@@ -225,7 +225,7 @@ def card_video(lines, out, secs=2.8, rows=None, sub=None):
         f = ImageFont.truetype(blk, 40); w = d.textlength(wm, font=f); d.text(((1080 - w) / 2, 1760), wm, font=f, fill=(150, 150, 180))
     png = out + ".png"; im.save(png)
     C.run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", "-loop", "1", "-t", f"{secs}", "-i", png, "-f", "lavfi", "-t", f"{secs}",
-                           "-i", "anullsrc=r=48000:cl=stereo", "-vf", "fps=30,format=yuv420p", *v, "-c:a", "aac", "-shortest", out], 20, 4)
+                           "-i", "anullsrc=r=48000:cl=stereo", "-vf", "fps=60,format=yuv420p", *v, "-c:a", "aac", "-shortest", out], 20, 4)
     os.remove(png); return out
 
 
@@ -233,14 +233,14 @@ def montage(pieces, base, head=None, tags=None, card=None):
     """pieces: [(sheet, a, b)] from finished clips; tags: per piece (text, y-or-None) drawn the whole piece; head: the
     low band (l1, l2) over the first 3 s; card: a title-card video to open with"""
     ins, parts, n0 = [], [], 0
-    if card: ins += ["-i", card]; parts.append("[0:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1[v0];[0:a]asetpts=PTS-STARTPTS,aresample=48000[a0]"); n0 = 1
+    if card: ins += ["-i", card]; parts.append("[0:v]setpts=PTS-STARTPTS,fps=60,scale=1080:1920,setsar=1[v0];[0:a]asetpts=PTS-STARTPTS,aresample=48000[a0]"); n0 = 1
     for i, (d, a, b) in enumerate(pieces):
         k = i + n0; ins += ["-ss", f"{a:.2f}", "-t", f"{b - a:.2f}", "-i", d["_clip"]]
         tag = ""
         if tags and tags[i]:
             txt, y = tags[i]
             tag = f",drawtext=fontfile='{FONT}':text='{esc(txt)}':fontsize=56:fontcolor=white:x=40:y={y + 14}:box=1:boxcolor=0xFF2D46@1:boxborderw=16"  # (the box fits the text)
-        parts.append(f"[{k}:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1{tag}[v{k}];[{k}:a]asetpts=PTS-STARTPTS,aresample=48000,"
+        parts.append(f"[{k}:v]setpts=PTS-STARTPTS,fps=60,scale=1080:1920,setsar=1{tag}[v{k}];[{k}:a]asetpts=PTS-STARTPTS,aresample=48000,"
                      f"afade=t=in:d=0.05,afade=t=out:st={max(0.0, b - a - 0.08):.2f}:d=0.08[a{k}]")
     n = len(pieces) + n0
     cat = "".join(f"[v{i}][a{i}]" for i in range(n)) + f"concat=n={n}:v=1:a=1[cv][ca]"

@@ -312,8 +312,8 @@ def filters(lay, cam_h=None, keep=None):
             cmd = os.path.splitext(lay["src"])[0] + "_follow.cmd"
             x0 = _follow_cmds(lay["follow"], float(r.stdout.strip() or 30), cw, W, cmd)
             cmdf = cmd.replace("\\", "/").replace(":", "\\:")
-            return f"[0:v]sendcmd=f='{cmdf}',crop={cw}:{H}:{x0}:0,scale=1080:1920:flags=lanczos,unsharp=5:5:0.4[st]", 1300
-        return f"[0:v]crop={cw}:{H}:{x0}:0,scale=1080:1920:flags=lanczos,unsharp=5:5:0.4[st]", 1300
+            return f"[0:v]sendcmd=f='{cmdf}',crop={cw}:{H}:{x0}:0,scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:0.4[st]", 1300
+        return f"[0:v]crop={cw}:{H}:{x0}:0,scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:0.4[st]", 1300
     if lay["mode"] == "split":
         x, y, w, h = lay["cam"]
         # (owner 16 Nov: "do it like forsen, no. 6, that's exactly how I want it") the webcam fills the top panel edge to
@@ -357,8 +357,8 @@ def filters(lay, cam_h=None, keep=None):
                 f"[g1][gb]overlay={ox0}:{y}," if ox1 - ox0 >= 2 and w * h < 0.15 * W * H else "")
         _head_out(lay, ny, top / nh)
         lay["game_top"] = top; lay["game_bottom"] = top + band
-        f = (f"[0:v]split=3[c][g][b];[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:flags=lanczos,unsharp=5:5:0.6[cam];"
-             f"[g]{hide}crop={gwid}:{H}:{gx}:0,scale=1080:{band}:flags=lanczos,unsharp=3:3:0.3[game];"
+        f = (f"[0:v]split=3[c][g][b];[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:0.6[cam];"
+             f"[g]{hide}crop={gwid}:{H}:{gx}:0,scale=1080:{band}:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=3:3:0.3[game];"
              f"[b]scale=-2:{rest},crop=1080:{rest},gblur=sigma=26,eq=brightness=-0.22[bg];[bg][game]overlay=0:0[low];"
              f"[cam][low]vstack[st]")
         lay["caps_at_seam"] = keep < 0.99

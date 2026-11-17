@@ -34,19 +34,23 @@ FP = r"C:\Users\borge\.hoottools\ffmpeg\ffprobe.exe"
 FFG = r"C:\Users\borge\.hoottools\ffmpeg_nvenc\ffmpeg.exe"
 _nvenc = None
 def venc(crf=20, threads=4, cpu=False):
-    """video encoder args: h264_nvenc (constant quality) when the GPU encoder works, else libx264 veryfast"""
+    """video encoder args (owner 17 Nov: "ALWAYS the maximum quality possible"):
+    - crf <= 18 = an in-between file (the raw cut, the story cut): near-lossless, so the 3 encodes of a clip do not stack losses
+    - else = the final clip: NVENC's slowest/best preset p7, HQ tune, constant quality 17, up to 20 Mbit/s
+    CPU (x264) only if the GPU encoder refuses, at a matching quality"""
     global _nvenc
-    if cpu: return FF, ["-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-maxrate", "10M", "-bufsize", "20M", "-threads", str(threads)]
+    inter = crf <= 18
+    if cpu: return FF, ["-c:v", "libx264", "-preset", "fast" if inter else "medium", "-crf", "12" if inter else "17",
+                        "-maxrate", "40M" if inter else "20M", "-bufsize", "80M" if inter else "40M", "-threads", str(threads)]
     if _nvenc is None:
         _nvenc = os.path.exists(FFG) and subprocess.run([FFG, "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", "color=black:s=256x256:d=0.2",
                                                          "-c:v", "h264_nvenc", "-f", "null", "-"], capture_output=True).returncode == 0
-    # (rehearsal 16 Nov: a busy game screen came out at 18 Mbit/s, 88 MB for 40 s) capped at 10 Mbit/s: still above what
-    # TikTok/Reels/Shorts keep, and quick to send to a phone
-    # (owner 16 Nov: "more image quality") slower/better preset, HQ tune, spatial AQ (detail where the eye looks), b-frames;
-    # cap 14 Mbit/s (~50 MB for 30 s, still fine for TikTok/Reels/Shorts uploads)
-    if _nvenc: return FFG, ["-c:v", "h264_nvenc", "-preset", "p6", "-tune", "hq", "-rc", "vbr", "-cq", str(max(crf - 1, 16)),
-                            "-b:v", "8M", "-maxrate", "14M", "-bufsize", "28M", "-spatial-aq", "1", "-aq-strength", "8", "-bf", "3"]
-    return FF, ["-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-maxrate", "10M", "-bufsize", "20M", "-threads", str(threads)]
+    if _nvenc and inter: return FFG, ["-c:v", "h264_nvenc", "-preset", "p5", "-tune", "hq", "-rc", "vbr", "-cq", "15",
+                                      "-b:v", "14M", "-maxrate", "16M", "-bufsize", "32M", "-spatial-aq", "1", "-bf", "3"]  # ~2x a 1080p60 stream
+    if _nvenc: return FFG, ["-c:v", "h264_nvenc", "-preset", "p7", "-tune", "hq", "-rc", "vbr", "-cq", "17", "-b:v", "12M",
+                            "-maxrate", "20M", "-bufsize", "40M", "-spatial-aq", "1", "-aq-strength", "8", "-bf", "3", "-rc-lookahead", "32"]
+    return venc(crf, threads, cpu=True)
+
 def run_v(build, crf=20, threads=4):
     """(16 Nov night: one clip failed - the GTX 1050 Ti refused an NVENC session while recorders and editors all
     encoded at once) run build(ff, venc_args); if the GPU encoder fails, the SAME job is encoded on the CPU"""

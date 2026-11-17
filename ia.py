@@ -51,7 +51,11 @@ never cut the payoff, let the scene roll):
   happens (good: "{name_up} CAN'T BELIEVE HIS CHAT SPENT $120K", "{name_up} FINDS OUT HIS CAR IS BROKEN"). Never generic
   ("STREAMER DISCUSSES..."). Use ONLY facts said in the sentences, never invent, never mix two things up - accuracy beats
   drama. No emojis, no hashtags, no insults.
-Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "why": ""}}"""
+- event: what happens, in ENGLISH, max 10 words, concrete (e.g. "dies falling off a roof", "steals a police car").
+- category: one of death, crash, police, steal_car, mission, heist, fail, win, scare, funny, rage, cutscene, map, other.
+- first_said: true ONLY if the streamer himself says this is his first time / his first one ("my first death", "first
+  time I...").
+Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "why": ""}}"""
 
 CHECK = """Here is a clip cut from a livestream (numbered sentences with times, ">>" lines are measured reactions).
 Sentences {s} to {e} are IN the clip; the ones before and after are NOT.
@@ -198,4 +202,6 @@ def judge(sents, mid, lang="en", timeout=150, name="", title="", events=()):
             pass
     return {"makes_sense": bool(d.get("makes_sense", True)), "start": s, "end": e,
             "hook": str(d.get("hook", "")).strip().strip('"').upper()[:60], "why": (moved + " " + str(d.get("why", ""))).strip()[:240],
+            "event": str(d.get("event", ""))[:80], "category": str(d.get("category", "other")).lower()[:20],
+            "first_said": bool(d.get("first_said", False)),
             "engine": last_engine, "scene_continues": bool(d.get("scene_continues", False)) and e >= len(sents) - 2}

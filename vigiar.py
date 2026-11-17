@@ -34,12 +34,12 @@ MAX_LIVE = 9  # IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsa
 DETACH = 0x00000008 | 0x00000200 | 0x00004000  # detached, own process group, below-normal priority
 
 
-def running():
+def running(what="clipper.py"):
     """command lines of the clipper processes now running"""
     r = subprocess.run(["powershell", "-NoProfile", "-Command",
                         "Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | ForEach-Object { $_.CommandLine }"],
                        capture_output=True, text=True, encoding="utf-8", errors="replace")
-    return [l for l in r.stdout.splitlines() if "clipper.py" in l]
+    return [l for l in r.stdout.splitlines() if what in l]
 
 
 def name_of(url):
@@ -60,7 +60,10 @@ def is_live(url):
 def start(args, log):
     os.makedirs(os.path.join(HERE, "logs"), exist_ok=True)
     out = open(os.path.join(HERE, "logs", log), "a", encoding="utf-8")
-    subprocess.Popen([PY, "-I", "-X", "utf8", os.path.join(HERE, "clipper.py")] + args, stdout=out, stderr=subprocess.STDOUT,
+    script = "clipper.py"
+    if args and args[0] == "__extras": script, args = "extras.py", args[1:]
+    if args and args[0] == "__diario": script, args = "diario.py", args[1:]
+    subprocess.Popen([PY, "-I", "-X", "utf8", os.path.join(HERE, script)] + args, stdout=out, stderr=subprocess.STDOUT,
                      stdin=subprocess.DEVNULL, creationflags=DETACH, cwd=HERE)
 
 
@@ -110,6 +113,11 @@ def main():
         have = len([c for c in running() if " worker" in c]) // 2 or len([c for c in running() if " worker" in c])
         for _ in range(max(0, want - have)): start(["worker"], "editor.log")
         print(f"{datetime.now():%H:%M} recording: {', '.join(sorted(recorded))} | editors {max(have, want)}", flush=True)
+        # (owner 17 Nov ideas) a live that ended -> its day in 60 seconds; every round -> the same moment across streamers
+        # (recorders stay on waiting for the live to come back, so "ended" = 45 min with no new clip: extras.py auto)
+        if not running("extras.py"): start(["__extras", "auto"], "extras.log")
+        # (owner 17 Nov) the live diary: everything transcribed, events, firsts, same moment across streamers
+        if not running("diario.py"): start(["__diario", "--until", end.strftime("%Y-%m-%d %H:%M")], "diario.log")
         if new:
             print("NOVO: " + ", ".join(new), flush=True); sys.exit(10)
         time.sleep(g.every)

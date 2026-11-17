@@ -691,7 +691,8 @@ def is_repeat(src, channel, a, b, share=0.5):
         tmp = p + ".tmp"; json.dump(d, open(tmp, "w", encoding="utf-8")); os.replace(tmp, p)
     return False
 
-def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="", score=None, chat=(), title="", replay=False, original="", at=None):  # (owner 16 Nov: "stop doing the replay at the end") off
+def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="", score=None, chat=(), title="", replay=False, original="", at=None,
+         orig_at=None, rec_started=None, live_started=None, force_first=""):  # (owner 16 Nov: "stop doing the replay at the end") off
     """-> dst, or None when the clip is an ad break (anonymous viewers get Twitch ads)"""
     dur = duration(src); peak0 = peak  # (the trigger's place in the raw: peak may move back to the real event below)
     ws, found, music = words(src, lang)
@@ -770,6 +771,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     notes = [w for w, bad in (("tem música", music), ("pouca fala (cutscene?)", talk < 0.15)) if bad]
     why = [w for w, bad in (("palavra proibida", slur),
                             ("sem sentido sozinho (IA)", no_sense), ("a cena continua depois do fim (IA)", scene_cut)) if bad]
+    first = force_first or (first_in_gta6(channel, title, verdict, rec_started, live_started, (lang or found or "en")[:2]) if verdict and channel else "")
+    if force_first: why = []  # (the diary found it: a first is posted even when the AI finds the moment quiet)
+    if first: ai_hook = first  # (owner 17 Nov: "the FIRST of each one in GTA 6") the milestone is the headline
     name = channel or "stream"; site = "Twitch" if "twitch.tv" in url else "Kick" if "kick.com" in url else "YouTube" if "youtu" in url else ""
     # the post title: the AI's context line (checked against what was said) first, else the spoken quote
     title = (ai_hook.capitalize() if ai_hook else quote[:1].upper() + quote[1:] if quote else hook.strip("“”").capitalize() or f"{name} clip")[:90]
@@ -780,21 +784,71 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     with open(os.path.splitext(dst)[0] + ".txt", "w", encoding="utf-8") as f: f.write(post)
     if channel:  # the owner's folders: prontos/<lang> (post from the phone) and rever/<lang>
         fd = os.path.join(OUT, "rever" if why else "prontos", (lang or found or "en")[:2]); os.makedirs(fd, exist_ok=True)
-        base = os.path.join(fd, f"{datetime.now():%m%d_%H%M}_{name}_{score if score is not None else 0:.0f}pts")
+        base = os.path.join(fd, f"{datetime.now():%m%d_%H%M%S}_{name}_{score if score is not None else 0:.0f}pts")  # (17 Nov: seconds, two clips in one minute overwrote each other)
         import shutil
         kept = keep_original(original, os.path.basename(base))
         if kept:
             with open(os.path.splitext(dst)[0] + ".txt", "a", encoding="utf-8") as f:
                 f.write(f"\nOriginal sem edição (3 min antes do momento, 50 s depois): {kept}\n")
         shutil.copyfile(dst, base + ".mp4"); shutil.copyfile(os.path.splitext(dst)[0] + ".txt", base + ".txt")
+        # (17 Nov) the clip's fact sheet: what the recap, the "same moment" clips and the phone notices read
+        sheet = {"channel": name, "lang": (lang or found or "en")[:2], "score": score, "title": title, "hook": ai_hook or hook,
+                 "event": (verdict or {}).get("event", ""), "category": (verdict or {}).get("category", "other"), "first": first,
+                 "makes_sense": not why, "payoff_t": round(peak - trim, 2) if peak is not None else None, "dur": round(dur - trim, 2),
+                 "game": title_game(title), "stream_title": title, "at": at, "session": os.path.basename(os.path.dirname(os.path.abspath(dst))),
+                 "original": kept, "orig_at": orig_at, "made": datetime.now().isoformat(timespec="seconds"),
+                 "words": [(round(s - trim, 2), round(e - trim, 2), w) for s, e, w in ws if s >= trim]}
+        with open(base + ".json", "w", encoding="utf-8") as f: json.dump(sheet, f, ensure_ascii=False)
+        if not why and score is not None and (score >= STRONG or first):  # (owner: be the FIRST to post) a strong one -> phone
+            with open(os.path.join(OUT, "avisos.jsonl"), "a", encoding="utf-8") as f:
+                f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": name, "score": score, "first": first}, ensure_ascii=False) + "\n")
     return dst
+
+STRONG = 10.0  # score that sends a clip straight to the owner's phone
+
+def title_game(stream_title):
+    t = (stream_title or "").lower()
+    if re.search(r"gta ?(6|vi)\b|grand theft auto (6|vi)\b", t): return "gta6"
+    if re.search(r"\bgta\b|grand theft auto", t): return "gta"
+    return ""
+
+FIRST_LABEL = {  # category -> what the headline calls it (en / pt / es)
+    "death": ("FIRST DEATH", "PRIMEIRA MORTE", "PRIMERA MUERTE"), "crash": ("FIRST CRASH", "PRIMEIRA BATIDA", "PRIMER CHOQUE"),
+    "police": ("FIRST POLICE CHASE", "PRIMEIRA FUGA DA POLÍCIA", "PRIMERA PERSECUCIÓN"),
+    "steal_car": ("FIRST STOLEN CAR", "PRIMEIRO CARRO ROUBADO", "PRIMER COCHE ROBADO"),
+    "heist": ("FIRST HEIST", "PRIMEIRO ASSALTO", "PRIMER ATRACO"), "map": ("FIRST LOOK AT THE MAP", "PRIMEIRA VEZ NO MAPA", "PRIMERA VEZ EN EL MAPA"),
+    "mission": ("FIRST MISSION", "PRIMEIRA MISSÃO", "PRIMERA MISIÓN")}
+
+def first_in_gta6(channel, stream_title, verdict, rec_started, live_started, lang="en"):
+    """(owner 17 Nov) "<NAME>'S FIRST DEATH IN GTA 6" - only when it is TRUE as far as we can know: the streamer says it
+    is his first, OR we have watched him since the very start of his first GTA 6 live (recording began <= 15 min after
+    the live did) and this kind of moment never happened before in any of his GTA 6 recordings."""
+    if title_game(stream_title) != "gta6": return ""
+    cat = verdict.get("category", "other")
+    if cat not in FIRST_LABEL: return ""
+    p = os.path.join(OUT, "marcos.json")
+    with SPANS:
+        try: d = json.load(open(p, encoding="utf-8"))
+        except (OSError, ValueError): d = {}
+        c = d.setdefault(channel, {"seen": [], "full": None, "days": []})
+        if c["full"] is None:  # his first GTA 6 recording decides if we saw it all from the start
+            c["full"] = bool(rec_started and live_started and rec_started - live_started <= 900)
+        day = datetime.now().strftime("%Y-%m-%d")
+        if day not in c["days"]: c["days"].append(day)
+        new = cat not in c["seen"]
+        if new: c["seen"].append(cat)
+        tmp = p + ".tmp"; json.dump(d, open(tmp, "w", encoding="utf-8")); os.replace(tmp, p)
+    if not new or not (c["full"] or verdict.get("first_said")): return ""
+    who = channel.upper().rstrip("_")
+    en, pt, es = FIRST_LABEL[cat]
+    return {"pt": f"{pt} DO {who} NO GTA 6", "es": f"{es} DE {who} EN GTA 6"}.get(lang, f"{who}'S {en} IN GTA 6")
 
 # ---------------------------------------------------------------- one recorder (segments, rolling 15 min)
 MIN_FREE_GB = 8  # below this on the output disk no new clips are cut (the editor still finishes the queue)
 
 PRE_DEFAULT, POST_DEFAULT = 120.0, 90.0  # (owner 17 Nov: "the chat goes crazy 20-50 s AFTER the event") 2 min before  # (owner 17 Nov: "good context" + "up to 2 minutes if it needs it") was 60 / 50
 
-def watch(url, minutes, lang=None, hook="", credit="", pre=PRE_DEFAULT, post=POST_DEFAULT, keep_min=15, seg=20, height=1080):  # (owner 16 Nov: "more image quality") source 1080p60
+def watch(url, minutes, lang=None, hook="", credit="", pre=PRE_DEFAULT, post=POST_DEFAULT, keep_min=60, seg=20, height=1080):  # (owner 16 Nov: "more image quality") source 1080p60
     """(16 Nov) runs until `minutes` are up: a channel that is offline (launch day: start before they go live) or a stream
     that drops is retried every 60 s; each live session gets its own folder"""
     name = channel_of(url) or "stream"; credit = credit or f"@{name}"; t_end = time.time() + minutes * 60
@@ -840,8 +894,25 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
     if not quiet: print(f"[{name}] connecting {url}", flush=True)
     t_rec0, segs, loud, n, done, emitted, warned, meta = None, [], [], 0, set(), [], False, {"title": ""}
     log = open(os.path.join(od, "highlights.jsonl"), "a", encoding="utf-8")
+    # (owner 17 Nov: "record everything, so the special clips never depend on the clips we happened to make") the
+    # live's info and ALL its chat go to files the diary (diario.py) reads; the last hour of video stays on disk
+    chat_f = open(os.path.join(od, "chat.jsonl"), "a", encoding="utf-8"); chat_n = 0
+    def _meta():
+        tmp = os.path.join(od, "meta.json.tmp")
+        json.dump({"channel": name, "url": url, "lang": lang, "t_rec0": t_rec0, "live_started": meta.get("started"),
+                   "title": meta.get("title", ""), "seg_dir": sd, "segments": lst}, open(tmp, "w", encoding="utf-8"))
+        os.replace(tmp, os.path.join(od, "meta.json"))
     while time.time() < t_end:
         time.sleep(10)
+        if t_rec0 is not None:
+            try: _meta()
+            except OSError: pass
+        if chat is not None:
+            ev = list(chat.events)
+            if len(ev) < chat_n: chat_n = 0
+            for e in ev[chat_n:]:
+                if len(e) > 4: chat_f.write(json.dumps([round(e[0], 2), e[2], e[4]], ensure_ascii=False) + "\n")
+            chat_n = len(ev); chat_f.flush()
         if p2.poll() is not None or p1.poll() not in (None, 0):
             err = p1.stderr.read().decode(errors="replace")[-300:].strip() if p1.poll() is not None else ""
             if segs or not quiet: print(f"[{name}] stream ended or not live {err}", flush=True)
@@ -854,6 +925,10 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
                 r = subprocess.run([sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--simulate", "--print", "description", url],
                                    capture_output=True, text=True, encoding="utf-8", errors="replace")
                 meta["title"] = r.stdout.strip()[:200]
+                r = subprocess.run([sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--simulate", "--print",
+                                    "%(timestamp|)s %(release_timestamp|)s", url], capture_output=True, text=True)
+                ts = [float(x) for x in r.stdout.split() if re.fullmatch(r"\d{9,11}(\.\d+)?", x)]
+                meta["started"] = min(ts) if ts else None  # when the live itself began (epoch s), if the site says
             threading.Thread(target=_title, daemon=True).start()
         while len(segs) < len(rows):
             r = rows[len(segs)]; t0 = segs[-1][2] if segs else 0.0; p = os.path.join(sd, r[0])
@@ -888,22 +963,24 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
                 try:
                     if not copy_segments(segs, max(at - ORIG_PRE, segs[0][1]), at + post, orig): orig = ""
                 except Exception: orig = ""
-                job = {"raw": raw, "original": orig, "short": os.path.join(od, f"clip{n:03d}_short.mp4"), "hook": hook, "credit": credit, "lang": lang,
+                o0 = max(at - ORIG_PRE, segs[0][1])
+                job = {"raw": raw, "original": orig, "orig_at": round(at - o0, 2), "rec_started": t_rec0, "live_started": meta.get("started"), "short": os.path.join(od, f"clip{n:03d}_short.mp4"), "hook": hook, "credit": credit, "lang": lang,
                        "kind": kind, "at": at, "peak": at - a0, "channel": name, "url": url, "score": score, **why,
                        "title": meta["title"], "chat": [(round(e[0] - (t_rec0 + a0), 2), e[4]) for e in list(chat.events)
                                 if t_rec0 and t_rec0 + a0 <= e[0] <= t_rec0 + at + post and e[2] != "plain" and len(e) > 4] if chat else []}
                 with open(os.path.join(QUEUE, f"{int(time.time() * 1000)}_{name}_{n:03d}.json"), "w", encoding="utf-8") as f: json.dump(job, f)
                 print(f"[{name}] highlight {n} ({kind}, score {score}: {why}) at {at:.0f}s -> queued", flush=True)
-        # keep only the last keep_min minutes on disk
+        # keep only the last keep_min minutes on disk (an hour; 20 min when the disk gets tight)
+        km = keep_min if shutil.disk_usage(OUT).free > 25e9 else min(keep_min, 20)
         for p, _, t1 in segs:
-            if t1 < rec_end - keep_min * 60 and os.path.exists(p): os.remove(p)
+            if t1 < rec_end - km * 60 and os.path.exists(p): os.remove(p)
     for p in (p2, p1):
         if p.poll() is None: p.terminate()
     for p in (p2, p1):
         try: p.wait(10)
         except Exception: pass
     log.close()
-    shutil.rmtree(sd, ignore_errors=True)  # the stream pieces are not kept (only the cut clips)
+    # (17 Nov) the pieces stay for the diary's last hour (same moment / firsts); diario.py removes them after
     if not segs: shutil.rmtree(od, ignore_errors=True)  # an offline try leaves nothing behind
     return n, bool(segs)
 
@@ -927,7 +1004,9 @@ def worker(idle_exit=None):
             job = json.load(open(jp, encoding="utf-8"))
             t = time.time(); made = edit(job["raw"], job["short"], job.get("hook", ""), job.get("credit", ""), job.get("lang"),
                                   peak=job.get("peak"), channel=job.get("channel", ""), url=job.get("url", ""), score=job.get("score"),
-                                  chat=job.get("chat", []), title=job.get("title", ""), original=job.get("original", ""), at=job.get("at"))
+                                  chat=job.get("chat", []), title=job.get("title", ""), original=job.get("original", ""), at=job.get("at"),
+                                  orig_at=job.get("orig_at"), rec_started=job.get("rec_started"), live_started=job.get("live_started"),
+                                  force_first=job.get("force_first", ""))
             if made is None:
                 os.replace(jp, jp0 + ".skipped"); os.remove(job["raw"])
                 if job.get("original") and os.path.exists(job["original"]): os.remove(job["original"])

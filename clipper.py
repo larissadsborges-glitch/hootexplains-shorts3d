@@ -332,7 +332,12 @@ def hook_spot(mode, seam, head, game_top=None):
         if not head or y + HOOK_H < head[0] or y > head[1]: return y
     return spots[-1]
 
-def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None):
+def page_handle(lang):
+    """(owner 17 Nov: "every clip must ALWAYS have a watermark or the page name - super important") marca/marca.json"""
+    try: return json.load(open(os.path.join(HERE, "marca", "marca.json"), encoding="utf-8")).get((lang or "en")[:2], "")
+    except (OSError, ValueError): return ""
+
+def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en"):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
     white with a black outline at `seam` (between webcam and game in the split layout); the hook at the top for the first
     3.5 s; the credit; real chat messages popping in at the moment (no usernames), like watching it live"""
@@ -343,9 +348,14 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
             f"Style: Hook,Arial Black,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,3,18,0,8,70,70,{hook_v},1\n"
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
             "Style: Chat,Arial,40,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,1,0,0,0,100,100,0,0,3,10,0,7,40,40,0,1\n"
+            "Style: Wm,Arial Black,40,&H40FFFFFF,&H40FFFFFF,&H60000000,&H80000000,1,0,0,0,100,100,0,0,1,3,0,9,30,30,30,1\n"
             "Style: Label,Arial Black,38,&H00101010,&H00101010,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,1,0,3,12,0,7,28,28,28,1\n\n"
             "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
     ev = []
+    wm = page_handle(lang)
+    if wm:  # the page's @ the whole clip: bottom-right of the webcam (split), top-right (face), bottom (game)
+        pos = {"split": f"{{\\an3\\pos(1052,{(game_top or 700) - 22})}}", "face": "{\\an9\\pos(1052,40)}"}.get(mode, "{\\an2\\pos(540,1700)}")
+        ev.append(f"Dialogue: 4,{ass_time(0)},{ass_time(dur)},Wm,,0,0,0,,{pos}{wm}")
     if hook:  # never over the face: the hook goes where the head is not (see hook_spot)
         ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{hook_spot(mode, seam, head_box, game_top)})}}{hook.upper()}")
     if label:  # (owner 16 Nov: context, like The Till stamps) a small yellow stamp top-left: GTA 6 · LAUNCH DAY
@@ -692,7 +702,7 @@ def is_repeat(src, channel, a, b, share=0.5):
     return False
 
 def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="", score=None, chat=(), title="", replay=False, original="", at=None,
-         orig_at=None, rec_started=None, live_started=None, force_first=""):  # (owner 16 Nov: "stop doing the replay at the end") off
+         orig_at=None, rec_started=None, live_started=None, force_first="", ideia=""):  # (owner 16 Nov: "stop doing the replay at the end") off
     """-> dst, or None when the clip is an ad break (anonymous viewers get Twitch ads)"""
     dur = duration(src); peak0 = peak  # (the trigger's place in the raw: peak may move back to the real event below)
     ws, found, music = words(src, lang)
@@ -721,7 +731,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         if h and len(h.split()) <= 9 and not SLURS.search(h) and grounded(h, " ".join(w for _, _, w in ws), channel): ai_hook = mask(h)
         elif h: verdict["why"] = f"(gancho da IA recusado, não foi dito: {h}) " + verdict["why"]
     keep, mp = smart_cut(src, ws, peak, dur, force)
-    if at is not None and peak0 is not None and is_repeat(src, channel, at - peak0 + keep[0][0], at - peak0 + keep[-1][1]):
+    if not ideia and at is not None and peak0 is not None and is_repeat(src, channel, at - peak0 + keep[0][0], at - peak0 + keep[-1][1]):
         print(f"[editor] skipped: the same scene is already in another {channel} clip", flush=True); return None
     cut_src = os.path.splitext(dst)[0] + "_cut.mp4"; apply_cut(src, keep, cut_src)
     if mp:
@@ -754,7 +764,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     vertical = lay.get("H", 0) > lay.get("W", 1)
     base, seam = (("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[st]", 1265) if vertical else layout.filters(lay))
     mode = "face" if vertical else lay["mode"]
-    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"))
+    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2])
     assf = ass.replace("\\", "/").replace(":", "\\:")
     vf = base + f";[st]ass='{assf}'[v]"
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
@@ -783,7 +793,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
             f"IA ({verdict.get('engine', '') if verdict else ''}): {('sentido ok' if verdict['makes_sense'] else 'SEM SENTIDO') + ' - ' + verdict['why'] if verdict else 'desligada (regras)'}\n\nTranscrição ({found}): {' '.join(w for _, _, w in ws)}\n")
     with open(os.path.splitext(dst)[0] + ".txt", "w", encoding="utf-8") as f: f.write(post)
     if channel:  # the owner's folders: prontos/<lang> (post from the phone) and rever/<lang>
-        fd = os.path.join(OUT, "rever" if why else "prontos", (lang or found or "en")[:2]); os.makedirs(fd, exist_ok=True)
+        fd = os.path.join(OUT, "rever" if why else "prontos", (lang or found or "en")[:2])
+        if ideia and not first: fd = os.path.join(OUT, "por_ideia", ideia, (lang or found or "en")[:2])  # (owner 17 Nov: a clip per idea)
+        os.makedirs(fd, exist_ok=True)
         base = os.path.join(fd, f"{datetime.now():%m%d_%H%M%S}_{name}_{score if score is not None else 0:.0f}pts")  # (17 Nov: seconds, two clips in one minute overwrote each other)
         import shutil
         kept = keep_original(original, os.path.basename(base))
@@ -796,7 +808,8 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
                  "event": (verdict or {}).get("event", ""), "category": (verdict or {}).get("category", "other"), "first": first,
                  "makes_sense": not why, "payoff_t": round(peak - trim, 2) if peak is not None else None, "dur": round(dur - trim, 2),
                  "game": title_game(title), "stream_title": title, "at": at, "session": os.path.basename(os.path.dirname(os.path.abspath(dst))),
-                 "original": kept, "orig_at": orig_at, "made": datetime.now().isoformat(timespec="seconds"),
+                 "original": kept, "orig_at": orig_at, "made": datetime.now().isoformat(timespec="seconds"), "ideia": ideia,
+                 "rec_started": rec_started, "live_started": live_started, "mode": mode, "game_top": lay.get("game_top"),
                  "words": [(round(s - trim, 2), round(e - trim, 2), w) for s, e, w in ws if s >= trim]}
         with open(base + ".json", "w", encoding="utf-8") as f: json.dump(sheet, f, ensure_ascii=False)
         if not why and score is not None and (score >= STRONG or first):  # (owner: be the FIRST to post) a strong one -> phone
@@ -805,6 +818,15 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     return dst
 
 STRONG = 10.0  # score that sends a clip straight to the owner's phone
+
+DISPLAY = {"ishowspeed": "ISHOWSPEED", "kaicenat": "KAI CENAT", "caseoh_": "CASEOH", "lacy": "LACY", "angryginge13": "ANGRY GINGE",
+           "alanzoka": "ALANZOKA", "paulinholokobr": "PAULINHO O LOKO", "coringa": "CORINGA", "loudcoringa": "CORINGA",
+           "illojuan": "ILLOJUAN", "casimiro": "CASIMIRO", "jasontheween": "JASONTHEWEEN", "plaqueboymax": "PLAQUEBOYMAX"}
+
+def display(ch):
+    """the name people know (titles, tags): angryginge13 -> ANGRY GINGE"""
+    c = (ch or "").lower().lstrip("@")
+    return DISPLAY.get(c, c.upper().rstrip("_"))
 
 def title_game(stream_title):
     t = (stream_title or "").lower()
@@ -839,7 +861,7 @@ def first_in_gta6(channel, stream_title, verdict, rec_started, live_started, lan
         if new: c["seen"].append(cat)
         tmp = p + ".tmp"; json.dump(d, open(tmp, "w", encoding="utf-8")); os.replace(tmp, p)
     if not new or not (c["full"] or verdict.get("first_said")): return ""
-    who = channel.upper().rstrip("_")
+    who = display(channel)
     en, pt, es = FIRST_LABEL[cat]
     return {"pt": f"{pt} DO {who} NO GTA 6", "es": f"{es} DE {who} EN GTA 6"}.get(lang, f"{who}'S {en} IN GTA 6")
 
@@ -1006,7 +1028,7 @@ def worker(idle_exit=None):
                                   peak=job.get("peak"), channel=job.get("channel", ""), url=job.get("url", ""), score=job.get("score"),
                                   chat=job.get("chat", []), title=job.get("title", ""), original=job.get("original", ""), at=job.get("at"),
                                   orig_at=job.get("orig_at"), rec_started=job.get("rec_started"), live_started=job.get("live_started"),
-                                  force_first=job.get("force_first", ""))
+                                  force_first=job.get("force_first", ""), ideia=job.get("ideia", ""))
             if made is None:
                 os.replace(jp, jp0 + ".skipped"); os.remove(job["raw"])
                 if job.get("original") and os.path.exists(job["original"]): os.remove(job["original"])

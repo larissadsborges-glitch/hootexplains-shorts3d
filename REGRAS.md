@@ -72,3 +72,10 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
 - **"Mesmo momento":** 2-4 streamers na mesma cena (as falas do jogo batem palavra a palavra), lado a lado, em sincronia.
 - **"O dia de X no GTA 6 em 60 segundos":** os 6 melhores momentos do dia, quando ele fica 45 min sem clipes novos.
 - **Avisos no telemóvel** para cada clipe forte, "primeiro", resumo ou mesmo momento: publicar antes de todos.
+- **Clipe por ideia (dona, 17 nov):** durante o dia cada acontecimento (cada morte, missão, perseguição, carro roubado,
+  acidente, assalto, mapa) vira um clipe individual com contexto, guardado em `por_ideia/<ideia>/<língua>/`. Podem ser
+  publicados sozinhos. No fim do dia juntam-se: TODAS AS MORTES (contador DEATH 3/14), A CORRIDA (quem acabou a 1.ª
+  missão mais cedo desde o início da live), TOP 5 do dia (#5 -> #1, um por streamer) e o RESUMO do dia.
+- **Marca d'água SEMPRE (dona, 17 nov, "super importante"):** o @ da página da língua do clipe (marca/marca.json):
+  canto de baixo à direita da câmara (câmara + jogo) ou canto de cima à direita (só câmara); também nos ecrãs de título.
+  Quando o logótipo for escolhido, junta-se.

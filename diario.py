@@ -25,6 +25,8 @@ GAMES = set((os.environ.get("DIARIO_GAMES") or "gta6").split(","))
 BATCH = 6          # 6 x 20 s pieces = 2 min of audio per transcription
 SCAN_EVERY = 300   # s of live between two AI event scans
 _model = None
+# every event becomes its own clip in por_ideia/<category>/ (the editor does the firsts and the strong ones first)
+IDEA_SCORE = {"mission": 8.0, "heist": 8.0, "death": 6.0, "police": 6.0, "crash": 5.0, "steal_car": 4.0, "map": 4.0}
 
 EVENT_PROMPT = """Below is what the streamer {name} said in the last minutes of a {game} livestream (times in seconds),
 and what his chat wrote (chat types 5-30 s AFTER what it reacts to).
@@ -151,19 +153,27 @@ class Live:
             label = C.first_in_gta6(self.ch, self.meta.get("title"), {"category": cat, "first_said": False},
                                     self.meta.get("t_rec0"), self.meta.get("live_started"), (self.meta.get("lang") or "en")[:2])
             if label: self.first_job(segs, t, label, e)
+            elif cat in IDEA_SCORE and self.allow(cat, t): self.first_job(segs, t, "", e, ideia=cat)
 
-    def first_job(self, segs, t, label, e):
+    def allow(self, cat, t):
+        """(owner 17 Nov: every event its own clip, kept per idea) not the same kind twice within 90 s, max 20 an hour"""
+        h = self.st.setdefault("ideias", [])
+        if any(c == cat and abs(x - t) < 90 for c, x in h) or sum(1 for _, x in h if t - x < 3600) >= 20: return False
+        h.append([cat, t]); self.save(); return True
+
+    def first_job(self, segs, t, label, e, ideia=""):
         a0 = max(t - C.PRE_DEFAULT, segs[0][1]); b0 = min(t + 60, segs[-1][2])
         raw = os.path.join(self.od, f"first_{int(t)}_raw.mp4")
         if not C.cut_segments(segs, a0, b0, raw): return
         t_rec0 = self.meta.get("t_rec0") or 0
         job = {"raw": raw, "short": os.path.join(self.od, f"first_{int(t)}_short.mp4"), "hook": "", "credit": "@" + self.ch,
                "lang": self.meta.get("lang"), "kind": "first", "at": t, "peak": t - a0, "channel": self.ch, "url": self.meta.get("url", ""),
-               "score": 50.0, "title": self.meta.get("title", ""), "force_first": label, "rec_started": t_rec0,
+               "score": 50.0 if label else IDEA_SCORE.get(ideia, 4.0), "title": self.meta.get("title", ""), "force_first": label,
+               "ideia": ideia or (e.get("category") if label else ""), "rec_started": t_rec0,
                "live_started": self.meta.get("live_started"),
                "chat": [(round(ct - a0, 2), m) for ct, cat, m in self.chat(a0, b0) if cat != "plain"]}
         with open(os.path.join(C.QUEUE, f"{int(time.time() * 1000)}_{self.ch}_first.json"), "w", encoding="utf-8") as f: json.dump(job, f)
-        print(f"[diary] {self.ch}: {label} at {t:.0f}s ({e.get('evidence', '')[:60]}) -> queued", flush=True)
+        print(f"[diary] {self.ch}: {label or ideia} at {t:.0f}s ({e.get('evidence', '')[:60]}) -> queued", flush=True)
 
 
 def _lines(ws, gap=1.0):

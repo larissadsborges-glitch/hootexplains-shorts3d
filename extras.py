@@ -34,7 +34,8 @@ def fim_dir(day=None):
 
 def sheets(hours=None, channel=None, date=None):
     out = []
-    for p in glob.glob(os.path.join(C.OUT, "prontos", "*", "*.json")) + glob.glob(os.path.join(C.OUT, "rever", "*", "*.json")):
+    for p in (glob.glob(os.path.join(C.OUT, "prontos", "*", "*.json")) + glob.glob(os.path.join(C.OUT, "rever", "*", "*.json"))
+              + glob.glob(os.path.join(C.OUT, "por_ideia", "*", "*", "*.json"))):
         try: d = json.load(open(p, encoding="utf-8"))
         except (OSError, ValueError): continue
         if d.get("kind") in ("resumo", "mesmo"): continue
@@ -65,7 +66,7 @@ def resumo(channel, date=None, n=6, before=7.0, after=4.0, hours=24):
     ds = sorted(ds, key=lambda d: -(d.get("score") or 0))[:n]
     if len(ds) < 3: print(f"resumo {channel} {date}: only {len(ds)} clips, skipped"); return None
     ds.sort(key=lambda d: d["_made"])  # in the order they happened
-    lang = ds[0].get("lang", "en"); who = channel.upper().rstrip("_")
+    lang = ds[0].get("lang", "en"); who = C.display(channel)
     gta6 = any(d.get("game") == "gta6" for d in ds)
     day = 1
     try:
@@ -140,7 +141,7 @@ def mesmo(hours=6, before=8.0, after=12.0):
 
 
 def render_grid(picks, pre, post, line):
-    n = len(picks); names = [d["channel"].upper().rstrip("_") for d, _ in picks]
+    n = len(picks); names = [C.display(d["channel"]) for d, _ in picks]
     ins, parts = [], []
     for i, (d, t) in enumerate(picks):
         ins += ["-ss", f"{t - pre:.2f}", "-t", f"{pre + post:.2f}", "-i", d["_clip"]]
@@ -202,7 +203,132 @@ def fim_do_dia(day=None):
     print(f"fim do dia {day}: {len(vids)} videos")
 
 
-FIM_EXTRA = []
+# ------------------------------------------------------------------ the 3 end-of-day formats (owner OK 17 Nov)
+def card_video(lines, out, secs=2.8, rows=None, sub=None):
+    """a title card (PIL picture -> a few seconds of video with silent audio), the look of marca/exemplos_formatos.png"""
+    from PIL import Image, ImageDraw, ImageFont
+    blk = "C:/Windows/Fonts/ariblk.ttf"; YEL = (255, 212, 0)
+    im = Image.new("RGB", (1080, 1920), (14, 12, 30)); d = ImageDraw.Draw(im); y = 330
+    for i, t in enumerate(lines):
+        f = ImageFont.truetype(blk, 76); w = d.textlength(t, font=f)
+        d.text(((1080 - w) / 2, y), t, font=f, fill=YEL if i == len(lines) - 1 else (255, 255, 255)); y += 100
+    if rows:
+        y += 120; f = ImageFont.truetype(blk, 56)
+        for i, (name, lab) in enumerate(rows):
+            d.rounded_rectangle([90, y, 990, y + 150], radius=24, fill=(32, 28, 60))
+            d.text((120, y + 42), f"{i + 1}.", font=f, fill=YEL); d.text((210, y + 42), name, font=f, fill=(255, 255, 255))
+            w = d.textlength(lab, font=f); d.text((960 - w, y + 44), lab, font=f, fill=YEL if i == 0 else (200, 200, 220)); y += 185
+    if sub:
+        f = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 40); w = d.textlength(sub, font=f); d.text(((1080 - w) / 2, 1560), sub, font=f, fill=(170, 170, 200))
+    wm = C.page_handle("en")
+    if wm:
+        f = ImageFont.truetype(blk, 40); w = d.textlength(wm, font=f); d.text(((1080 - w) / 2, 1760), wm, font=f, fill=(150, 150, 180))
+    png = out + ".png"; im.save(png)
+    C.run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", "-loop", "1", "-t", f"{secs}", "-i", png, "-f", "lavfi", "-t", f"{secs}",
+                           "-i", "anullsrc=r=48000:cl=stereo", "-vf", "fps=30,format=yuv420p", *v, "-c:a", "aac", "-shortest", out], 20, 4)
+    os.remove(png); return out
+
+
+def montage(pieces, base, head=None, tags=None, card=None):
+    """pieces: [(sheet, a, b)] from finished clips; tags: per piece (text, y-or-None) drawn the whole piece; head: the
+    low band (l1, l2) over the first 3 s; card: a title-card video to open with"""
+    ins, parts, n0 = [], [], 0
+    if card: ins += ["-i", card]; parts.append("[0:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1[v0];[0:a]asetpts=PTS-STARTPTS,aresample=48000[a0]"); n0 = 1
+    for i, (d, a, b) in enumerate(pieces):
+        k = i + n0; ins += ["-ss", f"{a:.2f}", "-t", f"{b - a:.2f}", "-i", d["_clip"]]
+        tag = ""
+        if tags and tags[i]:
+            txt, y = tags[i]
+            tag = f",drawtext=fontfile='{FONT}':text='{esc(txt)}':fontsize=56:fontcolor=white:x=40:y={y + 14}:box=1:boxcolor=0xFF2D46@1:boxborderw=16"  # (the box fits the text)
+        parts.append(f"[{k}:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1{tag}[v{k}];[{k}:a]asetpts=PTS-STARTPTS,aresample=48000,"
+                     f"afade=t=in:d=0.05,afade=t=out:st={max(0.0, b - a - 0.08):.2f}:d=0.08[a{k}]")
+    n = len(pieces) + n0
+    cat = "".join(f"[v{i}][a{i}]" for i in range(n)) + f"concat=n={n}:v=1:a=1[cv][ca]"
+    if head:
+        st = 0 if not card else 0  # the band shows on the first piece (after the card if any)
+        box = (f"[cv]drawbox=x=0:y=1440:w=iw:h=250:color=black@0.72:t=fill:enable='lt(t,3.2)',"
+               f"drawtext=fontfile='{FONT}':text='{esc(head[0])}':fontsize=64:fontcolor=white:x=(w-tw)/2:y=1470:enable='lt(t,3.2)',"
+               f"drawtext=fontfile='{FONT}':text='{esc(head[1])}':fontsize=64:fontcolor=0xFFD400:x=(w-tw)/2:y=1560:enable='lt(t,3.2)'[v]")
+    else:
+        box = "[cv]null[v]"
+    C.run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *ins, "-filter_complex", ";".join(parts) + ";" + cat + ";" + box,
+                           "-map", "[v]", "-map", "[ca]", *v, "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+                           "-movflags", "+faststart", base + ".mp4"], 20, 4)
+    return base + ".mp4"
+
+
+def tag_y(d):
+    """the counter/rank sits in the top-left of the GAME (split) or the top-left corner (face): never on the face"""
+    return (d.get("game_top") or 700) + 20 if d.get("mode") == "split" else 40
+
+
+def mortes(day):
+    """1. EVERY DEATH of a streamer that day, one after the other, with a counter"""
+    out = []
+    by = {}
+    for d in sheets(hours=24):
+        if d.get("ideia") == "death" and d.get("payoff_t") is not None: by.setdefault(d["channel"], []).append(d)
+    for ch, ds in by.items():
+        if len(ds) < 3: continue
+        ds.sort(key=lambda d: d["_made"]); lang = ds[0].get("lang", "en"); who = C.display(ch); N = len(ds)
+        word = {"pt": "MORTE", "es": "MUERTE"}.get(lang, "DEATH")
+        head = {"pt": (f"TODAS AS MORTES DO {who}", "GTA 6"), "es": (f"TODAS LAS MUERTES DE {who}", "GTA 6")}.get(lang, (f"EVERY {who} DEATH", "GTA 6"))
+        pieces = [(d, max(0.0, d["payoff_t"] - 5), min(d["dur"], d["payoff_t"] + 3)) for d in ds]
+        base = os.path.join(fim_dir(day), f"{ch}_TODAS_AS_MORTES_{lang}")
+        montage(pieces, base, head, [(f"{word} {i + 1}/{N}", tag_y(d)) for i, (d, _, _) in enumerate(pieces)])
+        write_post(base, f"{head[0]} ({N})", [f"🎥 {ch}", C.TAGS.get(lang, C.TAGS["en"])], "mortes", {"channels": ch, "lang": lang})
+        out.append(base + ".mp4")
+    return out
+
+
+def corrida(day):
+    """2. THE RACE: who finished his first mission soonest after his live began"""
+    best = {}
+    for d in sheets(hours=24):
+        if d.get("ideia") != "mission" or d.get("payoff_t") is None or not (d.get("rec_started") and d.get("live_started") and d.get("at") is not None): continue
+        el = d["rec_started"] + d["at"] - d["live_started"]
+        if el > 0 and (d["channel"] not in best or el < best[d["channel"]][1]): best[d["channel"]] = (d, el)
+    if len(best) < 2: return []
+    rank = sorted(best.values(), key=lambda x: x[1])
+    fmt = lambda e: f"{int(e // 3600)}h {int(e % 3600 // 60):02d}m" if e >= 3600 else f"{int(e // 60)}m"
+    base = os.path.join(fim_dir(day), "CORRIDA_PRIMEIRA_MISSAO")
+    card = card_video(["WHO BEAT THE", "FIRST MISSION", "FASTEST?"], base + "_card.mp4",
+                      rows=[(C.display(d["channel"]), fmt(e)) for d, e in rank[:5]], sub="counted from the start of each live")
+    pieces = [(d, max(0.0, d["payoff_t"] - 6), min(d["dur"], d["payoff_t"] + 3)) for d, _ in rank[:5]]
+    montage(pieces, base, None, [(f"#{i + 1} {C.display(d['channel'])} {fmt(e)}", tag_y(d)) for i, (d, e) in enumerate(rank[:5])], card)
+    os.remove(card)
+    title = "WHO BEAT THE FIRST GTA 6 MISSION FASTEST? " + " vs ".join(C.display(d["channel"]) for d, _ in rank[:5])
+    write_post(base, title, [f"🎥 {', '.join(d['channel'] for d, _ in rank)}", C.TAGS["en"]], "corrida", {"channels": ",".join(best)})
+    return [base + ".mp4"]
+
+
+def top5(day):
+    """3. TOP 5 MOMENTS of the day, all streamers, #5 -> #1 (one per language page)"""
+    out = []
+    by = {}
+    for d in sheets(hours=24):
+        if d.get("makes_sense") and d.get("payoff_t") is not None and not d.get("ideia"): by.setdefault(d.get("lang", "en"), []).append(d)
+    for lang, ds in by.items():
+        top = []
+        for d in sorted(ds, key=lambda d: -(d.get("score") or 0)):  # one per streamer first, so it is not 5 of the same
+            if all(x["channel"] != d["channel"] for x in top): top.append(d)
+            if len(top) == 5: break
+        if len(top) < 5: top += [d for d in sorted(ds, key=lambda d: -(d.get("score") or 0)) if d not in top][:5 - len(top)]
+        if len(top) < 3: continue
+        top = list(reversed(top))  # countdown
+        head = {"pt": ["TOP 5", "MOMENTOS DO GTA 6", "DIA"], "es": ["TOP 5", "MOMENTOS DE GTA 6", "DÍA"]}.get(lang, ["TOP 5", "GTA 6 MOMENTS", "OF THE DAY"])
+        base = os.path.join(fim_dir(day), f"TOP5_{lang}")
+        card = card_video(head, base + "_card.mp4", sub=" · ".join(dict.fromkeys(d["channel"] for d in top)))
+        pieces = [(d, max(0.0, d["payoff_t"] - 9), min(d["dur"], d["payoff_t"] + 4)) for d in top]
+        montage(pieces, base, None, [(f"#{len(top) - i} {C.display(d['channel'])}", tag_y(d)) for i, d in enumerate(top)], card)
+        os.remove(card)
+        write_post(base, " ".join(head), [f"{len(top) - i}. {d.get('event') or d.get('title', '')} ({d['channel']})" for i, d in enumerate(top)]
+                   + [C.TAGS.get(lang, C.TAGS["en"])], "top5", {"channels": ",".join(d["channel"] for d in top), "lang": lang})
+        out.append(base + ".mp4")
+    return out
+
+
+FIM_EXTRA = [mortes, corrida, top5]
 
 
 def main():

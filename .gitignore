@@ -1,0 +1,22 @@
+# secrets: never on GitHub
+.env
+*.env
+.env.local
+# data, not code
+logs/
+out/
+out_teste/
+exemplos/
+rostos/
+__pycache__/
+*.mp4
+*.mkv
+*.ts
+*.npy
+*.log
+*.jpg
+*.png
+*.wav
+*.mp3
+*.ass
+*.cmd

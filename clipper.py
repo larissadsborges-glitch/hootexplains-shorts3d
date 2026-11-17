@@ -324,7 +324,7 @@ def words(path, lang=None):
 def ass_time(t):
     t = max(0.0, t); return f"{int(t // 3600)}:{int(t % 3600 // 60):02d}:{t % 60:05.2f}"
 
-HOOK_H = 230  # the hook box, 2 lines of Arial Black 70 + padding
+HOOK_H = 300  # the hook, 2-3 lines of Poppins 90 (no box)
 
 def hook_spot(mode, seam, head, game_top=None):
     """top y of the hook: the first place that does not touch the streamer's head (head = (top, bottom) or None)"""
@@ -414,7 +414,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
             + CAP_STYLE +  # (the example: Poppins, soft shadow)
             # (owner 17 Nov: "I don't like the title - the black box looks bad") no box: Poppins with outline + shadow
-            f"Style: Hook,Poppins ExtraBold,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,6,4,8,70,70,{hook_v},1\n"
+            f"Style: Hook,Poppins ExtraBold,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,5,8,50,50,{hook_v},1\n"  # (owner: "bigger")
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
             "Style: Chat,Arial,40,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,1,0,0,0,100,100,0,0,3,10,0,7,40,40,0,1\n"
             "Style: Wm,Arial Black,40,&H40FFFFFF,&H40FFFFFF,&H60000000,&H80000000,1,0,0,0,100,100,0,0,1,3,0,9,30,30,30,1\n"

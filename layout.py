@@ -310,7 +310,7 @@ def _cam_crop(lay, top, W, H):
     fw = lay["face"][2]; fh = lay["face"][3]; fx = lay["face"][0] + fw / 2; fy = lay["face"][1] + fh / 2
     bx, by, bw, bh = x + 0.03 * w, y + 0.03 * h, 0.94 * w, 0.94 * h
     head_top = lay["face"][1] - 0.65 * fh
-    nw = max(4.4 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want
+    nw = max(5.5 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want
     if bw >= nw and bh >= nh: ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
     elif bw >= 1080 / 4.5 and bh >= top / 4.5:
         k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k; ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
@@ -396,7 +396,7 @@ def filters(lay, cam_h=None, keep=None):
         # found was only his body, 140x90 px blown up 7.7x) 1. never more than ~3.2x enlarged; 2. the whole head + air
         # above it is in; 3. the box limits the crop only when it is big enough to hold it (else the box is wrong/tiny)
         head_top = lay["face"][1] - 0.65 * fh  # hair above the face box
-        nw = max(4.4 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want  # (<= 4.5x: face big, still sharp)
+        nw = max(5.5 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want  # (<= 4.5x: face big, still sharp)
         if bw >= nw and bh >= nh:
             ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
         elif bw >= 1080 / 4.5 and bh >= 700 / 4.5:  # a real webcam a bit small: the biggest crop that fits inside it

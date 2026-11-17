@@ -32,7 +32,8 @@ def sentence(t):
     if not t: return ""
     if t != t.upper(): return t  # already written in normal case
     t = t.lower(); t = t[0].upper() + t[1:]
-    return re.sub(r"\b(gta)\b", "GTA", t)
+    t = re.sub(r"\b(gta)\b", "GTA", t)
+    return re.sub(r"\bi\b", "I", t) if re.search(r"\b(the|you|my|did|what|is|all)\b", t) else t  # English "I"
 
 
 def header_png(path, hook, lang, inset=False):

@@ -31,6 +31,33 @@ TOP = [("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiC
        ("https://www.twitch.tv/illojuan", "es"),                           # Spain
        ("https://www.twitch.tv/casimiro", "pt")]                           # reserve
 MAX_LIVE = 9  # IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
+# (owner 17 Nov: "catch the FIRST streamers playing GTA 6 from hour zero, followers and views from minute one") from
+# 10:30 on 18 Nov (GTA 6 opens in New Zealand at 11:00 PT) the biggest live "GTA 6" streams on YouTube are found and
+# recorded too, even if they are not on the list: up to 2 at a time, 3000+ people watching, the title must say GTA 6
+DISCOVER_FROM = datetime(2026, 11, 18, 10, 30)
+DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 2, 3000
+
+
+def discover():
+    """-> [(channel live url, viewers, title)] the biggest live GTA 6 streams on YouTube right now"""
+    out = {}
+    for q in ("gta+6", "gta+vi", "grand+theft+auto+6"):
+        try:
+            r = subprocess.run([PY, "-m", "yt_dlp", "-q", "--no-warnings", "--flat-playlist", "-I", "1:25", "--print",
+                                "%(channel_url)s\t%(concurrent_view_count)s\t%(title)s",
+                                f"https://www.youtube.com/results?search_query={q}&sp=EgJAAQ%253D%253D"],
+                               capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=90)
+        except subprocess.TimeoutExpired:
+            continue
+        for ln in r.stdout.splitlines():
+            parts = ln.split("\t")
+            if len(parts) < 3 or not parts[0].startswith("http"): continue
+            try: v = int(parts[1])
+            except ValueError: continue
+            if v >= DISCOVER_MIN_VIEWERS and re.search(r"gta ?(6|vi)\b|grand theft auto (6|vi)\b", parts[2], re.I):
+                u = parts[0].rstrip("/") + "/live"
+                if u not in out or v > out[u][0]: out[u] = (v, parts[2])
+    return sorted(((u, v, t) for u, (v, t) in out.items()), key=lambda x: -x[1])
 DETACH = 0x00000008 | 0x00000200 | 0x00004000  # detached, own process group, below-normal priority
 
 
@@ -43,7 +70,8 @@ def running(what="clipper.py"):
 
 
 def name_of(url):
-    m = re.search(r"(?:twitch\.tv|kick\.com)/([A-Za-z0-9_]+)", url) or re.search(r"youtube\.com/@([A-Za-z0-9_.-]+)", url)
+    m = (re.search(r"(?:twitch\.tv|kick\.com)/([A-Za-z0-9_]+)", url) or re.search(r"youtube\.com/@([A-Za-z0-9_.-]+)", url)
+         or re.search(r"youtube\.com/channel/([A-Za-z0-9_-]+)", url))
     n = m.group(1).lower() if m else url
     return {"loudcoringa": "coringa"}.get(n, n)  # the same person on two sites is recorded once
 
@@ -93,6 +121,15 @@ def main():
             if len(recorded) >= MAX_LIVE:
                 print(f"{datetime.now():%H:%M} {name_of(u)} is live but {MAX_LIVE} are already recording", flush=True); continue
             start(["watch", u, "--minutes", mins, "--lang", l], name_of(u) + ".log"); recorded.add(name_of(u)); new.append(name_of(u))
+        # 2a. (from 10:30 on 18 Nov) the biggest live GTA 6 streams not on the list
+        if datetime.now() >= DISCOVER_FROM:
+            mine = {name_of(u) for u, _ in TOP} | {name_of(MAIN)}
+            found_now = [c for c in recorded if c not in mine]
+            for u, v, t in discover():
+                if len(found_now) >= DISCOVER_MAX: break
+                n = name_of(u)
+                if n in recorded or n in mine: continue
+                start(["watch", u, "--minutes", mins], n[:40] + ".log"); recorded.add(n); found_now.append(n); new.append(f"{n} ({v} a ver: {t[:50]})")
         # 2b. the AI judge (llama-server + Gemma 3, owner approved 16 Nov): start it again if it is not answering
         try:
             if HERE not in sys.path: sys.path.insert(0, HERE)  # (-I mode leaves the script's folder out)

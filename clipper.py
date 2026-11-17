@@ -358,8 +358,8 @@ def cut_windows(ws, loud, dur, face_ok):
     game = []
     for k in range(1, len(ws)):
         a, b = ws[k - 1][1], ws[k][0]
-        if b - a >= 3.0 and a > 3:
-            w = (a + 0.3, min(b - 0.2, a + 4.0))
+        if b - a >= 5.0 and a > 4 and len(game) < 2:  # (17 Nov: it cut away from the face too often) 5 s+ silences, 2 at most
+            w = (a + 0.4, min(b - 0.3, a + 3.5))
             if all(w[1] < x or w[0] > y for x, y in face): game.append(w)
     return sorted(face), game
 

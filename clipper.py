@@ -368,7 +368,12 @@ def page_handle(lang):
     try: return json.load(open(os.path.join(HERE, "marca", "marca.json"), encoding="utf-8")).get((lang or "en")[:2], "")
     except (OSError, ValueError): return ""
 
+FONTS_DIR = os.path.join(os.path.expanduser("~"), ".hoottools", "fonts")  # Poppins (OFL, Google Fonts): the font of the owner's example clip
+FONTS_DIR_FF = FONTS_DIR.replace("\\", "/").replace(":", "\\:")
 ONE_WORD = True  # (owner 17 Nov, the LOUD Coringa example) one word on screen at a time, no chat lines, no stamp
+CAP_STYLE = ("Style: Cap,Poppins ExtraBold,130,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,1.5,5,5,60,60,0,1\n"
+             if ONE_WORD else
+             "Style: Cap,Arial Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n")
 
 def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
@@ -377,7 +382,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     hook_v = {"split": 70, "face": 220}.get(mode, 300)
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            f"Style: Cap,Arial Black,{100 if ONE_WORD else 84},&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n"
+            + CAP_STYLE +  # (the example: Poppins, soft shadow)
             f"Style: Hook,Arial Black,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,3,18,0,8,70,70,{hook_v},1\n"
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
             "Style: Chat,Arial,40,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,1,0,0,0,100,100,0,0,3,10,0,7,40,40,0,1\n"
@@ -810,7 +815,8 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     assf = ass.replace("\\", "/").replace(":", "\\:")
     # (the example) a thin progress bar at the bottom, in the brand colour, filling up to the end
     bar = f",drawbox=x=0:y=1832:w='max(2,iw*t/{max(dur - trim, 1):.2f})':h=9:color={BRAND_HEX}@0.95:t=fill"
-    vf = base + f";[st]ass='{assf}'{bar}[v]"
+    bar = ""  # (owner 17 Nov: "take out that red line") no progress bar
+    vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'{bar}[v]"
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
                          "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
                          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], 20, 4)  # GPU, CPU if refused

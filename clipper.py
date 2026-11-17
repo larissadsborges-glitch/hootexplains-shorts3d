@@ -913,9 +913,13 @@ def display(ch):
     c = (ch or "").lower().lstrip("@")
     return DISPLAY.get(c, c.upper().rstrip("_"))
 
+# (17 Nov: "semana de gta 6" on a GTA 5 stream gave a FALSE "first death in GTA 6") GTA 6 can only be played from
+# midnight in New Zealand = 11:00 here on 18 Nov; before that a title that says GTA 6 is only hype, not the game
+GTA6_FROM = datetime(2026, 11, 18, 11, 0)
+
 def title_game(stream_title):
     t = (stream_title or "").lower()
-    if re.search(r"gta ?(6|vi)\b|grand theft auto (6|vi)\b", t): return "gta6"
+    if re.search(r"gta ?(6|vi)\b|grand theft auto (6|vi)\b", t): return "gta6" if datetime.now() >= GTA6_FROM else "gta"
     if re.search(r"\bgta\b|grand theft auto", t): return "gta"
     return ""
 

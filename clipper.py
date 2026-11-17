@@ -615,7 +615,8 @@ record first last never ever
 morre morreu mata matou banido preso perde perdeu ganha ganhou quebra quebrou rouba roubou bateu recorde primeiro último
 nunca milhão milhões
 muere murió mata mató baneado arrestado pierde perdió gana ganó rompe rompió roba robó chocó récord primero último nunca
-millón millones""".split())
+millón millones
+gta gta6 gtavi rockstar""".split()) | set("""""".split())
 
 def reactions(loud, chat, base):
     """(research 17 Nov) what the AI should SEE besides the words: loud runs in the room (2+ s at 8+ LU over the

@@ -79,3 +79,5 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
 - **Marca d'água SEMPRE (dona, 17 nov, "super importante"):** o @ da página da língua do clipe (marca/marca.json):
   canto de baixo à direita da câmara (câmara + jogo) ou canto de cima à direita (só câmara); também nos ecrãs de título.
   Quando o logótipo for escolhido, junta-se.
+- **Câmara (dona, 17 nov):** nunca cortar a cabeça de ninguém (cabeça inteira + espaço por cima); sem barra preta entre a
+  câmara e o jogo; o espaço por baixo do jogo é usado para o chat.

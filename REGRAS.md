@@ -63,3 +63,12 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
 12. **O chat reage tarde** (dona, 17 nov): quando o chat explode, o acontecimento pode ter sido 20-50 s antes. O sistema
     recua até 60 s à procura do acontecimento verdadeiro (o grito/barulho), guarda 2 min antes de cada momento e a IA
     sabe que tem de procurar para trás o que provocou a reação.
+
+## 8. Formatos só nossos (17 nov 2026, ideias aprovadas pela dona)
+- **Diário das lives:** tudo o que é dito em todas as lives é transcrito e o chat guardado; a IA marca os acontecimentos
+  de 5 em 5 min. Não dependemos dos clipes que calharam sair.
+- **"O PRIMEIRO" de cada um no GTA 6:** morte, polícia, carro roubado, acidente, assalto, missão, mapa. Só se diz
+  "primeiro" quando é verdade até onde sabemos: vimos a 1.ª live de GTA 6 dele desde o início (ou ele próprio diz).
+- **"Mesmo momento":** 2-4 streamers na mesma cena (as falas do jogo batem palavra a palavra), lado a lado, em sincronia.
+- **"O dia de X no GTA 6 em 60 segundos":** os 6 melhores momentos do dia, quando ele fica 45 min sem clipes novos.
+- **Avisos no telemóvel** para cada clipe forte, "primeiro", resumo ou mesmo momento: publicar antes de todos.

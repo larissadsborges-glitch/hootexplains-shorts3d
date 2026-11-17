@@ -81,3 +81,9 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
   Quando o logótipo for escolhido, junta-se.
 - **Câmara (dona, 17 nov):** nunca cortar a cabeça de ninguém (cabeça inteira + espaço por cima); sem barra preta entre a
   câmara e o jogo; o espaço por baixo do jogo é usado para o chat.
+- **Estilo do exemplo (dona, 17 nov, clipe do LOUD Coringa: "quero tudo como no exemplo"):** câmara em cima (1/3,
+  600 px), o jogo enche o resto até ao fundo (o meio do jogo, onde está a ação); corte para a CARA EM ECRÃ INTEIRO
+  ~2 s nas 2-3 maiores reações (só se a câmara do streamer for grande o bastante para ficar nítida); corte para o JOGO
+  EM ECRÃ INTEIRO nos bocados calados (3+ s sem falar); legendas de UMA palavra, branca, grande, no centro; barra de
+  progresso fina na cor da marca em baixo; @streamer no topo do jogo; sem chat no ecrã. Câmaras grandes (lives de
+  conversa, > 20 % do ecrã) ocupam o ecrã inteiro uma só vez (nunca a mesma pessoa duas vezes).

@@ -280,7 +280,7 @@ def detect(path, channel=None):
         R = edge(cols, R, R - 0.15 * (R - L)); L = edge(cols, L, L + 0.15 * (R - L))
         if R - L >= 2.5 * fw and B - T >= 2.5 * fh: left, top, right, bottom = int(L), int(T), int(R), int(B)
     if right - left < 1.5 * fw or bottom - top < 1.5 * fh: return {"mode": "game", "W": W, "H": H}
-    if (right - left) * (bottom - top) > 0.4 * W * H or bottom - top > 0.85 * H:
+    if (right - left) * (bottom - top) > (0.2 if REF_STYLE else 0.4) * W * H or bottom - top > 0.85 * H:  # (17 Nov: Alanzoka twice)
         # (test 16 Nov, Lacy / JasonTheWeen just chatting: the 'webcam' is the whole room camera, so webcam-on-top + full
         # picture showed the same person twice) the camera IS the stream: one vertical picture following the person
         lay = {"mode": "face", "W": W, "H": H, "cx": cx, "cy": cy, "face": (x, y, fw, fh), "src": path}
@@ -300,9 +300,75 @@ def _head_out(lay, y0, scale):
 GAME_KEEP = 0.72  # share of the stream's width shown under the webcam (1.0 = the whole 16:9)
 
 
+REF_STYLE = True  # (owner 17 Nov, sent a LOUD Coringa clip: "I want it all exactly like the example")
+REF_CAM_H, REF_WORD_Y = 600, 960  # webcam on top (~1/3), the game fills the rest down to the bottom, one word at y 960
+
+
+def _cam_crop(lay, top, W, H):
+    """the webcam crop for a 1080 x top panel: the whole head + air, <= 4.5x, inside the real box (see filters)"""
+    x, y, w, h = lay["cam"]; want = 1080 / top
+    fw = lay["face"][2]; fh = lay["face"][3]; fx = lay["face"][0] + fw / 2; fy = lay["face"][1] + fh / 2
+    bx, by, bw, bh = x + 0.03 * w, y + 0.03 * h, 0.94 * w, 0.94 * h
+    head_top = lay["face"][1] - 0.65 * fh
+    nw = max(4.4 * fw, 1080 / 4.5, (fy - head_top) / 0.42 * want); nh = nw / want
+    if bw >= nw and bh >= nh: ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
+    elif bw >= 1080 / 4.5 and bh >= top / 4.5:
+        k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k; ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
+    else:
+        nw = min(nw, W); nh = min(nw / want, H); nw = nh * want; ax0, ay0, ax1, ay1 = 0, 0, W, H
+    nw, nh = int(nw) // 2 * 2, int(nh) // 2 * 2
+    nx = int(min(max(fx - nw / 2, ax0), ax1 - nw)); ny = int(min(max(min(fy - 0.45 * nh, head_top - 0.12 * nh), ay0), ay1 - nh))
+    return nx, ny, nw, nh
+
+
+def face_full_ok(lay):
+    """the face can fill the whole screen only when the webcam is big enough to stay sharp (<= ~4.8x enlarged)"""
+    return lay.get("mode") == "split" and lay["cam"][3] >= 400
+
+
+def _en(wins):
+    return "+".join(f"between(t,{a:.2f},{b:.2f})" for a, b in wins) or "0"
+
+
+def filters_ref(lay, face_win=(), game_win=()):
+    """the reference look: webcam 1080x600 on top, the game 1080x1320 filling the rest (its middle ~46 %, where the
+    action is), cut to the face full screen on the big reactions (face_win) and to the game full screen in long quiet
+    stretches (game_win). No black bar. -> (filter, y of the caption word)"""
+    W, H = lay.get("W", 1280), lay.get("H", 720); top = REF_CAM_H; band = 1920 - top
+    x, y, w, h = lay["cam"]
+    nx, ny, nw, nh = _cam_crop(lay, top, W, H)
+    gwid = int(1080 * H / band) // 2 * 2
+    def overlap(g0): return max(0, min(g0 + gwid, x + w) - max(g0, x))
+    gx = min(range(0, W - gwid + 1, 4), key=lambda g: (overlap(g) > 0.5 * w, abs(g + gwid / 2 - W / 2)))
+    ox0, ox1 = max(gx, x), min(gx + gwid, x + w)
+    hide = (f"split[g1][g2];[g2]crop={(ox1 - ox0) // 2 * 2 or 2}:{h // 2 * 2}:{ox0}:{y},gblur=sigma=30,eq=brightness=-0.15[gb];"
+            f"[g1][gb]overlay={ox0}:{y}," if ox1 - ox0 >= 2 and w * h < 0.15 * W * H else "")
+    _head_out(lay, ny, top / nh)
+    lay["game_top"] = top; lay["game_bottom"] = 1920; lay["ref"] = True
+    sc = "flags=lanczos+accurate_rnd+full_chroma_int"
+    n = 2 + (1 if face_win else 0) + (1 if game_win else 0)
+    f = (f"[0:v]split={n}[c][g]" + ("[cf]" if face_win else "") + ("[gf]" if game_win else "") + ";"
+         f"[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:{sc},unsharp=5:5:0.6[cam];"
+         f"[g]{hide}crop={gwid}:{H}:{gx}:0,scale=1080:{band}:{sc},unsharp=3:3:0.3[game];[cam][game]vstack[sp]")
+    last = "sp"
+    if face_win:  # the face full screen: a 9:16 crop of the webcam around the face, head always whole
+        ch = min(h, H); cw = int(ch * 9 / 16) // 2 * 2
+        if cw > w: cw = int(w) // 2 * 2; ch = int(cw * 16 / 9)
+        ch = int(ch) // 2 * 2
+        fx = lay["face"][0] + lay["face"][2] / 2
+        cx0 = int(min(max(fx - cw / 2, x), x + w - cw)); cy0 = int(min(max(y, lay["face"][1] - 0.9 * lay["face"][3]), y + h - ch))
+        f += f";[cf]crop={cw}:{ch}:{cx0}:{cy0},scale=1080:1920:{sc},unsharp=5:5:0.6[ff];[{last}][ff]overlay=0:0:enable='{_en(face_win)}'[s1]"; last = "s1"
+    if game_win:  # the game full screen: its middle 9:16
+        gw2 = int(H * 9 / 16) // 2 * 2; g0 = int(min(max(gx + gwid / 2 - gw2 / 2, 0), W - gw2))
+        f += f";[gf]crop={gw2}:{H}:{g0}:0,scale=1080:1920:{sc},unsharp=3:3:0.3[gg];[{last}][gg]overlay=0:0:enable='{_en(game_win)}'[s2]"; last = "s2"
+    f += f";[{last}]null[st]"
+    return f, REF_WORD_Y
+
+
 def filters(lay, cam_h=None, keep=None):
     """ffmpeg filter (input [0:v], output [st] 1080x1920) and the y of the seam where captions sit"""
     W, H = lay.get("W", 1280), lay.get("H", 720)
+    if REF_STYLE and lay["mode"] == "split" and cam_h is None and keep is None: return filters_ref(lay)
     if lay["mode"] == "face":
         cw = int(H * 9 / 16) // 2 * 2; x0 = int(min(max(lay["cx"] - cw / 2, 0), W - cw))
         _head_out(lay, 0, 1920 / H)

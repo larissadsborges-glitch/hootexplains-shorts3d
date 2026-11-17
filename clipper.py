@@ -336,10 +336,39 @@ def hook_spot(mode, seam, head, game_top=None):
         if not head or y + HOOK_H < head[0] or y > head[1]: return y
     return spots[-1]
 
+BRAND_HEX = "0xFF2A8C"  # the logo's main colour (logo A pink); set when the final logo is chosen
+
+def cut_windows(ws, loud, dur, face_ok):
+    """(the example) where the picture cuts: the face FULL SCREEN for ~2 s on the 2-3 biggest reactions (loud 8+ LU
+    over the median for 1+ s, after the first 3 s so the hook reads), the game FULL SCREEN in quiet stretches with no
+    words for 3+ s. Cuts, never zooms (owner: no fast zooms)."""
+    base = statistics.median(loud) if loud else -70.0
+    face = []
+    if face_ok:
+        runs, t = [], 3
+        while t < min(len(loud), int(dur) - 1):
+            if loud[t] > base + 8 and (t + 1 < len(loud) and loud[t + 1] > base + 6):
+                u = t
+                while u + 1 < len(loud) and loud[u + 1] > base + 5: u += 1
+                runs.append((max(loud[t:u + 1]), t, u)); t = u + 1
+            else: t += 1
+        for _, a, b in sorted(runs, reverse=True)[:3]:
+            w = (float(a), min(float(a) + 2.2, float(b) + 0.8, dur - 0.5))
+            if w[1] - w[0] >= 1.2 and all(w[0] > y + 4 or w[1] < x - 4 for x, y in face): face.append(w)
+    game = []
+    for k in range(1, len(ws)):
+        a, b = ws[k - 1][1], ws[k][0]
+        if b - a >= 3.0 and a > 3:
+            w = (a + 0.3, min(b - 0.2, a + 4.0))
+            if all(w[1] < x or w[0] > y for x, y in face): game.append(w)
+    return sorted(face), game
+
 def page_handle(lang):
     """(owner 17 Nov: "every clip must ALWAYS have a watermark or the page name - super important") marca/marca.json"""
     try: return json.load(open(os.path.join(HERE, "marca", "marca.json"), encoding="utf-8")).get((lang or "en")[:2], "")
     except (OSError, ValueError): return ""
+
+ONE_WORD = True  # (owner 17 Nov, the LOUD Coringa example) one word on screen at a time, no chat lines, no stamp
 
 def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
@@ -348,7 +377,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     hook_v = {"split": 70, "face": 220}.get(mode, 300)
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            "Style: Cap,Arial Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n"
+            f"Style: Cap,Arial Black,{100 if ONE_WORD else 84},&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,0,0,1,7,3,5,60,60,0,1\n"
             f"Style: Hook,Arial Black,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,3,18,0,8,70,70,{hook_v},1\n"
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
             "Style: Chat,Arial,40,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,1,0,0,0,100,100,0,0,3,10,0,7,40,40,0,1\n"
@@ -367,6 +396,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         ev.append(f"Dialogue: 3,{ass_time(0)},{ass_time(dur)},Label,,0,0,0,,{{\\an7\\pos(28,{y})}}{label.upper()}")
     if credit:
         pos = {"split": f"{{\\an1\\pos(28,{(game_top or 700) - 22})}}", "face": "{\\an8\\pos(540,1440)}"}.get(mode, "")
+        if ONE_WORD and mode == "split": pos = f"{{\\an8\\pos(540,{(game_top or 600) + 14})}}"  # (the example: the name on top of the game)
         ev.append(f"Dialogue: 0,{ass_time(0)},{ass_time(dur)},Credit,,0,0,0,,{pos}{credit}")
     hot = re.compile(r"^(" + "|".join(react.WORDS[c] for c in ("shock", "hype")) + r")[.,!?]*$", re.I)
     # (owner 16 Nov: "captions well made, and in silences they must not stay on screen") chunks of up to 3 words /
@@ -375,7 +405,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     for k, wd in enumerate(ws):
         cur.append(wd)
         nxt = ws[k + 1] if k + 1 < len(ws) else None
-        if (len(cur) == 3 or sum(len(x[2]) for x in cur) >= 20 or wd[2][-1:] in ".?!" or not nxt
+        if (len(cur) == (1 if ONE_WORD else 3) or sum(len(x[2]) for x in cur) >= 20 or wd[2][-1:] in ".?!" or not nxt
                 or nxt[0] - wd[1] >= 0.45): chunks.append(cur); cur = []
     for ci, chunk in enumerate(chunks):
         nxt0 = chunks[ci + 1][0][0] if ci + 1 < len(chunks) else None
@@ -383,6 +413,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         for j, (s, e, _) in enumerate(chunk):
             e2 = chunk[j + 1][0] if j + 1 < len(chunk) else end_chunk
             def look(k, w):
+                if ONE_WORD: return w.upper()  # (the example: one white word, no colours)
                 if k == j: return "{\\c&H00F2FF&\\fscx112\\fscy112}" + w.upper() + "{\\c&HFFFFFF&\\fscx100\\fscy100}"
                 if hot.match(w): return "{\\c&H3C3CFF&}" + w.upper() + "{\\c&HFFFFFF&}"
                 return w.upper()
@@ -768,11 +799,18 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         seen.add(msg.lower()); lines.append((t - trim, msg))
     lines = [l for l in lines if l[0] >= 0][:10]
     vertical = lay.get("H", 0) > lay.get("W", 1)
-    base, seam = (("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[st]", 1265) if vertical else layout.filters(lay))
+    if layout.REF_STYLE and lay["mode"] == "split" and not vertical:
+        fw_, gw_ = cut_windows(ws, loudness(src) or [0.0], dur, layout.face_full_ok(lay))
+        base, seam = layout.filters_ref(lay, fw_, gw_)
+    else:
+        base, seam = (("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[st]", 1265) if vertical else layout.filters(lay))
+    if ONE_WORD: lines = []  # (the example has no chat lines)
     mode = "face" if vertical else lay["mode"]
-    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"))
+    ass = os.path.splitext(dst)[0] + ".ass"; make_ass(ws, hook, credit, dur, ass, mode, seam, lines, "" if ONE_WORD else context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"))
     assf = ass.replace("\\", "/").replace(":", "\\:")
-    vf = base + f";[st]ass='{assf}'[v]"
+    # (the example) a thin progress bar at the bottom, in the brand colour, filling up to the end
+    bar = f",drawbox=x=0:y=1832:w='max(2,iw*t/{max(dur - trim, 1):.2f})':h=9:color={BRAND_HEX}@0.95:t=fill"
+    vf = base + f";[st]ass='{assf}'{bar}[v]"
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
                          "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
                          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], 20, 4)  # GPU, CPU if refused

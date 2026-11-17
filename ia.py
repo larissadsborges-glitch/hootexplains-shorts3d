@@ -26,6 +26,10 @@ AFTER the thing it reacts to). The highlight happens in sentence {mid}.
 
 Pick the clip so it MAKES SENSE ON ITS OWN, from the first word to the last (the owner's rule: never start mid-context,
 never cut the payoff, let the scene roll):
+- FIND THE REAL MOMENT FIRST: chat reacts LATE - viewers see the stream with a delay and type after it, and a burst
+  of "clip it"/"LMAO" can come 20-60 s after the thing itself. The ">> DETECTED here" line is when we noticed it, not
+  when it happened: look BACK from it for what actually caused the reaction (the play, the line, the fail) and build
+  the clip around THAT, with its setup before it.
 - STORY SHAPE: setup -> the thing that happens -> the reaction. The setup is where the situation STARTS (the plan, the
   question, the bet, the argument, "watch this"), not earlier small talk and not halfway into it.
 - START: the sentence where this situation begins. STRANGER TEST: if the first sentence only makes sense with something

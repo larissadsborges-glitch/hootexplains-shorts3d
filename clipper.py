@@ -562,6 +562,17 @@ def reactions(loud, chat, base):
 DEPENDENT = re.compile(r"^(and|but|so|because|cause|cuz|yeah|yes|no|nah|exactly|which|then|also|or|too|again|e|mas|então|"
                        r"porque|y|pero|entonces)\b|^(like i said|he said|she said|they said|that's what)", re.I)
 
+def find_event(loud, trigger, back=60.0):
+    """(owner 17 Nov: "when the chat goes crazy, the thing may have happened 20, 30, 40, 50 s before - always search
+    for the context first") the moment is marked when CHAT reacted; the real event is the loudest second in the
+    `back` s before it (+3 s), if it clearly stands out (6+ LU over the clip's median and 2+ over the trigger itself)"""
+    if trigger is None or not loud: return trigger
+    a, b = max(0, int(trigger - back)), min(len(loud), int(trigger) + 4)
+    if b <= a: return trigger
+    base = statistics.median(loud); i = max(range(a, b), key=lambda k: loud[k])
+    here = max(loud[max(0, int(trigger) - 2):int(trigger) + 3] or [-70.0])
+    return float(i) if loud[i] >= base + 6 and loud[i] >= here + 2 else trigger
+
 def guard_cut(ws, loud, base, s0, e0, dur, peak):
     """(research 17 Nov: the code, not the AI, makes the final cut) -> (s0, e0)
     START: a first sentence that leans on the one before (and/but/so/yeah/exactly...) brings that one in (up to 2, 25 s).
@@ -682,7 +693,7 @@ def is_repeat(src, channel, a, b, share=0.5):
 
 def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="", score=None, chat=(), title="", replay=False, original="", at=None):  # (owner 16 Nov: "stop doing the replay at the end") off
     """-> dst, or None when the clip is an ad break (anonymous viewers get Twitch ads)"""
-    dur = duration(src)
+    dur = duration(src); peak0 = peak  # (the trigger's place in the raw: peak may move back to the real event below)
     ws, found, music = words(src, lang)
     # (owner 16 Nov) the story around the moment, dead air out: a new, shorter source; words/peak/chat moved onto it
     # (owner 16 Nov: "yes, add the AI") the local AI reads the sentences: does it make sense alone, where does the story
@@ -691,10 +702,13 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     sn = sentences(ws) if ws else []
     if sn and peak is not None:
         sents = [(ws[a][0], ws[b][1], " ".join(w for _, _, w in ws[a:b + 1])) for a, b in sn]
-        mid = min(range(len(sents)), key=lambda i: 0 if sents[i][0] <= peak <= sents[i][1] else min(abs(sents[i][0] - peak), abs(sents[i][1] - peak)))
         lo = loudness(src) or [0.0]
+        trigger = peak; peak = find_event(lo, trigger)  # the event, not the chat's late reaction to it
+        if peak != trigger: print(f"[editor] the event is {trigger - peak:.0f} s before the trigger", flush=True)
+        mid = min(range(len(sents)), key=lambda i: 0 if sents[i][0] <= peak <= sents[i][1] else min(abs(sents[i][0] - peak), abs(sents[i][1] - peak)))
         verdict = ia.judge(sents, mid, (lang or found or "en")[:2], name=channel or "", title=title or "",
-                           events=reactions(lo, chat, statistics.median(lo)))
+                           events=reactions(lo, chat, statistics.median(lo)) + [(trigger, "<- the moment was DETECTED here (chat/loudness); "
+                                                                                 "the thing it reacts to may be up to 60 s earlier")])
     force = None
     if verdict:
         no_sense = not verdict["makes_sense"]
@@ -706,7 +720,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         if h and len(h.split()) <= 9 and not SLURS.search(h) and grounded(h, " ".join(w for _, _, w in ws), channel): ai_hook = mask(h)
         elif h: verdict["why"] = f"(gancho da IA recusado, não foi dito: {h}) " + verdict["why"]
     keep, mp = smart_cut(src, ws, peak, dur, force)
-    if at is not None and peak is not None and is_repeat(src, channel, at - peak + keep[0][0], at - peak + keep[-1][1]):
+    if at is not None and peak0 is not None and is_repeat(src, channel, at - peak0 + keep[0][0], at - peak0 + keep[-1][1]):
         print(f"[editor] skipped: the same scene is already in another {channel} clip", flush=True); return None
     cut_src = os.path.splitext(dst)[0] + "_cut.mp4"; apply_cut(src, keep, cut_src)
     if mp:
@@ -778,7 +792,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
 # ---------------------------------------------------------------- one recorder (segments, rolling 15 min)
 MIN_FREE_GB = 8  # below this on the output disk no new clips are cut (the editor still finishes the queue)
 
-PRE_DEFAULT, POST_DEFAULT = 90.0, 90.0  # (owner 17 Nov: "good context" + "up to 2 minutes if it needs it") was 60 / 50
+PRE_DEFAULT, POST_DEFAULT = 120.0, 90.0  # (owner 17 Nov: "the chat goes crazy 20-50 s AFTER the event") 2 min before  # (owner 17 Nov: "good context" + "up to 2 minutes if it needs it") was 60 / 50
 
 def watch(url, minutes, lang=None, hook="", credit="", pre=PRE_DEFAULT, post=POST_DEFAULT, keep_min=15, seg=20, height=1080):  # (owner 16 Nov: "more image quality") source 1080p60
     """(16 Nov) runs until `minutes` are up: a channel that is offline (launch day: start before they go live) or a stream

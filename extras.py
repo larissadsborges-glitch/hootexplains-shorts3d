@@ -8,7 +8,10 @@ streamers at once. Both read the fact sheets (<clip>.json) the editor writes nex
   python extras.py mesmo   [--hours 6]
       "SAME MOMENT": when 2-4 streamers reach the SAME scene (the game characters' lines match word for word in their
       transcripts), their clips side by side, in sync on that line.
-Outputs go to <OUT>/prontos/<lang>/ with a .txt (title + caption) like every clip, and strong ones go to avisos.jsonl.
+(owner 17 Nov: "during the day only the single clips, with context; the JOINING is done only at the end of the day,
+and then I decide") every joined format goes to <OUT>/fim_do_dia/<day>/ with a .txt, never to prontos, and the
+owner gets ONE notice when the day's batch is ready (05:00). The same moment is rendered when the diary finds it (the
+video is only on disk for an hour) but it also waits in fim_do_dia.
 """
 import argparse, glob, json, os, re, subprocess, sys
 from datetime import datetime, timedelta
@@ -18,6 +21,15 @@ sys.path.insert(0, HERE)
 import clipper as C
 
 FONT = "C\\:/Windows/Fonts/ariblk.ttf"
+
+
+def day_label(now=None):
+    """the 'day' a batch belongs to: up to 06:00 still counts as the day before (US lives end late)"""
+    return ((now or datetime.now()) - timedelta(hours=6)).strftime("%Y-%m-%d")
+
+
+def fim_dir(day=None):
+    d = os.path.join(C.OUT, "fim_do_dia", day or day_label()); os.makedirs(d, exist_ok=True); return d
 
 
 def sheets(hours=None, channel=None, date=None):
@@ -44,14 +56,12 @@ def write_post(base, title, caption_lines, kind, extra):
         f.write(f"TÍTULO: {title}\n\nLEGENDA:\n{title}\n" + "\n".join(caption_lines) + "\n")
     with open(base + ".json", "w", encoding="utf-8") as f:
         json.dump({"kind": kind, "title": title, "made": datetime.now().isoformat(timespec="seconds"), **extra}, f, ensure_ascii=False)
-    with open(os.path.join(C.OUT, "avisos.jsonl"), "a", encoding="utf-8") as f:
-        f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": extra.get("channels", ""), "score": 99, "first": kind}, ensure_ascii=False) + "\n")
 
 
 # ------------------------------------------------------------------ the day in 60 seconds
-def resumo(channel, date=None, n=6, before=7.0, after=4.0):
-    date = date or datetime.now().strftime("%Y-%m-%d")
-    ds = [d for d in sheets(channel=channel, date=date) if d.get("makes_sense") and d.get("payoff_t") is not None]
+def resumo(channel, date=None, n=6, before=7.0, after=4.0, hours=24):
+    date = date or day_label()
+    ds = [d for d in sheets(channel=channel, hours=hours) if d.get("makes_sense") and d.get("payoff_t") is not None]
     ds = sorted(ds, key=lambda d: -(d.get("score") or 0))[:n]
     if len(ds) < 3: print(f"resumo {channel} {date}: only {len(ds)} clips, skipped"); return None
     ds.sort(key=lambda d: d["_made"])  # in the order they happened
@@ -76,8 +86,7 @@ def resumo(channel, date=None, n=6, before=7.0, after=4.0):
     box = (f"[cv]drawbox=x=0:y=1440:w=iw:h=250:color=black@0.72:t=fill:enable='lt(t,3.2)',"
            f"drawtext=fontfile='{FONT}':text='{esc(head[0])}':fontsize=64:fontcolor=white:x=(w-tw)/2:y=1470:enable='lt(t,3.2)',"
            f"drawtext=fontfile='{FONT}':text='{esc(head[1])}':fontsize=64:fontcolor=0xFFD400:x=(w-tw)/2:y=1560:enable='lt(t,3.2)'[v]")
-    fd = os.path.join(C.OUT, "prontos", lang); os.makedirs(fd, exist_ok=True)
-    base = os.path.join(fd, f"{date.replace('-', '')[4:]}_{channel}_RESUMO_DIA")
+    base = os.path.join(fim_dir(date), f"{channel}_RESUMO_DIA_{lang}")
     C.run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *ins, "-filter_complex", ";".join(parts) + ";" + cat + ";" + box,
                            "-map", "[v]", "-map", "[ca]", *v, "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
                            "-movflags", "+faststart", base + ".mp4"], 20, 4)
@@ -150,8 +159,7 @@ def render_grid(picks, pre, post, line):
         lay += f";[{prev}]" + ("" if n == 4 else f"drawtext=fontfile='{FONT}':text='SAME':fontsize=90:fontcolor=white:x=540+(540-tw)/2:y=1300,"
                                                 f"drawtext=fontfile='{FONT}':text='MOMENT':fontsize=90:fontcolor=0xFFD400:x=540+(540-tw)/2:y=1420,") + "null[v]"
     aud = "".join(f"[{i}:a]" for i in range(n)) + f"amix=inputs={n}:normalize=1,loudnorm=I=-14:TP=-1.5:LRA=11[a]"
-    fd = os.path.join(C.OUT, "prontos", "en"); os.makedirs(fd, exist_ok=True)
-    base = os.path.join(fd, f"{datetime.now():%m%d_%H%M}_MESMO_MOMENTO_{'_'.join(d['channel'] for d, _ in picks)}")
+    base = os.path.join(fim_dir(), f"{datetime.now():%H%M}_MESMO_MOMENTO_{'_'.join(d['channel'] for d, _ in picks)}")
     C.run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *ins, "-filter_complex", ";".join(parts) + ";" + lay + ";" + aud,
                            "-map", "[v]", "-map", "[a]", *v, "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
                            "-movflags", "+faststart", base + ".mp4"], 20, 4)
@@ -162,35 +170,51 @@ def render_grid(picks, pre, post, line):
     print("mesmo ->", base + ".mp4"); return base + ".mp4"
 
 
-def auto(quiet_min=45):
-    """(run by the watcher every round) the day recap of every streamer who has been quiet for quiet_min minutes
-    (no new clip: the live ended or calmed down), made again when 4+ new clips came since; then the same-moment search"""
-    today = datetime.now().strftime("%Y-%m-%d")
-    p = os.path.join(C.OUT, "resumos_feitos.json")
+def auto():
+    """(run by the watcher every round) once a day, from 05:00: the end-of-day batch for the day that just ended"""
+    now = datetime.now(); day = day_label(now)
+    p = os.path.join(C.OUT, "fim_do_dia", "feitos.json")
     try: done = json.load(open(p, encoding="utf-8"))
-    except (OSError, ValueError): done = {}
+    except (OSError, ValueError): done = []
+    if now.hour < 5 or day in done: return
+    fim_do_dia(day)
+    done.append(day); os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(done, open(p, "w", encoding="utf-8"))
+
+
+def fim_do_dia(day=None):
+    """the joined formats of the day -> fim_do_dia/<day>/, then ONE notice to the owner, who picks what to post"""
+    day = day or day_label(); made = []
     by = {}
-    for d in sheets(date=today):
+    for d in sheets(hours=24):
         if d.get("makes_sense"): by.setdefault(d["channel"], []).append(d)
     for ch, ds in by.items():
-        last = max(d["_made"] for d in ds); key = f"{ch}|{today}"
-        if len(ds) >= 3 and last < datetime.now() - timedelta(minutes=quiet_min) and len(ds) - done.get(key, 0) >= (4 if key in done else 3):
-            try:
-                if resumo(ch, today): done[key] = len(ds)
+        if len(ds) >= 3:
+            try: made.append(resumo(ch, day))
             except Exception as e: print("resumo failed", ch, e)
-    json.dump(done, open(p, "w", encoding="utf-8"))
-    # (the same moment now comes from the live diary - diario.py - which has every streamer's whole hour, not only clips)
+    for fn in FIM_EXTRA:  # the formats added later (deaths, race, top 5)
+        try: made += fn(day) or []
+        except Exception as e: print(fn.__name__, "failed", e)
+    vids = sorted(glob.glob(os.path.join(fim_dir(day), "*.mp4")))
+    if vids:
+        with open(os.path.join(C.OUT, "avisos.jsonl"), "a", encoding="utf-8") as f:
+            f.write(json.dumps({"fim_do_dia": fim_dir(day), "videos": vids, "title": f"Fim do dia {day}: {len(vids)} vídeos para escolheres",
+                                "score": 99, "channel": "", "clip": ""}, ensure_ascii=False) + "\n")
+    print(f"fim do dia {day}: {len(vids)} videos")
+
+
+FIM_EXTRA = []
 
 
 def main():
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest="cmd")
     r = sp.add_parser("resumo"); r.add_argument("--channel", required=True); r.add_argument("--date")
     m = sp.add_parser("mesmo"); m.add_argument("--hours", type=float, default=6)
-    sp.add_parser("auto")
+    sp.add_parser("auto"); f = sp.add_parser("fim"); f.add_argument("--day")
     g = ap.parse_args()
     if g.cmd == "resumo": resumo(g.channel, g.date)
     elif g.cmd == "mesmo": mesmo(g.hours)
     elif g.cmd == "auto": auto()
+    elif g.cmd == "fim": fim_do_dia(g.day)
     else: ap.print_help()
 
 

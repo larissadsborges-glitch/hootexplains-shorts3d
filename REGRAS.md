@@ -60,3 +60,6 @@ duração (Quso, Socialinsider, Fanpage Karma). O sistema faz isto sozinho:
 9. **Título:** dá a situação (a tensão), nunca o desfecho. Máx. 8 palavras, só factos ditos.
 10. **Momentos de jogo sem fala** (acidentes, mortes, perseguições): vão para "rever" (pouca fala) - a decisão é tua.
 11. **Sem repetidos:** se mais de metade de um clipe já saiu noutro clipe do mesmo streamer, não sai outra vez (fica o de pontuação mais alta).
+12. **O chat reage tarde** (dona, 17 nov): quando o chat explode, o acontecimento pode ter sido 20-50 s antes. O sistema
+    recua até 60 s à procura do acontecimento verdadeiro (o grito/barulho), guarda 2 min antes de cada momento e a IA
+    sabe que tem de procurar para trás o que provocou a reação.

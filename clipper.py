@@ -329,7 +329,7 @@ HOOK_H = 230  # the hook box, 2 lines of Arial Black 70 + padding
 def hook_spot(mode, seam, head, game_top=None):
     """top y of the hook: the first place that does not touch the streamer's head (head = (top, bottom) or None)"""
     gt = game_top or 700  # split: over the webcam top, over the game band, or under the captions
-    under = gt + 120 if seam <= gt + 10 else gt + 40  # (captions on the seam: the hook goes a bit lower)
+    under = gt + 120 if seam <= gt + 10 else gt + 84  # (under the @streamer tag on top of the game) (captions on the seam: the hook goes a bit lower)
     # (17 Nov: in face mode the 2nd spot, 1150-1380, sat ON the captions (centred at 1300, ~1190-1410)) -> under them
     spots = {"split": [50, under, (game_top or 700) + 640], "face": [90, 1450, 1640]}.get(mode, [300])
     for y in spots:
@@ -388,6 +388,14 @@ def card_text(hook, channel):
     if channel: t = re.sub(re.escape(channel.rstrip("_")) + "_?", display(channel).title().replace("Ishowspeed", "IShowSpeed"), t, flags=re.I)
     return t
 
+def hook_words(hook):
+    """the title in caps, its key words (the AI's keywords) in the brand yellow, like the captions"""
+    out = []
+    for w in hook.upper().split():
+        k = re.sub(r"[^\w']", "", w.lower())
+        out.append("{\\c&H00D4FF&}" + w + "{\\c&HFFFFFF&}" if k and k in KEYWORDS else w)
+    return " ".join(out)
+
 def _outside(dur, wins):
     """the stretches of [0, dur] outside the full-screen cuts (names are hidden while the face/game fills the screen)"""
     out, t = [], 0.0
@@ -405,7 +413,8 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
             + CAP_STYLE +  # (the example: Poppins, soft shadow)
-            f"Style: Hook,Arial Black,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,3,18,0,8,70,70,{hook_v},1\n"
+            # (owner 17 Nov: "I don't like the title - the black box looks bad") no box: Poppins with outline + shadow
+            f"Style: Hook,Poppins ExtraBold,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,6,4,8,70,70,{hook_v},1\n"
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
             "Style: Chat,Arial,40,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,1,0,0,0,100,100,0,0,3,10,0,7,40,40,0,1\n"
             "Style: Wm,Arial Black,40,&H40FFFFFF,&H40FFFFFF,&H60000000,&H80000000,1,0,0,0,100,100,0,0,1,3,0,9,30,30,30,1\n"
@@ -417,7 +426,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         pos = {"split": f"{{\\an3\\pos(1052,{(game_top or 700) - 22})}}", "face": "{\\an9\\pos(1052,40)}"}.get(mode, "{\\an2\\pos(540,1700)}")
         for a, b in _outside(dur, full_wins): ev.append(f"Dialogue: 4,{ass_time(a)},{ass_time(b)},Wm,,0,0,0,,{pos}{wm}")
     if hook:  # never over the face: the hook goes where the head is not (see hook_spot)
-        ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{hook_spot(mode, seam, head_box, game_top)})}}{hook.upper()}")
+        ev.append(f"Dialogue: 1,{ass_time(0)},{ass_time(min(3.5, dur))},Hook,,0,0,0,,{{\\an8\\pos(540,{hook_spot(mode, seam, head_box, game_top)})}}{hook_words(hook)}")
     if label:  # (owner 16 Nov: context, like The Till stamps) a small yellow stamp top-left: GTA 6 · LAUNCH DAY
         y = {"split": (game_top or 700) + (70 if seam <= (game_top or 700) + 10 else 16)}.get(mode, 28)  # (top-left of the game)
         ev.append(f"Dialogue: 3,{ass_time(0)},{ass_time(dur)},Label,,0,0,0,,{{\\an7\\pos(28,{y})}}{label.upper()}")

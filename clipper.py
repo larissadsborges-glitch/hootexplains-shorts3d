@@ -933,7 +933,13 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     # (owner 17 Nov: "I only want audience - monetization and strikes don't matter, put everything in") music and
     # little talk (cutscenes/spoilers) no longer hold a clip back; they are only noted in the .txt
     notes = [w for w, bad in (("tem música", music), ("pouca fala (cutscene?)", talk < 0.15)) if bad]
-    why = [w for w, bad in (("palavra proibida", slur),
+    # (owner 18 Nov: "a maioria dos clipes em brasileiro estão sem rap e temos que ter a mesma coisa com os ingleses":
+    # a song on the game radio gets the Short blocked on YouTube) a clip that is mostly a song is held back, never sent
+    song = bool((verdict or {}).get("song"))
+    if not song and (lang or found or "en")[:2] == "en":  # (the EN page posts by itself: a dedicated look at the lyrics)
+        try: song = ia.is_song(" ".join(w for _, _, w in ws))
+        except Exception: song = False
+    why = [w for w, bad in (("palavra proibida", slur), ("é sobretudo uma música (rádio)", song),
                             ("sem sentido sozinho (IA)", no_sense), ("a cena continua depois do fim (IA)", scene_cut)) if bad]
     first = force_first or (first_in_gta6(channel, title, verdict, rec_started, live_started, (lang or found or "en")[:2]) if verdict and channel else "")
     if force_first: why = []  # (the diary found it: a first is posted even when the AI finds the moment quiet)

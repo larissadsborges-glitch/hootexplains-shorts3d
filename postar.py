@@ -46,7 +46,7 @@ def main(clip):
               "[2:a]atrim=0:0.05[ca];[1:a]aresample=48000[a];[c][ca][v][a]concat=n=2:v=1:a=1[ov][oa]")
         cmd = [FF, "-y", "-loglevel", "error", "-loop", "1", "-t", "0.05", "-i", cover, "-i", clip,
                "-f", "lavfi", "-t", "0.05", "-i", "anullsrc=r=48000:cl=stereo", "-filter_complex", fc,
-               "-map", "[ov]", "-map", "[oa]", "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-maxrate", "12M", "-bufsize", "24M",
+               "-map", "[ov]", "-map", "[oa]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-maxrate", "6M", "-bufsize", "12M",  # (18 Nov: 60 MB copies took minutes to push)
                "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out]
     else:
         cmd = [FF, "-y", "-loglevel", "error", "-i", clip, "-c", "copy", "-movflags", "+faststart", out]

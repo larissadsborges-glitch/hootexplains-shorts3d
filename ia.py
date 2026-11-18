@@ -57,13 +57,15 @@ never cut the payoff, let the scene roll):
   the sentences INSIDE start..end that add nothing to this story (talk to chat about something else, thanking donations,
   repeating himself, filler) and can be cut out with a jump cut, so the clip keeps only the good parts. Never the payoff,
   never the setup the payoff needs, never what makes the start understandable. [] when everything matters.
+- song: true if a big part of the sentences between start and end are LYRICS of a song playing (game radio, rap,
+  singing along), not people talking. Songs get the clip blocked for copyright.
 - event: what happens, in ENGLISH, max 10 words, concrete (e.g. "dies falling off a roof", "steals a police car").
 - category: one of death, crash, police, steal_car, mission, heist, fail, win, scare, funny, rage, cutscene, map, other.
 - first_said: true ONLY if the streamer himself says this is his first time / his first one ("my first death", "first
   time I...").
 - keywords: 4-8 of the MOST IMPORTANT words actually spoken in the clip (exactly as written in the sentences): what
   happens, the key object/person/place, numbers, the punchline word. They will be shown in yellow in the captions.
-Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "keywords": [], "drop": [], "why": ""}}"""
+Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "keywords": [], "drop": [], "song": false, "why": ""}}"""
 
 CHECK = """Here is a clip cut from a livestream (numbered sentences with times, ">>" lines are measured reactions).
 Sentences {s} to {e} are IN the clip; the ones before and after are NOT.
@@ -226,4 +228,20 @@ def judge(sents, mid, lang="en", timeout=150, name="", title="", events=()):
             "first_said": bool(d.get("first_said", False)),
             "keywords": [str(k).strip().lower() for k in (d.get("keywords") or []) if str(k).strip()][:10],
             "drop": _drops(d.get("drop"), s, e, d.get("payoff"), mid),
+            "song": bool(d.get("song", False)),
             "engine": last_engine, "scene_continues": bool(d.get("scene_continues", False)) and e >= len(sents) - 2}
+
+SONG = """Below is the transcript of a short clip from a livestream. Some streams play music (game radio, rap songs) and the
+transcript then contains SONG LYRICS mixed with the streamer talking.
+Is a big part (a quarter or more) of this transcript the lyrics of a song (rap, singing, a chorus repeated), rather than
+people talking or game characters' dialogue? Answer JSON only: {{"song": true, "why": ""}}
+
+TRANSCRIPT:
+{text}"""
+
+
+def is_song(text, timeout=60):
+    """(owner 18 Nov: no rap/songs in the clips, they get blocked) True when the clip is largely song lyrics"""
+    if not text or len(text.split()) < 25: return False
+    d = _json(_ask(SONG.format(text=text[:3000]), timeout)[0])
+    return bool(d and d.get("song"))

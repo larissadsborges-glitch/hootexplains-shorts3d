@@ -322,7 +322,8 @@ def words(path, lang=None):
     from faster_whisper import WhisperModel
     import numpy as np
     tmp = path + ".16k.wav"
-    subprocess.run([FF, "-y", "-loglevel", "error", "-i", path, "-ac", "1", "-ar", "16000", "-sample_fmt", "s16", tmp], check=True)
+    subprocess.run([FF, "-y", "-loglevel", "error", "-i", path, "-ac", "1", "-ar", "16000", "-sample_fmt", "s16", tmp], check=True,
+                   stdin=subprocess.DEVNULL, timeout=240)  # (18 Nov: a cut-off raw hung an editor for 30 min)
     w = wave.open(tmp); a = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768; w.close(); os.remove(tmp)
     if _model is None:
         # (16 Nov) on the GPU first (NVIDIA's cuBLAS/cuDNN pip packages in the venv; Pascal cards: int8): 22 s of speech

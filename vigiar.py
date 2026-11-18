@@ -151,7 +151,7 @@ def main():
         except Exception as e:
             print(f"AI judge check failed: {e}", flush=True)
         # 3. editors
-        n_rec = len(recorded); want = 1 if n_rec <= 2 else (3 if n_rec >= 6 else 2)  # (18 Nov launch: "bora, mais clipes": a 3rd editor, below-normal priority, fills the AI/network waits)
+        n_rec = len(recorded); want = 1  # (owner 18 Nov: "uma de cada vez": one editor, each clip done sooner, the PC holds up)
         have = len([c for c in running() if " worker" in c]) // 2 or len([c for c in running() if " worker" in c])
         for _ in range(max(0, want - have)): start(["worker"], "editor.log")
         print(f"{datetime.now():%H:%M} recording: {', '.join(sorted(recorded))} | editors {max(have, want)}", flush=True)

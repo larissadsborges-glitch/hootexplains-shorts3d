@@ -1190,6 +1190,12 @@ def worker(idle_exit=None):
         except OSError: continue
         try:
             job = json.load(open(jp, encoding="utf-8"))
+            if job.get("channel") in ("stream", "", None):  # (owner 18 Nov: "os vídeos continuam com o @stream") the real name
+                try:
+                    u = job.get("url") or json.load(open(os.path.join(os.path.dirname(job["raw"]), "meta.json"), encoding="utf-8")).get("url", "")
+                    n = yt_channel_name(u) if u else None
+                    if n: job["channel"] = n; job["credit"] = "@" + n
+                except (OSError, ValueError, KeyError): pass
             t = time.time(); made = edit(job["raw"], job["short"], job.get("hook", ""), job.get("credit", ""), job.get("lang"),
                                   peak=job.get("peak"), channel=job.get("channel", ""), url=job.get("url", ""), score=job.get("score"),
                                   chat=job.get("chat", []), title=job.get("title", ""), original=job.get("original", ""), at=job.get("at"),

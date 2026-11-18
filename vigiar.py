@@ -32,7 +32,6 @@ TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDC
        ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/lacy", "en"),
-       ("https://www.youtube.com/channel/UC72PuhDwKtZ5MikpGNhPAtA/live", "en"),  # TGG (owner 18 Nov 14:50: "é o TGG e o outro")
        ("https://www.youtube.com/channel/UC2wKfjlioOCLP4xQMOWNcgg/live", "en"),  # TypicalGamer (owner 18 Nov 14:45: "o que eu estou a dizer é o TypicalGamer, para manter")
        ("https://www.twitch.tv/alanzoka", "pt")]
 MAX_LIVE = 12  # (18 Nov 11:00: offline-waiting recorders counted, Paulinho was left out)  IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
@@ -190,7 +189,7 @@ def main():
         # (recorders stay on waiting for the live to come back, so "ended" = 45 min with no new clip: extras.py auto)
         if not running("extras.py"): start(["__extras", "auto"], "extras.log")
         # (owner 17 Nov) the live diary: everything transcribed, events, firsts, same moment across streamers
-        if not running("diario.py"): start(["__diario", "--until", end.strftime("%Y-%m-%d %H:%M")], "diario.log")
+        if False and not running("diario.py"):  # (18 Nov 17:15: the PC could not keep up - the editors come first) start(["__diario", "--until", end.strftime("%Y-%m-%d %H:%M")], "diario.log")
         if new:
             print("NOVO: " + ", ".join(new), flush=True); sys.exit(10)
         time.sleep(g.every)

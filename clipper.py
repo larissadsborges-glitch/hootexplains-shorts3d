@@ -71,6 +71,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # CLIPPER_OUT overrides it; falls back to tools/clipper/out if E: is missing
 OUT = os.environ.get("CLIPPER_OUT") or (r"E:\clipper" if os.path.isdir("E:\\") else os.path.join(HERE, "out"))
 QUEUE = os.path.join(OUT, "queue")
+# (owner 18 Nov 14:00, E: full with 8 lives recording: "usa o C") the live recordings (rolling pieces, raw cuts) go to
+# C: (159 GB free); clips, queue, notices stay on E:
+REC = os.environ.get("CLIPPER_REC") or (r"C:\clipper_rec" if os.path.isdir("C:\\") else OUT)
+def free_bytes():
+    """the room the recordings need (on C: now), but 0 when E: (the finished clips) has under 2 GB"""
+    import shutil
+    if shutil.disk_usage(OUT).free < 2e9: return 0
+    return shutil.disk_usage(REC).free if os.path.isdir(REC) else shutil.disk_usage(OUT).free
 BELOW_NORMAL = 0x00004000  # Windows process priority class for the editor
 sys.path.insert(0, HERE)
 import ia, layout, react, cartao  # (owner 16 Nov: "more reaction messages") the reaction words/emotes, EN + PT-BR + ES, see react.py
@@ -1060,7 +1068,7 @@ def watch(url, minutes, lang=None, hook="", credit="", pre=PRE_DEFAULT, post=POS
 
 def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, seg, height, quiet=False):
     import shutil
-    od = os.path.join(OUT, f"{name}_{datetime.now():%Y%m%d_%H%M%S}"); sd = os.path.join(od, "seg"); os.makedirs(sd, exist_ok=True); os.makedirs(QUEUE, exist_ok=True)
+    os.makedirs(REC, exist_ok=True); od = os.path.join(REC, f"{name}_{datetime.now():%Y%m%d_%H%M%S}"); sd = os.path.join(od, "seg"); os.makedirs(sd, exist_ok=True); os.makedirs(QUEUE, exist_ok=True)
     lst = os.path.join(od, "segments.csv")
     yt = [sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--no-part", "--ffmpeg-location", os.path.dirname(FF), "--hls-use-mpegts", "-f", f"best[height<={height}]/best", "-o", "-", url]
     ff = [FF, "-loglevel", "error", "-i", "pipe:0", "-map", "0", "-c", "copy", "-f", "segment", "-segment_time", str(seg),
@@ -1134,7 +1142,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
         cands = [("chat", ws + i * 5.0 - 5.0) for i in chat_spikes(series)]  # (chat reacts ~5 s after the moment)
         cands += [("clip_asks", ws + i * 5.0 - 10.0) for i, c in enumerate(clips) if c >= 3]  # 3+ chatters asking "clip it"
         cands += [("loud", float(s)) for s in loud_spikes(loud, start=int(ws))]
-        low_disk = shutil.disk_usage(OUT).free < MIN_FREE_GB * 1e9
+        low_disk = free_bytes() < MIN_FREE_GB * 1e9
         if low_disk and not warned: print(f"[{name}] DISK ALMOST FULL (< {MIN_FREE_GB} GB on {OUT}): no new clips", flush=True); warned = True
         for kind, at in sorted(cands, key=lambda c: c[1]):
             key = round(at / 20)
@@ -1162,7 +1170,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
                 with open(os.path.join(QUEUE, f"{int(time.time() * 1000)}_{name}_{n:03d}.json"), "w", encoding="utf-8") as f: json.dump(job, f)
                 print(f"[{name}] highlight {n} ({kind}, score {score}: {why}) at {at:.0f}s -> queued", flush=True)
         # keep only the last keep_min minutes on disk (an hour; 20 min when the disk gets tight)
-        km = keep_min if shutil.disk_usage(OUT).free > 25e9 else min(keep_min, 20)
+        km = keep_min if free_bytes() > 25e9 else min(keep_min, 20)
         for p, _, t1 in segs:
             if t1 < rec_end - km * 60 and os.path.exists(p): _rm(p)  # (a piece the diary is reading stays until next time)
     for p in (p2, p1):

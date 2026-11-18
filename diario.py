@@ -250,7 +250,7 @@ def main():
     lives, matcher = {}, Matcher()
     while datetime.now() < end:
         busy = False
-        for m in glob.glob(os.path.join(C.OUT, "*_2*", "meta.json")):
+        for m in (glob.glob(os.path.join(C.OUT, "*_2*", "meta.json")) + glob.glob(os.path.join(C.REC, "*_2*", "meta.json"))):
             od = os.path.dirname(m)
             if time.time() - os.path.getmtime(m) > 4000: continue  # a live that ended over an hour ago
             try:
@@ -258,7 +258,7 @@ def main():
                 busy |= lives[od].step(matcher)
             except Exception as e:
                 print(f"[diary] {os.path.basename(od)}: {type(e).__name__}: {e}", flush=True)
-        for m in glob.glob(os.path.join(C.OUT, "*_2*", "meta.json")):  # a live over for 70+ min: its pieces go
+        for m in (glob.glob(os.path.join(C.OUT, "*_2*", "meta.json")) + glob.glob(os.path.join(C.REC, "*_2*", "meta.json"))):  # a live over for 70+ min: its pieces go
             sd = os.path.join(os.path.dirname(m), "seg")
             if os.path.isdir(sd) and time.time() - os.path.getmtime(m) > 4200:
                 import shutil; shutil.rmtree(sd, ignore_errors=True); lives.pop(os.path.dirname(m), None)

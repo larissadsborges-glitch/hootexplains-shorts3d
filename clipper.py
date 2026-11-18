@@ -177,6 +177,18 @@ def channel_of(url):
     m = re.search(r"(?:twitch\.tv|kick\.com)/([A-Za-z0-9_]+)", url) or re.search(r"youtube\.com/@([A-Za-z0-9_.-]+)", url)
     return m.group(1) if m else None
 
+def yt_channel_name(url):
+    """(18 Nov: the found lives were all called "stream", so the clip said @stream) a youtube.com/channel/<id> live -> its
+    channel's name (TGG, Gameplayrj...), letters and digits only"""
+    if "youtube.com/channel/" not in url: return None
+    try:
+        r = subprocess.run([sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--skip-download", "--print", "%(channel)s", url],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+        n = re.sub(r"[^A-Za-z0-9_]", "", (r.stdout.strip().splitlines() or [""])[0])
+        return n[:30] or None
+    except Exception:
+        return None
+
 # ---------------------------------------------------------------- highlight finding
 def chat_bins(events, t0, t1, w=5.0):
     """per 5 s bin: (weighted chat = each chatter once, at their strongest message; chatters asking for a clip)"""
@@ -1022,7 +1034,7 @@ PRE_DEFAULT, POST_DEFAULT = 120.0, 90.0  # (owner 17 Nov: "the chat goes crazy 2
 def watch(url, minutes, lang=None, hook="", credit="", pre=PRE_DEFAULT, post=POST_DEFAULT, keep_min=60, seg=20, height=1080):  # (owner 16 Nov: "more image quality") source 1080p60
     """(16 Nov) runs until `minutes` are up: a channel that is offline (launch day: start before they go live) or a stream
     that drops is retried every 60 s; each live session gets its own folder"""
-    name = channel_of(url) or "stream"; credit = credit or f"@{name}"; t_end = time.time() + minutes * 60
+    name = channel_of(url) or yt_channel_name(url) or "stream"; credit = credit or f"@{name}"; t_end = time.time() + minutes * 60
     chat = (TwitchChat(channel_of(url)) if "twitch.tv" in url else
             YouTubeChat(url, os.path.join(OUT, "chat", name)) if ("youtube.com" in url or "youtu.be" in url) else None)
     if chat: chat.start()

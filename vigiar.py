@@ -25,8 +25,9 @@ MAIN = "https://www.youtube.com/@IShowSpeed/live"
 # Jynxzi, HasanAbi and Asmongold were stopped on the owner's word on 16 Nov. Twitch / YouTube only: their chat is read.
 # (owner 17 Nov 23:15: "O Coringa, eu quero o Coringa. Se ele streamar o GTA, eu quero o Coringa.") he is first and is
 # ALWAYS recorded when live, even when the MAX_LIVE slots are full
-ALWAYS = {"coringa"}
+ALWAYS = {"coringa", "ricfazeres"}  # (owner 18 Nov: RicFazeres "para o público de Portugal")
 TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),
+       ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/caseoh_", "en"), ("https://www.twitch.tv/lacy", "en"),
        ("https://www.twitch.tv/angryginge13", "en"),                       # UK
@@ -38,7 +39,7 @@ MAX_LIVE = 9  # IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsa
 # 10:30 on 18 Nov (GTA 6 opens in New Zealand at 11:00 PT) the biggest live "GTA 6" streams on YouTube are found and
 # recorded too, even if they are not on the list: up to 2 at a time, 3000+ people watching, the title must say GTA 6
 DISCOVER_FROM = datetime(2026, 11, 18, 10, 30)
-DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 2, 3000
+DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 4, 3000  # (18 Nov 09:30 test: 6 found, one Indonesian - 4 so EN/PT/ES ones get in)
 
 
 def discover():

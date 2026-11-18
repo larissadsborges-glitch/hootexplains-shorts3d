@@ -1,43 +1,51 @@
-# 5 coisas que não sabias no GTA 6 — texto do vídeo (17 nov 2026)
+# 5 coisas que não sabias no GTA 6 — v2, SÓ GAMEPLAY (17 nov 2026)
 
-Formato: vertical 9:16, ~40 s, só texto no ecrã (sem narrador), Poppins com contorno, palavras-chave a amarelo, imagens
-dos trailers oficiais da Rockstar (Trailer 1, Trailer 2, Extended Look, Launch Trailer) + gráficos gerados quando não
-há imagem oficial do que se diz. Música CC0. Cada facto ~7 s. Marca d'água @streamwentwild.
+Dona, 17 nov: "Quero só factos do jogo em si, da gameplay". A v1 (recorde do trailer, Netflix, 13 anos) está em
+`gta6_5_coisas_v1_records.md` / `faz_5_coisas_v1_records.py`.
 
-## Abertura (2 s)
-EN: **5 THINGS YOU DIDN'T KNOW ABOUT GTA 6**
-PT: **5 COISAS QUE NÃO SABIAS SOBRE O GTA 6**
+Formato: vertical 9:16, ~38 s, só texto no ecrã (sem narrador), Poppins com contorno, palavras-chave a amarelo, imagens
+dos trailers oficiais da Rockstar (Trailer 1, Trailer 2, Launch Trailer; o Extended Look não descarregou) + gráficos
+gerados (estrelas, botões). Música CC0. Cada facto ~5-6,5 s em 2-3 planos. Marca d'água da página.
+Os factos vêm do Extended Look e das antevisões; as imagens dos trailers ilustram, não mostram a mecânica no ecrã.
 
-## 1 · O trailer bateu um recorde do mundo
-EN: The first trailer got **90.4 MILLION** views in **24 hours** — a **Guinness World Record**
-PT: O primeiro trailer teve **90,4 MILHÕES** de visualizações em **24 horas** — um **recorde do Guinness**
-Imagem: Trailer 1 + gráfico gerado (contador a subir até 90.400.000).
-Fontes: Guinness via PC Gamer / Push Square (90 421 491 views em 24 h; bateu os 59,4 M do MrBeast).
+## Abertura (2,6 s) — Trailer 1, praia vista de cima
+EN: **5 THINGS YOU DIDN'T KNOW ABOUT GTA 6** · PT: **5 COISAS QUE NÃO SABIAS SOBRE O GTA 6**
 
-## 2 · A primeira protagonista mulher
-EN: **Lucia** is the **first female lead** in a GTA story — and you **switch** between her and **Jason**
-PT: A **Lucia** é a **primeira protagonista mulher** de um GTA — e podes **trocar** entre ela e o **Jason**
-Imagem: Lucia e Jason no Trailer 2 / Extended Look.
-Fontes: Dot Esports (first leading female protagonist); PC Gamer, Extended Look (troca entre os dois).
+## 1 · Seis estrelas
+EN: The **wanted** level now goes up to **6 stars** · PT: O nível de **procurado** agora vai até **6 estrelas**
+Gráfico: 6 estrelas, a 6.ª a amarelo com "NEW/NOVA"; "GTA V HAD ONLY 5 / NO GTA V ERAM SÓ 5".
+Planos: Launch 70,4 (carro da polícia, luzes) · Trailer 2 107,6 (polícias) · Launch 72,4 (Lucia a disparar).
+Fontes: TechRadar "16 new GTA 6 details" (Extended Look); allthings.how; Vice "150 new details".
 
-## 3 · Vice City voltou
-EN: **Vice City** is back — inside **Leonida**, Rockstar's **Florida**, with **6 regions**
-PT: **Vice City** voltou — dentro de **Leonida**, a **Florida** da Rockstar, com **6 regiões**
-Imagem: Vice City vista de cima (trailers) + gráfico gerado com as 6 regiões
-(Vice City · Leonida Keys · Grassrivers · Port Gellhorn · Ambrosia · Mount Kalaga).
-Fontes: GamesRadar, Gfinity (as 6 regiões nomeadas).
+## 2 · Testemunhas e câmaras
+EN: **Witnesses** and **cameras** describe you to cops, and they **remember** you
+PT: **Testemunhas** e **câmaras** dão a tua descrição e a polícia **lembra-se**
+Gráfico: 3 estrelas vazias; "HOLLOW STARS = THEY DON'T KNOW IT'S YOU YET / ESTRELAS VAZIAS = AINDA NÃO SABEM QUE ÉS TU".
+Planos: Trailer 1 43,9 (pessoas a publicar online) · Trailer 1 47,9 (câmara de vigilância / bodycam).
+Fontes: allthings.how e gta2026.com (a citar a antevisão do IGN): descrição por testemunhas e CCTV, estrelas "ocas" =
+procuram sem identificação completa; TechRadar: o Criminal Profile fica depois de fugires à polícia.
 
-## 4 · Estreou na Netflix
-EN: Its first gameplay premiered **on Netflix** — and went **#1** in the **Top 10 movies**
-PT: O primeiro gameplay estreou **na Netflix** — e ficou em **#1** no **Top 10 de filmes**
-Imagem: Extended Look + gráfico "#1" gerado (sem logótipo da Netflix).
-Fontes: Netflix Tudum, Game Rant (31,1 M de visualizações, #1 no top 10 de filmes da semana), Rockstar Newswire.
+## 3 · Trocar de personagem
+EN: **Switch** between **Lucia** and **Jason** with **one button** · PT: **Trocas** entre a **Lucia** e o **Jason** com **um só botão**
+Gráfico: LUCIA ⇄ JASON.
+Planos: Launch 25,9 (os dois no carro) · Launch 39,9 (os dois ao pé do carro) · Trailer 2 63,6 (Lucia, depois Jason).
+Fontes: TechRadar / Red Bull (troca com um toque de botão, transição como no GTA V).
 
-## 5 · A maior espera da história do GTA
-EN: It comes out **13 years** after **GTA V** — the **longest wait** in the series
-PT: Sai **13 anos** depois do **GTA V** — a **maior espera** da série
-Imagem: Launch Trailer + gráfico gerado com a linha do tempo (GTA V 2013 → GTA VI 2026).
-Fontes: GTA V saiu a 17 set 2013; GTA VI a 19 nov 2026 (Rockstar). Antes, o maior intervalo era IV→V (5 anos).
+## 4 · Interagir com pessoas e animais
+EN: Hold one button to **interact** with **people** and even **animals** · PT: Seguras um botão para **interagir** com **pessoas** e até com **animais**
+Gráfico: GREET · TAUNT · CALM DOWN / CUMPRIMENTAR · PROVOCAR · ACALMAR.
+Planos: Trailer 2 13,9 (um morador a falar para ti) · Launch 20,4 (a iguana).
+Fontes: allthings.how, TechRadar (sistema de foco no L2, à Red Dead 2: cumprimentar, provocar, acalmar; alguns
+moradores andam armados).
 
-## Fecho (2 s)
-EN: **FOLLOW** for more **GTA 6** 🔥 · PT: **SEGUE** para mais **GTA 6** 🔥
+## 5 · Assaltos
+EN: In **robberies**, your **disguise** and **getaway car** change how **cops** react
+PT: Nos **assaltos**, o **disfarce** e o **carro de fuga** mudam a reação da **polícia**
+Gráfico: DISGUISE · GETAWAY CAR / DISFARCE · CARRO DE FUGA.
+Planos: Trailer 1 68,8 (assalto com lenço na cara) · Trailer 1 70,5 (carro de fuga) · Trailer 1 76,6 (a sair a correr).
+Fontes: allthings.how (sistema de assaltos: disfarces e carros de fuga mudam a reação da polícia).
+
+## Fecho (2,6 s) — logótipo VI
+EN: **FOLLOW** for more **GTA 6** · PT: **SEGUE** para mais **GTA 6**
+
+Fora (não confirmado): mapa "2× Los Santos" (só uma antevisão, não oficial).

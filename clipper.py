@@ -937,6 +937,12 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
                  "rec_started": rec_started, "live_started": live_started, "mode": mode, "game_top": lay.get("game_top"),
                  "words": [(round(s - trim, 2), round(e - trim, 2), w) for s, e, w in ws if s >= trim]}
         with open(base + ".json", "w", encoding="utf-8") as f: json.dump(sheet, f, ensure_ascii=False)
+        try:  # (owner 17 Nov: "vai ser preciso capa para todos os vídeos") the cover, next to the clip: <base>_capa.jpg
+            import capa
+            capa.make(base + ".mp4", ai_hook or hook, t=capa.cover_t(sheet["payoff_t"], sheet["dur"]), keywords=KEYWORDS,
+                      streamer="@" + display(name).lower().replace(" ", ""))  # (the page handle is already burnt into the frame)
+        except Exception as e:
+            print("capa falhou:", e, flush=True)
         if not why and score is not None and (score >= STRONG or first):  # (owner: be the FIRST to post) a strong one -> phone
             with open(os.path.join(OUT, "avisos.jsonl"), "a", encoding="utf-8") as f:
                 f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": name, "score": score, "first": first}, ensure_ascii=False) + "\n")

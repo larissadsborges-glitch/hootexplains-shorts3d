@@ -23,11 +23,14 @@ MAIN = "https://www.youtube.com/@IShowSpeed/live"
 # (owner 17 Nov, GTA 6 launch: "4 US, 1 UK, 2-3 Brazilians, 1 Spanish") checked 17 Nov: all streamed this month
 # and most are in GTA week. Order = priority when too many are live at once. (url, caption language)
 # Jynxzi, HasanAbi and Asmongold were stopped on the owner's word on 16 Nov. Twitch / YouTube only: their chat is read.
-TOP = [("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
+# (owner 17 Nov 23:15: "O Coringa, eu quero o Coringa. Se ele streamar o GTA, eu quero o Coringa.") he is first and is
+# ALWAYS recorded when live, even when the MAX_LIVE slots are full
+ALWAYS = {"coringa"}
+TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),
+       ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/caseoh_", "en"), ("https://www.twitch.tv/lacy", "en"),
        ("https://www.twitch.tv/angryginge13", "en"),                       # UK
        ("https://www.twitch.tv/alanzoka", "pt"), ("https://www.twitch.tv/paulinholokobr", "pt"),
-       ("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),  # owner likes him
        ("https://www.twitch.tv/illojuan", "es"),                           # Spain
        ("https://www.twitch.tv/casimiro", "pt")]                           # reserve
 MAX_LIVE = 9  # IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
@@ -118,7 +121,7 @@ def main():
         new = []
         for u, l in live:  # (in TOP order: the first ones win when too many are live)
             if name_of(u) in recorded: continue  # (twitch + youtube of the same person: one is enough)
-            if len(recorded) >= MAX_LIVE:
+            if len(recorded) >= MAX_LIVE and name_of(u) not in ALWAYS:
                 print(f"{datetime.now():%H:%M} {name_of(u)} is live but {MAX_LIVE} are already recording", flush=True); continue
             start(["watch", u, "--minutes", mins, "--lang", l], name_of(u) + ".log"); recorded.add(name_of(u)); new.append(name_of(u))
         # 2a. (from 10:30 on 18 Nov) the biggest live GTA 6 streams not on the list

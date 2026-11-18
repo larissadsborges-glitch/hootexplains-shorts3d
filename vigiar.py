@@ -34,7 +34,7 @@ TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDC
        ("https://www.twitch.tv/alanzoka", "pt"), ("https://www.twitch.tv/paulinholokobr", "pt"),
        ("https://www.twitch.tv/illojuan", "es"),                           # Spain
        ("https://www.twitch.tv/casimiro", "pt")]                           # reserve
-MAX_LIVE = 9  # IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
+MAX_LIVE = 12  # (18 Nov 11:00: offline-waiting recorders counted, Paulinho was left out)  IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
 # (owner 17 Nov: "catch the FIRST streamers playing GTA 6 from hour zero, followers and views from minute one") from
 # 10:30 on 18 Nov (GTA 6 opens in New Zealand at 11:00 PT) the biggest live "GTA 6" streams on YouTube are found and
 # recorded too, even if they are not on the list: up to 2 at a time, 3000+ people watching, the title must say GTA 6

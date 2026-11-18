@@ -977,7 +977,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
             capa.template(base + ".mp4", sheet, hook=ai_hook or hook, keywords=KEYWORDS)  # (owner 18 Nov: every cover the same layout)
         except Exception as e:
             print("capa falhou:", e, flush=True)
-        if not why and score is not None and (score >= STRONG or first):  # (owner: be the FIRST to post) a strong one -> phone
+        if not why and score is not None and (score >= STRONG or first or (lang or found or "")[:2] == "en"):  # (owner 18 Nov: EN clips were not coming out - every EN clip comes to me)  # (owner: be the FIRST to post) a strong one -> phone
             with open(os.path.join(OUT, "avisos.jsonl"), "a", encoding="utf-8") as f:
                 f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": name, "score": score, "first": first}, ensure_ascii=False) + "\n")
     return dst

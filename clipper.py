@@ -296,7 +296,7 @@ def keep_original(orig, base_name):
         if not old: break
         os.remove(old[0]); print(f"[editor] disk nearly full: removed the oldest original {os.path.basename(old[0])}", flush=True)
     dst = os.path.join(ORIGINALS, base_name + "_original.mp4")
-    os.replace(orig, dst); return dst
+    shutil.move(orig, dst); return dst  # (18 Nov: recordings on C:, originals on E: - os.replace cannot cross disks)
 
 def cut_segments(segs, a, b, dst):
     """cut [a, b] (recording seconds) out of the 20 s pieces: segs = [(path, t0, t1)] in order"""

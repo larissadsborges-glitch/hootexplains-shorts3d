@@ -891,7 +891,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     # the AI's context hook first; else a quote from the moment; else the channel's fixed line
     ev = ((verdict or {}).get("event") or "").strip()
     if not ai_hook and ev and (lang or found or "en")[:2] == "en":  # (owner 18 Nov: titles that describe the video, not a quote)
-        ai_hook = mask(f"{display(channel)} {ev}".upper() if channel and display(channel).lower() not in ev.lower() else ev.upper())
+        ev = re.sub(r"^(the\s+)?streamer('s)?\s+", "", ev, flags=re.I)  # ("KAI CENAT STREAMER'S CAR...", "ISHOWSPEED SPEED SCREAMS")
+        who = display(channel) if channel else ""
+        ai_hook = mask(ev.upper() if not who or any(x in ev.lower() for x in (who.lower(), who.lower().split()[0], channel.lower())) else f"{who} {ev}".upper())
     hook = ai_hook or mask(f"“{quote.upper()}”" if quote else hook)
     talk = sum(e - s for s, e, _ in ws) / max(dur, 1.0)
     # chat lines on screen: real messages with words (no usernames, no emoji the font cannot draw, slurs masked)

@@ -948,7 +948,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
                 f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": name, "score": score, "first": first}, ensure_ascii=False) + "\n")
     return dst
 
-STRONG = 10.0  # score that sends a clip straight to the owner's phone
+STRONG = 7.0  # score that sends a clip straight to the owner's phone (owner 18 Nov: "aproveitar todo o conteúdo": was 10)
 
 DISPLAY = {"ishowspeed": "ISHOWSPEED", "kaicenat": "KAI CENAT", "caseoh_": "CASEOH", "lacy": "LACY", "angryginge13": "ANGRY GINGE",
            "alanzoka": "ALANZOKA", "paulinholokobr": "PAULINHO O LOKO", "coringa": "CORINGA", "loudcoringa": "CORINGA",

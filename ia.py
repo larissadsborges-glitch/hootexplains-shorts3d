@@ -49,8 +49,10 @@ never cut the payoff, let the scene roll):
 - hook: the line on top of the video, WRITTEN {lang_name} (only the "event" field is in English), max 8 words. It gives the SITUATION (the tension), never the punchline.
   Write it like a viral clip caption: SPECIFIC and intriguing, with the streamer's name and the concrete thing that
   happens (good: "{name_up} CAN'T BELIEVE HIS CHAT SPENT $120K", "{name_up} FINDS OUT HIS CAR IS BROKEN"). Never generic
-  ("STREAMER DISCUSSES..."). Use ONLY facts said in the sentences, never invent (the stream title is NOT proof of which game is being played: never name a game nobody said), never mix two things up - accuracy beats
-  drama. No emojis, no hashtags, no insults.
+  ("STREAMER DISCUSSES..."). (owner 18 Nov: "use ALL the content") make it as DRAMATIC and clickable as you can:
+  big reactions and stakes ("LOSES HIS MIND", "CAN'T BELIEVE", "GOES CRAZY"), curiosity, urgency. The moment itself must be
+  the one in the clip (no event that does not happen in it), but exaggerating the tone is good. The stream title CAN name
+  the game when it says which game is being played. No emojis, no hashtags, no insults.
 - event: what happens, in ENGLISH, max 10 words, concrete (e.g. "dies falling off a roof", "steals a police car").
 - category: one of death, crash, police, steal_car, mission, heist, fail, win, scare, funny, rage, cutscene, map, other.
 - first_said: true ONLY if the streamer himself says this is his first time / his first one ("my first death", "first

@@ -1168,7 +1168,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
     return n, bool(segs)
 
 # ---------------------------------------------------------------- the editor (one, below normal priority)
-LANG_BONUS = {"en": 6.0, "pt": 0.0, "es": 0.0}
+LANG_BONUS = {"en": 100.0, "pt": 0.0, "es": 0.0}  # (18 Nov: PT "first" jobs score 50 and were beating English ones)
 
 def worker(idle_exit=None):
     os.makedirs(QUEUE, exist_ok=True); idle = 0
@@ -1184,7 +1184,7 @@ def worker(idle_exit=None):
             except Exception: return 0.0
             # (owner 18 Nov: "priorizar os ingleses") the EN page posts by itself: English jobs go first; found lives with
             # no language yet (mostly English searches) in between
-            return (j.get("score") or 0.0) + LANG_BONUS.get((j.get("lang") or "")[:2], 3.0)
+            return (j.get("score") or 0.0) + LANG_BONUS.get((j.get("lang") or "")[:2], 60.0)
         jp0 = max(jobs, key=lambda p: (sc(p), -jobs.index(p))); jp = jp0 + ".working"
         try: os.replace(jp0, jp)  # (two editors) whoever renames it first edits it
         except OSError: continue

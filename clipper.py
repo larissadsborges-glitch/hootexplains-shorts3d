@@ -1157,7 +1157,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
             if any(abs(at - t) < 35 for t in emitted): continue  # (test 16 Nov: the same moment came out twice, 25 s apart)
             score, why = score_at(at, ws, series, clips, loud)
             # the bar rises with every clip of the last 10 min: a calm stream gives its best moment, a crazy one only its best few
-            k = sum(1 for t in emitted if t > at - 600); bar = 5.0 + 2.0 * k  # (18 Nov launch: "queremos é volume", was 6 + 3k) (rehearsal 16 Nov: 3 + 1.5k gave ~20 clips an hour per streamer; this halves it)
+            k = sum(1 for t in emitted if t > at - 600); bar = (3.5 + 1.5 * k if (lang or "")[:2] == "en" else 5.0 + 2.0 * k)  # (18 Nov 17:00 "eu preciso de clips": EN lower) (18 Nov launch: "queremos é volume", was 6 + 3k) (rehearsal 16 Nov: 3 + 1.5k gave ~20 clips an hour per streamer; this halves it)
             log.write(json.dumps({"at": round(at), "kind": kind, "score": score, "bar": bar, **why}) + "\n"); log.flush()
             if score < bar or low_disk: continue
             emitted.append(at); n += 1
@@ -1191,10 +1191,15 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
 # ---------------------------------------------------------------- the editor (one, below normal priority)
 LANG_BONUS = {"en": 100.0, "pt": 0.0, "es": 0.0}  # (18 Nov: PT "first" jobs score 50 and were beating English ones)
 
-def worker(idle_exit=None):
+def worker(idle_exit=None, only=None):
     os.makedirs(QUEUE, exist_ok=True); idle = 0
     while True:
         jobs = sorted(glob.glob(os.path.join(QUEUE, "*.json")))
+        if only:  # (a second editor just for one language: the EN page posts by itself)
+            def _l(p):
+                try: return (json.load(open(p, encoding="utf-8")).get("lang") or "")[:2]
+                except Exception: return ""
+            jobs = [p for p in jobs if _l(p) == only and not p.endswith("spans.json")]
         if not jobs:
             time.sleep(3); idle += 3
             if idle_exit and idle >= idle_exit: return
@@ -1269,13 +1274,13 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest="cmd", required=True)
     a = sp.add_parser("watch"); a.add_argument("url"); a.add_argument("--minutes", type=float, default=60); a.add_argument("--lang"); a.add_argument("--hook", default=""); a.add_argument("--credit", default="")
     m = sp.add_parser("multi"); m.add_argument("channels"); m.add_argument("--minutes", type=float, default=600)
-    w = sp.add_parser("worker"); w.add_argument("--idle-exit", type=float)
+    w = sp.add_parser("worker"); w.add_argument("--idle-exit", type=float); w.add_argument("--only")
     b = sp.add_parser("edit"); b.add_argument("video"); b.add_argument("--start", type=float); b.add_argument("--end", type=float); b.add_argument("--hook", default=""); b.add_argument("--credit", default=""); b.add_argument("--lang"); b.add_argument("--out")
     c = sp.add_parser("chat"); c.add_argument("channel"); c.add_argument("--seconds", type=float, default=60)
     g = ap.parse_args()
     if g.cmd == "watch": watch(g.url, g.minutes, g.lang, g.hook, g.credit)
     elif g.cmd == "multi": multi(g.channels, g.minutes)
-    elif g.cmd == "worker": worker(g.idle_exit)
+    elif g.cmd == "worker": worker(g.idle_exit, g.only)
     elif g.cmd == "chat": chat_test(g.channel, g.seconds)
     else:
         os.makedirs(OUT, exist_ok=True); src = g.video

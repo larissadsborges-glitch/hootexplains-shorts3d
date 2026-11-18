@@ -29,6 +29,8 @@ ALWAYS = {"coringa", "ricfazeres"}  # (owner 18 Nov: RicFazeres "para o público
 TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),
        ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
        ("https://www.youtube.com/channel/UCi7TVXyvrIwqeS9tfYD8UDA/live", "es"),  # DjMaRiiO (18 Nov: the biggest Spanish GTA 6 live)
+       ("https://www.youtube.com/channel/UC72PuhDwKtZ5MikpGNhPAtA/live", "en"),  # TGG (18 Nov: big EN GTA 6 lives, the EN page posts itself)
+       ("https://www.youtube.com/channel/UC2wKfjlioOCLP4xQMOWNcgg/live", "en"),  # TypicalGamer
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/caseoh_", "en"), ("https://www.twitch.tv/lacy", "en"),
        ("https://www.twitch.tv/angryginge13", "en"),                       # UK
@@ -78,7 +80,7 @@ def name_of(url):
     m = (re.search(r"(?:twitch\.tv|kick\.com)/([A-Za-z0-9_]+)", url) or re.search(r"youtube\.com/@([A-Za-z0-9_.-]+)", url)
          or re.search(r"youtube\.com/channel/([A-Za-z0-9_-]+)", url))
     n = m.group(1).lower() if m else url
-    return {"loudcoringa": "coringa"}.get(n, n)  # the same person on two sites is recorded once
+    return {"loudcoringa": "coringa", "ucdljx-w37vixfnq__qz7arq": "paulinholokobr"}.get(n, n)  # (18 Nov: Paulinho also streams on YouTube)  # the same person on two sites is recorded once
 
 
 def is_live(url):

@@ -272,7 +272,7 @@ def cut(src, start, end, dst):
 
 ORIG_PRE = 180.0  # (owner 17 Nov: "don't delete the recording, keep an unedited copy, I'm afraid we lose context")
 ORIGINALS = os.path.join(OUT, "originais")  # every finished clip keeps its UNEDITED recording here: 3 min before -> 50 s after
-ORIG_MIN_FREE_GB = 15  # only if the disk gets this full are the OLDEST originals removed (logged), so recording never stops
+ORIG_MIN_FREE_GB = 0  # (owner 18 Nov: "não elimines as gravações": never prune originals; was 15)  # only if the disk gets this full are the OLDEST originals removed (logged), so recording never stops
 
 def copy_segments(segs, a, b, dst):
     """[a, b] out of the pieces WITHOUT re-encoding (the original quality; starts at the nearest keyframe)"""
@@ -1229,12 +1229,12 @@ def worker(idle_exit=None, only=None):
                                   orig_at=job.get("orig_at"), rec_started=job.get("rec_started"), live_started=job.get("live_started"),
                                   force_first=job.get("force_first", ""), ideia=job.get("ideia", ""))
             if made is None:
-                os.replace(jp, jp0 + ".skipped"); os.remove(job["raw"])
-                if job.get("original") and os.path.exists(job["original"]): os.remove(job["original"])
+                os.replace(jp, jp0 + ".skipped")  # (owner 18 Nov 18:20: "não elimines as gravações") the raw stays
+                pass  # (owner: keep the recordings) the original stays
                 continue
             print(f"[editor] {os.path.basename(job['short'])} ready in {time.time() - t:.0f}s ({len(jobs) - 1} waiting)", flush=True)
             os.replace(jp, jp0 + ".done")
-            try: os.remove(job["raw"])  # (disk) the raw cut is not needed once the short exists
+            try: pass  # (owner 18 Nov: "não elimines as gravações") the raw cut stays
             except OSError: pass
         except Exception as e:  # a bad clip must not stop the line
             print(f"[editor] failed {jp0}: {e}", flush=True)

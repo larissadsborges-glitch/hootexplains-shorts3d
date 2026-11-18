@@ -53,13 +53,17 @@ never cut the payoff, let the scene roll):
   big reactions and stakes ("LOSES HIS MIND", "CAN'T BELIEVE", "GOES CRAZY"), curiosity, urgency. The moment itself must be
   the one in the clip (no event that does not happen in it), but exaggerating the tone is good. The stream title CAN name
   the game when it says which game is being played. No emojis, no hashtags, no insults.
+- drop: (owner 18 Nov: "cut the parts that don't matter and keep only the good parts in the same clip") the numbers of
+  the sentences INSIDE start..end that add nothing to this story (talk to chat about something else, thanking donations,
+  repeating himself, filler) and can be cut out with a jump cut, so the clip keeps only the good parts. Never the payoff,
+  never the setup the payoff needs, never what makes the start understandable. [] when everything matters.
 - event: what happens, in ENGLISH, max 10 words, concrete (e.g. "dies falling off a roof", "steals a police car").
 - category: one of death, crash, police, steal_car, mission, heist, fail, win, scare, funny, rage, cutscene, map, other.
 - first_said: true ONLY if the streamer himself says this is his first time / his first one ("my first death", "first
   time I...").
 - keywords: 4-8 of the MOST IMPORTANT words actually spoken in the clip (exactly as written in the sentences): what
   happens, the key object/person/place, numbers, the punchline word. They will be shown in yellow in the captions.
-Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "keywords": [], "why": ""}}"""
+Answer with JSON only: {{"makes_sense": true, "start": 0, "payoff": 0, "end": 0, "scene_continues": false, "hook": "", "event": "", "category": "other", "first_said": false, "keywords": [], "drop": [], "why": ""}}"""
 
 CHECK = """Here is a clip cut from a livestream (numbered sentences with times, ">>" lines are measured reactions).
 Sentences {s} to {e} are IN the clip; the ones before and after are NOT.
@@ -173,6 +177,18 @@ def _json(txt):
         return None
 
 
+def _drops(v, s, e, payoff, mid):
+    """the sentences the AI wants jump-cut out: only strictly inside the clip, never the payoff or the moment"""
+    out = []
+    for x in (v or []) if isinstance(v, list) else []:
+        try: x = int(x)
+        except (TypeError, ValueError): continue
+        try: p = int(payoff)
+        except (TypeError, ValueError): p = -1
+        if s < x < e and x not in (p, p - 1, mid) and x not in out: out.append(x)
+    return sorted(out)
+
+
 def judge(sents, mid, lang="en", timeout=150, name="", title="", events=()):
     """sents: [(start_s, end_s, text)], mid: index of the highlight sentence, events: [(t, "loud shouting")...]
     -> dict or None (no AI reachable / bad answer). Two looks: pick the clip, then the stranger test on the pick."""
@@ -209,4 +225,5 @@ def judge(sents, mid, lang="en", timeout=150, name="", title="", events=()):
             "event": str(d.get("event", ""))[:80], "category": str(d.get("category", "other")).lower()[:20],
             "first_said": bool(d.get("first_said", False)),
             "keywords": [str(k).strip().lower() for k in (d.get("keywords") or []) if str(k).strip()][:10],
+            "drop": _drops(d.get("drop"), s, e, d.get("payoff"), mid),
             "engine": last_engine, "scene_continues": bool(d.get("scene_continues", False)) and e >= len(sents) - 2}

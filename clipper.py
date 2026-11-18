@@ -698,7 +698,7 @@ def guard_cut(ws, loud, base, s0, e0, dur, peak):
     e0 = min(dur, max(e0, float(t)))
     return s0, e0
 
-def smart_cut(src, ws, peak, dur, force=None):
+def smart_cut(src, ws, peak, dur, force=None, drops=()):
     """(owner 16 Nov: "it must always make sense where it starts and where it ends, never cut with no context")
     -> (pieces to keep, mapper old time -> new time). RULES:
     1. START on the first word of a whole sentence, 6-30 s before the moment, where the story begins: after a long pause
@@ -716,7 +716,7 @@ def smart_cut(src, ws, peak, dur, force=None):
     st_t = lambda i: ws[sn[i][0]][0]; en_t = lambda i: ws[sn[i][1]][1]
     if force:  # the AI judge chose the sentences: keep its story, the guards fix the edges, only dead air comes out
         s0, e0 = guard_cut(ws, loud, base, max(0.0, force[0]), min(dur, force[1]), dur, peak)
-        return _dead_air(ws, loud, base, peak, s0, e0)
+        return _dead_air(ws, loud, base, peak, s0, e0, drops)
     first_w = lambda i: ws[sn[i][0]][2].strip(".,!?\"'“”")
     # 1. start
     cands = [i for i in range(len(sn)) if 6 <= peak - st_t(i) <= 30]
@@ -744,16 +744,22 @@ def smart_cut(src, ws, peak, dur, force=None):
     s0, e0 = guard_cut(ws, loud, base, s0, e0, dur, peak)
     return _dead_air(ws, loud, base, peak, s0, e0)
 
-def _dead_air(ws, loud, base, peak, s0, e0):
+def _dead_air(ws, loud, base, peak, s0, e0, drops=()):
     """pauses of 1.2 s+ with nobody talking AND a quiet room are cut out (never at the moment) -> (keep, mapper)"""
     cuts = []
     for k in range(1, len(ws)):
         a, b = ws[k - 1][1], ws[k][0]
-        if a < s0 or b > e0 or b - a < 1.2 or a - 0.5 < peak < b + 0.5: continue
+        if a < s0 or b > e0 or b - a < 0.9 or a - 0.5 < peak < b + 0.5: continue  # (owner 18 Nov: tighter, was 1.2 s)
         sec = loud[int(a):int(b) + 1]
         if sec and max(sec) < base: cuts.append((a + 0.3, b - 0.3))
+    # (owner 18 Nov) the sentences the AI marked as not mattering go too: one clip with only the good parts
+    cuts += [(a, b) for a, b in drops if s0 < a and b < e0 and not (a - 0.5 < peak < b + 0.5)]
+    merged = []
+    for a, b in sorted(cuts):
+        if merged and a <= merged[-1][1]: merged[-1] = (merged[-1][0], max(merged[-1][1], b))
+        else: merged.append((a, b))
     keep, cur = [], s0
-    for a, b in cuts: keep.append((cur, a)); cur = b
+    for a, b in merged: keep.append((cur, a)); cur = b
     keep.append((cur, e0)); keep = [(a, b) for a, b in keep if b - a > 0.2]
     if sum(b - a for a, b in keep) < 12: keep = [(s0, e0)]
     def mapper(t):
@@ -829,7 +835,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
             r"(the|his|her|their|reacts?|gets?|after|with|about|when|finds|tries|loses|wins|says)", h, re.I)  # (17 Nov: an English title on a PT clip)
         if h and not wrong_lang and len(h.split()) <= 9 and not SLURS.search(h) and grounded(h, " ".join(w for _, _, w in ws), channel): ai_hook = mask(h)
         elif h: verdict["why"] = f"(gancho da IA recusado, não foi dito: {h}) " + verdict["why"]
-    keep, mp = smart_cut(src, ws, peak, dur, force)
+    drops = [(ws[sn[i][0]][0] - 0.1, ws[sn[i][1]][1] + 0.1) for i in (verdict or {}).get("drop", []) if i < len(sn)] if verdict else []
+    if drops: print(f"[editor] jump cuts: {len(drops)} sentence(s) out ({sum(b - a for a, b in drops):.0f} s)", flush=True)
+    keep, mp = smart_cut(src, ws, peak, dur, force, drops)
     if not ideia and at is not None and peak0 is not None and is_repeat(src, channel, at - peak0 + keep[0][0], at - peak0 + keep[-1][1]):
         print(f"[editor] skipped: the same scene is already in another {channel} clip", flush=True); return None
     cut_src = os.path.splitext(dst)[0] + "_cut.mp4"; apply_cut(src, keep, cut_src)

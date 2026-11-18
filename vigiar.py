@@ -40,7 +40,7 @@ MAX_LIVE = 12  # (18 Nov 11:00: offline-waiting recorders counted, Paulinho was 
 # 10:30 on 18 Nov (GTA 6 opens in New Zealand at 11:00 PT) the biggest live "GTA 6" streams on YouTube are found and
 # recorded too, even if they are not on the list: up to 2 at a time, 3000+ people watching, the title must say GTA 6
 DISCOVER_FROM = datetime(2026, 11, 18, 10, 30)
-DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 4, 3000  # (18 Nov 09:30 test: 6 found, one Indonesian - 4 so EN/PT/ES ones get in)
+DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 2, 3000  # (18 Nov 11:15: CPU at 99% with 11 recorders - 2 found lives; DjMaRiiO is on the list now)
 
 
 def discover():

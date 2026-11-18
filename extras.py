@@ -52,6 +52,19 @@ def esc(t):
     return t.replace("\\", "\\\\").replace(":", "\\:").replace("'", "’").replace("%", "\\%")
 
 
+NOGTA_TAGS = {"en": "#twitchclips #streamer #gaming #funny", "pt": "#clipes #twitchbrasil #streamer #gaming",
+              "es": "#clips #twitch #streamer #gaming"}
+
+
+def tags(lang, gta):
+    """(owner rule: a title/hashtag says GTA only when it is true) the GTA tags only for GTA clips"""
+    return (C.TAGS if gta else NOGTA_TAGS).get(lang, (C.TAGS if gta else NOGTA_TAGS)["en"])
+
+
+def is_gta(d):
+    return (d.get("game") or "") in ("gta6", "gta")
+
+
 def write_post(base, title, caption_lines, kind, extra):
     with open(base + ".txt", "w", encoding="utf-8") as f:
         f.write(f"TÍTULO: {title}\n\nLEGENDA:\n{title}\n" + "\n".join(caption_lines) + "\n")
@@ -92,8 +105,8 @@ def resumo(channel, date=None, n=6, before=7.0, after=4.0, hours=24):
                            "-map", "[v]", "-map", "[ca]", *v, "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
                            "-movflags", "+faststart", base + ".mp4"], 20, 4)
     title = f"{head[0]} {head[1]}"
-    lines = [f"{i + 1}. {d.get('event') or d.get('title', '')}" for i, d in enumerate(ds)]
-    write_post(base, title, lines + [f"🎥 {channel}", C.TAGS.get(lang, C.TAGS["en"])], "resumo", {"channels": channel, "lang": lang})
+    lines = [f"{i + 1}. {d.get('title') or d.get('event', '')}" for i, d in enumerate(ds)]  # (the title is in the clip's language; event is English)
+    write_post(base, title, lines + [f"🎥 {channel}", tags(lang, any(is_gta(d) for d in ds))], "resumo", {"channels": channel, "lang": lang})
     print("resumo ->", base + ".mp4"); return base + ".mp4"
 
 
@@ -204,7 +217,7 @@ def fim_do_dia(day=None):
 
 
 # ------------------------------------------------------------------ the 3 end-of-day formats (owner OK 17 Nov)
-def card_video(lines, out, secs=2.8, rows=None, sub=None):
+def card_video(lines, out, secs=2.8, rows=None, sub=None, lang="en"):
     """a title card (PIL picture -> a few seconds of video with silent audio), the look of marca/exemplos_formatos.png"""
     from PIL import Image, ImageDraw, ImageFont
     blk = "C:/Windows/Fonts/ariblk.ttf"; YEL = (255, 212, 0)
@@ -220,7 +233,7 @@ def card_video(lines, out, secs=2.8, rows=None, sub=None):
             w = d.textlength(lab, font=f); d.text((960 - w, y + 44), lab, font=f, fill=YEL if i == 0 else (200, 200, 220)); y += 185
     if sub:
         f = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 40); w = d.textlength(sub, font=f); d.text(((1080 - w) / 2, 1560), sub, font=f, fill=(170, 170, 200))
-    wm = C.page_handle("en")
+    wm = C.page_handle(lang)  # (18 Nov: the PT card carried the EN page handle)
     if wm:
         f = ImageFont.truetype(blk, 40); w = d.textlength(wm, font=f); d.text(((1080 - w) / 2, 1760), wm, font=f, fill=(150, 150, 180))
     png = out + ".png"; im.save(png)
@@ -267,7 +280,7 @@ def mortes(day):
     out = []
     by = {}
     for d in sheets(hours=24):
-        if d.get("ideia") == "death" and d.get("payoff_t") is not None: by.setdefault(d["channel"], []).append(d)
+        if d.get("ideia") == "death" and d.get("payoff_t") is not None and d.get("game") == "gta6": by.setdefault(d["channel"], []).append(d)
     for ch, ds in by.items():
         if len(ds) < 3: continue
         ds.sort(key=lambda d: d["_made"]); lang = ds[0].get("lang", "en"); who = C.display(ch); N = len(ds)
@@ -285,7 +298,7 @@ def corrida(day):
     """2. THE RACE: who finished his first mission soonest after his live began"""
     best = {}
     for d in sheets(hours=24):
-        if d.get("ideia") != "mission" or d.get("payoff_t") is None or not (d.get("rec_started") and d.get("live_started") and d.get("at") is not None): continue
+        if d.get("ideia") != "mission" or d.get("game") != "gta6" or d.get("payoff_t") is None or not (d.get("rec_started") and d.get("live_started") and d.get("at") is not None): continue
         el = d["rec_started"] + d["at"] - d["live_started"]
         if el > 0 and (d["channel"] not in best or el < best[d["channel"]][1]): best[d["channel"]] = (d, el)
     if len(best) < 2: return []
@@ -316,14 +329,16 @@ def top5(day):
         if len(top) < 5: top += [d for d in sorted(ds, key=lambda d: -(d.get("score") or 0)) if d not in top][:5 - len(top)]
         if len(top) < 3: continue
         top = list(reversed(top))  # countdown
-        head = {"pt": ["TOP 5", "MOMENTOS DO GTA 6", "DIA"], "es": ["TOP 5", "MOMENTOS DE GTA 6", "DÍA"]}.get(lang, ["TOP 5", "GTA 6 MOMENTS", "OF THE DAY"])
+        g6 = all(d.get("game") == "gta6" for d in top)  # (18 Nov: the 1st batch said "GTA 6" over Deadlock/Wordle clips) only when EVERY moment is GTA 6
+        if g6: head = {"pt": ["TOP 5", "MOMENTOS DO GTA 6", "DE HOJE"], "es": ["TOP 5", "MOMENTOS DE GTA 6", "DE HOY"]}.get(lang, ["TOP 5", "GTA 6 MOMENTS", "OF THE DAY"])
+        else: head = {"pt": ["TOP 5", "MOMENTOS DAS LIVES", "DE HOJE"], "es": ["TOP 5", "MOMENTOS DE LOS", "DIRECTOS DE HOY"]}.get(lang, ["TOP 5", "STREAM MOMENTS", "OF THE DAY"])
         base = os.path.join(fim_dir(day), f"TOP5_{lang}")
-        card = card_video(head, base + "_card.mp4", sub=" · ".join(dict.fromkeys(d["channel"] for d in top)))
+        card = card_video(head, base + "_card.mp4", sub=" · ".join(dict.fromkeys(d["channel"] for d in top)), lang=lang)
         pieces = [(d, max(0.0, d["payoff_t"] - 9), min(d["dur"], d["payoff_t"] + 4)) for d in top]
         montage(pieces, base, None, [(f"#{len(top) - i} {C.display(d['channel'])}", tag_y(d)) for i, d in enumerate(top)], card)
         os.remove(card)
-        write_post(base, " ".join(head), [f"{len(top) - i}. {d.get('event') or d.get('title', '')} ({d['channel']})" for i, d in enumerate(top)]
-                   + [C.TAGS.get(lang, C.TAGS["en"])], "top5", {"channels": ",".join(d["channel"] for d in top), "lang": lang})
+        write_post(base, " ".join(head), [f"{len(top) - i}. {d.get('title') or d.get('event', '')} ({d['channel']})" for i, d in enumerate(top)]
+                   + [tags(lang, all(is_gta(d) for d in top))], "top5", {"channels": ",".join(d["channel"] for d in top), "lang": lang})
         out.append(base + ".mp4")
     return out
 

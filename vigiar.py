@@ -28,6 +28,7 @@ MAIN = "https://www.youtube.com/@IShowSpeed/live"
 ALWAYS = {"coringa", "ricfazeres"}  # (owner 18 Nov: RicFazeres "para o público de Portugal")
 TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),
        ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
+       ("https://www.youtube.com/channel/UCi7TVXyvrIwqeS9tfYD8UDA/live", "es"),  # DjMaRiiO (18 Nov: the biggest Spanish GTA 6 live)
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/caseoh_", "en"), ("https://www.twitch.tv/lacy", "en"),
        ("https://www.twitch.tv/angryginge13", "en"),                       # UK

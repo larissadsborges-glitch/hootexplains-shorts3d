@@ -260,7 +260,7 @@ def copy_segments(segs, a, b, dst):
     off = max(0.0, a - use[0][1])
     r = subprocess.run([FF, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-ss", f"{off:.2f}",
                         "-t", f"{b - max(a, use[0][1]):.2f}", "-c", "copy", "-avoid_negative_ts", "make_zero", dst])
-    os.remove(lst); return r.returncode == 0 and os.path.exists(dst)
+    _rm(lst); return r.returncode == 0 and os.path.exists(dst)
 
 def keep_original(orig, base_name):
     """move the unedited recording next to the owner's folders: originais/<same name as the clip>_original.mp4"""
@@ -284,7 +284,7 @@ def cut_segments(segs, a, b, dst):
     off = max(0.0, a - use[0][1])
     run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-ss", f"{off:.2f}",
                          "-t", f"{b - max(a, use[0][1]):.2f}", *v, "-c:a", "aac", "-b:a", "192k", dst], 18, 2)
-    os.remove(lst); return True
+    _rm(lst); return True
 
 _model = None
 def MODEL_NAME():
@@ -770,6 +770,11 @@ def _dead_air(ws, loud, base, peak, s0, e0, drops=()):
         return None
     return keep, mapper
 
+def _rm(p):
+    """(18 Nov 11:00: a locked list file crashed a recorder mid-launch) a temp file that cannot go now is left behind"""
+    try: os.remove(p)
+    except OSError: pass
+
 def apply_cut(src, keep, out):
     """the kept pieces joined (video + audio), re-encoded on the GPU"""
     parts, cat = [], []
@@ -1137,7 +1142,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
         # keep only the last keep_min minutes on disk (an hour; 20 min when the disk gets tight)
         km = keep_min if shutil.disk_usage(OUT).free > 25e9 else min(keep_min, 20)
         for p, _, t1 in segs:
-            if t1 < rec_end - km * 60 and os.path.exists(p): os.remove(p)
+            if t1 < rec_end - km * 60 and os.path.exists(p): _rm(p)  # (a piece the diary is reading stays until next time)
     for p in (p2, p1):
         if p.poll() is None: p.terminate()
     for p in (p2, p1):

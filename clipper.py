@@ -974,7 +974,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
                 f.write(json.dumps({"clip": base + ".mp4", "title": title, "channel": name, "score": score, "first": first}, ensure_ascii=False) + "\n")
     return dst
 
-STRONG = 7.0  # score that sends a clip straight to the owner's phone (owner 18 Nov: "aproveitar todo o conteúdo": was 10)
+STRONG = 5.0  # (18 Nov 11:40 "queremos é volume": was 7) score that sends a clip straight to the owner's phone (owner 18 Nov: "aproveitar todo o conteúdo": was 10)
 
 DISPLAY = {"ishowspeed": "ISHOWSPEED", "kaicenat": "KAI CENAT", "caseoh_": "CASEOH", "lacy": "LACY", "angryginge13": "ANGRY GINGE",
            "alanzoka": "ALANZOKA", "paulinholokobr": "PAULINHO O LOKO", "coringa": "CORINGA", "loudcoringa": "CORINGA",
@@ -1136,7 +1136,7 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
             if any(abs(at - t) < 35 for t in emitted): continue  # (test 16 Nov: the same moment came out twice, 25 s apart)
             score, why = score_at(at, ws, series, clips, loud)
             # the bar rises with every clip of the last 10 min: a calm stream gives its best moment, a crazy one only its best few
-            k = sum(1 for t in emitted if t > at - 600); bar = 6.0 + 3.0 * k  # (rehearsal 16 Nov: 3 + 1.5k gave ~20 clips an hour per streamer; this halves it)
+            k = sum(1 for t in emitted if t > at - 600); bar = 5.0 + 2.0 * k  # (18 Nov launch: "queremos é volume", was 6 + 3k) (rehearsal 16 Nov: 3 + 1.5k gave ~20 clips an hour per streamer; this halves it)
             log.write(json.dumps({"at": round(at), "kind": kind, "score": score, "bar": bar, **why}) + "\n"); log.flush()
             if score < bar or low_disk: continue
             emitted.append(at); n += 1

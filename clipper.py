@@ -180,9 +180,11 @@ def channel_of(url):
 def yt_channel_name(url):
     """(18 Nov: the found lives were all called "stream", so the clip said @stream) a youtube.com/channel/<id> live -> its
     channel's name (TGG, Gameplayrj...), letters and digits only"""
-    if "youtube.com/channel/" not in url: return None
-    try:
-        r = subprocess.run([sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--skip-download", "--print", "%(channel)s", url],
+    m = re.search(r"youtube\.com/channel/([A-Za-z0-9_-]+)", url)
+    if not m: return None
+    try:  # (the channel's videos page answers even after the live ended; /live does not)
+        r = subprocess.run([sys.executable, "-m", "yt_dlp", "-q", "--no-warnings", "--flat-playlist", "-I", "1", "--print", "%(playlist_channel)s",
+                            f"https://www.youtube.com/channel/{m.group(1)}/videos"],
                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
         n = re.sub(r"[^A-Za-z0-9_]", "", (r.stdout.strip().splitlines() or [""])[0])
         return n[:30] or None

@@ -106,7 +106,7 @@ HOOK_END = 3.8
 # The Instagram grid shows the middle 3:4 (y 240-1680): the window and the title are both inside it.
 PAGE = {"en": "STREAM WENT WILD", "pt": "LIVE DESCONTROLADA", "es": "DIRECTO DESCONTROLADO"}
 WIN = (40, 300, 1040, 862)  # the picture window (1000x562, 16:9)
-TITLE_Y, TITLE_H, TITLE_SIZE = 960, 600, 112
+TITLE_Y, TITLE_H, TITLE_SIZE = 905, 400, 100  # (18 Nov: the GTA 6 cover art takes the lower part)
 
 
 def _picture(clip, sheet):
@@ -122,6 +122,24 @@ def _picture(clip, sheet):
     return ImageOps.fit(im, (WIN[2] - WIN[0], WIN[3] - WIN[1]), centering=(0.5, 0.35))
 
 
+def _quiet_t(sheet):
+    """a moment after the burnt-in title with nobody talking (so no caption word is on the game picture)"""
+    ws = sheet.get("words") or []; dur = sheet.get("dur") or 12; best = None
+    for (s0, e0, _), (s1, e1, _) in zip(ws, ws[1:]):
+        if e0 > HOOK_END and s1 - e0 >= 0.35 and (best is None or s1 - e0 > best[1]): best = ((e0 + s1) / 2, s1 - e0)
+    return best[0] if best else min(max(dur * 0.6, HOOK_END), dur - 0.5)
+
+
+def _game_bg(clip, sheet, size):
+    """(owner 18 Nov: "devia ter uma imagem do GTA 6 em baixo, onde está o título, com o título por cima") the game
+    area of the clip, filling the lower part of the cover"""
+    from PIL import ImageOps
+    im = frame(clip, cover_t(sheet.get("payoff_t"), sheet.get("dur")))  # (the moment itself: more action than a quiet beat)
+    gt = int(sheet.get("game_top") or 0) if sheet.get("mode") == "split" else 0
+    if gt: im = im.crop((0, gt, 1080, 1920))
+    return ImageOps.fit(im, size, centering=(0.5, 0.45))
+
+
 def template(clip, sheet=None, out=None, hook=None, keywords=None):
     """-> the cover path, <clip>_capa.jpg, in the fixed layout"""
     sheet = sheet or json.load(open(os.path.splitext(clip)[0] + ".json", encoding="utf-8"))
@@ -132,8 +150,16 @@ def template(clip, sheet=None, out=None, hook=None, keywords=None):
     except Exception:
         who, handle = "@" + sheet.get("channel", ""), ""
     im = Image.new("RGB", (1080, 1920), NAVY); d = ImageDraw.Draw(im)
-    for y in range(1920):  # a soft glow behind the title
-        k = max(0.0, 1 - abs(y - 1250) / 700); d.line([(0, y), (1080, y)], fill=(14 + int(26 * k), 12 + int(10 * k), 30 + int(40 * k)))
+    try:  # (owner 18 Nov: "mete mesmo a capa do GTA 6 por baixo") the GTA 6 cover art as it showed on Lacy's stream at
+        # the launch (marca/gta6_capa.png, cut from our own recording), filling the bottom, fading into the navy at its top
+        from PIL import ImageOps
+        art = ImageOps.fit(Image.open(os.path.join(HERE, "marca", "gta6_capa.png")).convert("RGB"), (1080, 640), centering=(0.5, 0.42))
+        shade = Image.new("L", art.size, 0); sd = ImageDraw.Draw(shade)
+        for y in range(art.size[1]): sd.line([(0, y), (1080, y)], fill=int(max(0.0, 1 - y / 150) * 255))
+        im.paste(Image.composite(Image.new("RGB", art.size, NAVY), art, shade), (0, 1280))
+        d = ImageDraw.Draw(im)
+    except Exception:
+        pass
     # top: logo + page name
     try:
         lg = Image.open(os.path.join(HERE, "marca", "LOGO_perfil_320.png")).convert("RGBA").resize((130, 130))
@@ -150,6 +176,7 @@ def template(clip, sheet=None, out=None, hook=None, keywords=None):
     d.text((540, WIN[3]), who, font=fs, fill=(255, 255, 255), anchor="mm")
     # the title: fixed slot and size (smaller only when it would not fit in 4 lines)
     hook = re.sub(r"[“”\"«»]", "", hook or sheet.get("hook") or sheet.get("title") or "").strip().upper()
+    hook = re.sub(r"\bGTA (6|VI)\b", lambda m: "GTA" + chr(160) + m.group(1), hook)  # (never "GTA" at a line end and "6" alone below)
     words = hook.split(); keys = {k.lower() for k in (keywords or sheet.get("keywords") or [])}
     if not keys:
         clean = [re.sub(r"[^\w]", "", w).lower() for w in words]
@@ -167,7 +194,7 @@ def template(clip, sheet=None, out=None, hook=None, keywords=None):
             d.text((x + 5, y + 8), w, font=f, fill=(0, 0, 0), anchor="lm", stroke_width=9, stroke_fill=(0, 0, 0))
             d.text((x, y), w, font=f, fill=col, anchor="lm", stroke_width=9, stroke_fill=(0, 0, 0))
             x += d.textlength(w + " ", font=f)
-    if handle: d.text((540, 1790), handle, font=font("ExtraBold", 46), fill=(200, 200, 225), anchor="mm")
+    if handle: d.text((540, 1870), handle, font=font("ExtraBold", 44), fill=(255, 255, 255), anchor="mm", stroke_width=6, stroke_fill=(0, 0, 0))
     out = out or os.path.splitext(clip)[0] + "_capa.jpg"
     im.save(out, quality=93); return out
 

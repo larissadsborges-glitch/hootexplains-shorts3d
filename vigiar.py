@@ -32,6 +32,8 @@ TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDC
        ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
        ("https://www.twitch.tv/lacy", "en"),
+       ("https://www.youtube.com/channel/UC72PuhDwKtZ5MikpGNhPAtA/live", "en"),  # TGG (owner 18 Nov 14:50: "é o TGG e o outro")
+       ("https://www.youtube.com/channel/UC2wKfjlioOCLP4xQMOWNcgg/live", "en"),  # TypicalGamer (owner 18 Nov 14:45: "o que eu estou a dizer é o TypicalGamer, para manter")
        ("https://www.twitch.tv/alanzoka", "pt")]
 MAX_LIVE = 12  # (18 Nov 11:00: offline-waiting recorders counted, Paulinho was left out)  IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
 # (owner 17 Nov: "catch the FIRST streamers playing GTA 6 from hour zero, followers and views from minute one") from

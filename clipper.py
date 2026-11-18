@@ -651,8 +651,10 @@ def grounded(hook, said, channel=""):
         if w in {"came", "went", "said", "told", "paid", "got", "gave", "made", "saw"}: continue  # past forms
         # (17 Nov test: almost every AI title was refused for one plain describing word - "enemies", "every", "heist
         # van" - and the clip lost its context line) ONE unsaid describing word may stay; claims never do
-        if w in CLAIMS or unsaid: return False
-        unsaid = w
+        # (owner 18 Nov 14:40: "os títulos têm que fazer sentido consoante o vídeo" - refusing the AI's describing line
+        # left quote titles like "ASS, MAN") up to THREE unsaid describing words may stay; claims never do
+        if w in CLAIMS or unsaid.count(" ") >= 2: return False
+        unsaid = (unsaid + " " + w).strip()
     return True
 
 # words that state something happened: they must be SAID, never guessed
@@ -886,6 +888,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     ws = [(s, e, mask(w)) for s, e, w in ws]
     quote = quote_at(ws, peak if peak is not None else dur * 0.7)
     # the AI's context hook first; else a quote from the moment; else the channel's fixed line
+    ev = ((verdict or {}).get("event") or "").strip()
+    if not ai_hook and ev and (lang or found or "en")[:2] == "en":  # (owner 18 Nov: titles that describe the video, not a quote)
+        ai_hook = mask(f"{display(channel)} {ev}".upper() if channel and display(channel).lower() not in ev.lower() else ev.upper())
     hook = ai_hook or mask(f"“{quote.upper()}”" if quote else hook)
     talk = sum(e - s for s, e, _ in ws) / max(dur, 1.0)
     # chat lines on screen: real messages with words (no usernames, no emoji the font cannot draw, slurs masked)

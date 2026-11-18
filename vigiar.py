@@ -26,22 +26,18 @@ MAIN = "https://www.youtube.com/@IShowSpeed/live"
 # (owner 17 Nov 23:15: "O Coringa, eu quero o Coringa. Se ele streamar o GTA, eu quero o Coringa.") he is first and is
 # ALWAYS recorded when live, even when the MAX_LIVE slots are full
 ALWAYS = {"coringa", "ricfazeres"}  # (owner 18 Nov: RicFazeres "para o público de Portugal")
+# (owner 18 Nov 14:30: "em inglês só o IShowSpeed, o Lacy e o Kai Cenat ... em português o RicFazeres, o outro
+# brasileiro [Alanzoka] e o Coringa ... e ficamos só assim" - the PC ran out of memory with 10 lives) IShowSpeed is MAIN
 TOP = [("https://www.twitch.tv/coringa", "pt"), ("https://www.youtube.com/@LOUDCoringa/live", "pt"),
        ("https://www.youtube.com/@RicFazeres/live", "pt"),                # Portugal (PT-PT)
-       ("https://www.youtube.com/channel/UCi7TVXyvrIwqeS9tfYD8UDA/live", "es"),  # DjMaRiiO (18 Nov: the biggest Spanish GTA 6 live)
-       ("https://www.youtube.com/channel/UC72PuhDwKtZ5MikpGNhPAtA/live", "en"),  # TGG (18 Nov: big EN GTA 6 lives, the EN page posts itself)
-       ("https://www.youtube.com/channel/UC2wKfjlioOCLP4xQMOWNcgg/live", "en"),  # TypicalGamer
        ("https://www.twitch.tv/kaicenat", "en"), ("https://www.youtube.com/@KaiCenat/live", "en"),
-       ("https://www.twitch.tv/caseoh_", "en"), ("https://www.twitch.tv/lacy", "en"),
-       ("https://www.twitch.tv/angryginge13", "en"),                       # UK
-       ("https://www.twitch.tv/alanzoka", "pt"), ("https://www.twitch.tv/paulinholokobr", "pt"),
-       ("https://www.twitch.tv/illojuan", "es"),                           # Spain
-       ("https://www.twitch.tv/casimiro", "pt")]                           # reserve
+       ("https://www.twitch.tv/lacy", "en"),
+       ("https://www.twitch.tv/alanzoka", "pt")]
 MAX_LIVE = 12  # (18 Nov 11:00: offline-waiting recorders counted, Paulinho was left out)  IShowSpeed + 8 (the PC recorded 8 at once in the 16 Nov rehearsal)
 # (owner 17 Nov: "catch the FIRST streamers playing GTA 6 from hour zero, followers and views from minute one") from
 # 10:30 on 18 Nov (GTA 6 opens in New Zealand at 11:00 PT) the biggest live "GTA 6" streams on YouTube are found and
 # recorded too, even if they are not on the list: up to 2 at a time, 3000+ people watching, the title must say GTA 6
-DISCOVER_FROM = datetime(2026, 11, 18, 10, 30)
+DISCOVER_FROM = datetime(2099, 1, 1)  # (owner 18 Nov 14:30: only the chosen streamers - no found lives)
 DISCOVER_MAX, DISCOVER_MIN_VIEWERS = 2, 3000  # (18 Nov 11:15: CPU at 99% with 11 recorders - 2 found lives; DjMaRiiO is on the list now)
 
 
@@ -102,6 +98,35 @@ def start(args, log):
                      stdin=subprocess.DEVNULL, creationflags=DETACH, cwd=HERE)
 
 
+
+def cleanup():
+    """(owner 18 Nov: "sim, apaga sempre o que não é necessário") every round: the edit leftovers of finished clips
+    (raw/short/cut files no queued job still needs, 15+ min old) and the rolling pieces of lives that ended 10+ min ago.
+    Finished clips, covers, originals and the queue are never touched."""
+    import glob, shutil
+    out = os.environ.get("CLIPPER_OUT") or r"E:\clipper"; rec = os.environ.get("CLIPPER_REC") or r"C:\clipper_rec"
+    q = os.path.join(out, "queue"); keep = set()
+    for p in glob.glob(os.path.join(q, "*.json")) + glob.glob(os.path.join(q, "*.working")):
+        try: j = json.load(open(p, encoding="utf-8"))
+        except Exception: continue
+        for k in ("raw", "short", "original"):
+            if j.get(k): keep.add(os.path.normcase(os.path.abspath(j[k])))
+    now = time.time(); freed = 0
+    for base in (out, rec):
+        for d in glob.glob(os.path.join(base, "*_2*")):
+            for pat in ("clip*_short*.mp4", "clip*_raw.mp4", "first_*_raw.mp4", "first_*_short*.mp4", "*_cut.mp4", "*.diary.wav"):
+                for f in glob.glob(os.path.join(d, pat)):
+                    if os.path.normcase(os.path.abspath(f)) in keep or now - os.path.getmtime(f) < 900: continue
+                    try: freed += os.path.getsize(f); os.remove(f)
+                    except OSError: pass
+            m, sd = os.path.join(d, "meta.json"), os.path.join(d, "seg")
+            last = max((os.path.getmtime(x) for x in glob.glob(os.path.join(sd, "*"))), default=os.path.getmtime(m) if os.path.exists(m) else now)
+            if os.path.isdir(sd) and now - last > 600:  # the live in this folder ended (no new piece for 10 min)
+                try: freed += sum(os.path.getsize(x) for x in glob.glob(os.path.join(sd, "*")))
+                except OSError: pass
+                shutil.rmtree(sd, ignore_errors=True)
+    if freed > 1e8: print(f"{datetime.now():%H:%M} cleanup: {freed / 1e9:.1f} GB of temporary files removed", flush=True)
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--until", default="04:00"); ap.add_argument("--every", type=int, default=300)
     g = ap.parse_args()
@@ -153,6 +178,8 @@ def main():
         except Exception as e:
             print(f"AI judge check failed: {e}", flush=True)
         # 3. editors
+        try: cleanup()
+        except Exception as e: print("cleanup failed:", e, flush=True)
         n_rec = len(recorded); want = 1  # (owner 18 Nov: "uma de cada vez": one editor, each clip done sooner, the PC holds up)
         have = len([c for c in running() if " worker" in c]) // 2 or len([c for c in running() if " worker" in c])
         for _ in range(max(0, want - have)): start(["worker"], "editor.log")

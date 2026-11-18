@@ -25,7 +25,8 @@ NAMES = {"caseoh_": "CaseOh", "ishowspeed": "IShowSpeed", "kaicenat": "Kai Cenat
 def captions(sheet):
     name = sheet.get("channel", ""); who = NAMES.get(name.lower())
     if not who: who = C.display(name); who = who.title() if who.isupper() else who
-    gta = (sheet.get("game") or "") in ("gta6", "gta")
+    said = " ".join(str(w[2]) for w in sheet.get("words") or []).lower()
+    gta = (sheet.get("game") or "") in ("gta6", "gta") or sheet.get("ideia") == "opening" or bool(re.search(r"gta|grand theft auto", said))
     title = re.sub(r"\s+", " ", (sheet.get("title") or "").strip())
     tag = "#" + re.sub(r"[^a-z0-9]", "", name.lower())
     tags = ("#gta6 #gtavi #gta " if gta else "") + f"{tag} #twitchclips #gaming #fyp"

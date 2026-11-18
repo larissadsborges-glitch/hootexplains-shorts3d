@@ -40,7 +40,9 @@ def venc(crf=20, threads=4, cpu=False):
     CPU (x264) only if the GPU encoder refuses, at a matching quality"""
     global _nvenc
     inter = crf <= 18
-    if cpu: return FF, ["-c:v", "libx264", "-preset", "fast" if inter else "medium", "-crf", "12" if inter else "17",
+    # (owner 18 Nov launch: "temos que postar isso rápido": NVENC is out on this driver, the CPU is at 100%) faster x264
+    # presets: in-between files ultrafast at crf 12 (still near-lossless), the final clip veryfast at crf 18
+    if cpu: return FF, ["-c:v", "libx264", "-preset", "ultrafast" if inter else "veryfast", "-crf", "12" if inter else "18",
                         "-maxrate", "40M" if inter else "20M", "-bufsize", "80M" if inter else "40M", "-threads", str(threads)]
     if _nvenc is None:
         _nvenc = os.path.exists(FFG) and subprocess.run([FFG, "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", "color=black:s=256x256:d=0.2",

@@ -939,7 +939,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
     if not song and (lang or found or "en")[:2] == "en":  # (the EN page posts by itself: a dedicated look at the lyrics)
         try: song = ia.is_song(" ".join(w for _, _, w in ws))
         except Exception: song = False
-    why = [w for w, bad in (("palavra proibida", slur), ("é sobretudo uma música (rádio)", song),
+    why = [w for w, bad in (("palavra proibida", slur), ("é sobretudo uma música (rádio)", song), ("curto demais (< 8 s)", dur < 8),
                             ("sem sentido sozinho (IA)", no_sense), ("a cena continua depois do fim (IA)", scene_cut)) if bad]
     first = force_first or (first_in_gta6(channel, title, verdict, rec_started, live_started, (lang or found or "en")[:2]) if verdict and channel else "")
     if force_first: why = []  # (the diary found it: a first is posted even when the AI finds the moment quiet)

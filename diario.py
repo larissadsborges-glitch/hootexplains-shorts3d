@@ -26,7 +26,7 @@ BATCH = 6          # 6 x 20 s pieces = 2 min of audio per transcription
 SCAN_EVERY = 300   # s of live between two AI event scans
 _model = None
 # every event becomes its own clip in por_ideia/<category>/ (the editor does the firsts and the strong ones first)
-IDEA_SCORE = {"mission": 8.0, "heist": 8.0, "death": 6.0, "police": 6.0, "crash": 5.0, "steal_car": 4.0, "map": 4.0}
+IDEA_SCORE = {"opening": 9.0, "mission": 8.0, "heist": 8.0, "death": 6.0, "police": 6.0, "crash": 5.0, "steal_car": 4.0, "map": 4.0}
 
 EVENT_PROMPT = """Below is what the streamer {name} said in the last minutes of a {game} livestream (times in seconds),
 and what his chat wrote (chat types 5-30 s AFTER what it reacts to).
@@ -38,7 +38,9 @@ CHAT:
 {chat}
 
 List the GAME EVENTS that clearly happened in this window. Categories:
-death (died / wasted / got killed), police (wanted level, chase, arrested, busted), steal_car (takes/steals a car),
+opening (owner 18 Nov: his reaction OPENING the game for the first time: the game finally launches / the Rockstar
+logo or intro plays / the title screen / "we're in", "it's open", "estamos dentro", "abriu", "ya está" / he takes control
+of his character for the first time), death (died / wasted / got killed), police (wanted level, chase, arrested, busted), steal_car (takes/steals a car),
 crash (crashes a vehicle hard), heist (robbery / heist), mission (a mission completed or failed), map (opens / looks at
 the map for the first time).
 Only events that ACTUALLY HAPPENED, clearly shown by his words OR by many chat lines (e.g. lots of "WASTED", "he died",
@@ -159,6 +161,7 @@ class Live:
     def allow(self, cat, t):
         """(owner 17 Nov: every event its own clip, kept per idea) not the same kind twice within 90 s, max 20 an hour"""
         h = self.st.setdefault("ideias", [])
+        if cat == "opening" and any(c == "opening" for c, _ in h): return False  # once per live: the first time in
         if any(c == cat and abs(x - t) < 90 for c, x in h) or sum(1 for _, x in h if t - x < 3600) >= 20: return False
         h.append([cat, t]); self.save(); return True
 

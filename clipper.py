@@ -939,8 +939,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         with open(base + ".json", "w", encoding="utf-8") as f: json.dump(sheet, f, ensure_ascii=False)
         try:  # (owner 17 Nov: "vai ser preciso capa para todos os vídeos") the cover, next to the clip: <base>_capa.jpg
             import capa
-            capa.make(base + ".mp4", ai_hook or hook, t=capa.cover_t(sheet["payoff_t"], sheet["dur"]), keywords=KEYWORDS,
-                      streamer="@" + display(name).lower().replace(" ", ""))  # (the page handle is already burnt into the frame)
+            capa.template(base + ".mp4", sheet, hook=ai_hook or hook, keywords=KEYWORDS)  # (owner 18 Nov: every cover the same layout)
         except Exception as e:
             print("capa falhou:", e, flush=True)
         if not why and score is not None and (score >= STRONG or first):  # (owner: be the FIRST to post) a strong one -> phone

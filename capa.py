@@ -86,7 +86,7 @@ def from_sheet(video):
         streamer, handle = "@" + C.display(s["channel"]).lower().replace(" ", ""), C.page_handle(s.get("lang"))
     except Exception:
         streamer, handle = "@" + s["channel"], ""
-    return make(video, s.get("hook") or s.get("title", ""), t=cover_t(s.get("payoff_t"), s.get("dur")), streamer=streamer)  # (handle already burnt in)
+    return template(video, s)  # (owner 18 Nov: the fixed layout for every clip)
 
 
 def cover_t(payoff, dur):
@@ -98,5 +98,79 @@ def cover_t(payoff, dur):
 HOOK_END = 3.8
 
 
+# ------------------------------------------------------------------ the fixed template (owner 18 Nov)
+# "as capas deviam ser sempre todas iguais ... pode estar o streamer que é diferente ... mudar o título": every clip cover
+# has the SAME layout; only the picture, the @streamer and the title change. 1080x1920 on the page navy:
+#   page logo + name on top | the picture in a fixed 16:9 window (the webcam in split clips, else the stream frame)
+#   | the pink @streamer pill on the window's bottom edge | the title in a fixed slot | the page handle at the bottom.
+# The Instagram grid shows the middle 3:4 (y 240-1680): the window and the title are both inside it.
+PAGE = {"en": "STREAM WENT WILD", "pt": "LIVE DESCONTROLADA", "es": "DIRECTO DESCONTROLADO"}
+WIN = (40, 300, 1040, 862)  # the picture window (1000x562, 16:9)
+TITLE_Y, TITLE_H, TITLE_SIZE = 960, 600, 112
+
+
+def _picture(clip, sheet):
+    """the 16:9 picture: the webcam (top band of a split clip) or the stream itself at the payoff"""
+    from PIL import ImageOps
+    t = cover_t(sheet.get("payoff_t"), sheet.get("dur"))
+    if sheet.get("mode") == "split" and sheet.get("game_top"):
+        im = frame(clip, t).crop((0, 0, 1080, int(sheet["game_top"])))
+    elif sheet.get("original") and os.path.exists(sheet["original"]):
+        im = frame(sheet["original"], (sheet.get("orig_at") or 0))
+    else:
+        im = frame(clip, t)
+    return ImageOps.fit(im, (WIN[2] - WIN[0], WIN[3] - WIN[1]), centering=(0.5, 0.35))
+
+
+def template(clip, sheet=None, out=None, hook=None, keywords=None):
+    """-> the cover path, <clip>_capa.jpg, in the fixed layout"""
+    sheet = sheet or json.load(open(os.path.splitext(clip)[0] + ".json", encoding="utf-8"))
+    lang = (sheet.get("lang") or "en")[:2]
+    try:
+        sys.path.insert(0, HERE); import clipper as C
+        who, handle = "@" + C.display(sheet["channel"]).lower().replace(" ", ""), C.page_handle(lang)
+    except Exception:
+        who, handle = "@" + sheet.get("channel", ""), ""
+    im = Image.new("RGB", (1080, 1920), NAVY); d = ImageDraw.Draw(im)
+    for y in range(1920):  # a soft glow behind the title
+        k = max(0.0, 1 - abs(y - 1250) / 700); d.line([(0, y), (1080, y)], fill=(14 + int(26 * k), 12 + int(10 * k), 30 + int(40 * k)))
+    # top: logo + page name
+    try:
+        lg = Image.open(os.path.join(HERE, "marca", "LOGO_perfil_320.png")).convert("RGBA").resize((130, 130))
+        im.paste(lg, (60, 110), lg)
+    except OSError: pass
+    d.text((215, 175), PAGE.get(lang, PAGE["en"]), font=font("Black", 62), fill=(255, 255, 255), anchor="lm")
+    # the picture window
+    pic = _picture(clip, sheet); m = Image.new("L", pic.size, 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, *pic.size], radius=36, fill=255)
+    d.rounded_rectangle([WIN[0] - 7, WIN[1] - 7, WIN[2] + 7, WIN[3] + 7], radius=42, fill=YEL)
+    im.paste(pic, WIN[:2], m)
+    # @streamer pill on the window's bottom edge
+    fs = font("ExtraBold", 54); tw = d.textlength(who, font=fs)
+    d.rounded_rectangle([540 - tw / 2 - 40, WIN[3] - 48, 540 + tw / 2 + 40, WIN[3] + 48], radius=48, fill=PINK, outline=(255, 255, 255), width=6)
+    d.text((540, WIN[3]), who, font=fs, fill=(255, 255, 255), anchor="mm")
+    # the title: fixed slot and size (smaller only when it would not fit in 4 lines)
+    hook = re.sub(r"[“”\"«»]", "", hook or sheet.get("hook") or sheet.get("title") or "").strip().upper()
+    words = hook.split(); keys = {k.lower() for k in (keywords or sheet.get("keywords") or [])}
+    if not keys:
+        clean = [re.sub(r"[^\w]", "", w).lower() for w in words]
+        keys = set(sorted((w for w in clean if w and w not in STOP), key=len, reverse=True)[:2])
+    size = TITLE_SIZE
+    while True:
+        f = font("Black", size); lines = wrap(d, words, f, width=980)
+        if len(lines) <= 4 or size <= 70: break
+        size -= 6
+    lh = int(size * 1.08); y0 = TITLE_Y + (TITLE_H - lh * len(lines)) // 2
+    for i, ln in enumerate(lines):
+        y = y0 + i * lh + lh // 2; x = 540 - d.textlength(" ".join(ln), font=f) / 2
+        for w in ln:
+            col = YEL if re.sub(r"[^\w]", "", w).lower() in keys else (255, 255, 255)
+            d.text((x + 5, y + 8), w, font=f, fill=(0, 0, 0), anchor="lm", stroke_width=9, stroke_fill=(0, 0, 0))
+            d.text((x, y), w, font=f, fill=col, anchor="lm", stroke_width=9, stroke_fill=(0, 0, 0))
+            x += d.textlength(w + " ", font=f)
+    if handle: d.text((540, 1790), handle, font=font("ExtraBold", 46), fill=(200, 200, 225), anchor="mm")
+    out = out or os.path.splitext(clip)[0] + "_capa.jpg"
+    im.save(out, quality=93); return out
+
+
 if __name__ == "__main__":
-    for v in sys.argv[1:]: print(from_sheet(v))
+    for v in sys.argv[1:]: print(template(v))

@@ -55,6 +55,37 @@ def venc(crf=20, threads=4, cpu=False):
                             "-maxrate", "20M", "-bufsize", "40M", "-spatial-aq", "1", "-aq-strength", "8", "-bf", "3", "-rc-lookahead", "32"]
     return venc(crf, threads, cpu=True)
 
+# (owner 19 Nov: "está com muita pouca qualidade" -> "usa o tal ampliador") the streamer's webcam is small in the stream
+# (IShowSpeed ~390x240) and was blown up ~2.8x with lanczos: now Real-ESRGAN (BSD-3, ~/.hoottools/realesrgan/SOURCE.txt,
+# realesr-animevideov3 on the GPU through Vulkan, ~8 frames/s) upscales the webcam crop at 30 fps (webcams are 30 fps)
+UPSCALE = os.environ.get("CLIPPER_UPSCALE", "1") == "1"
+RESR = os.path.join(os.path.expanduser("~"), ".hoottools", "realesrgan", "realesrgan-ncnn-vulkan.exe")
+
+def upscale_cam(src, crop, trim, out):
+    """-> out (the webcam crop of src from `trim`, AI-upscaled, 30 fps) or None (then the old lanczos chain is used)"""
+    if not crop or not os.path.exists(RESR): return None
+    import shutil
+    nw, nh, nx, ny, top = crop
+    s = 2 if nw * 2 >= 1080 else 3 if nw * 3 >= 1080 else 4
+    d = out + "_f"; fi, fo = os.path.join(d, "in"), os.path.join(d, "out")
+    try:
+        os.makedirs(fi, exist_ok=True); os.makedirs(fo, exist_ok=True); t0 = time.time()
+        subprocess.run([FF, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-an",
+                        "-vf", f"crop={nw}:{nh}:{nx}:{ny},fps=30", "-q:v", "1", os.path.join(fi, "%06d.jpg")], check=True)
+        r = subprocess.run([RESR, "-i", fi, "-o", fo, "-n", "realesr-animevideov3", "-s", str(s), "-f", "png"],
+                           capture_output=True, text=True, timeout=1800)
+        n_in, n_out = len(os.listdir(fi)), len(os.listdir(fo))
+        if n_out < n_in: raise RuntimeError(f"Real-ESRGAN gave {n_out}/{n_in} frames {r.stderr[-200:]}")
+        subprocess.run([FF, "-y", "-loglevel", "error", "-framerate", "30", "-i", os.path.join(fo, "%06d.png"),
+                        "-vf", f"scale=1080:{top}:flags=lanczos", "-c:v", "libx264", "-preset", "veryfast", "-crf", "10",
+                        "-pix_fmt", "yuv420p", out], check=True)
+        print(f"[editor] webcam upscaled x{s} by Real-ESRGAN: {n_in} frames in {time.time() - t0:.0f} s", flush=True)
+        return out
+    except Exception as e:
+        print(f"[editor] upscaler off for this clip: {e}", flush=True); return None
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
 def run_v(build, crf=20, threads=4):
     """(16 Nov night: one clip failed - the GTX 1050 Ti refused an NVENC session while recorders and editors all
     encoded at once) run build(ff, venc_args); if the GPU encoder fails, the SAME job is encoded on the CPU"""
@@ -922,8 +953,15 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         seen.add(msg.lower()); lines.append((t - trim, msg))
     lines = [l for l in lines if l[0] >= 0][:10]
     vertical = lay.get("H", 0) > lay.get("W", 1); full_wins = []
+    extra_in = []
     if BAR_TITLE and (lang or found or "en")[:2] == "en" and lay["mode"] == "split" and not vertical:  # (barra) one fixed layout, like the examples
         base, seam = layout.filters_ref(lay)
+        up = upscale_cam(src, lay.get("cam_crop"), trim, os.path.splitext(dst)[0] + "_cam.mp4") if UPSCALE else None
+        if up and lay.get("cam_chain") in base:
+            top = lay["cam_crop"][4]
+            base = base.replace(lay["cam_chain"], f"[c]nullsink;[1:v]scale=1080:{top}:flags=lanczos+accurate_rnd+full_chroma_int,"
+                                                  f"fps=60,format=yuv420p[cam]")
+            extra_in = ["-i", up]
     elif layout.REF_STYLE and lay["mode"] == "split" and not vertical:
         fw_, gw_ = cut_windows(ws, loudness(src) or [0.0], dur, layout.face_full_ok(lay))
         base, seam = layout.filters_ref(lay, fw_, gw_); full_wins = fw_ + gw_
@@ -965,10 +1003,10 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         card_png = os.path.splitext(dst)[0] + "_card.png"
         cartao.header_png(card_png, card_text(hook, channel), (lang or found or "en")[:2], inset=True)
         vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'[in];" + cartao.wrap(card_png)
-    run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, "-filter_complex", vf,
+    run_v(lambda ff, v: [ff, "-y", "-loglevel", "error", *(["-ss", f"{trim:.2f}"] if trim else []), "-i", src, *extra_in, "-filter_complex", vf,
                          "-map", "[v]", "-map", "0:a?", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", *v, "-pix_fmt", "yuv420p",
                          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", dst], 20, 4)  # GPU, CPU if refused
-    for tmp in (ass, cut_src, card_png):
+    for tmp in (ass, cut_src, card_png, *extra_in[1:]):
         try: os.remove(tmp)
         except OSError: pass
     if replay and peak is not None and 3.0 <= peak <= dur - 1.0: add_replay(dst, peak)

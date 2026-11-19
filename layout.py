@@ -288,7 +288,45 @@ def detect(path, channel=None):
         pts = track(path, channel) if known[0] else []
         if len(pts) >= 4 and np.ptp([p[1] for p in pts]) > 0.06 * W: lay["follow"] = pts
         return lay
-    return {"mode": "split", "W": W, "H": H, "cam": (left, top, right - left, bottom - top), "face": (x, y, fw, fh)}
+    old = (left, top, right, bottom)
+    left, top, right, bottom = _tighten(frames, old, (x, y, fw, fh))
+    return {"mode": "split", "W": W, "H": H, "cam": (left, top, right - left, bottom - top), "face": (x, y, fw, fh),
+            "bordered": (left, top, right, bottom) != old}  # (a real border was found: the crop never leaves the box)
+
+
+def _tighten(frames, box, face):
+    """(owner 19 Nov, TypicalGamer: "a webcam não está bem centrada / está para a esquerda") the box found ran past the
+    webcam into the game (x 14-543 for a 14-440 webcam), so the crop showed a strip of game and the face sat left.
+    Each side moves in to the overlay's border: the OUTERMOST line between the face and that side that is an edge in
+    most single frames (median share >= 0.6 along the face's rows/columns) - the game never keeps a line that still"""
+    L, T, R, B = box; x, y, fw, fh = face
+    gs = [cv2.cvtColor(f, cv2.COLOR_BGR2GRAY).astype(np.float32) for f in frames]
+    # (the border runs the whole height: rows from the face down to the box bottom, so the face's own lines - glasses,
+    # a cap - are not taken for it; a streamer leaning in puts the face right against the border: search from its middle)
+    ra, rb = int(max(T, y - 0.2 * fh)), int(min(B, max(y + 1.6 * fh, B - 6)))
+    ca, cb = int(max(L, x - 0.5 * fw)), int(min(R, x + 1.5 * fw))
+    if rb - ra < 10 or cb - ca < 10: return box
+    col = np.median([(np.abs(cv2.Sobel(g, cv2.CV_32F, 1, 0, ksize=3))[ra:rb] > 40).mean(axis=0) for g in gs], axis=0)
+    row = np.median([(np.abs(cv2.Sobel(g, cv2.CV_32F, 0, 1, ksize=3))[:, ca:cb] > 40).mean(axis=1) for g in gs], axis=0)
+    def outer(prof, near, edge):  # from the box edge in towards the face: the first steady border line
+        step = -1 if edge > near else 1
+        for i in range(int(edge), int(near), step):
+            if 0 <= i < len(prof) and prof[i] >= 0.6: return i
+        return edge
+    def inner(prof, start, stop):  # from the face's middle out: the first steady border line (a steady game line - a
+        step = 1 if stop > start else -1  # race barrier the camera follows - can sit further out, 19 Nov TypicalGamer)
+        for i in range(int(start), int(stop), step):
+            if 0 <= i < len(prof) and prof[i] >= 0.6: return i
+        return None
+    mid = x + 0.5 * fw
+    r = inner(col, mid + 0.3 * fw, min(len(col), R + 2 * fw)); l = inner(col, mid - 0.3 * fw, max(-1, L - 2 * fw))
+    R2 = r if r is not None and r - mid >= 0.3 * fw else R - 3
+    L2 = l if l is not None and mid - l >= 0.3 * fw else L + 3
+    B2 = outer(row, y + 1.3 * fh, B - 3); T2 = outer(row, y - 0.2 * fh, T + 3)
+    # keep the old side when the new one is next to it (a border just inside) or the box would get too small
+    R2 = R if abs(R - R2) < 12 else R2; L2 = L if abs(L2 - L) < 12 else L2; B2 = B if B - B2 < 12 else B2; T2 = T if T2 - T < 12 else T2
+    if R2 - L2 < 1.8 * fw or B2 - T2 < 1.4 * fh: return box  # (a streamer leaning in fills half the height)
+    return int(L2), int(T2), int(R2), int(B2)
 
 
 def _head_out(lay, y0, scale):
@@ -316,7 +354,7 @@ def _cam_crop(lay, top, W, H):
     span = chin - head_top
     nw = max(5.5 * fw, 1080 / 4.5, span / 0.74 * want); nh = nw / want  # the whole head with ~13 % air above and below
     if bw >= nw and bh >= nh: ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
-    elif bw >= 1080 / 4.5 and bh >= top / 4.5:  # a real webcam: the biggest crop that fits in it (never the game next to it)
+    elif (bw >= 1080 / 4.5 and bh >= top / 4.5) or lay.get("bordered"):  # a real webcam: the biggest crop that fits in it (never the game next to it)
         k = min(bw / nw, bh / nh); nw, nh = nw * k, nh * k; ax0, ay0, ax1, ay1 = bx, by, bx + bw, by + bh
     else:  # (17 Nov, Alanzoka: a too-narrow box squeezed the crop and cut his chin) the head wins: the frame is the limit
         nw = min(nw, W); nh = min(nw / want, H); nw = nh * want; ax0, ay0, ax1, ay1 = 0, 0, W, H
@@ -352,6 +390,9 @@ def filters_ref(lay, face_win=(), game_win=()):
     lay["game_top"] = top; lay["game_bottom"] = 1920; lay["ref"] = True
     lay["game_crop"] = (gx, gwid, H, top, band)  # (barra) where the game band comes from: maps people found in the source
     sc = "flags=lanczos+accurate_rnd+full_chroma_int"
+    # (owner 19 Nov: "usa o tal ampliador") the editor may swap this webcam chain for a Real-ESRGAN upscale of the same crop
+    lay["cam_chain"] = f"[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:{sc},unsharp=5:5:0.6[cam]"
+    lay["cam_crop"] = (nw, nh, nx, ny, top)
     n = 2 + (1 if face_win else 0) + (1 if game_win else 0)
     f = (f"[0:v]split={n}[c][g]" + ("[cf]" if face_win else "") + ("[gf]" if game_win else "") + ";"
          f"[c]crop={nw}:{nh}:{nx}:{ny},scale=1080:{top}:{sc},unsharp=5:5:0.6[cam];"

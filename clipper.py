@@ -1203,6 +1203,9 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
                 print(f"[{name}] highlight {n} ({kind}, score {score}: {why}) at {at:.0f}s -> queued", flush=True)
         # keep only the last keep_min minutes on disk (an hour; 20 min when the disk gets tight)
         km = keep_min if free_bytes() > 25e9 else min(keep_min, 20)
+        # (owner 19 Nov: "grava e só depois edita" + "não elimines as gravações") record-only days keep every piece,
+        # unless the disk is nearly full (then the old rolling window is better than a crash)
+        if os.environ.get("CLIPPER_KEEP_ALL") == "1" and free_bytes() > 20e9: segs = []
         for p, _, t1 in segs:
             if t1 < rec_end - km * 60 and os.path.exists(p): _rm(p)  # (a piece the diary is reading stays until next time)
     for p in (p2, p1):

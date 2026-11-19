@@ -140,9 +140,33 @@ def _game_bg(clip, sheet, size):
     return ImageOps.fit(im, size, centering=(0.5, 0.45))
 
 
+def exemplo(clip, sheet, out=None, hook=None):
+    """(owner 19 Nov, two covers side by side: "assim tá bem melhor, assim é que é") the EN cover = the clip's own look,
+    like the example reels: the streamer's reaction on top, the title big in the black box (Arial Bold, sentence case +
+    emoji) right under the webcam, the game moment under it, the page @ at the bottom"""
+    sys.path.insert(0, HERE); import clipper as C, barra
+    out = out or os.path.splitext(clip)[0] + "_capa.jpg"
+    t = float(sheet.get("payoff_t") or 2.0); top = int(sheet.get("game_top") or 600)
+    game = frame(clip, t); face = frame(clip, t + 0.4)
+    im = game.copy(); im.paste(face.crop((0, 0, 1080, top)), (0, 0))
+    text = C.card_text(hook or sheet.get("hook") or "", sheet.get("channel", ""))
+    emo = barra.EMOJI.get(sheet.get("category", ""), "😭")
+    keep = barra.SIZE, barra.W, barra.PAD_Y
+    barra.SIZE, barra.W, barra.PAD_Y = 80, 1040, 26
+    try: tp, h = barra.png(os.path.splitext(out)[0] + "_t.png", text, "" if text and barra.is_emoji(text[-1]) else emo)
+    finally: barra.SIZE, barra.W, barra.PAD_Y = keep
+    ti = Image.open(tp); im.paste(ti, (0, top), ti); ti.close(); os.remove(tp)
+    d = ImageDraw.Draw(im); f = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 44)
+    d.text((540, 1850), C.page_handle((sheet.get("lang") or "en")[:2]) or "", font=f, fill="white", anchor="mm", stroke_width=4, stroke_fill="black")
+    im.save(out, quality=92)
+    return out
+
+
 def template(clip, sheet=None, out=None, hook=None, keywords=None):
     """-> the cover path, <clip>_capa.jpg, in the fixed layout"""
     sheet = sheet or json.load(open(os.path.splitext(clip)[0] + ".json", encoding="utf-8"))
+    if os.environ.get("CLIPPER_CAPA", "exemplo") == "exemplo" and (sheet.get("lang") or "en")[:2] == "en" and sheet.get("mode") == "split":  # (owner 19 Nov: "essa capa até não é má, é igual ao vídeo - pode ser")
+        return exemplo(clip, sheet, out, hook)  # (owner 19 Nov: the EN clips' look, the cover too)
     lang = (sheet.get("lang") or "en")[:2]
     try:
         sys.path.insert(0, HERE); import clipper as C

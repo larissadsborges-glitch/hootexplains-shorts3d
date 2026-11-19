@@ -95,9 +95,58 @@ def start(args, log):
     script = "clipper.py"
     if args and args[0] == "__extras": script, args = "extras.py", args[1:]
     if args and args[0] == "__diario": script, args = "diario.py", args[1:]
+    if args and args[0] == "__remine": script, args = "remine.py", args[1:]
     subprocess.Popen([PY, "-I", "-X", "utf8", os.path.join(HERE, script)] + args, stdout=out, stderr=subprocess.STDOUT,
                      stdin=subprocess.DEVNULL, creationflags=DETACH, cwd=HERE)
 
+
+
+# (owner 19 Nov 03:00: "começa a gravar de novo lives, mas quero que as graves e só depois as edites"; "B": edit only
+# when no live is recording) CLIPPER_KEEP_ALL=1: recorders keep every piece, nothing is deleted
+RECORD_FIRST = os.environ.get("CLIPPER_KEEP_ALL") == "1"
+
+
+def _rec_dirs():
+    import glob
+    rec = os.environ.get("CLIPPER_REC") or r"C:\clipper_rec"
+    return [d for d in glob.glob(os.path.join(rec, "*_2*")) if os.path.exists(os.path.join(d, "meta.json"))]
+
+
+def live_recording():
+    """-> names whose recording got a new piece in the last 10 min (a live is on)"""
+    import glob
+    now, out = time.time(), []
+    for d in _rec_dirs():
+        last = max((os.path.getmtime(x) for x in glob.glob(os.path.join(d, "seg", "*.ts"))), default=0)
+        if now - last < 600: out.append(os.path.basename(d).rsplit("_", 2)[0])
+    return out
+
+
+def unread_recordings(since=datetime(2026, 11, 19)):
+    """-> today's finished recordings the diary has not read to the end"""
+    import csv
+    out = []
+    for d in _rec_dirs():
+        if datetime.fromtimestamp(os.path.getmtime(os.path.join(d, "meta.json"))) < since: continue
+        try: n = sum(1 for _ in open(os.path.join(d, "segments.csv"), encoding="utf-8"))
+        except OSError: continue
+        try: k = json.load(open(os.path.join(d, "diario_state.json"), encoding="utf-8")).get("k", 0)
+        except (OSError, ValueError): k = 0
+        if n >= 15 and k < n: out.append(d)  # (5+ min of live)
+    return out
+
+
+def stop_editing():
+    """a live started: the editor stops; the clip it was on goes back to the queue"""
+    import glob
+    subprocess.run(["powershell", "-NoProfile", "-Command", "Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
+                    "Where-Object { $_.CommandLine -match 'clipper.py.* worker|remine.py' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"],
+                   capture_output=True)
+    q = os.path.join(os.environ.get("CLIPPER_OUT") or r"E:\clipper", "queue")
+    for p in glob.glob(os.path.join(q, "*.working")):
+        try: os.replace(p, p[:-len(".working")])
+        except OSError: pass
+    print(f"{datetime.now():%H:%M} a live is recording: editing paused", flush=True)
 
 
 def cleanup():
@@ -105,6 +154,7 @@ def cleanup():
     (raw/short/cut files no queued job still needs, 15+ min old) and the rolling pieces of lives that ended 10+ min ago.
     Finished clips, covers, originals and the queue are never touched."""
     import glob, shutil
+    if os.environ.get("CLIPPER_KEEP_ALL") == "1": return  # (owner 19 Nov: "não elimines as gravações")
     out = os.environ.get("CLIPPER_OUT") or r"E:\clipper"; rec = os.environ.get("CLIPPER_REC") or r"C:\clipper_rec"
     q = os.path.join(out, "queue"); keep = set()
     for p in glob.glob(os.path.join(q, "*.json")) + glob.glob(os.path.join(q, "*.working")) + glob.glob(os.path.join(q, "*.failed")):  # (owner 18 Nov: "guarda sempre os clipes" - a failed clip keeps its footage for a retry)
@@ -183,11 +233,19 @@ def main():
         except Exception as e: print("cleanup failed:", e, flush=True)
         n_rec = len(recorded); want = 1  # (owner 18 Nov: "uma de cada vez": one editor, each clip done sooner, the PC holds up)
         have = len([c for c in running() if " worker" in c]) // 2 or len([c for c in running() if " worker" in c])
+        live_now = live_recording()
+        if RECORD_FIRST and live_now:  # (owner 19 Nov, "B": record, and edit only when no live is recording)
+            if have: stop_editing()
+            have = want = 0
+        elif RECORD_FIRST:
+            for d in unread_recordings():  # the diary reads each finished recording once: every event becomes a job
+                if not running("remine.py"): start(["__remine", d], "remine.log")
+                break
         for _ in range(max(0, want - have)): start(["worker"], "editor.log")
-        print(f"{datetime.now():%H:%M} recording: {', '.join(sorted(recorded))} | editors {max(have, want)}", flush=True)
+        print(f"{datetime.now():%H:%M} recording: {', '.join(sorted(recorded))} | live now: {', '.join(live_now) or '-'} | editors {max(have, want)}", flush=True)
         # (owner 17 Nov ideas) a live that ended -> its day in 60 seconds; every round -> the same moment across streamers
         # (recorders stay on waiting for the live to come back, so "ended" = 45 min with no new clip: extras.py auto)
-        if not running("extras.py"): start(["__extras", "auto"], "extras.log")
+        if not RECORD_FIRST and not running("extras.py"): start(["__extras", "auto"], "extras.log")
         # (owner 17 Nov) the live diary: everything transcribed, events, firsts, same moment across streamers
         # (18 Nov 17:15: the PC could not keep up - the editors come first: the diary stays off)
         if False and not running("diario.py"): start(["__diario", "--until", end.strftime("%Y-%m-%d %H:%M")], "diario.log")

@@ -16,6 +16,7 @@ import clipper as C
 POSTS = os.path.join(HERE, "posts")
 RAW = "https://raw.githubusercontent.com/larissadsborges-glitch/hootexplains-shorts3d/clipper/posts/"
 FF = r"C:\Users\borge\.hoottools\ffmpeg\ffmpeg.exe"
+FP = r"C:\Users\borge\.hoottools\ffmpeg\ffprobe.exe"
 
 
 NAMES = {"caseoh_": "CaseOh", "ishowspeed": "IShowSpeed", "kaicenat": "Kai Cenat", "lacy": "Lacy", "angryginge13": "Angry Ginge",
@@ -41,12 +42,16 @@ def main(clip):
     base = clip[:-4]; sheet = json.load(open(base + ".json", encoding="utf-8"))
     cover = base + "_capa.jpg"; name = os.path.basename(base)
     os.makedirs(POSTS, exist_ok=True); out = os.path.join(POSTS, name + "_post.mp4")
+    dur = float(subprocess.run([FP, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", clip],
+                               capture_output=True, text=True).stdout or 60)
+    rate = int(min(20e6, 85e6 * 8 / max(dur, 1)))  # as sharp as it gets, under GitHub's 100 MB
     if os.path.exists(cover):
-        fc = ("[0:v]scale=1080:1920,setsar=1,fps=60,format=yuv420p[c];[1:v]scale=1080:1920,setsar=1,fps=60,format=yuv420p[v];"
+        fc =("[0:v]scale=1080:1920,setsar=1,fps=60,format=yuv420p[c];[1:v]scale=1080:1920,setsar=1,fps=60,format=yuv420p[v];"
               "[2:a]atrim=0:0.05[ca];[1:a]aresample=48000[a];[c][ca][v][a]concat=n=2:v=1:a=1[ov][oa]")
         cmd = [FF, "-y", "-loglevel", "error", "-loop", "1", "-t", "0.05", "-i", cover, "-i", clip,
                "-f", "lavfi", "-t", "0.05", "-i", "anullsrc=r=48000:cl=stereo", "-filter_complex", fc,
-               "-map", "[ov]", "-map", "[oa]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-maxrate", "6M", "-bufsize", "12M",  # (18 Nov: 60 MB copies took minutes to push)
+               "-map", "[ov]", "-map", "[oa]", "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-maxrate", str(rate), "-bufsize", str(2 * rate),
+               "-x264-params", "aq-mode=3",  # (owner 19 Nov: "muita pouca qualidade") was veryfast crf 21 at 6 Mbit/s
                "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out]
     else:
         cmd = [FF, "-y", "-loglevel", "error", "-i", clip, "-c", "copy", "-movflags", "+faststart", out]

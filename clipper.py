@@ -42,7 +42,9 @@ def venc(crf=20, threads=4, cpu=False):
     inter = crf <= 18
     # (owner 18 Nov launch: "temos que postar isso rápido": NVENC is out on this driver, the CPU is at 100%) faster x264
     # presets: in-between files ultrafast at crf 12 (still near-lossless), the final clip veryfast at crf 18
-    if cpu: return FF, ["-c:v", "libx264", "-preset", "ultrafast" if inter else "veryfast", "-crf", "12" if inter else "18",
+    # (owner 19 Nov: "está com muita pouca qualidade") record-first: the editor runs only when no live records, the CPU
+    # is free, so the final clip is back to a sharp encode (medium, crf 16) instead of veryfast crf 18
+    if cpu: return FF, ["-c:v", "libx264", "-preset", "ultrafast" if inter else "medium", "-crf", "12" if inter else "16",
                         "-maxrate", "40M" if inter else "20M", "-bufsize", "80M" if inter else "40M", "-threads", str(threads)]
     if _nvenc is None:
         _nvenc = os.path.exists(FFG) and subprocess.run([FFG, "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", "color=black:s=256x256:d=0.2",
@@ -1189,6 +1191,9 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
             k = sum(1 for t in emitted if t > at - 600); bar = (3.5 + 1.5 * k if (lang or "")[:2] == "en" else 5.0 + 2.0 * k)  # (18 Nov 17:00 "eu preciso de clips": EN lower) (18 Nov launch: "queremos é volume", was 6 + 3k) (rehearsal 16 Nov: 3 + 1.5k gave ~20 clips an hour per streamer; this halves it)
             log.write(json.dumps({"at": round(at), "kind": kind, "score": score, "bar": bar, **why}) + "\n"); log.flush()
             if score < bar or low_disk: continue
+            # (19 Nov, record-first) no cuts while recording: the near-lossless clip###_raw/_original copies filled 64 GB of
+            # C: in 2.5 h; the moment stays in highlights.jsonl and remine.py cuts it from the kept pieces after the live
+            if os.environ.get("CLIPPER_KEEP_ALL") == "1": emitted.append(at); continue
             emitted.append(at); n += 1
             raw = os.path.join(od, f"clip{n:03d}_raw.mp4"); a0 = max(at - pre, segs[0][1])
             if cut_segments(segs, a0, at + post, raw):
@@ -1207,9 +1212,11 @@ def _session(url, name, credit, t_end, chat, lang, hook, pre, post, keep_min, se
         km = keep_min if free_bytes() > 25e9 else min(keep_min, 20)
         # (owner 19 Nov: "grava e só depois edita" + "não elimines as gravações") record-only days keep every piece,
         # unless the disk is nearly full (then the old rolling window is better than a crash)
-        if os.environ.get("CLIPPER_KEEP_ALL") == "1" and free_bytes() > 20e9: segs = []
-        for p, _, t1 in segs:
-            if t1 < rec_end - km * 60 and os.path.exists(p): _rm(p)  # (a piece the diary is reading stays until next time)
+        # (19 Nov BUG, fixed: this used to empty `segs`, and an empty `segs` at the end of the session deleted the whole
+        # folder - the 04:28-06:37 recordings were lost that way. `segs` is never touched now; only the deletion is skipped)
+        if not (os.environ.get("CLIPPER_KEEP_ALL") == "1" and free_bytes() > 12e9):
+            for p, _, t1 in segs:
+                if t1 < rec_end - km * 60 and os.path.exists(p): _rm(p)  # (a piece the diary is reading stays until next time)
     for p in (p2, p1):
         if p.poll() is None: p.terminate()
     for p in (p2, p1):

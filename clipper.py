@@ -414,9 +414,11 @@ CAP_STYLE = ("Style: Cap,Poppins ExtraBold,150,&H00FFFFFF,&H00FFFFFF,&H00000000,
 
 def card_text(hook, channel):
     """the post card's line: normal case, the streamer as people know him (KAICENAT MISSES -> Kai Cenat misses)"""
-    t = cartao.sentence((hook or "").strip("“”"))
+    h = (hook or "").strip("“”")
+    t = h if re.search(r"[a-z]", h) else cartao.sentence(h)  # (a title already written in normal case keeps its capitals: "TypicalGamer")
     if channel:
         nm = display(channel).title().replace("Ishowspeed", "IShowSpeed")
+        if re.search(r"[a-z]", channel) and re.search(r"[A-Z]", channel[1:]): nm = channel.rstrip("_")  # (camel case as the streamer writes it: TypicalGamer)
         t = re.sub(re.escape(channel.rstrip("_")) + "_?", nm, t, flags=re.I)
         t = re.sub(re.escape(nm), nm, t, flags=re.I)  # ("KAI CENAT" -> "Kai cenat" by sentence(): the name keeps its capitals)
     return t

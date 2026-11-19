@@ -30,15 +30,23 @@ def png(path, text, emoji=""):
     """-> (path, height): the title box, `text` wrapped to fit, `emoji` stuck to the last word"""
     f = ImageFont.truetype(TITLE_FONT, SIZE)
     fe = ImageFont.truetype(EMOJI_FONT, int(SIZE * 0.9))
-    words = (text.strip() + (" " + emoji if emoji else "")).split()
+    text = text.strip().replace("GTA 6", "GTA 6").replace("GTA VI", "GTA VI")  # ("GTA 6" never split)
+    words = (text + (" " + emoji if emoji else "")).split(" ")
     lines, cur = [], ""
     for w in words:
         t = (cur + " " + w).strip()
         if cur and _len(f, fe, t) > W - 2 * PAD_X: lines.append(cur); cur = w
         else: cur = t
     if cur: lines.append(cur)
-    if len(lines) > 1 and len(lines[-1].split()) == 1 and all(is_emoji(c) for c in lines[-1]):  # (no emoji alone on a line)
+    if len(lines) > 1 and len(lines[-1].split(" ")) == 1 and all(is_emoji(c) for c in lines[-1]):  # (no emoji alone on a line)
         e = lines.pop(); lines[-1] += " " + e
+    # (19 Nov cover: "...in GTA / 6 😭") no short last line: move words down while the line above stays the longer one
+    while len(lines) > 1 and len([w for w in lines[-1].split(" ") if not all(is_emoji(c) for c in w)]) <= 2:
+        prev = lines[-2].split(" ")
+        if len(prev) < 3: break
+        cand = " ".join([prev[-1]] + lines[-1].split(" "))
+        if _len(f, fe, cand) > W - 2 * PAD_X: break
+        lines[-2], lines[-1] = " ".join(prev[:-1]), cand
     lh = int(SIZE * 1.12)
     h = 2 * PAD_Y + lh * len(lines) + GAP * (len(lines) - 1)
     bw = int(max(_len(f, fe, l) for l in lines)) + 2 * PAD_X

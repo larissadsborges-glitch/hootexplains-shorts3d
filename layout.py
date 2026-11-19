@@ -350,6 +350,7 @@ def filters_ref(lay, face_win=(), game_win=()):
             f"[g1][gb]overlay={ox0}:{y}," if ox1 - ox0 >= 2 and w * h < 0.15 * W * H else "")
     _head_out(lay, ny, top / nh)
     lay["game_top"] = top; lay["game_bottom"] = 1920; lay["ref"] = True
+    lay["game_crop"] = (gx, gwid, H, top, band)  # (barra) where the game band comes from: maps people found in the source
     sc = "flags=lanczos+accurate_rnd+full_chroma_int"
     n = 2 + (1 if face_win else 0) + (1 if game_win else 0)
     f = (f"[0:v]split={n}[c][g]" + ("[cf]" if face_win else "") + ("[gf]" if game_win else "") + ";"

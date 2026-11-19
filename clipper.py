@@ -81,7 +81,7 @@ def free_bytes():
     return shutil.disk_usage(REC).free if os.path.isdir(REC) else shutil.disk_usage(OUT).free
 BELOW_NORMAL = 0x00004000  # Windows process priority class for the editor
 sys.path.insert(0, HERE)
-import ia, layout, react, cartao  # (owner 16 Nov: "more reaction messages") the reaction words/emotes, EN + PT-BR + ES, see react.py
+import ia, layout, react, cartao, barra  # (owner 16 Nov: "more reaction messages") the reaction words/emotes, EN + PT-BR + ES, see react.py
 
 # ---------------------------------------------------------------- chat (Twitch, anonymous read-only IRC)
 class TwitchChat(threading.Thread):
@@ -402,6 +402,11 @@ KEY_STOP = set("""the and you that this what with have just like your they them 
 dude man guys gonna wanna got get its it's not but all one now yes nah
 que não isso aí cara mano velho então tipo aqui ali pra para com uma um ele ela eles mas mais muito tá tô vai foi ser
 qué eso esto pero con una uno muy está tío chaval vale bueno""".split())
+# (owner 19 Nov, two example reels: "podemos fazer assim?") the title in a black box on the seam, the WHOLE clip,
+# sentence case + emoji (barra.py); 2-3 word captions under it; no full-screen cuts (the layout never changes)
+BAR_TITLE = os.environ.get("CLIPPER_LOOK", "barra") == "barra"  # (owner 19 Nov 01:00: "Tá bom") on for the English clips
+# (owner 19 Nov: "quero a mesma fonte dos videos") the examples' captions: Arial Black caps, thick black outline + shadow
+BAR_CAP = "Style: Cap,Arial Black,80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,6,4,5,60,60,0,1" + chr(10)
 ONE_WORD = True  # (owner 17 Nov, the LOUD Coringa example) one word on screen at a time, no chat lines, no stamp
 CAP_STYLE = ("Style: Cap,Poppins ExtraBold,150,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,1.5,5,5,60,60,0,1\n"
              if ONE_WORD else
@@ -410,7 +415,10 @@ CAP_STYLE = ("Style: Cap,Poppins ExtraBold,150,&H00FFFFFF,&H00FFFFFF,&H00000000,
 def card_text(hook, channel):
     """the post card's line: normal case, the streamer as people know him (KAICENAT MISSES -> Kai Cenat misses)"""
     t = cartao.sentence((hook or "").strip("“”"))
-    if channel: t = re.sub(re.escape(channel.rstrip("_")) + "_?", display(channel).title().replace("Ishowspeed", "IShowSpeed"), t, flags=re.I)
+    if channel:
+        nm = display(channel).title().replace("Ishowspeed", "IShowSpeed")
+        t = re.sub(re.escape(channel.rstrip("_")) + "_?", nm, t, flags=re.I)
+        t = re.sub(re.escape(nm), nm, t, flags=re.I)  # ("KAI CENAT" -> "Kai cenat" by sentence(): the name keeps its capitals)
     return t
 
 def hook_lines(hook, width=980, size=92):
@@ -442,14 +450,14 @@ def _outside(dur, wins):
     if t < dur: out.append((t, dur))
     return out
 
-def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None, full_wins=()):
+def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label="", head_box=None, game_top=None, lang="en", game_bottom=None, full_wins=(), bar_h=0, cap_spot=None):
     """captions: 3 words a chunk, the word being said in yellow, reaction words (NO WAY, WHAT, LET'S GO...) in red; big bold
     white with a black outline at `seam` (between webcam and game in the split layout); the hook at the top for the first
     3.5 s; the credit; real chat messages popping in at the moment (no usernames), like watching it live"""
     hook_v = {"split": 70, "face": 220}.get(mode, 300)
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            + CAP_STYLE +  # (the example: Poppins, soft shadow)
+            + (BAR_CAP if bar_h else CAP_STYLE) +  # (the example: Poppins, soft shadow)
             # (owner 17 Nov: "I don't like the title - the black box looks bad") no box: Poppins with outline + shadow
             f"Style: Hook,Poppins ExtraBold,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,5,8,50,50,{hook_v},1\n"  # (owner: "bigger")
             "Style: Credit,Arial,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,1,0,0,0,100,100,0,0,1,3,1,8,60,60,1370,1\n"
@@ -462,6 +470,8 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     if wm:  # the page's @ the whole clip: bottom-right of the webcam (split), top-right (face), bottom (game)
         pos = {"split": f"{{\\an3\\pos(1052,{(game_top or 700) - 22})}}", "face": "{\\an9\\pos(1052,40)}"}.get(mode, "{\\an2\\pos(540,1700)}")
         for a, b in _outside(dur, full_wins): ev.append(f"Dialogue: 4,{ass_time(a)},{ass_time(b)},Wm,,0,0,0,,{pos}{wm}")
+    if bar_h:  # (barra) the title is the box on the seam (the name is in it): no hook, no credit; captions under the box
+        hook = credit = ""; seam = (game_top or 600) + bar_h + 95
     if hook:  # never over the face: the hook goes where the head is not (see hook_spot)
         # (owner 17 Nov: "A, but the lines closer together") each line its own event, 60 px apart (no big line gap)
         y0 = hook_spot(mode, seam, head_box, game_top)
@@ -481,7 +491,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
     for k, wd in enumerate(ws):
         cur.append(wd)
         nxt = ws[k + 1] if k + 1 < len(ws) else None
-        if (len(cur) == (1 if ONE_WORD else 3) or sum(len(x[2]) for x in cur) >= 20 or wd[2][-1:] in ".?!" or not nxt
+        if (len(cur) == (1 if ONE_WORD and not bar_h else 3) or sum(len(x[2]) for x in cur) >= 20 or wd[2][-1:] in ".?!" or not nxt
                 or nxt[0] - wd[1] >= 0.45): chunks.append(cur); cur = []
     for ci, chunk in enumerate(chunks):
         nxt0 = chunks[ci + 1][0][0] if ci + 1 < len(chunks) else None
@@ -489,7 +499,7 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
         for j, (s, e, _) in enumerate(chunk):
             e2 = chunk[j + 1][0] if j + 1 < len(chunk) else end_chunk
             def look(k, w):
-                if ONE_WORD:  # (owner 17 Nov: "the important words in another colour - yellow or orange")
+                if ONE_WORD or bar_h:  # (owner 17 Nov: "the important words in another colour - yellow or orange")
                     key = re.sub(r"[^\w']", "", w.lower())
                     if key and (key in KEYWORDS or hot.match(w) or re.search(r"\d", w)): return "{\\c&H00D4FF&}" + w.upper() + "{\\c&HFFFFFF&}"
                     return w.upper()
@@ -497,7 +507,8 @@ def make_ass(ws, hook, credit, dur, path, mode="game", seam=1265, chat=(), label
                 if hot.match(w): return "{\\c&H3C3CFF&}" + w.upper() + "{\\c&HFFFFFF&}"
                 return w.upper()
             txt = " ".join(look(k, w) for k, (_, _, w) in enumerate(chunk))
-            ev.append(f"Dialogue: 0,{ass_time(s)},{ass_time(max(e2, s + 0.05))},Cap,,0,0,0,,{{\\pos(540,{seam})}}{txt}")
+            cy = cap_spot(chunk[0][0], end_chunk, 46 * sum(len(x[2]) + 1 for x in chunk) + 60) if cap_spot else seam  # (barra: off heads)
+            ev.append(f"Dialogue: 0,{ass_time(s)},{ass_time(max(e2, s + 0.05))},Cap,,0,0,0,,{{\\pos(540,{cy})}}{txt}")
     # chat: up to 4 lines stacked; each stays 3.2 s or until a 5th arrives
     at_seam = mode == "split" and game_top and seam <= game_top + 10
     y0 = {"split": seam + (150 if at_seam else 70), "face": 980}.get(mode, 330)
@@ -895,6 +906,7 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         who = display(channel) if channel else ""
         ai_hook = mask(ev.upper() if not who or any(x in ev.lower() for x in (who.lower(), who.lower().split()[0], channel.lower())) else f"{who} {ev}".upper())
     hook = ai_hook or mask(f"“{quote.upper()}”" if quote else hook)
+    if os.environ.get("CLIPPER_HOOK"): hook = ai_hook = os.environ["CLIPPER_HOOK"]  # (a re-edit with a title written by hand)
     talk = sum(e - s for s, e, _ in ws) / max(dur, 1.0)
     # chat lines on screen: real messages with words (no usernames, no emoji the font cannot draw, slurs masked)
     lines, seen = [], set()
@@ -906,7 +918,9 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         seen.add(msg.lower()); lines.append((t - trim, msg))
     lines = [l for l in lines if l[0] >= 0][:10]
     vertical = lay.get("H", 0) > lay.get("W", 1); full_wins = []
-    if layout.REF_STYLE and lay["mode"] == "split" and not vertical:
+    if BAR_TITLE and (lang or found or "en")[:2] == "en" and lay["mode"] == "split" and not vertical:  # (barra) one fixed layout, like the examples
+        base, seam = layout.filters_ref(lay)
+    elif layout.REF_STYLE and lay["mode"] == "split" and not vertical:
         fw_, gw_ = cut_windows(ws, loudness(src) or [0.0], dur, layout.face_full_ok(lay))
         base, seam = layout.filters_ref(lay, fw_, gw_); full_wins = fw_ + gw_
     else:
@@ -927,12 +941,22 @@ def edit(src, dst, hook="", credit="", lang=None, peak=None, channel="", url="",
         body = "\n".join(l for l in body.split("\n") if ",Wm," not in l or l.startswith("Style:"))  # (the @ is in the header)
         with open(ass, "w", encoding="utf-8") as f: f.write(body + "\n".join(cartao.ass_words(ws, dur, seam) + ([cred] if cred else [])) + "\n")
     else:
-        make_ass(ws, hook, credit, dur, ass, mode, seam, lines, "" if ONE_WORD else context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"), full_wins)
+        bar_png, bar_h, spot = "", 0, None
+        if BAR_TITLE and (lang or found or "en")[:2] == "en" and mode == "split" and hook:
+            emo = os.environ.get("CLIPPER_EMOJI") or barra.EMOJI.get((verdict or {}).get("category", ""), "😭")
+            bar_png, bar_h = barra.png(os.path.splitext(dst)[0] + "_bar.png", card_text(hook, channel), "" if barra.is_emoji(hook[-1]) else emo)
+            try: spot = barra.spot_finder(barra.people(src, lay), lay.get("game_top", 600), bar_h)
+            except Exception as e: print(f"[editor] people finder off: {e}", flush=True)
+        make_ass(ws, hook, credit, dur, ass, mode, seam, lines, "" if ONE_WORD else context_label(title), lay.get("head_out"), lay.get("game_top"), (lang or found or "en")[:2], lay.get("game_bottom"), full_wins, bar_h, spot)
+        if bar_png: card_png = bar_png
     assf = ass.replace("\\", "/").replace(":", "\\:")
     # (the example) a thin progress bar at the bottom, in the brand colour, filling up to the end
     bar = f",drawbox=x=0:y=1832:w='max(2,iw*t/{max(dur - trim, 1):.2f})':h=9:color={BRAND_HEX}@0.95:t=fill"
     bar = ""  # (owner 17 Nov: "take out that red line") no progress bar
     vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'{bar}[v]"
+    if card_png.endswith("_bar.png"):  # (barra) the title box over the seam
+        bf = card_png.replace(chr(92), "/").replace(":", chr(92) + ":")
+        vf = base + f";[st]ass='{assf}':fontsdir='{FONTS_DIR_FF}'[a];movie='{bf}'[bt];[a][bt]overlay=0:{lay.get('game_top', 600)}[v]"  # (owner 19 Nov: "o título mais em baixo - continua a tapar a cara do streamer") the box starts under the webcam
     if INSET_CARD and mode == "split" and not card_png:
         card_png = os.path.splitext(dst)[0] + "_card.png"
         cartao.header_png(card_png, card_text(hook, channel), (lang or found or "en")[:2], inset=True)

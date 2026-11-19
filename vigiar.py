@@ -116,7 +116,8 @@ def live_recording():
     """-> names whose recording got a new piece in the last 10 min (a live is on)"""
     import glob
     now, out = time.time(), []
-    for d in _rec_dirs():
+    rec = os.environ.get("CLIPPER_REC") or r"C:\clipper_rec"
+    for d in glob.glob(os.path.join(rec, "*_2*")):  # (no meta.json yet in the first minutes of a recording)
         last = max((os.path.getmtime(x) for x in glob.glob(os.path.join(d, "seg", "*.ts"))), default=0)
         if now - last < 600: out.append(os.path.basename(d).rsplit("_", 2)[0])
     return out
